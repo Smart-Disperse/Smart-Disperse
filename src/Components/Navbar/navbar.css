@@ -1,0 +1,26 @@
+.mainnavbardiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logonavbar {
+  width: 300px;
+  height: auto;
+}
+
+.connectbuttondivnavbar button {
+  background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
+  border: 0.5px solid #0019ff;
+  border-radius: 26px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: none !important;
+  overflow: hidden;
+  padding: 15px 30px;
+  position: relative;
+  width: 200px;
+  z-index: 1;
+}
