@@ -1,0 +1,8 @@
+.footericon:hover {
+  transform: scale(1.2);
+}
+
+.footericon {
+  margin: 0px 3px;
+  transition: transform 0.3s ease;
+}
