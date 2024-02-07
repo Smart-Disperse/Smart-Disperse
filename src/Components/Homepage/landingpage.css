@@ -171,3 +171,136 @@
   /* box-shadow: rgba(10, 226, 179, 0.692) 0px 5px 15px; */
   box-shadow: #9f53ff 0px 0px 16px;
 }
+
+.main-container {
+  position: relative;
+}
+
+/* Base Styles */
+.custom-modal {
+  background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
+  width: 500px;
+  height: 320px;
+  font-size: 35px;
+  /* padding: 10px; */
+  border-radius: 25px;
+  min-height: 300px;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.blurbackground {
+  filter: blur(5px);
+}
+
+.popup-options {
+}
+
+.main-container {
+  min-height: 80vh;
+  padding: 30px 0px;
+  min-height: 75vh;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Container */
+.modal-container {
+  /* padding: 20px; */
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.custom-modal-header h6 {
+  margin: 0px;
+  font-weight: 700;
+  padding-left: 25px;
+}
+.custom-modal-header {
+  border-radius: 25px 25px 0px 0px !important;
+  box-shadow: 0px 0px 4px 0px #fff;
+  font-size: 30px;
+  color: #8f00ff;
+  background-color: white;
+  display: flex;
+  letter-spacing: 1px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px;
+}
+
+/* Close Button */
+.custom-close-button {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 3px;
+  background: transparent !important;
+  cursor: pointer;
+  font-size: 25px;
+  color: #8f00ff !important;
+  transition: all 200ms;
+  border: none !important;
+}
+
+.custom-close-button:hover {
+  color: #8f00ff !important;
+  transform: rotate(90deg) !important;
+}
+
+/* Text Styles */
+.custom-modal h5 {
+  margin-bottom: 25px;
+  color: white;
+}
+
+.custom-modal p {
+  color: rgb(74, 7, 105);
+  font-size: 35px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+/* Button Styles */
+.custom-modal button {
+  font-weight: 500;
+  background-color: transparent;
+  color: white;
+  margin: 10px 15px;
+  border: 1px solid #1bff76;
+  border-radius: 10px;
+  padding: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  font-size: 15px;
+  /* margin: 0 8px; */
+}
+.popup-button-flex {
+  display: flex;
+  flex-direction: column;
+  margin: 40px 0px;
+  justify-content: center;
+}
+.custom-modal button:hover {
+  /* border-radius: 39px; */
+  border: none;
+  color: #070707;
+  background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
+}
+.model-btn-flex {
+  display: flex;
+  flex-direction: column;
+  /* height: 200px; */
+  justify-content: center;
+}
