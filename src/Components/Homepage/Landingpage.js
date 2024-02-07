@@ -2,6 +2,7 @@
 import { React, useState } from "react";
 import Image from "next/image";
 import img1 from "../../Assets/homeImg2.webp";
+import { useRouter } from "next/navigation";
 import img2 from "../../Assets/homeImg1.webp";
 import gif from "../../Assets/output-onlinegiftools.gif";
 import list from "../../Assets/listgii.gif";
@@ -62,6 +63,7 @@ function Modal({ closeModal, handleContinue, handleSameChain }) {
 }
 
 export default function Landingpage() {
+  const router = useRouter();
   // const { themeClass } = useTheme();
   const { openConnectModal } = useConnectModal();
   // const navigate = useNavigate();
@@ -86,7 +88,7 @@ export default function Landingpage() {
   };
 
   const handleSameChain = () => {
-    navigate("/same-transfers");
+    router.push("/same");
     closeModal();
   };
 

@@ -7,10 +7,10 @@ import Homepage from "@/Components/Homepage/Homepage";
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Navbar />
+      {/* <Navbar /> */}
       {/* <Landingpage /> */}
       <Homepage />
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }
