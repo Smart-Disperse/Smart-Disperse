@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import logoimg from "../../Assets/logo.png";
 import navStyle from "../Navbar/navbar.module.css";
-// import { useTheme } from "../../app/ThemeProvider";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Navbar() {
   // const { themeClass, toggleDarkMode } = useTheme();
@@ -28,7 +28,8 @@ export default function Navbar() {
           <Image className={navStyle.logonavbar} src={logoimg} alt="" />
         </div>
         <div className={navStyle.connectbuttondivnavbar}>
-          <button>Connect Wallet</button>
+          {/* <button>Connect Wallet</button> */}
+          <ConnectButton />
         </div>
         {/* {toggleSVG && themeClass === "dark-theme" ? (
           <svg
