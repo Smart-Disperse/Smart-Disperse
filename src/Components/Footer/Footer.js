@@ -37,17 +37,29 @@ function Footer() {
         }}
       >
         <a href="https://discord.gg/W3asyJh7mC" target="blank">
-          <Image src={discord} className={footerStyle.footericon}></Image>
+          <Image
+            src={discord}
+            className={footerStyle.footericon}
+            alt=""
+          ></Image>
         </a>
         <a href="https://t.me/smartdisperse" target="blank">
-          <Image src={telegram} className={footerStyle.footericon}></Image>
+          <Image
+            src={telegram}
+            className={footerStyle.footericon}
+            alt=""
+          ></Image>
         </a>
 
         <a href="https://x.com/smart_disperse?s=21" target="blank">
-          <Image src={twitter} className={footerStyle.footericon}></Image>
+          <Image
+            src={twitter}
+            className={footerStyle.footericon}
+            alt=""
+          ></Image>
         </a>
 
-        <Image src={mirror} className={footerStyle.footericon}></Image>
+        <Image src={mirror} className={footerStyle.footericon} alt=""></Image>
       </div>
     </div>
   );

@@ -9,7 +9,9 @@ import list from "../../Assets/listgii.gif";
 import send from "../../Assets/sendgif.gif";
 import historyview from "../../Assets/view.gif";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./landingpage.css";
+import homeStyle from "../Homepage/landingpage.module.css";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 import {
   faArrowRight,
   faGlobe,
@@ -23,16 +25,16 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 function Modal({ closeModal, handleContinue, handleSameChain }) {
   return (
-    <div className="custom-modal">
-      <div className="custom-modal-header">
+    <div className={homeStyle.custommodal}>
+      <div className={homeStyle.custommodalheader}>
         <div style={{ width: "90%" }}>
-          <h6 className="modal-title">
+          <h6 className={homeStyle.modaltitle}>
             <FontAwesomeIcon icon={faGlobe} />
             &nbsp; SELECT TRANSACTION PATH
           </h6>
         </div>
         <button
-          className="custom-close-button close-btn"
+          className={`${homeStyle["customclosebutton"]} ${homeStyle["closebtn"]}`}
           onClick={closeModal}
           style={{ fontSize: "20px" }}
         >
@@ -40,9 +42,9 @@ function Modal({ closeModal, handleContinue, handleSameChain }) {
         </button>
       </div>
 
-      <div className="popup-button-flex">
+      <div className={homeStyle.popupbuttonflex}>
         <button
-          className="continue-button"
+          className={homeStyle.continuebutton}
           onClick={handleContinue}
           disabled
           style={{ width: "70%", margin: "10px auto", padding: "10px" }}
@@ -51,7 +53,7 @@ function Modal({ closeModal, handleContinue, handleSameChain }) {
           (Coming Soon...)
         </button>
         <button
-          className="same-chain-button"
+          className={homeStyle.samechainbutton}
           onClick={handleSameChain}
           style={{ width: "70%", margin: "10px auto" }}
         >
@@ -88,29 +90,32 @@ export default function Landingpage() {
   };
 
   const handleSameChain = () => {
-    router.push("/same");
+    router.push("/same-chain");
     closeModal();
   };
 
   return (
-    <div>
-      <Image className="imageright" src={img2} alt="not found" />
-      <Image className="imageleft" src={img1} alt="not found" />
+    <div className={homeStyle.wholelandingpage}>
+      <Navbar />
+      <Image className={homeStyle.imageright} src={img2} alt="not found" />
+      <Image className={homeStyle.imageleft} src={img1} alt="not found" />
       <div
-        className={`main-div-ihomepage ${showModal ? "blurbackground" : ""}`}
+        className={`${homeStyle["maindivihomepage"]} ${
+          showModal ? `${homeStyle["blurbackground"]}` : ""
+        }`}
       >
-        <div className="maindivihomepage">
-          <div className="ihomepagetitlei">
-            <h1 className="ihometitleii">All Chains, One Solution</h1>
+        <div className={homeStyle.maindivihomepage}>
+          <div className={homeStyle.ihomepagetitlei}>
+            <h1 className={homeStyle.ihometitleii}>All Chains, One Solution</h1>
           </div>
-          <div className="ihomepagetitlei">
-            <h1 className="ihometitleii">
+          <div className={homeStyle.ihomepagetitlei}>
+            <h1 className={homeStyle.ihometitleii}>
               Smart-Disperse Your Crypto Transactions!
             </h1>
           </div>
-          <div className="homebuttonsdiv">
+          <div className={homeStyle.homebuttonsdiv}>
             <button
-              className="getstartedbutton"
+              className={homeStyle.getstartedbutton}
               onClick={handleGetStartedClick}
               style={{
                 background: "#05F0E8",
@@ -130,11 +135,11 @@ export default function Landingpage() {
         </div>
       </div>
       <div
-        className={`main-div-for-user-guide ${
-          showModal ? "blur-background" : ""
+        className={`${homeStyle["maindivforuserguide"]} ${
+          showModal ? `${homeStyle["blurbackground"]}` : ""
         }`}
       >
-        <div className="userguideborderdiv">
+        <div className={homeStyle.userguideborderdiv}>
           <p
             style={{
               fontSize: "23px",
@@ -147,41 +152,57 @@ export default function Landingpage() {
               fontWeight: "800",
               letterSpacing: "1px",
             }}
-            className="homepera"
+            className={homeStyle.homepera}
           >
             Smart-Disperse Walkthrough
           </p>
-          <div className="rectangleboxfor4cards">
-            <div id="a" className="card">
-              <Image className="iconnn" src={gif} alt="non" />
-              <h3 id="c1" className="iconn" style={{ letterSpacing: "1px" }}>
+          <div className={homeStyle.rectangleboxfor4cards}>
+            <div id={homeStyle.a} className={homeStyle.card}>
+              <Image className={homeStyle.iconnn} src={gif} alt="non" />
+              <h3
+                id={homeStyle.c1}
+                className={homeStyle.iconn}
+                style={{ letterSpacing: "1px" }}
+              >
                 Connect Your Wallet
               </h3>
               <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
                 Link your Wallet
               </p>
             </div>
-            <div id="b" className="card">
-              <Image className="iconnn" src={list} alt="non" />
-              <h3 id="c2" className="iconn" style={{ letterSpacing: "1px" }}>
+            <div id={homeStyle.b} className={homeStyle.card}>
+              <Image className={homeStyle.iconnn} src={list} alt="non" />
+              <h3
+                id={homeStyle.c2}
+                className={homeStyle.iconn}
+                style={{ letterSpacing: "1px" }}
+              >
                 List Transactions
               </h3>
               <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
                 Enter Recipient Details
               </p>
             </div>
-            <div id="c" className="card">
-              <Image className="iconnn" src={send} alt="non" />
-              <h3 id="c3" className="iconn" style={{ letterSpacing: "1px" }}>
+            <div id={homeStyle.c} className={homeStyle.card}>
+              <Image className={homeStyle.iconnn} src={send} alt="non" />
+              <h3
+                id={homeStyle.c3}
+                className={homeStyle.iconn}
+                style={{ letterSpacing: "1px" }}
+              >
                 Send Transaction
               </h3>
               <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
                 Initiate the transaction
               </p>
             </div>
-            <div id="d" className="card">
-              <Image className="iconnn" src={historyview} alt="non" />
-              <h3 id="c4" className="iconn" style={{ letterSpacing: "1px" }}>
+            <div id={homeStyle.d} className={homeStyle.card}>
+              <Image className={homeStyle.iconnn} src={historyview} alt="non" />
+              <h3
+                id={homeStyle.c4}
+                className={homeStyle.iconn}
+                style={{ letterSpacing: "1px" }}
+              >
                 View History
               </h3>
               <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
@@ -191,8 +212,8 @@ export default function Landingpage() {
           </div>
         </div>
         {showModal && (
-          <div className="modal-overlay">
-            <div className="modal-container">
+          <div className={homeStyle.modaloverlay}>
+            <div className={homeStyle.modalcontainer}>
               <Modal
                 closeModal={closeModal}
                 handleContinue={handleContinue}
@@ -202,6 +223,7 @@ export default function Landingpage() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

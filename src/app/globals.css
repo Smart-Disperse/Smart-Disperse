@@ -1,81 +1,20 @@
-/* Cool infinite background scrolling animation.
- * Twitter: @kootoopas
- */
-
-/* Exo thin font from Google. */
-@import url("https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&family=Bungee+Inline&family=Cairo+Play:wght@900&family=Gruppo&family=Monomaniac+One&family=Orbitron&family=Tilt+Prism&family=Turret+Road:wght@200;400&display=swap");
-
-/* Background data (Original source: https://subtlepatterns.com/grid-me/) */
-/* $bg-url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC";
-$bg-width: 50px;
-$bg-height: 50px; */
-
-/* Animations
-@-webkit-keyframes bg-scrolling-reverse {
-  100% { background-position: $bg-width $bg-height; }
-}
-@-moz-keyframes    bg-scrolling-reverse {
-  100% { background-position: $bg-width $bg-height; }
-}
-@-o-keyframes      bg-scrolling-reverse {
-  100% { background-position: $bg-width $bg-height; }
-}
-@keyframes         bg-scrolling-reverse {
-  100% { background-position: $bg-width $bg-height; }
-}
-
-@-webkit-keyframes bg-scrolling {
-  0% { background-position: $bg-width $bg-height; }
-}
-@-moz-keyframes    bg-scrolling {
-  0% { background-position: $bg-width $bg-height; }
-}
-@-o-keyframes      bg-scrolling {
-  0% { background-position: $bg-width $bg-height; }
-}
-@keyframes         bg-scrolling {
-  0% { background-position: $bg-width $bg-height; }
-} */
-
-/* Main styles */
 body {
-  /* margin-top: 13.5rem; */
-  font-family: "Bruno Ace SC", sans-serif;
-  font-family: "Bungee Inline", sans-serif;
-  font-family: "Cairo Play", sans-serif;
-  font-family: "Gruppo", sans-serif;
-  font-family: "Monomaniac One", sans-serif;
-  font-family: "Orbitron", sans-serif;
-  font-family: "Tilt Prism", sans-serif;
-  font-family: "Turret Road", sans-serif;
-  color: white;
-  font: 400 16px/1.5 exo, ubuntu, "segoe ui", helvetica, arial, sans-serif;
-  text-align: center;
-  /* img size is 50x50 */
-  /* background: url($bg-url) repeat 0 0; */
-  background: url("../Assets/Homepage-bg.svg") repeat 0 0;
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center !important;
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+body::-webkit-scrollbar {
+  width: var(--sb-size);
+}
 
-  -webkit-animation: bg-scrolling-reverse 0.92s infinite; /* Safari 4+ */
-  -moz-animation: bg-scrolling-reverse 0.92s infinite; /* Fx 5+ */
-  -o-animation: bg-scrolling-reverse 0.92s infinite; /* Opera 12+ */
-  animation: bg-scrolling-reverse 0.92s infinite; /* IE 10+ */
-  -webkit-animation-timing-function: linear;
-  -moz-animation-timing-function: linear;
-  -o-animation-timing-function: linear;
-  animation-timing-function: linear;
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
+}
 
-  /* &::before {
-    content: "INFINITY";
-
-    font-size: 8rem;
-    font-weight: 100;
-    font-style: normal;
-  } */
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
 }

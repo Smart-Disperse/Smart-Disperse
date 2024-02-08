@@ -6,9 +6,7 @@ import Landingpage from "../Components/Homepage/Landingpage";
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Navbar />
       <Landingpage />
-      <Footer />
     </main>
   );
 }

@@ -1,0 +1,347 @@
+.driverpopover {
+  color: white !important;
+  background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%) !important;
+}
+.maindivofdashboard {
+  background-image: url("../../Assets/dashboard-bg.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.darktheme.maindivofdashboard {
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.samedashmainm {
+  min-height: 70vh;
+  margin-top: 100px;
+}
+.titledivdashboard h3 {
+  padding-top: -5px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid white;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+}
+.titledivdashboard h1 {
+  letter-spacing: 1.5px;
+  font-size: 2.2rem;
+}
+.titledivdashboard {
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.563);
+  border: none;
+  border-radius: 10px;
+  margin: 20px 300px;
+}
+.imagesinthis img {
+  border-radius: 5px;
+  width: -webkit-fill-available;
+}
+/* textarea:focus {
+  outline: none;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: white;
+} */
+
+/* textarea::-webkit-scrollbar-track {
+  background-color: linear-gradient(111deg, #b659ff 11.51%, #6977ff 84.76%);
+}
+textarea::-webkit-scrollbar {
+  width: 5px;
+} */
+.menubardashboard button {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 154.1%; /* 36.984px */
+  letter-spacing: 2.04px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  padding: 15px 7px;
+  border-radius: 63px;
+  border: 1px solid #2dda8f;
+  background-color: transparent;
+  color: white;
+  margin: 0px 5px;
+}
+.menubardashboard button.active {
+  color: #7543f6;
+  background-color: white !important;
+  border: none !important;
+}
+.menubardashboard {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.imageoption {
+  width: 60px;
+  height: auto;
+}
+
+#create {
+  display: flex;
+  border-radius: 63px;
+  border: 1px solid #2dda8f;
+  align-items: center;
+  justify-content: center;
+}
+
+#create:hover {
+  border-radius: 63px;
+  border: none;
+  box-shadow: 0px 0px 14px 0px #fff;
+}
+#csv {
+  display: flex;
+  border-radius: 63px;
+  border: 1px solid #2dda8f;
+  align-items: center;
+  justify-content: center;
+}
+#csv:hover {
+  border-radius: 63px;
+  border: none;
+  box-shadow: 0px 0px 14px 0px #fff;
+}
+#view {
+  display: flex;
+  border-radius: 63px;
+  border: 1px solid #2dda8f;
+  align-items: center;
+  justify-content: center;
+}
+#view:hover {
+  border-radius: 63px;
+  border: none;
+  box-shadow: 0px 0px 14px 0px #fff;
+}
+.maindivforalloptiondashboard {
+  margin: 0px 300px;
+  display: flex;
+  justify-content: center;
+}
+.componentcontainerdashboard {
+  margin: 15px 300px;
+}
+.dashbgImg1 {
+  width: 347.141px;
+  height: 321.106px;
+  transform: rotate(-61.16deg);
+  flex-shrink: 0;
+  position: absolute;
+  left: -13%;
+  right: 24%;
+}
+.dashbgImg2 {
+  width: 400px;
+  height: 400px;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: -288px;
+  right: 0;
+}
+
+.colortooltip .tooltipinner {
+  background-color: #3498db !important; /* Tooltip background color */
+  color: #fff; /* Tooltip text color */
+  border-radius: 4px; /* Optional: Add rounded corners to the tooltip */
+  padding: 8px 12px; /* Optional: Adjust padding as needed */
+}
+
+.colortooltip .tooltip.bstooltiptop .arrow::before {
+  border-top-color: #3498db; /* Tooltip arrow color */
+}
+
+.colortooltip .tooltip.bstooltiptop .arrow::after {
+  border-top-color: #3498db; /* Tooltip arrow shadow color */
+}
+
+@media only screen and (max-width: 1024px) {
+  .samedashmainm {
+    margin: 100px 0px;
+  }
+  .titledivdashboard {
+    margin: 0 150px !important;
+    position: relative;
+  }
+  .maindivforalloptiondashboard {
+    margin: 0 150px !important;
+  }
+  .componentcontainerdashboard {
+    margin: 20px 150px !important;
+  }
+  .dashbgImg2 {
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: -179px;
+    right: 0;
+  }
+  .dashbgImg1 {
+    width: 300px;
+    height: 300px;
+    transform: rotate(-61.16deg);
+    flex-shrink: 0;
+    position: absolute;
+    left: -14%;
+    right: 24%;
+  }
+  .divtocoversametextdiv {
+    border-radius: 47px;
+    border: 1px solid #fff;
+    background: linear-gradient(
+      101deg,
+      rgba(255, 255, 255, 0.31) 1.58%,
+      rgba(255, 255, 255, 0.03) 98.15%
+    );
+    -webkit-backdrop-filter: blur(30.5px);
+    backdrop-filter: blur(30.5px);
+    margin: 50px 0px;
+    margin-bottom: 120px;
+  }
+  .menubardashboard button {
+    padding: 10px 7px;
+    font-size: 17px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .maindivforalloptiondashboard {
+    margin: 0px 50px !important;
+  }
+  .dashbgImg1 {
+    width: 300px;
+    height: 300px;
+    transform: rotate(-61.16deg);
+    flex-shrink: 0;
+    position: absolute;
+    left: -19%;
+    right: 24%;
+  }
+  .titledivdashboard {
+    margin: 0 55px !important;
+    position: relative;
+  }
+  .imagesinthis img {
+    width: 100%;
+    margin: 0px 10px;
+  }
+
+  .titledivdashboard h3 {
+    letter-spacing: 1px;
+    padding-bottom: 15px;
+  }
+  .titledivdashboard {
+    margin: 5px;
+    font-size: 12px;
+  }
+
+  .menubardashboard {
+    width: 100%;
+    margin: 2px 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menubardashboard button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .componentcontainerdashboard {
+    margin: 15px 50px !important;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #tableresponsive {
+    overflow: scroll;
+  }
+  .samedashmainm {
+    margin-top: 50px !important;
+  }
+  .titledivdashboard h1 {
+    letter-spacing: 1.5px;
+    font-size: 2rem;
+  }
+  .maindivforalloptiondashboard {
+    margin: 0 50px !important;
+  }
+  .maindivofdashboard {
+    height: auto;
+    width: 100%;
+    margin-bottom: auto;
+  }
+  .titledivdashboard {
+    margin: 0 50px !important;
+    position: relative;
+  }
+  .dashbgImg2 {
+    width: 200px !important;
+    height: 200px;
+    /* transform: rotate(76.3deg); */
+    flex-shrink: 0;
+    position: absolute;
+    bottom: -120px;
+    right: 0;
+  }
+  .dashbgImg1 {
+    width: 200px;
+    height: 200px;
+    transform: rotate(-61.16deg);
+    flex-shrink: 0;
+    position: absolute;
+    left: -22%;
+    right: 24%;
+  }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

@@ -11,7 +11,7 @@ import img4 from "../../Assets/img4-bg.webp";
 // import { useTheme } from "../../../ThemeProvider";
 // import { driver } from "driver.js";
 // import "driver.js/dist/driver.css";
-import "./samechaindashboard.module.css";
+import samechainStyle from "./samechaindashboard.module.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 
@@ -81,26 +81,30 @@ function Samechaindashboard() {
 
   return (
     // <div className={`main-div-of-dashboard ${themeClass}`}>
-    <div className={`main-div-of-dashboard`}>
+    <div className={samechainStyle.maindivofdashboard}>
       <Navbar />
       <div style={{ position: "relative" }}>
-        {/* <Image className="dash-bgImg1" src={img3} alt="none" /> */}
-        {/* <Image className="dash-bgImg2" src={img4} alt="none" /> */}
+        <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
+        <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
       </div>
-      <div className="same-dash-main-m">
-        <div className="title-div-dashboard">
-          <div className="images-in-this"></div>
+      <div className={samechainStyle.samedashmainm}>
+        <div className={samechainStyle.titledivdashboard}>
+          <div className={samechainStyle.imagesinthis}></div>
           <h1>Effortless Token Distribution</h1>
           <h3>
             Instant Multi-Account Dispersement – Seamlessly Send Tokens to
             Multiple Accounts in One Click
           </h3>
         </div>
-        <div className="main-div-for-all-option-dashboard">
-          <div className="menu-bar-dashboard">
+        <div className={samechainStyle.maindivforalloptiondashboard}>
+          <div className={samechainStyle.menubardashboard}>
             <button
-              id="view"
-              className={activeTab === "text" ? "active" : ""}
+              id={samechainStyle.view}
+              className={
+                activeTab === `${samechainStyle.text}`
+                  ? `${samechainStyle.active}`
+                  : ""
+              }
               onClick={() => setActiveTab("text")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
@@ -110,8 +114,12 @@ function Samechaindashboard() {
               Textify
             </button>
             <button
-              id="create"
-              className={activeTab === "create" ? "active" : ""}
+              id={samechainStyle.create}
+              className={
+                activeTab === `${samechainStyle.create}`
+                  ? `${samechainStyle.active}`
+                  : ""
+              }
               onClick={() => setActiveTab("create")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
@@ -121,8 +129,12 @@ function Samechaindashboard() {
               Listify
             </button>
             <button
-              id="csv"
-              className={activeTab === "list" ? "active" : ""}
+              id={samechainStyle.csv}
+              className={
+                activeTab === `${samechainStyle.list}`
+                  ? `${samechainStyle.active}`
+                  : ""
+              }
               onClick={() => setActiveTab("list")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
@@ -133,8 +145,8 @@ function Samechaindashboard() {
             </button>
           </div>
         </div>
-        <div className="div-to-center-the-component-render">
-          <div className="component-container-dashboard">
+        <div className={samechainStyle.divtocenterthecomponentrender}>
+          <div className={samechainStyle.componentcontainerdashboard}>
             {renderComponent(activeTab)}
           </div>
         </div>
