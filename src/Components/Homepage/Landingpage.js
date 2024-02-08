@@ -88,7 +88,7 @@ export default function Landingpage() {
   };
 
   const handleSameChain = () => {
-    router.push("/same");
+    router.push("/samechain");
     closeModal();
   };
 
