@@ -9,11 +9,13 @@ import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
 import img4 from "../../Assets/img4-bg.webp";
 // import { useTheme } from "../../../ThemeProvider";
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
-import "./samedashboard.module.css";
+// import { driver } from "driver.js";
+// import "driver.js/dist/driver.css";
+import "./samechaindashboard.module.css";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
-function Samedashboard() {
+function Samechaindashboard() {
   //   const { toggleDarkMode, themeClass } = useTheme();
   const [activeTab, setActiveTab] = useState("text");
   //   const navigate = useNavigate();
@@ -80,7 +82,7 @@ function Samedashboard() {
   return (
     // <div className={`main-div-of-dashboard ${themeClass}`}>
     <div className={`main-div-of-dashboard`}>
-      {/* <Navbar /> */}
+      <Navbar />
       <div style={{ position: "relative" }}>
         {/* <Image className="dash-bgImg1" src={img3} alt="none" /> */}
         {/* <Image className="dash-bgImg2" src={img4} alt="none" /> */}
@@ -138,9 +140,9 @@ function Samedashboard() {
         </div>
       </div>
 
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
 
-export default Samedashboard;
+export default Samechaindashboard;

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { crossSendInstance } from "@/Helpers/ContractInstance";
 import { getTokenBalance } from "@/Helpers/TokenBalance";
 import { approveToken } from "@/Helpers/ApproveToken";
@@ -7,11 +8,12 @@ import tokensContractAddress from "@/Helpers/GetTokenContractAddress.json";
 import DecimalValue from "@/Helpers/DecimalValue.json";
 import ERC20 from "@/artifacts/contracts/ERC20.sol/ERC20.json";
 // import { useTheme } from "../../../ThemeProvider";
-// import Modal from "react-modal";
+import Modal from "react-modal";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import textiftgif from "@/Assets/TextifyDemo.gif";
-// import importtoken from "@/Assets/TextifyDemo.gif";
+import importtoken from "@/Assets/TextifyDemo.gif";
+import { isAddress } from "viem";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 // import rettt from "../../../Assets/crypto11.jpeg";
@@ -58,7 +60,7 @@ function SameTextlist() {
   // );
   const [textValue, setTextValue] = useLocalStorage("textValue", "");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  Modal.setAppElement("#root");
+  // Modal.setAppElement("#root");
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -84,7 +86,8 @@ function SameTextlist() {
   const [tokenDetails, setTokenDetails] = useState(defaultTokenDetails);
   const [formData, setFormData] = useState();
 
-  const isValidAddress = (address) => ethers.utils.isAddress(address);
+  // const isValidAddress = (address) => ethers.utils.isAddress(address);
+  const isValidAddress = (address) => isAddress(address);
   const getExplorer = async () => {
     const chainId = Number(
       await window.ethereum.request({ method: "eth_chainId" })
@@ -519,7 +522,8 @@ function SameTextlist() {
   const { totalEth, totalUsd } = calculateTotal();
   return (
     <div>
-      <div className={`div-to-cover-same-text-div ${themeClass}`}>
+      {/* <div className={`div-to-cover-same-text-div ${themeClass}`}> */}
+      <div className={`div-to-cover-same-text-div`}>
         <div className="div-for-whole-token">
           <div className="title-load-token-same-text">
             <h2
@@ -1182,7 +1186,7 @@ function SameTextlist() {
           <div style={{ textAlign: "center" }}>
             <h2>Textify Illustration</h2>
           </div>
-          <img
+          <Image
             src={textiftgif}
             alt="GIF"
             style={{ maxWidth: "100%", borderRadius: "8px 8px 0 0" }}
@@ -1251,7 +1255,7 @@ function SameTextlist() {
             <h2>Import Token Illustration</h2>
           </div>
           <img
-            src={import_token}
+            src={importtoken}
             alt="GIF"
             style={{
               maxWidth: "100%",

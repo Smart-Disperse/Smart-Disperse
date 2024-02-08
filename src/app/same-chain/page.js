@@ -1,10 +1,10 @@
-import Samedashboard from "@/Components/Dashboard/Samedashboard";
+import Samechaindashboard from "@/Components/Dashboard/Samechaindashboard";
 import React from "react";
 
 function page() {
   return (
     <div>
-      <Samedashboard />
+      <Samechaindashboard />
     </div>
   );
 }
