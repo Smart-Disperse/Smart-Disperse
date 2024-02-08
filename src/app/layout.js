@@ -1,5 +1,5 @@
-"use-client";
 import "./globals.css";
+
 export const metadata = {
   title: "SmartDisperse",
   description:
@@ -10,11 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="body">
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
+      <body className="body">{children}</body>
     </html>
   );
 }
