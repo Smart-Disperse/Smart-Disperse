@@ -211,18 +211,18 @@ export default function Landingpage() {
             </div>
           </div>
         </div>
-        {showModal && (
-          <div className={homeStyle.modaloverlay}>
-            <div className={homeStyle.modalcontainer}>
-              <Modal
-                closeModal={closeModal}
-                handleContinue={handleContinue}
-                handleSameChain={handleSameChain}
-              />
-            </div>
-          </div>
-        )}
       </div>
+      {showModal && (
+        <div className={homeStyle.modaloverlay}>
+          <div className={homeStyle.modalcontainer}>
+            <Modal
+              closeModal={closeModal}
+              handleContinue={handleContinue}
+              handleSameChain={handleSameChain}
+            />
+          </div>
+        </div>
+      )}
       <Footer />
     </div>
   );

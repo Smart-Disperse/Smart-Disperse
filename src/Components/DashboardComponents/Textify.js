@@ -17,6 +17,7 @@ import { isAddress } from "viem";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 // import rettt from "../../../Assets/crypto11.jpeg";
+import textStyle from "./textify.module.css";
 
 const useLocalStorage = (key, initialValue = "") => {
   const [value, setValue] = useState(() => {
@@ -523,9 +524,9 @@ function SameTextlist() {
   return (
     <div>
       {/* <div className={`div-to-cover-same-text-div ${themeClass}`}> */}
-      <div className={`div-to-cover-same-text-div`}>
-        <div className="div-for-whole-token">
-          <div className="title-load-token-same-text">
+      <div className={textStyle.divtocoversametextdiv}>
+        <div className={textStyle.divforwholetoken}>
+          <div className={textStyle.titleloadtokensametext}>
             <h2
               style={{
                 padding: "10px",
@@ -546,25 +547,25 @@ function SameTextlist() {
               justifyContent: "center",
               alignItems: "center",
             }}
-            className="sametext-main"
+            className={textStyle.sametextmain}
           >
             {/* {isTokenLoaded ? null : ( */}
             <div id="send-eth">
               <button
                 id="send-ethh"
-                className="button-to-add-form-data"
+                className={textStyle.buttontoaddformdata}
                 onClick={handleSendEthbuttonClick}
               >
                 Send Eth
               </button>
             </div>
             {/* )} */}
-            <div className="import-token-div">
+            <div className={textStyle.importtokendiv}>
               {/* {isTokenLoaded ? null : " OR "} */}
               <div style={{ margin: "5px 0px" }}>OR</div>
               {/* OR */}
               <button
-                className="button-to-add-form-data-unload"
+                className={textStyle.buttontoaddformdataunload}
                 onClick={handleImporttokenbuttonClick}
               >
                 Import Token
@@ -578,7 +579,7 @@ function SameTextlist() {
                 style={{
                   marginBottom: "10px ",
                 }}
-                className="account-summary-create-title"
+                className={textStyle.accountsummarycreatetitle}
               >
                 <h2
                   style={{
@@ -599,23 +600,26 @@ function SameTextlist() {
                   id="input-token-load"
                   // id="border-green"
                   type="text"
-                  className={`each-input-of-create-list token-input ${themeClass}`}
+                  // className={`each-input-of-create-list token-input ${themeClass}`}
+                  className={`${textStyle["eachinputofcreatelist"]} ${textStyle["tokeninput"]}`}
                   placeholder="Enter token Address"
                   value={customTokenAddress}
                   onChange={(e) => handleInputTokenAddressChange(e)}
                   style={{
                     borderRadius: "5px",
-                    border: " 1px solid #fff",
+                    border: "1px solid #fff",
                     background:
-                      " linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
+                      "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
                     padding: "10px 20px",
                     margin: "0px 20px",
+                    color: "white",
                   }}
                 />
                 {isTokenLoaded ? (
                   <button
-                    id="background-green"
-                    className={`button-t-add-form-data-unload ${themeClass}`}
+                    id={textStyle.backgroundgreen}
+                    // className={`buttontaddformdataunload ${themeClass}`}
+                    className={textStyle.buttontaddformdataunload}
                     onClick={() => {
                       unloadToken();
                     }}
@@ -624,8 +628,8 @@ function SameTextlist() {
                   </button>
                 ) : (
                   <button
-                    id="background-green"
-                    className="button-to-add-form-data"
+                    id={textStyle.backgroundgreen}
+                    className={textStyle.buttontoaddformdata}
                     onTouchStart={() => {
                       loadToken();
                     }}
@@ -641,7 +645,7 @@ function SameTextlist() {
           )}
           {isTokenLoaded ? (
             <div>
-              <div className="account-summary-create-title">
+              <div className={textStyle.accountsummarycreatetitle}>
                 <h2
                   style={{
                     padding: "10px",
@@ -661,26 +665,48 @@ function SameTextlist() {
                   alignItems: "center",
                   padding: "10px",
                   border: "1px solid #ddd",
-                  borderRadius: "5px",
                 }}
               >
-                <table className=" table-text-list">
-                  <thead className="table-header-text-list">
-                    <tr>
-                      <th style={{ letterSpacing: "1px" }}>Name</th>
-                      <th style={{ letterSpacing: "1px" }}>Symbol</th>
-                      <th style={{ letterSpacing: "1px" }}>Balance</th>
+                <table className={textStyle.tabletextlist}>
+                  <thead className={textStyle.tableheadertextlist}>
+                    <tr className={textStyle.tableTr}>
+                      <th
+                        style={{ letterSpacing: "1px" }}
+                        className={textStyle.tableTh}
+                      >
+                        Name
+                      </th>
+                      <th
+                        style={{ letterSpacing: "1px" }}
+                        className={textStyle.tableTh}
+                      >
+                        Symbol
+                      </th>
+                      <th
+                        style={{ letterSpacing: "1px" }}
+                        className={textStyle.tableTh}
+                      >
+                        Balance
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td style={{ letterSpacing: "1px" }}>
+                    <tr className={textStyle.tableTr}>
+                      <td
+                        style={{ letterSpacing: "1px" }}
+                        className={textStyle.tableTd}
+                      >
                         {tokenDetails.name}
                       </td>
-                      <td style={{ letterSpacing: "1px" }}>
+                      <td
+                        style={{ letterSpacing: "1px" }}
+                        className={textStyle.tableTd}
+                      >
                         {tokenDetails.symbol}
                       </td>
-                      <td>{tokenDetails.balance}</td>
+                      <td className={textStyle.tableTd}>
+                        {tokenDetails.balance}{" "}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -691,8 +717,8 @@ function SameTextlist() {
 
         {(isSendingEth || isTokenLoaded) && (
           <div>
-            <div id="textify-input" className="text-list-div">
-              <div className="title-same-text-textarea">
+            <div id="textify-input" className={textStyle.textlistdiv}>
+              <div className={textStyle.titlesametexttextarea}>
                 <h2
                   style={{
                     padding: "10px",
@@ -723,6 +749,7 @@ function SameTextlist() {
                     boxSizing: "border-box",
                     resize: "vertical",
                   }}
+                  className={textStyle.textareaInput}
                   placeholder="0xe57f4c84539a6414C4Cf48f135210e01c477EFE0=1.41421 
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
@@ -743,9 +770,9 @@ function SameTextlist() {
         {listData.length > 0 && (isSendingEth || isTokenLoaded) ? (
           // {listData.length > 0 && isSendingEth ? (
           <div>
-            <div className="table-container">
+            <div className={textStyle.tablecontainer}>
               <div
-                className="title-for-linup-same-text"
+                className={textStyle.titleforlinupsametext}
                 style={{ padding: "5px 0px" }}
               >
                 <h2
@@ -759,28 +786,28 @@ function SameTextlist() {
                   Your Transaction Lineup
                 </h2>
               </div>
-              <div className="scrollable-table-container">
+              <div className={textStyle.scrollabletablecontainer}>
                 <table
-                  className="table-text-list"
+                  className={textStyle.tabletextlist}
                   style={{ padding: "30px 20px" }}
                 >
-                  <thead className="table-header-text-list">
+                  <thead className={textStyle.tableheadertextlist}>
                     <tr>
                       <th
-                        className="font-size-12px"
-                        style={{ letterSpacing: "1px" }}
+                        className={textStyle.fontsize12px}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Wallet Address
                       </th>
                       <th
-                        className="font-size-12px"
-                        style={{ letterSpacing: "1px" }}
+                        className={textStyle.fontsize12px}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Amount(ETH)
                       </th>
                       <th
-                        className="font-size-12px"
-                        style={{ letterSpacing: "1px" }}
+                        className={textStyle.fontsize12px}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Amount(USD)
                       </th>
@@ -793,7 +820,7 @@ function SameTextlist() {
                           <tr key={index}>
                             <td
                               id="font-size-10px"
-                              style={{ letterSpacing: "1px" }}
+                              style={{ letterSpacing: "1px", padding: "8px" }}
                             >
                               {data.address}
                             </td>
@@ -804,6 +831,7 @@ function SameTextlist() {
                                   ? "showtoken-remaining-negative"
                                   : ""
                               }`}
+                              style={{ padding: "8px" }}
                             >
                               <div
                                 id="font-size-10px"
@@ -841,6 +869,7 @@ function SameTextlist() {
                                   ? "showtoken-remaining-negative"
                                   : ""
                               }`}
+                              style={{ padding: "8px" }}
                             >
                               <div
                                 id="font-size-10px"
@@ -880,8 +909,8 @@ function SameTextlist() {
         ) : null}
 
         {listData.length > 0 && isSendingEth ? (
-          <div style={{ padding: "30px 0px" }}>
-            <div className="title-for-account-summary-text-same">
+          <div style={{ paddingBottom: "30px" }}>
+            <div className={textStyle.titleforaccountsummarytextsame}>
               <h2
                 style={{
                   padding: "10px",
@@ -893,14 +922,22 @@ function SameTextlist() {
                 Account Summary
               </h2>
             </div>
-            <div id="table-responsive">
-              <table className="showtoken-table-same-text table-text-list">
-                <thead className="table-header-text-list">
+            <div id={textStyle.tableresponsive}>
+              <table
+                className={`${textStyle["showtokentablesametext"]} ${textStyle["tabletextlist"]}`}
+              >
+                <thead className={textStyle.tableheadertextlist}>
                   <tr style={{ width: "100%", margin: "0 auto" }}>
-                    <th className="account-summary-th">Total Amount(ETH)</th>
-                    <th className="account-summary-th">Total Amount(USD)</th>
-                    <th className="account-summary-th">Your Balance</th>
-                    <th className="account-summary-th">Remaining Balance</th>
+                    <th className={textStyle.accountsummaryth}>
+                      Total Amount(ETH)
+                    </th>
+                    <th className={textStyle.accountsummaryth}>
+                      Total Amount(USD)
+                    </th>
+                    <th className={textStyle.accountsummaryth}>Your Balance</th>
+                    <th className={textStyle.accountsummaryth}>
+                      Remaining Balance
+                    </th>
                   </tr>
                 </thead>
                 {/* <div>
@@ -910,24 +947,8 @@ function SameTextlist() {
         </div> */}
                 <tbody>
                   <tr>
-                    <td id="font-size-10px">
-                      {" "}
-                      <div
-                        id="font-size-10px"
-                        // className="font-size-12px"
-                        style={{
-                          width: "fit-content",
-                          margin: "0 auto",
-                          background:
-                            "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                          color: "black",
-                          borderRadius: "10px",
-                          padding: "10px 10px",
-                          fontSize: "12px",
-                          transform: "translate(-50%, -50%)",
-                          animation: "zoomAnimation 1s infinite alternate",
-                        }}
-                      >
+                    <td id={textStyle.fontsize10px}>
+                      <div id="font-size-10px" className={textStyle.textAccSum}>
                         {/* {total && ethToUsdExchangeRate && (
                           <div id="font-size-10px">
                             {`${(+ethers.utils.formatEther(total)).toFixed(
@@ -945,8 +966,8 @@ function SameTextlist() {
                         {/* {totalEth.toFixed(9)} ETH */}
                         {totalEth.toFixed(9)} ETH
                       </div>
-                    </td>{" "}
-                    <td id="font-size-10px">
+                    </td>
+                    <td id={textStyle.fontsize10px}>
                       {" "}
                       <div
                         id="font-size-10px"
@@ -967,8 +988,8 @@ function SameTextlist() {
                       >
                         {totalUsd.toFixed(2)} $
                       </div>
-                    </td>{" "}
-                    <td id="font-size-10px">
+                    </td>
+                    <td id={textStyle.fontsize10px}>
                       <div
                         id="font-size-10px"
                         style={{
@@ -986,7 +1007,7 @@ function SameTextlist() {
                       </div>
                     </td>
                     <td
-                      id="font-size-10px"
+                      id={textStyle.fontsize10px}
                       className={`showtoken-remaining-balance ${
                         remaining < 0 ? "showtoken-remaining-negative" : ""
                       }`}
@@ -1021,7 +1042,7 @@ function SameTextlist() {
         <div>
           {listData.length > 0 && isTokenLoaded ? (
             <div>
-              <div className="account-summary-create-title">
+              <div className={textStyle.accountsummarycreatetitle}>
                 <h2
                   style={{
                     padding: "10px",
@@ -1034,43 +1055,32 @@ function SameTextlist() {
                   Account Summary
                 </h2>
               </div>
-              <div id="table-responsive">
-                <table className="showtoken-table  table-text-list">
-                  <thead className="table-header-text-list">
+              <div id={textStyle.tableresponsive}>
+                <table
+                  className={`${textStyle["showtokentable"]} ${textStyle["tabletextlist"]}`}
+                >
+                  <thead className={textStyle.tableheadertextlist}>
                     <tr>
-                      <th style={{ letterSpacing: "1px" }}>
+                      <th style={{ letterSpacing: "1px", padding: "8px" }}>
                         Total Amount(ETH)
                       </th>
-                      <th style={{ letterSpacing: "1px" }}>
+                      <th style={{ letterSpacing: "1px", padding: "8px" }}>
                         Total Amount(USD)
                       </th>
-                      <th style={{ letterSpacing: "1px" }}>
+                      <th style={{ letterSpacing: "1px", padding: "8px" }}>
                         Remaining Balance
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td id="font-size-10px" style={{ letterSpacing: "1px" }}>
+                      <td
+                        id="font-size-10px"
+                        style={{ letterSpacing: "1px", padding: "8px" }}
+                      >
                         {total && ethToUsdExchangeRate && (
                           <>
-                            <div
-                              // className="font-size-12px"
-                              style={{
-                                width: "fit-content",
-                                margin: "0 auto",
-                                background:
-                                  "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                color: "black",
-                                borderRadius: "10px",
-                                padding: "10px 10px",
-                                fontSize: "12px",
-                                letterSpacing: "1px",
-                                transform: "translate(-50%, -50%)",
-                                animation:
-                                  "zoomAnimation 1s infinite alternate",
-                              }}
-                            >
+                            <div className={textStyle.textAccSum}>
                               {totalEth.toFixed(9)} ETH
                               {/* {totalEth.toFixed(9)} ETH */}
                             </div>
@@ -1090,7 +1100,7 @@ function SameTextlist() {
                           <>
                             {/* {`${ethers.utils.formatEther(total)} ETH `} */}
                             <div
-                              className="font-size-12px"
+                              className={textStyle.fontsize12px}
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
@@ -1120,7 +1130,7 @@ function SameTextlist() {
                         style={{ letterSpacing: "1px" }}
                       >
                         <div
-                          className="font-size-12px"
+                          className={textStyle.fontsize12px}
                           style={{
                             width: "fit-content",
                             margin: "0 auto",
@@ -1153,14 +1163,18 @@ function SameTextlist() {
             {/* {listData.length > 0 ? ( */}
             {listData.length > 0 && (isSendingEth || isTokenLoaded) ? (
               <button
-                id="green-background"
-                className="send-button"
+                id={textStyle.greenbackground}
+                className={textStyle.sendbutton}
                 onClick={() => {
                   executeTransaction();
                 }}
                 disabled={loading}
               >
-                {loading ? <div className="loader"></div> : "Begin Payment"}
+                {loading ? (
+                  <div className={textStyle.loader}></div>
+                ) : (
+                  "Begin Payment"
+                )}
               </button>
             ) : null}
           </div>
@@ -1307,7 +1321,7 @@ function SameTextlist() {
           </div>
         </Modal>
         <Modal
-          className="popup-for-payment"
+          className={textStyle.popupforpayment}
           isOpen={errorModalIsOpen}
           onRequestClose={() => setErrorModalIsOpen(false)}
           contentLabel="Error Modal"
@@ -1316,7 +1330,7 @@ function SameTextlist() {
             <>
               <h2>{success ? "Congratulations!!" : "Error"}</h2>
               <p>{errorMessage}</p>
-              <div className="div-to-center">
+              <div className={textStyle.divtocenter}>
                 <button onClick={() => setErrorModalIsOpen(false)}>
                   Close
                 </button>
@@ -1326,7 +1340,7 @@ function SameTextlist() {
             <>
               <h2>Notice</h2>
               <p>{alertMessage}</p>
-              <div className="div-to-center">
+              <div className={textStyle.divtocenter}>
                 <button onClick={() => setErrorModalIsOpen(false)}>
                   Close
                 </button>
