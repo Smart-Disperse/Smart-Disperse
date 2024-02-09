@@ -927,7 +927,9 @@ function SameCsvList() {
                     </h2>
                   </div>
                   <div id={uploadStyle.tableresponsive}>
-                    <table className="showtoken-table table-text-list">
+                    <table
+                      className={`${uploadStyle.showtokentable} ${uploadStyle.tabletextlist}`}
+                    >
                       <thead className={uploadStyle.tableheadertextlist}>
                         <tr>
                           <th style={{ letterSpacing: "1px" }}>
@@ -1179,7 +1181,7 @@ function SameCsvList() {
               ) : null}
               {isCsvDataEmpty ? null : (
                 <button
-                  className="send-button"
+                  className={uploadStyle.sendbutton}
                   onClick={() => {
                     executeTransaction();
                   }}

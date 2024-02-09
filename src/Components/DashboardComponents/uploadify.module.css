@@ -1,3 +1,16 @@
+.sendbutton {
+  background: #0000;
+  border: 1px solid #fff;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 37px;
+  margin: 50px 0;
+  padding: 5px 35px;
+  text-align: center;
+}
 /* .dark-theme.maindivforuploadcsvfile {
   margin-top: 10px;
   border-radius: 47px;
@@ -31,6 +44,24 @@
   margin: 50px 0px;
 } */
 
+.buttontoaddformdata:hover {
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+.sendbutton:hover {
+  background-color: white;
+  color: #8f00ff;
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+.buttontoaddformdata {
+  cursor: pointer;
+  padding: 10px 25px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 63px;
+  margin: 0px 20px;
+}
+
 .maindivforuploadcsvfile {
   margin-top: 10px;
   border-radius: 47px;
@@ -60,6 +91,17 @@
   margin: 0px 20px;
 } */
 
+.importtokendiv {
+  align-items: center;
+  display: flex;
+}
+
+.sametextmain {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 .eachinputofcreatelist {
   border-radius: 5px;
   border: 1px solid rgb(255, 255, 255);
@@ -69,7 +111,6 @@
     rgba(63, 47, 110, 0.58) 98.57%
   );
   color: white;
-
   padding: 10px 20px;
   margin: 0px 20px;
 }
@@ -91,6 +132,19 @@
   color: white;
 
   padding: 10px 20px;
+  margin: 0px 20px;
+}
+
+.buttontoaddformdataunload:hover {
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+.buttontoaddformdataunload {
+  cursor: pointer;
+  padding: 10px 25px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 63px;
   margin: 0px 20px;
 }
 
