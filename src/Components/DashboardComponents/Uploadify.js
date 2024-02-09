@@ -661,6 +661,15 @@ function SameCsvList() {
                     placeholder="Enter token Address"
                     value={customTokenAddress}
                     onChange={(e) => handleInputTokenAddressChange(e)}
+                    style={{
+                      borderRadius: "5px",
+                      border: "1px solid #fff",
+                      background:
+                        "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
+                      padding: "10px 20px",
+                      margin: "0px 20px",
+                      color: "white",
+                    }}
                   />
                   {isTokenLoaded ? (
                     <button
@@ -702,21 +711,33 @@ function SameCsvList() {
                 </h2>
               </div>
               <table
-                style={{ margin: "10px 0px" }}
+                style={{ margin: "15px 0px" }}
                 className={uploadStyle.tabletextlist}
               >
                 <thead className={uploadStyle.tableheadertextlist}>
                   <tr>
-                    <th style={{ letterSpacing: "1px" }}>Name</th>
-                    <th style={{ letterSpacing: "1px" }}>Symbol</th>
-                    <th style={{ letterSpacing: "1px" }}>Balance</th>
+                    <th style={{ letterSpacing: "1px", padding: "8px" }}>
+                      Name
+                    </th>
+                    <th style={{ letterSpacing: "1px", padding: "8px" }}>
+                      Symbol
+                    </th>
+                    <th style={{ letterSpacing: "1px", padding: "8px" }}>
+                      Balance
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{tokenDetails.name}</td>
-                    <td>{tokenDetails.symbol}</td>
-                    <td>{tokenDetails.balance}</td>
+                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                      {tokenDetails.name}
+                    </td>
+                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                      {tokenDetails.symbol}
+                    </td>
+                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                      {tokenDetails.balance}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -743,7 +764,7 @@ function SameCsvList() {
                 <div className={uploadStyle.inputdivforcsv}>
                   {/* <label>Upload File</label> &nbsp; &nbsp; */}
                   <input
-                    className=""
+                    className={uploadStyle.uploadFile}
                     type="file"
                     accept=".csv"
                     onChange={handleFileUpload}
@@ -781,7 +802,10 @@ function SameCsvList() {
                 </h2>
               </div>
               <div className={uploadStyle.tablewrapper}>
-                <table style={{ margin: "20px 0px" }}>
+                <table
+                  style={{ margin: "20px 0px" }}
+                  className={uploadStyle.tableUpload}
+                >
                   <thead
                     id={uploadStyle.tableheadercsvsame}
                     className={uploadStyle.tableheadertextlist}
@@ -789,22 +813,20 @@ function SameCsvList() {
                     <tr>
                       <th
                         className={uploadStyle.accountsummaryth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Receiver address
                       </th>
                       <th
                         className={uploadStyle.accountsummaryth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
-                        {" "}
                         Amount(ETH)
                       </th>
                       <th
                         className={uploadStyle.accountsummaryth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
-                        {" "}
                         Symbol
                       </th>
                       <th
@@ -815,19 +837,19 @@ function SameCsvList() {
                       </th>
                       <th
                         className={uploadStyle.accountsummaryth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Amount (USD)
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody style={{ margin: "10px 0px" }}>
                     {listData.map((data, index) => (
                       <tr key={index}>
-                        <td>
+                        <td style={{ letterSpacing: "1px", padding: "8px" }}>
                           <input
                             id={uploadStyle.fontsize10px}
-                            className={`each-input-of-create-list ${
+                            className={`${uploadStyle.eachinputofcreatelist} ${
                               isValidAddress(data.receiverAddress)
                                 ? ""
                                 : "input-error"
@@ -841,10 +863,10 @@ function SameCsvList() {
                             style={{ margin: "0px 10px" }}
                           />
                         </td>
-                        <td>
+                        <td style={{ letterSpacing: "1px", padding: "8px" }}>
                           <input
                             id={uploadStyle.fontsize10px}
-                            className={`each-input-of-create-list ${
+                            className={`${uploadStyle.eachinputofcreatelist} ${
                               isValidValue(data.tokenAmount)
                                 ? ""
                                 : "input-error"
@@ -858,14 +880,17 @@ function SameCsvList() {
                             style={{ margin: "0px 10px" }}
                           />
                         </td>
-                        <td id={uploadStyle.fontsize10px}>
+                        <td
+                          id={uploadStyle.fontsize10px}
+                          style={{ letterSpacing: "1px", padding: "8px" }}
+                        >
                           {isTokenLoaded ? tokenDetails.symbol : "ETH"}
                         </td>
-                        <td>
+                        <td style={{ letterSpacing: "1px", padding: "8px" }}>
                           <input
                             id={uploadStyle.fontsize10px}
                             // className={`each-input-of-create-list ${themeClass}`}
-                            className={`each-input-of-create-list`}
+                            className={uploadStyle.eachinputofcreatelist}
                             type="text"
                             name="chainName"
                             value={chainName}
@@ -874,7 +899,7 @@ function SameCsvList() {
                             style={{ margin: "0px 10px" }}
                           />
                         </td>
-                        <td>
+                        <td style={{ letterSpacing: "1px", padding: "8px" }}>
                           <div
                             id={uploadStyle.fontsize10px}
                             style={{
@@ -897,7 +922,7 @@ function SameCsvList() {
                           </div>
                         </td>
 
-                        <td>
+                        <td style={{ letterSpacing: "1px", padding: "8px" }}>
                           <button
                             className={uploadStyle.deletebutton}
                             onClick={() => handleDeleteRow(index)}
@@ -932,40 +957,28 @@ function SameCsvList() {
                     >
                       <thead className={uploadStyle.tableheadertextlist}>
                         <tr>
-                          <th style={{ letterSpacing: "1px" }}>
+                          <th style={{ letterSpacing: "1px", padding: "8px" }}>
                             Total Amount (ETH)
                           </th>
-                          <th style={{ letterSpacing: "1px" }}>
+                          <th style={{ letterSpacing: "1px", padding: "8px" }}>
                             Total Amount(USD)
                           </th>
-                          <th style={{ letterSpacing: "1px" }}>Your Balance</th>
-                          <th style={{ letterSpacing: "1px" }}>
+                          <th style={{ letterSpacing: "1px", padding: "8px" }}>
+                            Your Balance
+                          </th>
+                          <th style={{ letterSpacing: "1px", padding: "8px" }}>
                             Remaining Balance
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>
+                          <td style={{ letterSpacing: "1px", padding: "8px" }}>
                             {total && ethToUsdExchangeRate && (
                               <>
                                 <div
                                   id={uploadStyle.fontsize10px}
-                                  className={uploadStyle.fontsize12px}
-                                  style={{
-                                    width: "fit-content",
-                                    margin: "0 auto",
-                                    background:
-                                      "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                    color: "black",
-                                    borderRadius: "10px",
-                                    padding: "10px 10px",
-                                    fontSize: "12px",
-                                    letterSpacing: "1px",
-                                    transform: "translate(-50%, -50%)",
-                                    animation:
-                                      "zoomAnimation 1s infinite alternate",
-                                  }}
+                                  className={uploadStyle.UploadAccSum}
                                 >
                                   {`${ethers.utils.formatEther(total)} ETH `}
                                 </div>
@@ -981,7 +994,7 @@ function SameCsvList() {
                               </>
                             )}
                           </td>
-                          <td>
+                          <td style={{ letterSpacing: "1px", padding: "8px" }}>
                             {total && ethToUsdExchangeRate && (
                               <>
                                 <div
@@ -1012,6 +1025,7 @@ function SameCsvList() {
                           </td>
                           <td
                             id={uploadStyle.fontsize10px}
+                            style={{ letterSpacing: "1px", padding: "8px" }}
                           >{`${(+ethBalance).toFixed(9)} ETH`}</td>
                           <td
                             className={`showtoken-remaining-balance ${
@@ -1019,6 +1033,7 @@ function SameCsvList() {
                                 ? "showtoken-remaining-negative"
                                 : ""
                             }`}
+                            style={{ letterSpacing: "1px", padding: "8px" }}
                           >
                             <div
                               id={uploadStyle.fontsize10px}
@@ -1065,42 +1080,30 @@ function SameCsvList() {
                     </h2>
                   </div>
                   <div id={uploadStyle.tableresponsive}>
-                    <table className="showtoken-table table-text-list">
+                    <table
+                      className={`${uploadStyle["showtokentable"]} ${uploadStyle["tabletextlist"]}`}
+                    >
                       <thead className={uploadStyle.tableheadertextlist}>
                         <tr>
-                          <th style={{ letterSpacing: "1px" }}>
+                          <th style={{ letterSpacing: "1px", padding: "8px" }}>
                             Total Amount(ETH)
                           </th>
-                          <th style={{ letterSpacing: "1px" }}>
+                          <th style={{ letterSpacing: "1px", padding: "8px" }}>
                             Total Amount(USD)
                           </th>
-                          <th style={{ letterSpacing: "1px" }}>
+                          <th style={{ letterSpacing: "1px", padding: "8px" }}>
                             Remaining Balance
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>
+                          <td style={{ letterSpacing: "1px", padding: "8px" }}>
                             {total && ethToUsdExchangeRate && (
                               <>
                                 <div
                                   id={uploadStyle.fontsize10px}
-                                  className={uploadStyle.fontsize12px}
-                                  style={{
-                                    width: "fit-content",
-                                    margin: "0 auto",
-                                    background:
-                                      "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                    color: "black",
-                                    borderRadius: "10px",
-                                    padding: "10px 10px",
-                                    fontSize: "12px",
-                                    letterSpacing: "1px",
-                                    transform: "translate(-50%, -50%)",
-                                    animation:
-                                      "zoomAnimation 1s infinite alternate",
-                                  }}
+                                  className={`${uploadStyle["fontsize12px"]} ${uploadStyle["UploadAccSum"]}`}
                                 >
                                   {`${ethers.utils.formatEther(total)} ETH `}
                                 </div>
@@ -1114,7 +1117,7 @@ function SameCsvList() {
                               </>
                             )}
                           </td>
-                          <td>
+                          <td style={{ letterSpacing: "1px", padding: "8px" }}>
                             {total && ethToUsdExchangeRate && (
                               <>
                                 {/* {`${ethers.utils.formatEther(total)} ETH `} */}
@@ -1148,6 +1151,7 @@ function SameCsvList() {
                                 ? "showtoken-remaining-negative"
                                 : ""
                             }`}
+                            style={{ letterSpacing: "1px", padding: "8px" }}
                           >
                             <div
                               id={uploadStyle.fontsize10px}
@@ -1194,7 +1198,7 @@ function SameCsvList() {
           ) : null}
 
           <Modal
-            className="popup-for-payment"
+            className={uploadStyle.popupforpayment}
             isOpen={errorModalIsOpen}
             onRequestClose={() => setErrorModalIsOpen(false)}
             contentLabel="Error Modal"
@@ -1203,7 +1207,7 @@ function SameCsvList() {
               <>
                 <h2>{isSuccess ? "Congratulations!!" : "Error"}</h2>
                 <p>{errorMessage}</p>
-                <div className="div-to-center">
+                <div className={uploadStyle.divtocenter}>
                   <button onClick={() => setErrorModalIsOpen(false)}>
                     Close
                   </button>
@@ -1213,7 +1217,7 @@ function SameCsvList() {
               <>
                 <h2>Notice</h2>
                 <p>{alertMessage}</p>
-                <div className="div-to-center">
+                <div className={uploadStyle.divtocenter}>
                   <button onClick={() => setErrorModalIsOpen(false)}>
                     Close
                   </button>

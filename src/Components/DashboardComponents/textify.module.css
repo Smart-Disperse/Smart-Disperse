@@ -209,26 +209,7 @@
   backdrop-filter: blur(30.5px);
   margin: 50px 0px;
 }
-.eachinputofcreatelist {
-  border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(97, 38, 193, 0.58) 0.06%,
-    rgba(63, 47, 110, 0.58) 98.57%
-  );
-  color: white;
-  padding: 10px 20px;
-  margin: 0px 20px;
-}
-.eachinputofcreatelist {
-  border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: black;
-  color: white;
-  padding: 10px 20px;
-  margin: 0px 20px;
-}
+
 .titleforlinupsametext h2 {
   background: #fff;
   color: #8f00ff;
@@ -355,6 +336,39 @@
   font-size: 12px;
   padding: 5px 0;
 }
+.popupforpayment {
+  background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
+  border-radius: 30px;
+  box-shadow: 0 0 10px #0000001a;
+  color: #fff;
+  left: 50%;
+  padding: 30px 150px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+.popupforpayment h2 {
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.popupforpayment p {
+  letter-spacing: 1px;
+  text-align: center;
+}
+.popupforpayment button {
+  background: #0000;
+  border: 1px solid #1bff76;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 15px 20px;
+  width: 100%;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
   #tableresponsive {
     overflow: scroll;
