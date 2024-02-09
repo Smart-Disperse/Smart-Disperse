@@ -368,7 +368,11 @@
   width: 100%;
   cursor: pointer;
 }
-
+.popupforpayment button:hover {
+  border: none;
+  color: #070707;
+  background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
+}
 @media only screen and (max-width: 768px) {
   #tableresponsive {
     overflow: scroll;

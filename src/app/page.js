@@ -4,7 +4,7 @@ import Footer from "@/Components/Footer/Footer";
 import Landingpage from "../Components/Homepage/Landingpage";
 import { Providers } from "@/Providers";
 
-import { ThemeProvider } from "@/ThemeProvider";
+import { ThemeProvider } from "@/ThemeContext";
 // import { ThemeProvider } from "@ThemeProvider/ThemeProvider";
 // import reportWebVitals from "@/reportWebVitals";
 
