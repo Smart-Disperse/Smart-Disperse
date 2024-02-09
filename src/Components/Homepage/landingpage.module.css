@@ -620,7 +620,7 @@
   font-size: 15px;
   /* margin: 0 8px; */
 }
-.popupbutton-flex {
+.popupbuttonflex {
   display: flex;
   flex-direction: column;
   margin: 40px 0px;
