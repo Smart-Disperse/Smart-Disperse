@@ -13,6 +13,7 @@ import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import { useTheme } from "@/ThemeProvider";
 import { CovalentClient } from "@covalenthq/client-sdk";
+import listStyle from "@/Components/DashboardComponents/listify.module.css";
 
 function SameCreateList() {
   // const { toggleDarkMode, themeClass } = useTheme();
@@ -573,10 +574,10 @@ function SameCreateList() {
 
   return (
     // <div className={`main-div-same-create-list ${themeClass}`}>
-    <div className={`main-div-same-create-list`}>
+    <div className={listStyle.maindivsamecreatelist}>
       {/* <button onClick={getConnectedChain}>check here</button> */}
       {/* <p>1. Select Tokens to disperse</p> */}
-      <div className="select-load-token-title">
+      <div className={listStyle.selectloadtokentitleh2}>
         <h2
           style={{
             padding: "10px",
@@ -585,7 +586,7 @@ function SameCreateList() {
             letterSpacing: "1px",
             fontWeight: "700",
           }}
-          className="sametext-main"
+          className={listStyle.sametextmain}
         >
           Select or Import Token you want to Disperse
         </h2>
@@ -610,12 +611,12 @@ function SameCreateList() {
           </div>
         )}
       </div> */}
-      <div className="div-token-inputs">
+      <div className={listStyle.divtokeninputs}>
         {/* {isTokenLoaded ? null : ( */}
         <div>
           <button
             id=""
-            className="button-to-add-form-data"
+            className={listStyle.buttontoaddformdata}
             onClick={handleSendEthbuttonClick}
           >
             Send Eth
@@ -623,11 +624,11 @@ function SameCreateList() {
           {/* {sendEthClicked && <p>Sending ETH</p>} */}
         </div>
         {/* )} */}
-        <div className="import-token-div">
+        <div className={listStyle.importtokendiv}>
           <div>OR</div>
           {/* {isTokenLoaded ? null : "OR  "} */}
           <button
-            className="button-to-add-form-data-unload"
+            className={listStyle.buttontoaddformdataunload}
             onClick={handleImporttokenbuttonClick}
           >
             Import Token
@@ -640,7 +641,7 @@ function SameCreateList() {
             style={{
               marginBottom: "10px ",
             }}
-            className="account-summary-create-title"
+            className={listStyle.accountsummarycreatetitle}
           >
             <h2
               style={{
@@ -657,7 +658,7 @@ function SameCreateList() {
           <div style={{ padding: "20px" }}>
             <label style={{ margin: "5px" }}>Enter Token Address: </label>
             <input
-              id="input-token-load"
+              id={listStyle.inputtokenload}
               type="text"
               // className={`each-input-of-create-list token-input ${themeClass}`}
               className={`each-input-of-create-list token-input`}
@@ -677,7 +678,7 @@ function SameCreateList() {
               </button>
             ) : (
               <button
-                className="button-to-add-form-data"
+                className={listStyle.buttontoaddformdata}
                 onClick={() => {
                   loadToken();
                 }}
@@ -691,7 +692,7 @@ function SameCreateList() {
       {/* </div> */}
       {isTokenLoaded ? (
         <div>
-          <div className="account-summary-create-title">
+          <div className={listStyle.accountsummarycreatetitle}>
             <h2
               style={{
                 padding: "10px",
@@ -723,8 +724,8 @@ function SameCreateList() {
         </div>
       ) : null}
       {(isSendingEth || isTokenLoaded) && (
-        <div className="div-in-same-create-list-token-load">
-          <div className="enter-address-div-title">
+        <div className={listStyle.divinsamecreatelisttokenload}>
+          <div className={listStyle.enteraddressdivtitle}>
             <h2
               style={{
                 fontWeight: "700",
@@ -734,14 +735,16 @@ function SameCreateList() {
                 letterSpacing: "1px",
                 fontWeight: "700",
               }}
-              className="title-inline"
+              className={listStyle.enteraddressdivtitleh2}
             >
               Enter the Recipient Address and Token Amount{" "}
             </h2>
           </div>
           <div style={{ padding: "30px 20px" }}>
-            <div className="input-flex-list">
-              <label>Enter Receiver Address: </label>
+            <div className={listStyle.enteraddressdivtitle}>
+              <label className={listStyle.enteraddressdivtitlelabel}>
+                Enter Receiver Address:{" "}
+              </label>
               <input
                 // id="blue-div"
                 // className={`each-input-of-create-list token-input ${themeClass}`}
@@ -753,7 +756,7 @@ function SameCreateList() {
                 onChange={handleReceiverAddressChange}
               />
             </div>
-            <div className="input-flex-list">
+            <div className={listStyle.enteraddressdivtitle}>
               <label>Enter Token Amount: </label>
               <input
                 // style={{ color: "black" }}
@@ -767,7 +770,7 @@ function SameCreateList() {
               />
             </div>
 
-            <div className="input-flex-list">
+            <div className={listStyle.enteraddressdivtitle}>
               <label>Chain Name: </label>
 
               <input
@@ -806,7 +809,7 @@ function SameCreateList() {
       {/* <div className="div-to-add-the-tx"> */}
       {listData.length > 0 ? (
         <div>
-          <div className="view-address-div-title">
+          <div className={listStyle.viewaddressdivtitle}>
             <h2
               style={{
                 padding: "10px",
@@ -815,40 +818,41 @@ function SameCreateList() {
                 letterSpacing: "1px",
                 fontWeight: "700",
               }}
+              className={listStyle.viewaddressdivtitleh2}
             >
               Your Transaction Lineup
             </h2>
           </div>
-          <div className="scrollable-table-container">
+          <div className={listStyle.scrollabletablecontainer}>
             <table>
-              <thead className="table-header-text-list">
+              <thead className={listStyle.tableheadertextlist}>
                 <tr>
                   <th
-                    className="account-summary-th"
+                    className={listStyle.accountsummartth}
                     style={{ letterSpacing: "1px" }}
                   >
                     Receiver Address
                   </th>
                   <th
-                    className="account-summary-th"
+                    className={listStyle.accountsummartth}
                     style={{ letterSpacing: "1px" }}
                   >
                     Chain Name
                   </th>
                   <th
-                    className="account-summary-th"
+                    className={listStyle.accountsummartth}
                     style={{ letterSpacing: "1px" }}
                   >
                     Token Symbol
                   </th>
                   <th
-                    className="account-summary-th"
+                    className={listStyle.accountsummartth}
                     style={{ letterSpacing: "1px" }}
                   >
                     Amount(ETH)
                   </th>
                   <th
-                    className="account-summary-th"
+                    className={listStyle.accountsummartth}
                     style={{ letterSpacing: "1px" }}
                   >
                     Amount (USD)
@@ -858,7 +862,10 @@ function SameCreateList() {
               <tbody>
                 {listData.map((data, index) => (
                   <tr key={index}>
-                    <td id="font-size-10px" style={{ letterSpacing: "1px" }}>
+                    <td
+                      id={listStyle.fontsize10px}
+                      style={{ letterSpacing: "1px" }}
+                    >
                       {`${data.receiverAddress.slice(
                         0,
                         4
@@ -867,7 +874,7 @@ function SameCreateList() {
 
                     <td style={{ letterSpacing: "1px" }}>
                       <div
-                        id="font-size-10px"
+                        id={listStyle.fontsize10px}
                         style={{
                           width: "fit-content",
                           margin: "0 auto",
@@ -881,7 +888,7 @@ function SameCreateList() {
                     </td>
                     <td style={{ letterSpacing: "1px" }}>
                       <div
-                        id="font-size-10px"
+                        id={listStyle.fontsize10px}
                         style={{
                           width: "fit-content",
                           margin: "0 auto",
@@ -896,7 +903,7 @@ function SameCreateList() {
                     </td>
                     <td style={{ letterSpacing: "1px" }}>
                       <div
-                        id="font-size-10px"
+                        id={listStyle.fontsize10px}
                         style={{
                           width: "70px",
                           margin: "0 auto",
@@ -921,7 +928,7 @@ function SameCreateList() {
                     </td>
                     <td style={{ letterSpacing: "1px" }}>
                       <div
-                        id="font-size-10px"
+                        id={listStyle.fontsize10px}
                         style={{
                           width: "fit-content",
                           margin: "0 auto",
@@ -948,7 +955,7 @@ function SameCreateList() {
                     </td>
                     <td style={{ letterSpacing: "1px" }}>
                       <button
-                        className="delete-button"
+                        className={listStyle.deletebutton}
                         onClick={() => handleDeleteRow(index)}
                       >
                         <FontAwesomeIcon icon={faTrashAlt} />
@@ -961,7 +968,7 @@ function SameCreateList() {
           </div>
           {listData.length > 0 && isSendingEth ? (
             <div>
-              <div className="account-summary-create-title">
+              <div className={listStyle.accountsummarycreatetitle}>
                 <h2
                   style={{
                     padding: "10px",
@@ -974,30 +981,30 @@ function SameCreateList() {
                   Account Summary
                 </h2>
               </div>
-              <div id="table-responsive">
-                <table className="showtoken-table">
-                  <thead className="table-header-text-list">
+              <div id={listStyle.tableresponsive}>
+                <table className={listStyle.showtokentable}>
+                  <thead className={listStyle.tableheadertextlist}>
                     <tr>
                       <th
-                        className="account-summary-th"
+                        className={listStyle.accountsummartth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Total Amount(ETH)
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={listStyle.accountsummartth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Total Amount(USD)
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={listStyle.accountsummartth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Your Balance
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={listStyle.accountsummartth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Remaining Balance
@@ -1008,7 +1015,7 @@ function SameCreateList() {
                     <tr>
                       <td style={{ letterSpacing: "1px" }}>
                         <div
-                          id="font-size-10px"
+                          id={listStyle.fontsize10px}
                           className="font-size-12px"
                           style={{
                             width: "fit-content",
@@ -1040,7 +1047,7 @@ function SameCreateList() {
                       </td>
                       <td style={{ letterSpacing: "1px" }}>
                         <div
-                          id="font-size-10px"
+                          id={listStyle.fontsize10px}
                           className="font-size-12px"
                           style={{
                             width: "fit-content",
@@ -1058,7 +1065,7 @@ function SameCreateList() {
                             <>
                               {/* {`${ethers.utils.formatEther(total)} ETH `} */}
                               <span
-                                id="font-size-10px"
+                                id={listStyle.fontsize10px}
                                 style={{ fontWeight: "500" }}
                               >
                                 {` ${
@@ -1073,7 +1080,7 @@ function SameCreateList() {
                       </td>
                       <td style={{ letterSpacing: "1px" }}>
                         <div
-                          id="font-size-10px"
+                          id={listStyle.fontsize10px}
                           style={{
                             width: "fit-content",
                             margin: "0 auto",
@@ -1097,7 +1104,7 @@ function SameCreateList() {
                         style={{ letterSpacing: "1px" }}
                       >
                         <div
-                          id="font-size-10px"
+                          id={listStyle.fontsize10px}
                           className="font-size-12px"
                           style={{
                             width: "fit-content",
