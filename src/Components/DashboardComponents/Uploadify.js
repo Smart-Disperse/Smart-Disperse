@@ -13,6 +13,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useAccount, useSigner } from "wagmi";
 import Modal from "react-modal";
 import { ethers } from "ethers";
+import uploadStyle from "@/Components/DashboardComponents/uploadify.module.css";
 
 const useLocalStorage = (key, initialValue = "") => {
   const [value, setValue] = useState(() => {
@@ -583,11 +584,11 @@ function SameCsvList() {
   return (
     <div>
       {/* <div className={`main-div-for-upload-csv-file ${themeClass}`}> */}
-      <div className={`main-div-for-upload-csv-file`}>
-        <div className="Whole-div-for-same-csv">
+      <div className={uploadStyle.maindivforuploadcsvfile}>
+        <div className={uploadStyle.Wholedivforsamecsv}>
           {/* token section starts here */}
-          <div className="token-div-same-csv">
-            <div className="title-load-token-same-csv">
+          <div className={uploadStyle.tokendivsamecsv}>
+            <div className={uploadStyle.titleloadtokensamecsv}>
               <h2
                 style={{
                   fontWeight: "700",
@@ -597,17 +598,20 @@ function SameCsvList() {
                   letterSpacing: "1px",
                   fontWeight: "700",
                 }}
-                className="sametext-main"
+                className={uploadStyle.sametextmain}
               >
                 Select or Import Token you want to Disperse
               </h2>
             </div>
-            <div style={{ padding: "30px 20px" }} className="sametext-main">
+            <div
+              style={{ padding: "30px 20px" }}
+              className={uploadStyle.sametextmain}
+            >
               {/* {isTokenLoaded ? null : ( */}
               <div>
                 <button
                   id=""
-                  className="button-to-add-form-data"
+                  className={uploadStyle.buttontoaddformdata}
                   onClick={handleSendEthbuttonClick}
                 >
                   Send Eth
@@ -615,11 +619,11 @@ function SameCsvList() {
                 {/* {sendEthClicked && <p>Sending ETH</p>} */}
               </div>
               {/* )} */}
-              <div className="import-token-div">
+              <div className={uploadStyle.importtokendiv}>
                 <div>OR</div>
                 {/* {isTokenLoaded ? null : "OR  "} */}
                 <button
-                  className="button-to-add-form-data-unload"
+                  className={uploadStyle.buttontoaddformdataunload}
                   onClick={handleImporttokenbuttonClick}
                 >
                   Import Token
@@ -632,7 +636,7 @@ function SameCsvList() {
                   style={{
                     marginBottom: "10px ",
                   }}
-                  className="account-summary-create-title"
+                  className={uploadStyle.accountsummarycreatetitle}
                 >
                   <h2
                     style={{
@@ -649,11 +653,11 @@ function SameCsvList() {
                 <div style={{ padding: "20px" }}>
                   <label style={{ margin: "5px" }}>Enter Token Address: </label>
                   <input
-                    id="input-token-load"
+                    id={uploadStyle.inputtokenload}
                     // id="border-purple"
                     type="text"
                     // className={`each-input-of-create-list ${themeClass}`}
-                    className={`each-input-of-create-list`}
+                    className={uploadStyle.eachinputofcreatelist}
                     placeholder="Enter token Address"
                     value={customTokenAddress}
                     onChange={(e) => handleInputTokenAddressChange(e)}
@@ -661,7 +665,7 @@ function SameCsvList() {
                   {isTokenLoaded ? (
                     <button
                       // id="background-green"
-                      className="button-to-add-form-data-unload "
+                      className={uploadStyle.buttontoaddformdataunload}
                       onClick={() => {
                         unloadToken();
                       }}
@@ -671,7 +675,7 @@ function SameCsvList() {
                   ) : (
                     <button
                       // id="background-purple"
-                      className="button-to-add-form-data"
+                      className={uploadStyle.buttontoaddformdata}
                       onClick={() => {
                         loadToken();
                       }}
@@ -685,7 +689,7 @@ function SameCsvList() {
           </div>
           {isTokenLoaded ? (
             <div>
-              <div className="account-summary-create-title">
+              <div className={uploadStyle.accountsummarycreatetitle}>
                 <h2
                   style={{
                     padding: "10px",
@@ -697,8 +701,11 @@ function SameCsvList() {
                   Token Details
                 </h2>
               </div>
-              <table style={{ margin: "10px 0px" }} className="table-text-list">
-                <thead className="table-header-text-list">
+              <table
+                style={{ margin: "10px 0px" }}
+                className={uploadStyle.tabletextlist}
+              >
+                <thead className={uploadStyle.tableheadertextlist}>
                   <tr>
                     <th style={{ letterSpacing: "1px" }}>Name</th>
                     <th style={{ letterSpacing: "1px" }}>Symbol</th>
@@ -717,7 +724,7 @@ function SameCsvList() {
           ) : null}
           {(isSendingEth || isTokenLoaded) && (
             <div>
-              <div className="title-for-upload-file-csv-same">
+              <div className={uploadStyle.titleforuploadfilecsvsame}>
                 <h2
                   style={{
                     padding: "10px",
@@ -726,14 +733,14 @@ function SameCsvList() {
                     fontWeight: "700",
                     letterSpacing: "1px",
                   }}
-                  className="sametext-main "
+                  className={uploadStyle.sametextmain}
                 >
                   Upload your Csv file which contains recipient Address and
                   Token Amount or Download Sample CSV file
                 </h2>
               </div>
-              <div className="upload-or-download">
-                <div className="input-div-for-csv">
+              <div className={uploadStyle.uploadordownload}>
+                <div className={uploadStyle.inputdivforcsv}>
                   {/* <label>Upload File</label> &nbsp; &nbsp; */}
                   <input
                     className=""
@@ -747,7 +754,7 @@ function SameCsvList() {
                   <a
                     href="/Book2.csv"
                     download="Book2.csv"
-                    className="download-btn"
+                    className={uploadStyle.downloadbtn}
                   >
                     <button>Download sample CSV file</button>
                   </a>
@@ -758,8 +765,8 @@ function SameCsvList() {
           {/* {listData.length > 0 && (isSendingEth || isTokenLoaded) ? ( */}
 
           {listData.length > 0 && (isSendingEth || isTokenLoaded) ? (
-            <div className="display-csvfile-here">
-              <div className="title-tnx-line-same-csv">
+            <div className={uploadStyle.displaycsvfilehere}>
+              <div className={uploadStyle.titletnxlinesamecsv}>
                 <h2
                   style={{
                     padding: "10px",
@@ -768,46 +775,46 @@ function SameCsvList() {
                     fontWeight: "700",
                     letterSpacing: "1px",
                   }}
-                  className="sametext-main "
+                  className={uploadStyle.sametextmain}
                 >
                   Transaction Lineup & Edit your Transactions here
                 </h2>
               </div>
-              <div className="table-wrapper">
+              <div className={uploadStyle.tablewrapper}>
                 <table style={{ margin: "20px 0px" }}>
                   <thead
-                    id="table-header-csv-same"
-                    className="table-header-text-list"
+                    id={uploadStyle.tableheadercsvsame}
+                    className={uploadStyle.tableheadertextlist}
                   >
                     <tr>
                       <th
-                        className="account-summary-th"
+                        className={uploadStyle.accountsummaryth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Receiver address
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={uploadStyle.accountsummaryth}
                         style={{ letterSpacing: "1px" }}
                       >
                         {" "}
                         Amount(ETH)
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={uploadStyle.accountsummaryth}
                         style={{ letterSpacing: "1px" }}
                       >
                         {" "}
                         Symbol
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={uploadStyle.accountsummaryth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Chain Name
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={uploadStyle.accountsummaryth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Amount (USD)
@@ -819,7 +826,7 @@ function SameCsvList() {
                       <tr key={index}>
                         <td>
                           <input
-                            id="font-size-10px"
+                            id={uploadStyle.fontsize10px}
                             className={`each-input-of-create-list ${
                               isValidAddress(data.receiverAddress)
                                 ? ""
@@ -836,7 +843,7 @@ function SameCsvList() {
                         </td>
                         <td>
                           <input
-                            id="font-size-10px"
+                            id={uploadStyle.fontsize10px}
                             className={`each-input-of-create-list ${
                               isValidValue(data.tokenAmount)
                                 ? ""
@@ -851,12 +858,12 @@ function SameCsvList() {
                             style={{ margin: "0px 10px" }}
                           />
                         </td>
-                        <td id="font-size-10px">
+                        <td id={uploadStyle.fontsize10px}>
                           {isTokenLoaded ? tokenDetails.symbol : "ETH"}
                         </td>
                         <td>
                           <input
-                            id="font-size-10px"
+                            id={uploadStyle.fontsize10px}
                             // className={`each-input-of-create-list ${themeClass}`}
                             className={`each-input-of-create-list`}
                             type="text"
@@ -869,7 +876,7 @@ function SameCsvList() {
                         </td>
                         <td>
                           <div
-                            id="font-size-10px"
+                            id={uploadStyle.fontsize10px}
                             style={{
                               width: "fit-content",
                               margin: "0 auto",
@@ -892,7 +899,7 @@ function SameCsvList() {
 
                         <td>
                           <button
-                            className="delete-button"
+                            className={uploadStyle.deletebutton}
                             onClick={() => handleDeleteRow(index)}
                           >
                             <FontAwesomeIcon icon={faTrashAlt} />
@@ -905,7 +912,7 @@ function SameCsvList() {
               </div>
               {listData.length > 0 && isSendingEth ? (
                 <div>
-                  <div className="account-summary-create-title">
+                  <div className={uploadStyle.accountsummarycreatetitle}>
                     <h2
                       style={{
                         padding: "10px",
@@ -914,14 +921,14 @@ function SameCsvList() {
                         fontWeight: "700",
                         letterSpacing: "1px",
                       }}
-                      className="sametext-main "
+                      className={uploadStyle.sametextmain}
                     >
                       Account Summary
                     </h2>
                   </div>
-                  <div id="table-responsive">
+                  <div id={uploadStyle.tableresponsive}>
                     <table className="showtoken-table table-text-list">
-                      <thead className="table-header-text-list">
+                      <thead className={uploadStyle.tableheadertextlist}>
                         <tr>
                           <th style={{ letterSpacing: "1px" }}>
                             Total Amount (ETH)
@@ -941,8 +948,8 @@ function SameCsvList() {
                             {total && ethToUsdExchangeRate && (
                               <>
                                 <div
-                                  id="font-size-10px"
-                                  className="font-size-12px"
+                                  id={uploadStyle.fontsize10px}
+                                  className={uploadStyle.fontsize12px}
                                   style={{
                                     width: "fit-content",
                                     margin: "0 auto",
@@ -976,8 +983,8 @@ function SameCsvList() {
                             {total && ethToUsdExchangeRate && (
                               <>
                                 <div
-                                  id="font-size-10px"
-                                  className="font-size-12px"
+                                  id={uploadStyle.fontsize10px}
+                                  className={uploadStyle.fontsize12px}
                                   style={{
                                     width: "fit-content",
                                     margin: "0 auto",
@@ -1001,9 +1008,9 @@ function SameCsvList() {
                               </>
                             )}
                           </td>
-                          <td id="font-size-10px">{`${(+ethBalance).toFixed(
-                            9
-                          )} ETH`}</td>
+                          <td
+                            id={uploadStyle.fontsize10px}
+                          >{`${(+ethBalance).toFixed(9)} ETH`}</td>
                           <td
                             className={`showtoken-remaining-balance ${
                               remaining < 0
@@ -1012,8 +1019,8 @@ function SameCsvList() {
                             }`}
                           >
                             <div
-                              id="font-size-10px"
-                              className="font-size-12px"
+                              id={uploadStyle.fontsize10px}
+                              className={uploadStyle.fontsize12px}
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
@@ -1041,7 +1048,7 @@ function SameCsvList() {
               ) : null}
               {listData.length > 0 && isTokenLoaded ? (
                 <div>
-                  <div className="account-summary-create-title">
+                  <div className={uploadStyle.accountsummarycreatetitle}>
                     <h2
                       style={{
                         padding: "10px",
@@ -1050,14 +1057,14 @@ function SameCsvList() {
                         margin: "0px",
                         letterSpacing: "1px",
                       }}
-                      className="sametext-main "
+                      className={uploadStyle.sametextmain}
                     >
                       Account Summary
                     </h2>
                   </div>
-                  <div id="table-responsive">
+                  <div id={uploadStyle.tableresponsive}>
                     <table className="showtoken-table table-text-list">
-                      <thead className="table-header-text-list">
+                      <thead className={uploadStyle.tableheadertextlist}>
                         <tr>
                           <th style={{ letterSpacing: "1px" }}>
                             Total Amount(ETH)
@@ -1076,8 +1083,8 @@ function SameCsvList() {
                             {total && ethToUsdExchangeRate && (
                               <>
                                 <div
-                                  id="font-size-10px"
-                                  className="font-size-12px"
+                                  id={uploadStyle.fontsize10px}
+                                  className={uploadStyle.fontsize12px}
                                   style={{
                                     width: "fit-content",
                                     margin: "0 auto",
@@ -1110,8 +1117,8 @@ function SameCsvList() {
                               <>
                                 {/* {`${ethers.utils.formatEther(total)} ETH `} */}
                                 <div
-                                  id="font-size-10px"
-                                  className="font-size-12px"
+                                  id={uploadStyle.fontsize10px}
+                                  className={uploadStyle.fontsize12px}
                                   style={{
                                     width: "fit-content",
                                     margin: "0 auto",
@@ -1141,8 +1148,8 @@ function SameCsvList() {
                             }`}
                           >
                             <div
-                              id="font-size-10px"
-                              className="font-size-12px"
+                              id={uploadStyle.fontsize10px}
+                              className={uploadStyle.fontsize12px}
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
