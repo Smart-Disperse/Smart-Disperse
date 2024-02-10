@@ -1021,7 +1021,7 @@ function SameCreateList() {
                       <td style={{ letterSpacing: "1px" }}>
                         <div
                           id={listStyle.fontsize10px}
-                          className="font-size-12px"
+                          className={listStyle.fontsize12px}
                           style={{
                             width: "fit-content",
                             margin: "0 auto",
@@ -1053,7 +1053,7 @@ function SameCreateList() {
                       <td style={{ letterSpacing: "1px" }}>
                         <div
                           id={listStyle.fontsize10px}
-                          className="font-size-12px"
+                          className={listStyle.fontsize12px}
                           style={{
                             width: "fit-content",
                             margin: "0 auto",
@@ -1103,14 +1103,14 @@ function SameCreateList() {
                       </td>
 
                       <td
-                        className={`showtoken-remaining-balance ${
-                          remaining < 0 ? "showtoken-remaining-negative" : ""
+                        className={`showtokenremainingbalance ${
+                          remaining < 0 ? "showtokenremainingnegative" : ""
                         }`}
                         style={{ letterSpacing: "1px" }}
                       >
                         <div
                           id={listStyle.fontsize10px}
-                          className="font-size-12px"
+                          className={listStyle.fontsize12px}
                           style={{
                             width: "fit-content",
                             margin: "0 auto",
@@ -1138,7 +1138,7 @@ function SameCreateList() {
           ) : null}
           {listData.length > 0 && isTokenLoaded ? (
             <div>
-              <div className="account-summary-create-title">
+              <div className={listStyle.accountsummarycreatetitle}>
                 <h2
                   style={{
                     padding: "10px",
@@ -1151,24 +1151,24 @@ function SameCreateList() {
                   Account Summary
                 </h2>
               </div>
-              <div id="table-responsive">
-                <table className="showtoken-table">
+              <div id={listStyle.tableresponsive}>
+                <table className={listStyle.showtokentable}>
                   <thead className="table-header-text-list">
                     <tr>
                       <th
-                        className="account-summary-th"
+                        className={listStyle.tableheadertextlist}
                         style={{ letterSpacing: "1px" }}
                       >
                         Total Amount(ETH)
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={listStyle.accountsummaryth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Total Amount(USD)
                       </th>
                       <th
-                        className="account-summary-th"
+                        className={listStyle.accountsummaryth}
                         style={{ letterSpacing: "1px" }}
                       >
                         Remaining Balance
@@ -1181,8 +1181,8 @@ function SameCreateList() {
                         {total && ethToUsdExchangeRate && (
                           <>
                             <div
-                              id="font-size-10px"
-                              className="font-size-12px"
+                              id={listStyle.fontsize10px}
+                              className={listStyle.fontsize12px}
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
@@ -1213,8 +1213,8 @@ function SameCreateList() {
                           <>
                             {/* {`${ethers.utils.formatEther(total)} ETH `} */}
                             <div
-                              id="font-size-10px"
-                              className="font-size-12px"
+                              id={listStyle.fontsize10px}
+                              className={listStyle.fontsize12px}
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
@@ -1243,8 +1243,8 @@ function SameCreateList() {
                         style={{ letterSpacing: "1px" }}
                       >
                         <div
-                          id="font-size-10px"
-                          className="font-size-12px"
+                          id={listStyle.fontsize10px}
+                          className={listStyle.fontsize12px}
                           style={{
                             width: "fit-content",
                             margin: "0 auto",
@@ -1274,7 +1274,7 @@ function SameCreateList() {
           ) : null}
           <div>
             <button
-              className="send-button"
+              className={listStyle.sendbutton}
               onClick={() => {
                 executeTransaction();
               }}
@@ -1296,7 +1296,7 @@ function SameCreateList() {
           <>
             <h2>{success ? "Congratulations!!" : "Error"}</h2>
             <p>{errorMessage}</p>
-            <div className="div-to-center">
+            <div className={listStyle.divtocenter}>
               <button onClick={() => setErrorModalIsOpen(false)}>Close</button>
             </div>
           </>
@@ -1304,7 +1304,7 @@ function SameCreateList() {
           <>
             <h2>Notice</h2>
             <p>{alertMessage}</p>
-            <div className="div-to-center">
+            <div className={listStyle.divtocenter}>
               <button onClick={() => setErrorModalIsOpen(false)}>Close</button>
             </div>
           </>

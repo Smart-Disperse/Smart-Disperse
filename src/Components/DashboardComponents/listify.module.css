@@ -57,14 +57,14 @@
   margin: 0 auto;
   /* margin-left: 45% !important; */
 }
-.user-form-for-list option {
+.userformforlistoption {
   color: white;
 }
-.user-form-for-list {
+.userformforlist {
   padding: 5px 0px;
 }
 
-#white-color {
+#whitecolor {
   color: white;
 }
 
@@ -75,15 +75,15 @@
   border-collapse: collapse;
 }
 
-.showtoken-table th,
-.showtoken-table td {
+.showtokentableth,
+.showtokentabletd {
   border: 1px solid 07beb8;
   border-radius: 10px;
   padding: 8px;
   text-align: center;
 }
 
-.user-form-for-list option {
+.userformforlistoption {
   color: black;
 }
 
@@ -199,7 +199,7 @@
     margin-left: 20px; */
 }
 
-.div-to-add-the-tx {
+.divtoaddthetx {
   margin: 10px 0px;
   justify-content: center;
   display: flex;
@@ -209,14 +209,14 @@
   /* padding: 10px 10px; */
 }
 
-.steps-to-get-ausdc {
+.stepstogetausdc {
   margin-top: 15px;
 }
-.steps-to-get-ausdc a {
+.stepstogetausdca {
   color: white;
   text-decoration: none;
 }
-.steps-to-get-ausdc button {
+.stepstogetausdcbutton {
   background-color: #0c3d77;
   width: 100%;
   color: white;
@@ -225,16 +225,16 @@
   padding: 10px;
   font-size: 20px;
 }
-.scrollable-table {
+.scrollabletable {
   margin-top: -15px;
   max-height: 230px;
   overflow: auto;
 }
-.scrollable-table-container::-webkit-scrollbar {
+.scrollabletablecontainer::-webkit-scrollbar {
   width: 1px;
 }
 
-.scrollable-table-container::-webkit-scrollbar-thumb {
+.scrollabletablecontainer::-webkit-scrollbar-thumb {
   background-color: rgba(
     255,
     255,
@@ -245,27 +245,27 @@
   width: 2px;
 }
 
-.scrollable-table-container::-webkit-scrollbar-track {
+.scrollabletablecontainer::-webkit-scrollbar-track {
   background-color: transparent;
   width: 2px;
 }
-.div-to-add-the-tx table {
+.divtoaddthetx table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.div-to-add-the-tx table th {
+.divtoaddthetx table th {
   text-align: center;
   /* background-color: #0C3D77; */
   /* border: 1px solid #ddd; */
   padding: 2px;
 }
 
-#border-blue {
+#borderblue {
   border: 1px solid #0c3d77 !important;
 }
 
-.select-load-token-title {
+.selectloadtokentitle {
   border-radius: 47px 47px 0px 0px;
   font-size: 12px;
   background-color: white;
@@ -319,15 +319,15 @@
   /* margin-bottom: 35px; */
 }
 
-.div-to-add-the-tx table th:first-child {
+.divtoaddthetx table th:first-child {
   border-radius: 30px 0px 0px 30px;
 }
 
-.div-to-add-the-tx table th:last-child {
+.divtoaddthetx table th:last-child {
   border-radius: 0px 30px 30px 0px;
 }
 
-.div-to-add-the-tx table td {
+.divtoaddthetx table td {
   text-align: center;
   padding: 10px;
 }
@@ -336,24 +336,24 @@
   background-color: transparent;
 } */
 
-.scrollable-table {
+.scrollabletable {
   max-height: 300px;
   overflow: auto;
 }
 
-.scrollable-table-container {
+.scrollabletablecontainer {
   margin: 25px 0px;
   max-height: 280px;
   overflow: auto;
 }
 
-.send-button:hover {
+.sendbutton:hover {
   cursor: pointer;
   background-color: rgba(20, 187, 216, 0);
   box-shadow: rgba(16, 162, 206, 0.12) 0px 2px 4px 0px,
     rgba(12, 156, 218, 0.32) 0px 2px 16px 0px;
 }
-.send-button {
+.sendbutton {
   padding: 5px 35px;
   border: 1px solid white;
   background: transparent;
@@ -368,18 +368,18 @@
 
   border-radius: 40px;
 }
-.send-button:hover {
+.sendbutton:hover {
   border: none;
   color: #643bdc;
   background: #fff !important;
   box-shadow: 0px 0px 14px 0px #fff;
 }
 
-.blurred-background {
+.blurredbackground {
   filter: blur(1px);
 }
 
-.popup-for-payment {
+.popupforpayment {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -392,19 +392,19 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 9999;
 }
-.popup-for-payment p {
+.popupforpaymentp {
   text-align: center;
   letter-spacing: 1px;
 }
 
-.popup-for-payment h2 {
+.popupforpaymenth2 {
   text-align: center;
   margin-bottom: 20px;
   letter-spacing: 1px;
 }
 
 /* Styling the close button in the popup */
-.popup-for-payment button {
+.popupforpaymentbutton {
   border: 1px solid #1bff76;
   background: transparent;
   color: white;
@@ -414,7 +414,7 @@
   cursor: pointer;
   font-weight: bold;
 }
-.popup-for-payment button:hover {
+.popupforpaymentbutton:hover {
   border: none;
   color: #070707;
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
@@ -426,12 +426,12 @@
   padding: 5px 0px;
 }
 
-.div-to-center {
+.divtocenter {
   display: flex;
   justify-content: center;
   margin: 20px 0px;
 }
-.custom-select {
+.customselect {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -448,12 +448,12 @@
   padding: 30px 20px;
 }
 
-.custom-select option {
+.customselectoption {
   background-color: black;
   color: white;
 }
 
-.custom-select option:checked {
+.customselectoption:checked {
   color: white;
 }
 
@@ -479,7 +479,7 @@
   .viewaddressdivtitleh2 {
     font-size: 15px !important;
   }
-  .input-flex-list label {
+  .inputflexlistlabel {
     width: 100%;
   }
   .light-theme.each-input-of-create-list.token-input {
@@ -488,7 +488,7 @@
   .dark-theme.each-input-of-create-list.token-input {
     width: 90% !important;
   }
-  .input-flex-list {
+  .inputflexlist {
     display: flex;
     width: 100%;
     margin: 10px auto;
@@ -496,11 +496,11 @@
     align-items: flex-start;
     flex-direction: column;
   }
-  .user-form-for-list {
+  .userformforlist {
     width: 100%;
   }
 
-  .each-input-of-create-list {
+  .eachinputofcreatelist {
     width: fit-content;
   }
 
@@ -519,7 +519,7 @@
     font-size: 12px;
   }
 
-  .div-token-inputs {
+  .divtokeninputs {
     display: flex;
     justify-content: center;
     padding: 30px 20px;
@@ -532,7 +532,7 @@
   }
 }
 @media only screen and (max-width: 425px) {
-  .view-address-div-title h2 {
+  .viewaddressdivtitleh2 {
     font-size: 15px !important;
   }
   #fontsize10px {
