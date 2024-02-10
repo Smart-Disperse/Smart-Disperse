@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
-import { useTheme } from "@/ThemeProvider";
+import { useTheme } from "@/ThemeContext";
 import { CovalentClient } from "@covalenthq/client-sdk";
 import listStyle from "@/Components/DashboardComponents/listify.module.css";
 

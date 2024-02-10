@@ -1,3 +1,4 @@
+// themeContext.js
 "use client";
 import React, { createContext, useState, useContext } from "react";
 
@@ -14,7 +15,7 @@ export const ThemeProvider = ({ children }) => {
     setIsDarkMode((prevMode) => !prevMode);
   };
 
-  const themeClass = isDarkMode ? "dark-theme" : "light-theme";
+  const themeClass = isDarkMode ? "darkTheme" : "lightTheme";
 
   return (
     <ThemeContext.Provider value={{ toggleDarkMode, themeClass }}>
