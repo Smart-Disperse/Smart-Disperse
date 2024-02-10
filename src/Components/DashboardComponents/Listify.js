@@ -741,14 +741,14 @@ function SameCreateList() {
             </h2>
           </div>
           <div style={{ padding: "30px 20px" }}>
-            <div className={listStyle.enteraddressdivtitle}>
+            <div className={listStyle.inputflexlist}>
               <label className={listStyle.enteraddressdivtitlelabel}>
                 Enter Receiver Address:{" "}
               </label>
               <input
                 // id="blue-div"
                 // className={`each-input-of-create-list token-input ${themeClass}`}
-                className={`each-input-of-create-list token-input `}
+                className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
                 type="text"
                 name="receiverAddress"
                 value={formData.receiverAddress}
@@ -756,12 +756,12 @@ function SameCreateList() {
                 onChange={handleReceiverAddressChange}
               />
             </div>
-            <div className={listStyle.enteraddressdivtitle}>
+            <div className={listStyle.inputflexlist}>
               <label>Enter Token Amount: </label>
               <input
                 // style={{ color: "black" }}
                 // className={`each-input-of-create-list token-input ${themeClass}`}
-                className={`each-input-of-create-list token-input`}
+                className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
                 type="text"
                 name="tokenAmount"
                 value={formData.tokenAmount}
@@ -770,13 +770,13 @@ function SameCreateList() {
               />
             </div>
 
-            <div className={listStyle.enteraddressdivtitle}>
+            <div className={listStyle.inputflexlist}>
               <label>Chain Name: </label>
 
               <input
                 id="blue-div"
                 // className={`each-input-of-create-list token-input ${themeClass}`}
-                className={`each-input-of-create-list token-input`}
+                className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
                 type="text"
                 name="chainName"
                 value={chainName}
@@ -784,10 +784,15 @@ function SameCreateList() {
                 readOnly
               />
             </div>
-            <div className="main-add-to-list  input-flex-list">
-              <lable style={{ width: "25%" }}></lable>
+            <div
+              className={`${listStyle["mainaddtolist"]} ${listStyle["inputflexlist"]}}`}
+            >
+              <lable
+                className={listStyle.inputflexlistlabel}
+                style={{ width: "25%" }}
+              ></lable>
               <button
-                className="button-to-add-form-data m-add-to-list "
+                className={`${listStyle["buttontoaddformdata"]} ${listStyle["maddtolist"]}}`}
                 onClick={handleAddClick}
                 style={{ width: "40%" }}
               >

@@ -87,10 +87,24 @@
   color: black;
 }
 
-.each-input-of-create-list::placeholder {
+.eachinputofcreatelist::placeholder {
   color: rgba(255, 255, 255, 0.542);
 }
-.light-theme.each-input-of-create-list.token-input {
+/* .light-theme.each-input-of-create-list.token-input {
+  border-radius: 5px;
+  border: 1px solid rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(97, 38, 193, 0.58) 0.06%,
+    rgba(63, 47, 110, 0.58) 98.57%
+  );
+  color: white;
+
+  padding: 10px 20px;
+  margin: 0px 20px;
+} */
+
+.eachinputofcreatelist.tokeninput {
   border-radius: 5px;
   border: 1px solid rgb(255, 255, 255);
   background: linear-gradient(
@@ -103,7 +117,7 @@
   padding: 10px 20px;
   margin: 0px 20px;
 }
-.dark-theme.each-input-of-create-list.token-input {
+/* .dark-theme.each-input-of-create-list.token-input {
   border-radius: 5px;
   border: 1px solid rgb(255, 255, 255);
   background: black;
@@ -111,25 +125,24 @@
 
   padding: 10px 20px;
   margin: 0px 20px;
-}
-.input-flex-list {
+} */
+.inputflexlist {
   display: flex;
   width: 100%;
   margin: 10px auto;
   justify-content: center;
   align-items: center;
 }
-.input-flex-list label {
+.inputflexlistlabel {
   width: 25%;
   text-align: start;
   letter-spacing: 1px;
 }
 .input-flex-list input {
   width: 40%;
-
   letter-spacing: 1px;
 }
-.user-form-for-list {
+.userformforlist {
   padding: 25px 0px;
   border-radius: 15px;
 }
@@ -288,6 +301,10 @@
   color: #8f00ff;
   margin-bottom: -19px;
   padding: 5px 0px;
+}
+
+.enteraddressdivtitlee {
+  font-size: 12px;
 }
 
 .enteraddressdivtitle {
@@ -548,7 +565,7 @@
   .fontsize12px {
     font-size: 12px !important;
   }
-  .popup-for-payment {
+  .popupforpayment {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -562,7 +579,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9999;
   }
-  .send-button {
+  .sendbutton {
     padding: 5px 35px;
     border: 1px solid white;
     background: transparent;
@@ -578,7 +595,7 @@
     /* margin-bottom: 50px; */
     border-radius: 40px;
   }
-  .div-token-inputs {
+  .divtokeninputs {
     display: flex;
     padding: 30px 20px;
     flex-direction: column;
@@ -601,7 +618,7 @@
     padding: 5px 0;
     font-size: 15px !important; */
   }
-  .title-inline {
+  .titleinline {
     font-size: 15px !important;
   }
   /* table {
@@ -616,20 +633,20 @@
     flex-direction: column;
   }
   .enteraddressdivtitlelabel {
-    width: 100%;
-    text-align: start;
     letter-spacing: 1px;
+    text-align: start;
+    width: 25%;
   }
-  .input-flex-list input {
+  .inputflexlist input {
     width: 100%;
     letter-spacing: 1px;
     font-size: 12px;
   }
-  .m-add-to-list {
+  .maddtolist {
     width: 100% !important;
   }
 
-  .input-flex-list label {
+  .inputflexlistlabel {
     width: 100%;
     text-align: start;
     font-size: 13px;
