@@ -86,7 +86,7 @@ const ConnectButtonCustom = () => {
                   <button
                     onClick={openConnectModal}
                     type="button"
-                    className="connect-wallet"
+                    className={connectStyle.connectwallet}
                     style={{}}
                   >
                     <span>Connect Wallet</span>

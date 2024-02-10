@@ -46,7 +46,7 @@ function Navbar() {
               stroke="currentColor"
               className="moon"
               width="50px"
-              id="changeMode"
+              id={navStyle.changeMode}
             >
               {/* Dark mode moon SVG path */}
               <path
@@ -64,7 +64,7 @@ function Navbar() {
               strokeWidth="1.5"
               stroke="currentColor"
               className="sun "
-              id="changeMode"
+              id={navStyle.changeMode}
             >
               {/* Light mode sun SVG path */}
               <path

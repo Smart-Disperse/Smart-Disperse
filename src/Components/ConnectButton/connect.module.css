@@ -12,9 +12,9 @@
   );
 }
 .disconnectmain {
-  right: 10px;
+  right: 45px;
   position: absolute;
-  top: 50px;
+  top: 55px;
   padding: 30px 0px;
   width: 200px;
 }
