@@ -715,19 +715,33 @@ function SameCreateList() {
               Token Details
             </h2>
           </div>
-          <table style={{ margin: "10px 0px", width:"100%",borderCollapse:"collapse" }} >
+          <table
+            style={{
+              margin: "10px 0px",
+              width: "100%",
+              borderCollapse: "collapse",
+            }}
+          >
             <thead className={listStyle.tableheadertextlist}>
               <tr>
-                <th style={{ letterSpacing: "1px",padding:"8px" }}>Name</th>
-                <th style={{ letterSpacing: "1px",padding:"8px" }}>Symbol</th>
-                <th style={{ letterSpacing: "1px" ,padding:"8px" }}>Balance</th>
+                <th style={{ letterSpacing: "1px", padding: "8px" }}>Name</th>
+                <th style={{ letterSpacing: "1px", padding: "8px" }}>Symbol</th>
+                <th style={{ letterSpacing: "1px", padding: "8px" }}>
+                  Balance
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td style={{ letterSpacing: "1px",padding:"8px" }}>{tokenDetails.name}</td>
-                <td style={{ letterSpacing: "1px",padding:"8px" }}>{tokenDetails.symbol}</td>
-                <td style={{ letterSpacing: "1px",padding:"8px" }}>{tokenDetails.balance}</td>
+                <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                  {tokenDetails.name}
+                </td>
+                <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                  {tokenDetails.symbol}
+                </td>
+                <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                  {tokenDetails.balance}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -794,9 +808,7 @@ function SameCreateList() {
                 readOnly
               />
             </div>
-            <div
-              className={listStyle.inputflexlist}
-            >
+            <div className={listStyle.inputflexlist}>
               <lable
                 className={listStyle.inputflexlistlabel}
                 style={{ width: "25%" }}
@@ -844,31 +856,31 @@ function SameCreateList() {
                 <tr>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px",padding:"8px" }}
+                    style={{ letterSpacing: "1px", padding: "8px" }}
                   >
                     Receiver Address
                   </th>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px",padding:"8px" }}
+                    style={{ letterSpacing: "1px", padding: "8px" }}
                   >
                     Chain Name
                   </th>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px",padding:"8px" }}
+                    style={{ letterSpacing: "1px", padding: "8px" }}
                   >
                     Token Symbol
                   </th>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px",padding:"8px" }}
+                    style={{ letterSpacing: "1px", padding: "8px" }}
                   >
                     Amount(ETH)
                   </th>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px",padding:"8px" }}
+                    style={{ letterSpacing: "1px", padding: "8px" }}
                   >
                     Amount (USD)
                   </th>
@@ -879,7 +891,7 @@ function SameCreateList() {
                   <tr key={index}>
                     <td
                       id={listStyle.fontsize10px}
-                      style={{ letterSpacing: "1px",padding:"8px"}}
+                      style={{ letterSpacing: "1px", padding: "8px" }}
                     >
                       {`${data.receiverAddress.slice(
                         0,
@@ -887,7 +899,7 @@ function SameCreateList() {
                       )}...${data.receiverAddress.slice(-3)}`}
                     </td>
 
-                    <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
                       <div
                         id={listStyle.fontsize10px}
                         style={{
@@ -901,7 +913,7 @@ function SameCreateList() {
                         {isTokenLoaded ? tokenDetails.symbol : "ETH"}
                       </div>
                     </td>
-                    <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
                       <div
                         id={listStyle.fontsize10px}
                         style={{
@@ -916,7 +928,7 @@ function SameCreateList() {
                         {chainName}
                       </div>
                     </td>
-                    <td style={{ letterSpacing: "1px",padding:"8px"}}>
+                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
                       <div
                         id={listStyle.fontsize10px}
                         style={{
@@ -941,7 +953,7 @@ function SameCreateList() {
                             )).toFixed(9)}
                       </div>
                     </td>
-                    <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
                       <div
                         id={listStyle.fontsize10px}
                         style={{
@@ -968,7 +980,7 @@ function SameCreateList() {
                           : "Loading..."}
                       </div>
                     </td>
-                    <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
                       <button
                         className={listStyle.deletebutton}
                         onClick={() => handleDeleteRow(index)}
@@ -1002,25 +1014,25 @@ function SameCreateList() {
                     <tr>
                       <th
                         className={listStyle.accountsummartth}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Total Amount(ETH)
                       </th>
                       <th
                         className={listStyle.accountsummartth}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Total Amount(USD)
                       </th>
                       <th
                         className={listStyle.accountsummartth}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Your Balance
                       </th>
                       <th
                         className={listStyle.accountsummartth}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Remaining Balance
                       </th>
@@ -1028,7 +1040,7 @@ function SameCreateList() {
                   </thead>{" "}
                   <tbody>
                     <tr>
-                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                      <td style={{ letterSpacing: "1px", padding: "8px" }}>
                         <div
                           id={listStyle.fontsize10px}
                           className={`${listStyle["listAccSum"]} ${listStyle["fontsize12px"]}`}
@@ -1047,7 +1059,7 @@ function SameCreateList() {
                           )}
                         </div>
                       </td>
-                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                      <td style={{ letterSpacing: "1px", padding: "8px" }}>
                         <div
                           id={listStyle.fontsize10px}
                           className={listStyle.fontsize12px}
@@ -1071,16 +1083,14 @@ function SameCreateList() {
                                 style={{ fontWeight: "500" }}
                               >
                                 {` ${
-                                  usdTotal
-                                    ? usdTotal.toFixed(2)
-                                    : "Calculating..."
+                                  usdTotal ? usdTotal.toFixed(2) : "Loading..."
                                 } $ `}
                               </span>
                             </>
                           )}
                         </div>
                       </td>
-                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                      <td style={{ letterSpacing: "1px", padding: "8px" }}>
                         <div
                           id={listStyle.fontsize10px}
                           style={{
@@ -1103,7 +1113,7 @@ function SameCreateList() {
                         className={`showtokenremainingbalance ${
                           remaining < 0 ? "showtokenremainingnegative" : ""
                         }`}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         <div
                           id={listStyle.fontsize10px}
@@ -1154,19 +1164,19 @@ function SameCreateList() {
                     <tr>
                       <th
                         className={listStyle.tableheadertextlist}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Total Amount(ETH)
                       </th>
                       <th
                         className={listStyle.accountsummaryth}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Total Amount(USD)
                       </th>
                       <th
                         className={listStyle.accountsummaryth}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Remaining Balance
                       </th>
@@ -1174,13 +1184,12 @@ function SameCreateList() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                      <td style={{ letterSpacing: "1px", padding: "8px" }}>
                         {total && ethToUsdExchangeRate && (
                           <>
                             <div
                               id={listStyle.fontsize10px}
                               className={`${listStyle["listAccSum"]} ${listStyle["fontsize12px"]}`}
-                            
                             >
                               {`${ethers.utils.formatEther(total)} ETH `}
                             </div>
@@ -1192,7 +1201,7 @@ function SameCreateList() {
                           </>
                         )}
                       </td>
-                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
+                      <td style={{ letterSpacing: "1px", padding: "8px" }}>
                         {total && ethToUsdExchangeRate && (
                           <>
                             {/* {`${ethers.utils.formatEther(total)} ETH `} */}
@@ -1212,9 +1221,7 @@ function SameCreateList() {
                               }}
                             >
                               {` ${
-                                usdTotal
-                                  ? usdTotal.toFixed(2)
-                                  : "Calculating..."
+                                usdTotal ? usdTotal.toFixed(2) : "Loading..."
                               } $ `}
                             </div>
                           </>
@@ -1224,7 +1231,7 @@ function SameCreateList() {
                         className={`showtoken-remaining-balance ${
                           remaining < 0 ? "showtoken-remaining-negative" : ""
                         }`}
-                        style={{ letterSpacing: "1px",padding:"8px" }}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         <div
                           id={listStyle.fontsize10px}
@@ -1264,7 +1271,11 @@ function SameCreateList() {
               }}
               disabled={loading}
             >
-              {loading ? <div className={listStyle.loader}></div> : "Begin Payment"}
+              {loading ? (
+                <div className={listStyle.loader}></div>
+              ) : (
+                "Begin Payment"
+              )}
             </button>
           </div>
         </div>

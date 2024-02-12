@@ -1017,7 +1017,7 @@ function SameCsvList() {
                                   {`${
                                     usdTotal
                                       ? usdTotal.toFixed(2)
-                                      : "Calculating..."
+                                      : "Loading..."
                                   } $ `}
                                 </div>
                               </>
