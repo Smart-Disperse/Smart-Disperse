@@ -12,7 +12,6 @@ import Modal from "react-modal";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import textiftgif from "@/Assets/TextifyDemo.gif";
-import importtoken from "@/Assets/TextifyDemo.gif";
 import { isAddress } from "viem";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
@@ -452,11 +451,9 @@ function SameTextlist() {
   // if (!hasVisitedthisBefore) {
   //   document.cookie = "visited=true; max-age=31536000"; // Max age is set to 1 year in seconds
   const textifytour = () => {
-    // Check if the user has a localStorage item indicating they've visited before
     const hasVisitedBefore = localStorage.getItem("visited");
 
     if (!hasVisitedBefore) {
-      // Run the tour only if the user is new
       const newTourDriver = driver({
         showButtons: ["done"],
         overlayColor: "#00000094",
@@ -466,8 +463,8 @@ function SameTextlist() {
             element: "#tt",
             popover: {
               title: "Textify Illustration",
-              description:
-                "<Image src=${textiftgif} style='height: 202.5px; width: 270px;' />",
+              description: `<Image src="${textiftgif.src}" style="height: 202.5px; width: 270px;" />`,
+              // description: `<Image src="https://i.ibb.co/cgnpgnL/ttt.gif" style="height: 202.5px; width: 270px;" />`,
               side: "right",
               align: "start",
             },
@@ -1253,78 +1250,7 @@ function SameTextlist() {
             </button>
           </div>
         </Modal>
-        <Modal
-          isOpen={howModalIsOpen}
-          onRequestClose={closeHowModal}
-          style={{
-            content: {
-              top: "50%",
-              left: "50%",
-              right: "auto",
-              bottom: "auto",
-              transform: "translate(-50%, -50%)",
-              borderRadius: "15px",
-              background: "black",
-              color: "white",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            },
-          }}
-        >
-          <div style={{ textAlign: "center" }}>
-            <h2>Import Token Illustration</h2>
-          </div>
-          <img
-            src={importtoken}
-            alt="GIF"
-            style={{
-              maxWidth: "100%",
-              borderRadius: "8px 8px 0 0",
-              margin: "10px",
-            }}
-          />
 
-          <div>
-            <div>
-              {/* <h3 style={{ margin: "5px 0px" }}>Quick Guide</h3> */}
-            </div>
-            {/* <ul> */}
-            {/* <li>Input Ethereum addresses and amounts line by line.</li>
-              <li>
-                Use formats: `address=amount`, `address,amount`, or `address
-                amount`.
-              </li> */}
-            {/* <li>Example:</li>
-              <ul>
-                <li>
-                  <code>0x7D96c55A7b510e523812f67b4D49d514B8cE9040 1.5</code>
-                </li>
-                <li>
-                  <code>0x7D96c55A7b510e523812f67b4D49d514B8cE9040=1.5</code>
-                </li>
-                <li>
-                  <code>0x7D96c55A7b510e523812f67b4D49d514B8cE9040,1.5</code>
-                </li>
-              </ul>
-            </ul> */}
-
-            {/* Add the rest of your documentation here */}
-          </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <button
-              style={{
-                padding: "5px 15px",
-                fontSize: "20px",
-                borderRadius: "5px",
-                border: "1px solid white",
-                background: "black",
-                color: "white",
-              }}
-              onClick={closeHowModal}
-            >
-              Close
-            </button>
-          </div>
-        </Modal>
         <Modal
           className={textStyle.popupforpayment}
           isOpen={errorModalIsOpen}
