@@ -97,14 +97,14 @@ export default function Landingpage() {
   return (
     <div className={homeStyle.wholelandingpage}>
       <Navbar />
-      <Image className={homeStyle.imageleft} src={img1} alt="not found" />
       <Image className={homeStyle.imageright} src={img2} alt="not found" />
-      <div
-        className={`${homeStyle["maindivihomepage"]} ${
-          showModal ? `${homeStyle["blurbackground"]}` : ""
-        }`}
-      >
-        <div className={homeStyle.maindivihomepage}>
+      <Image className={homeStyle.imageleft} src={img1} alt="not found" />
+      <div className={homeStyle.maincontainer}>
+        <div
+          className={`${homeStyle["maindivihomepage"]} ${
+            showModal ? `${homeStyle["blurbackground"]}` : ""
+          }`}
+        >
           <div className={homeStyle.ihomepagetitlei}>
             <h1 className={homeStyle.ihometitleii}>All Chains, One Solution</h1>
           </div>
@@ -126,103 +126,106 @@ export default function Landingpage() {
               }}
             >
               Get Started{" "}
-              <FontAwesomeIcon
-                style={{ width: "22px", margin: "4px" }}
-                icon={faArrowRight}
-              />
+              <FontAwesomeIcon style={{ width: "22px" }} icon={faArrowRight} />
             </button>
           </div>
         </div>
-      </div>
-      <div
-        className={`${homeStyle["maindivforuserguide"]} ${
-          showModal ? `${homeStyle["blurbackground"]}` : ""
-        }`}
-      >
-        <div className={homeStyle.userguideborderdiv}>
-          <p
-            style={{
-              fontSize: "23px",
-              background: "#05F0E8",
-              background:
-                "linear-gradient(to right, #05F0E8 13%, #13FF03 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              // marginBottom: "5px",
-              fontWeight: "800",
-              letterSpacing: "1px",
-            }}
-            className={homeStyle.homepera}
-          >
-            Smart-Disperse Walkthrough
-          </p>
-          <div className={homeStyle.rectangleboxfor4cards}>
-            <div id={homeStyle.a} className={homeStyle.card}>
-              <Image className={homeStyle.iconnn} src={gif} alt="non" />
-              <h3
-                id={homeStyle.c1}
-                className={homeStyle.iconn}
-                style={{ letterSpacing: "1px" }}
-              >
-                Connect Your Wallet
-              </h3>
-              <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
-                Link your Wallet
-              </p>
-            </div>
-            <div id={homeStyle.b} className={homeStyle.card}>
-              <Image className={homeStyle.iconnn} src={list} alt="non" />
-              <h3
-                id={homeStyle.c2}
-                className={homeStyle.iconn}
-                style={{ letterSpacing: "1px" }}
-              >
-                List Transactions
-              </h3>
-              <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
-                Enter Recipient Details
-              </p>
-            </div>
-            <div id={homeStyle.c} className={homeStyle.card}>
-              <Image className={homeStyle.iconnn} src={send} alt="non" />
-              <h3
-                id={homeStyle.c3}
-                className={homeStyle.iconn}
-                style={{ letterSpacing: "1px" }}
-              >
-                Send Transaction
-              </h3>
-              <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
-                Initiate the transaction
-              </p>
-            </div>
-            <div id={homeStyle.d} className={homeStyle.card}>
-              <Image className={homeStyle.iconnn} src={historyview} alt="non" />
-              <h3
-                id={homeStyle.c4}
-                className={homeStyle.iconn}
-                style={{ letterSpacing: "1px" }}
-              >
-                View History
-              </h3>
-              <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
-                Monitor your Transactions
-              </p>
+        <div
+          className={`${homeStyle["maindivforuserguide"]} ${
+            showModal ? `${homeStyle["blurbackground"]}` : ""
+          }`}
+        >
+          <div className={homeStyle.userguideborderdiv}>
+            <p
+              style={{
+                fontSize: "23px",
+                background: "#05F0E8",
+                background:
+                  "linear-gradient(to right, #05F0E8 13%, #13FF03 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                // marginBottom: "5px",
+                fontWeight: "800",
+                letterSpacing: "1px",
+                marginBottom: "1rem",
+                marginTop: "0rem",
+              }}
+              className={homeStyle.homepera}
+            >
+              Smart-Disperse Walkthrough
+            </p>
+            <div className={homeStyle.rectangleboxfor4cards}>
+              <div id={homeStyle.a} className={homeStyle.card}>
+                <Image className={homeStyle.iconnn} src={gif} alt="non" />
+                <h3
+                  id={homeStyle.c1}
+                  className={homeStyle.iconn}
+                  style={{ letterSpacing: "1px" }}
+                >
+                  Connect Your Wallet
+                </h3>
+                <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
+                  Link your Wallet
+                </p>
+              </div>
+              <div id={homeStyle.b} className={homeStyle.card}>
+                <Image className={homeStyle.iconnn} src={list} alt="non" />
+                <h3
+                  id={homeStyle.c2}
+                  className={homeStyle.iconn}
+                  style={{ letterSpacing: "1px" }}
+                >
+                  List Transactions
+                </h3>
+                <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
+                  Enter Recipient Details
+                </p>
+              </div>
+              <div id={homeStyle.c} className={homeStyle.card}>
+                <Image className={homeStyle.iconnn} src={send} alt="non" />
+                <h3
+                  id={homeStyle.c3}
+                  className={homeStyle.iconn}
+                  style={{ letterSpacing: "1px" }}
+                >
+                  Send Transaction
+                </h3>
+                <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
+                  Initiate the transaction
+                </p>
+              </div>
+              <div id={homeStyle.d} className={homeStyle.card}>
+                <Image
+                  className={homeStyle.iconnn}
+                  src={historyview}
+                  alt="non"
+                />
+                <h3
+                  id={homeStyle.c4}
+                  className={homeStyle.iconn}
+                  style={{ letterSpacing: "1px" }}
+                >
+                  View History
+                </h3>
+                <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
+                  Monitor your Transactions
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {showModal && (
-        <div className={homeStyle.modaloverlay}>
-          <div className={homeStyle.modalcontainer}>
-            <Modal
-              closeModal={closeModal}
-              handleContinue={handleContinue}
-              handleSameChain={handleSameChain}
-            />
+        {showModal && (
+          <div className={homeStyle.modaloverlay}>
+            <div className={homeStyle.modalcontainer}>
+              <Modal
+                closeModal={closeModal}
+                handleContinue={handleContinue}
+                handleSameChain={handleSameChain}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
       <Footer />
     </div>
   );

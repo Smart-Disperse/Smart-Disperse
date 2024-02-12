@@ -137,8 +137,8 @@ const ConnectButtonCustom = () => {
                             <span
                               style={{
                                 content: "",
-                                top: "50%",
-                                left: " 50%",
+                                top: "-4px",
+                                left: " 0",
                                 fontSize: "15px",
                                 transform: "translate(-50%, -50%)",
                                 background:
@@ -147,6 +147,7 @@ const ConnectButtonCustom = () => {
                                 webkitBackgroundClip: "text",
                                 webkitTextFillColor: "transparent",
                                 zIndex: "0",
+                                position: "relative",
                               }}
                             >{`${account.address.slice(
                               0,
@@ -195,8 +196,8 @@ const ConnectButtonCustom = () => {
                               <span
                                 style={{
                                   content: "",
-                                  top: "50%",
-                                  left: " 50%",
+                                  top: "-4px",
+                                  left: " 0",
                                   fontSize: "15px",
                                   transform: "translate(-50%, -50%)",
                                   background:
@@ -205,6 +206,7 @@ const ConnectButtonCustom = () => {
                                   webkitBackgroundClip: "text",
                                   webkitTextFillColor: "transparent",
                                   zIndex: "0",
+                                  position: "relative",
                                 }}
                               >
                                 Disconnect
@@ -212,7 +214,7 @@ const ConnectButtonCustom = () => {
                               <Image
                                 src={power}
                                 style={{
-                                  width: "25px",
+                                  width: "20px",
                                   margin: "0px 10px",
                                   height: "auto",
                                 }}
