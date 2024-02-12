@@ -23,9 +23,9 @@ function Samechaindashboard() {
   //   const { address, isConnected } = useAccount();
 
   useEffect(() => {
-    const hasVisitedBefore = document.cookie.includes("visited=true");
+    const hasVisitedBefore = document.cookie.includes("visited=false");
     if (!hasVisitedBefore) {
-      document.cookie = "visited=true; max-age=31536000"; // Max age is set to 1 year in seconds
+      document.cookie = "visited=true; max-age=31536000";
       const driverObj = driver({
         overlayColor: "#00000094",
         showProgress: true,
@@ -99,7 +99,8 @@ function Samechaindashboard() {
         <div className={samechainStyle.maindivforalloptiondashboard}>
           <div className={samechainStyle.menubardashboard}>
             <button
-              id={samechainStyle.view}
+              // id={samechainStyle.view}
+              id="view"
               className={
                 activeTab === `${samechainStyle.text}`
                   ? `${samechainStyle.active}`
@@ -114,7 +115,8 @@ function Samechaindashboard() {
               Textify
             </button>
             <button
-              id={samechainStyle.create}
+              // id={samechainStyle.create}
+              id="create"
               className={
                 activeTab === `${samechainStyle.create}`
                   ? `${samechainStyle.active}`
@@ -129,7 +131,8 @@ function Samechaindashboard() {
               Listify
             </button>
             <button
-              id={samechainStyle.csv}
+              // id={samechainStyle.csv}
+              id="csv"
               className={
                 activeTab === `${samechainStyle.list}`
                   ? `${samechainStyle.active}`
