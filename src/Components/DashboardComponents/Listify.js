@@ -14,6 +14,7 @@ import { useAccount } from "wagmi";
 import { useTheme } from "@/ThemeContext";
 import { CovalentClient } from "@covalenthq/client-sdk";
 import listStyle from "@/Components/DashboardComponents/listify.module.css";
+import { lightTheme } from "@rainbow-me/rainbowkit";
 
 function SameCreateList() {
   // const { toggleDarkMode, themeClass } = useTheme();
@@ -577,7 +578,7 @@ function SameCreateList() {
     <div className={listStyle.maindivsamecreatelist}>
       {/* <button onClick={getConnectedChain}>check here</button> */}
       {/* <p>1. Select Tokens to disperse</p> */}
-      <div className={listStyle.selectloadtokentitleh2}>
+      <div className={listStyle.selectloadtokentitle}>
         <h2
           style={{
             padding: "10px",
@@ -661,15 +662,24 @@ function SameCreateList() {
               id={listStyle.inputtokenload}
               type="text"
               // className={`each-input-of-create-list token-input ${themeClass}`}
-              className={`each-input-of-create-list token-input`}
+              className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
               placeholder="Enter token Address"
               value={customTokenAddress}
               onChange={(e) => handleInputTokenAddressChange(e)}
+              style={{
+                borderRadius: "5px",
+                border: "1px solid #fff",
+                background:
+                  "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
+                padding: "10px 20px",
+                margin: "0px 20px",
+                color: "white",
+              }}
             />
             {isTokenLoaded ? (
               <button
                 // className={`button-to-add-form-data-unload ${themeClass}`}
-                className={`button-to-add-form-data-unload`}
+                className={listStyle.buttontoaddformdataunload}
                 onClick={() => {
                   unloadToken();
                 }}
@@ -705,19 +715,19 @@ function SameCreateList() {
               Token Details
             </h2>
           </div>
-          <table style={{ margin: "10px 0px" }}>
-            <thead className="table-header-text-list">
+          <table style={{ margin: "10px 0px", width:"100%",borderCollapse:"collapse" }} >
+            <thead className={listStyle.tableheadertextlist}>
               <tr>
-                <th style={{ letterSpacing: "1px" }}>Name</th>
-                <th style={{ letterSpacing: "1px" }}>Symbol</th>
-                <th style={{ letterSpacing: "1px" }}>Balance</th>
+                <th style={{ letterSpacing: "1px",padding:"8px" }}>Name</th>
+                <th style={{ letterSpacing: "1px",padding:"8px" }}>Symbol</th>
+                <th style={{ letterSpacing: "1px" ,padding:"8px" }}>Balance</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td style={{ letterSpacing: "1px" }}>{tokenDetails.name}</td>
-                <td style={{ letterSpacing: "1px" }}>{tokenDetails.symbol}</td>
-                <td style={{ letterSpacing: "1px" }}>{tokenDetails.balance}</td>
+                <td style={{ letterSpacing: "1px",padding:"8px" }}>{tokenDetails.name}</td>
+                <td style={{ letterSpacing: "1px",padding:"8px" }}>{tokenDetails.symbol}</td>
+                <td style={{ letterSpacing: "1px",padding:"8px" }}>{tokenDetails.balance}</td>
               </tr>
             </tbody>
           </table>
@@ -785,7 +795,7 @@ function SameCreateList() {
               />
             </div>
             <div
-              className={`${listStyle["mainaddtolist"]} ${listStyle["inputflexlist"]}}`}
+              className={listStyle.inputflexlist}
             >
               <lable
                 className={listStyle.inputflexlistlabel}
@@ -794,7 +804,7 @@ function SameCreateList() {
               <button
                 className={`${listStyle["buttontoaddformdata"]} ${listStyle["maddtolist"]}}`}
                 onClick={handleAddClick}
-                style={{ width: "40%" }}
+                style={{ width: "45%" }}
               >
                 Add to List
               </button>
@@ -829,36 +839,36 @@ function SameCreateList() {
             </h2>
           </div>
           <div className={listStyle.scrollabletablecontainer}>
-            <table>
+            <table className={listStyle.tabletextlist}>
               <thead className={listStyle.tableheadertextlist}>
                 <tr>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px" }}
+                    style={{ letterSpacing: "1px",padding:"8px" }}
                   >
                     Receiver Address
                   </th>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px" }}
+                    style={{ letterSpacing: "1px",padding:"8px" }}
                   >
                     Chain Name
                   </th>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px" }}
+                    style={{ letterSpacing: "1px",padding:"8px" }}
                   >
                     Token Symbol
                   </th>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px" }}
+                    style={{ letterSpacing: "1px",padding:"8px" }}
                   >
                     Amount(ETH)
                   </th>
                   <th
                     className={listStyle.accountsummartth}
-                    style={{ letterSpacing: "1px" }}
+                    style={{ letterSpacing: "1px",padding:"8px" }}
                   >
                     Amount (USD)
                   </th>
@@ -869,7 +879,7 @@ function SameCreateList() {
                   <tr key={index}>
                     <td
                       id={listStyle.fontsize10px}
-                      style={{ letterSpacing: "1px" }}
+                      style={{ letterSpacing: "1px",padding:"8px"}}
                     >
                       {`${data.receiverAddress.slice(
                         0,
@@ -877,7 +887,7 @@ function SameCreateList() {
                       )}...${data.receiverAddress.slice(-3)}`}
                     </td>
 
-                    <td style={{ letterSpacing: "1px" }}>
+                    <td style={{ letterSpacing: "1px",padding:"8px" }}>
                       <div
                         id={listStyle.fontsize10px}
                         style={{
@@ -891,7 +901,7 @@ function SameCreateList() {
                         {isTokenLoaded ? tokenDetails.symbol : "ETH"}
                       </div>
                     </td>
-                    <td style={{ letterSpacing: "1px" }}>
+                    <td style={{ letterSpacing: "1px",padding:"8px" }}>
                       <div
                         id={listStyle.fontsize10px}
                         style={{
@@ -906,7 +916,7 @@ function SameCreateList() {
                         {chainName}
                       </div>
                     </td>
-                    <td style={{ letterSpacing: "1px" }}>
+                    <td style={{ letterSpacing: "1px",padding:"8px"}}>
                       <div
                         id={listStyle.fontsize10px}
                         style={{
@@ -931,7 +941,7 @@ function SameCreateList() {
                             )).toFixed(9)}
                       </div>
                     </td>
-                    <td style={{ letterSpacing: "1px" }}>
+                    <td style={{ letterSpacing: "1px",padding:"8px" }}>
                       <div
                         id={listStyle.fontsize10px}
                         style={{
@@ -958,7 +968,7 @@ function SameCreateList() {
                           : "Loading..."}
                       </div>
                     </td>
-                    <td style={{ letterSpacing: "1px" }}>
+                    <td style={{ letterSpacing: "1px",padding:"8px" }}>
                       <button
                         className={listStyle.deletebutton}
                         onClick={() => handleDeleteRow(index)}
@@ -992,25 +1002,25 @@ function SameCreateList() {
                     <tr>
                       <th
                         className={listStyle.accountsummartth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         Total Amount(ETH)
                       </th>
                       <th
                         className={listStyle.accountsummartth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         Total Amount(USD)
                       </th>
                       <th
                         className={listStyle.accountsummartth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         Your Balance
                       </th>
                       <th
                         className={listStyle.accountsummartth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         Remaining Balance
                       </th>
@@ -1018,23 +1028,10 @@ function SameCreateList() {
                   </thead>{" "}
                   <tbody>
                     <tr>
-                      <td style={{ letterSpacing: "1px" }}>
+                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
                         <div
                           id={listStyle.fontsize10px}
-                          className={listStyle.fontsize12px}
-                          style={{
-                            width: "fit-content",
-                            margin: "0 auto",
-                            background:
-                              "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                            color: "black",
-                            borderRadius: "10px",
-                            padding: "10px 10px",
-                            fontSize: "12px",
-                            letterSpacing: "1px",
-                            transform: "translate(-50%, -50%)",
-                            animation: "zoomAnimation 1s infinite alternate",
-                          }}
+                          className={`${listStyle["listAccSum"]} ${listStyle["fontsize12px"]}`}
                         >
                           {total && ethToUsdExchangeRate && (
                             <>
@@ -1050,7 +1047,7 @@ function SameCreateList() {
                           )}
                         </div>
                       </td>
-                      <td style={{ letterSpacing: "1px" }}>
+                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
                         <div
                           id={listStyle.fontsize10px}
                           className={listStyle.fontsize12px}
@@ -1083,7 +1080,7 @@ function SameCreateList() {
                           )}
                         </div>
                       </td>
-                      <td style={{ letterSpacing: "1px" }}>
+                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
                         <div
                           id={listStyle.fontsize10px}
                           style={{
@@ -1106,7 +1103,7 @@ function SameCreateList() {
                         className={`showtokenremainingbalance ${
                           remaining < 0 ? "showtokenremainingnegative" : ""
                         }`}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         <div
                           id={listStyle.fontsize10px}
@@ -1153,23 +1150,23 @@ function SameCreateList() {
               </div>
               <div id={listStyle.tableresponsive}>
                 <table className={listStyle.showtokentable}>
-                  <thead className="table-header-text-list">
+                  <thead className={listStyle.tableheadertextlist}>
                     <tr>
                       <th
                         className={listStyle.tableheadertextlist}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         Total Amount(ETH)
                       </th>
                       <th
                         className={listStyle.accountsummaryth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         Total Amount(USD)
                       </th>
                       <th
                         className={listStyle.accountsummaryth}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         Remaining Balance
                       </th>
@@ -1177,26 +1174,13 @@ function SameCreateList() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td style={{ letterSpacing: "1px" }}>
+                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
                         {total && ethToUsdExchangeRate && (
                           <>
                             <div
                               id={listStyle.fontsize10px}
-                              className={listStyle.fontsize12px}
-                              style={{
-                                width: "fit-content",
-                                margin: "0 auto",
-                                background:
-                                  "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                color: "black",
-                                borderRadius: "10px",
-                                padding: "10px 10px",
-                                fontSize: "12px",
-                                letterSpacing: "1px",
-                                transform: "translate(-50%, -50%)",
-                                animation:
-                                  "zoomAnimation 1s infinite alternate",
-                              }}
+                              className={`${listStyle["listAccSum"]} ${listStyle["fontsize12px"]}`}
+                            
                             >
                               {`${ethers.utils.formatEther(total)} ETH `}
                             </div>
@@ -1208,7 +1192,7 @@ function SameCreateList() {
                           </>
                         )}
                       </td>
-                      <td style={{ letterSpacing: "1px" }}>
+                      <td style={{ letterSpacing: "1px",padding:"8px" }}>
                         {total && ethToUsdExchangeRate && (
                           <>
                             {/* {`${ethers.utils.formatEther(total)} ETH `} */}
@@ -1240,7 +1224,7 @@ function SameCreateList() {
                         className={`showtoken-remaining-balance ${
                           remaining < 0 ? "showtoken-remaining-negative" : ""
                         }`}
-                        style={{ letterSpacing: "1px" }}
+                        style={{ letterSpacing: "1px",padding:"8px" }}
                       >
                         <div
                           id={listStyle.fontsize10px}
@@ -1280,14 +1264,14 @@ function SameCreateList() {
               }}
               disabled={loading}
             >
-              {loading ? <div className="loader"></div> : "Begin Payment"}
+              {loading ? <div className={listStyle.loader}></div> : "Begin Payment"}
             </button>
           </div>
         </div>
       ) : null}
       {/* </div> */}
       <Modal
-        className="popup-for-payment"
+        className={listStyle.popupforpayment}
         isOpen={errorModalIsOpen}
         onRequestClose={() => setErrorModalIsOpen(false)}
         contentLabel="Error Modal"
