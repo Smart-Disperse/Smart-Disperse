@@ -7,7 +7,11 @@
   text-align: center;
   color: white;
 }
-
+.maincontainer {
+  min-height: 70vh;
+  padding: 30px 0;
+  position: relative;
+}
 .userguideborderdiv {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   -webkit-box-shadow: inset 27px 23px 137px -34px rgba(0, 0, 0, 0.39);
@@ -41,7 +45,7 @@
   background-color: transparent;
   border: 1px solid #1bff76;
   font-size: 20px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.055em;
   text-align: center;
   color: #1bff76;
@@ -532,9 +536,8 @@
   filter: blur(5px);
 }
 .maincontainer {
-  min-height: 80vh;
   padding: 30px 0px;
-  min-height: 75vh;
+  min-height: 70vh;
 }
 
 /* Modal Overlay */
