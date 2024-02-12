@@ -97,8 +97,8 @@ export default function Landingpage() {
   return (
     <div className={homeStyle.wholelandingpage}>
       <Navbar />
-      <Image className={homeStyle.imageright} src={img2} alt="not found" />
       <Image className={homeStyle.imageleft} src={img1} alt="not found" />
+      <Image className={homeStyle.imageright} src={img2} alt="not found" />
       <div
         className={`${homeStyle["maindivihomepage"]} ${
           showModal ? `${homeStyle["blurbackground"]}` : ""
