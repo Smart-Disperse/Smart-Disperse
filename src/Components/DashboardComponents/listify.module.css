@@ -136,7 +136,7 @@
   padding: 15px 20px;
   margin: 0px 20px;
 }
-.tabletextlist{
+.tabletextlist {
   width: 100%;
   border-collapse: collapse;
 }
@@ -549,7 +549,12 @@
   color: #070707;
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
 }
-
+.selectloadtokentitle {
+  border-radius: 47px 47px 0px 0px;
+  background: #fff;
+  padding: 5px 0px;
+  font-size: 12px;
+}
 @media (max-width: 768px) {
   .viewaddressdivtitleh2 {
     font-size: 15px !important;
@@ -587,7 +592,7 @@
     max-height: 200px;
   }
 
-  .selectloadtokentitleh2 {
+  .selectloadtokentitle {
     border-radius: 47px 47px 0px 0px;
     background: #fff;
     padding: 5px 0px;

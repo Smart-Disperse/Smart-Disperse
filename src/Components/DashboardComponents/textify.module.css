@@ -9,6 +9,11 @@
   transform: translate(-50%, -50%);
   animation: zoomAnimation 1s infinite alternate;
 }
+
+.driverpopover01 {
+  color: white !important;
+  background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%) !important;
+}
 @keyframes zoomAnimation {
   0% {
     transform: scale(1);

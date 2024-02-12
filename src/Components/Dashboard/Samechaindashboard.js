@@ -23,11 +23,12 @@ function Samechaindashboard() {
   //   const { address, isConnected } = useAccount();
 
   useEffect(() => {
-    const hasVisitedBefore = document.cookie.includes("visited=false");
+    const hasVisitedBefore = document.cookie.includes("visited=true");
     if (!hasVisitedBefore) {
-      document.cookie = "visited=true; max-age=31536000";
+      document.cookie = "visited=true; max-age=31536000"; // Max age is set to 1 year in seconds
       const driverObj = driver({
         overlayColor: "#00000094",
+        popoverClass: ` ${samechainStyle.driverpopover01}`,
         showProgress: true,
         steps: [
           {
@@ -101,11 +102,7 @@ function Samechaindashboard() {
             <button
               // id={samechainStyle.view}
               id="view"
-              className={
-                activeTab === `${samechainStyle.text}`
-                  ? `${samechainStyle.active}`
-                  : ""
-              }
+              className={activeTab === "text" ? `${samechainStyle.active}` : ""}
               onClick={() => setActiveTab("text")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
@@ -118,9 +115,7 @@ function Samechaindashboard() {
               // id={samechainStyle.create}
               id="create"
               className={
-                activeTab === `${samechainStyle.create}`
-                  ? `${samechainStyle.active}`
-                  : ""
+                activeTab === "create" ? `${samechainStyle.active}` : ""
               }
               onClick={() => setActiveTab("create")}
               data-bs-toggle="tooltip"
@@ -133,11 +128,7 @@ function Samechaindashboard() {
             <button
               // id={samechainStyle.csv}
               id="csv"
-              className={
-                activeTab === `${samechainStyle.list}`
-                  ? `${samechainStyle.active}`
-                  : ""
-              }
+              className={activeTab === "list" ? `${samechainStyle.active}` : ""}
               onClick={() => setActiveTab("list")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
