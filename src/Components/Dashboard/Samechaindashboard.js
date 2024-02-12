@@ -24,46 +24,47 @@ function Samechaindashboard() {
 
   useEffect(() => {
     const hasVisitedBefore = document.cookie.includes("visited=true");
-    if (!hasVisitedBefore) {
-      document.cookie = "visited=true; max-age=31536000"; // Max age is set to 1 year in seconds
-      const driverObj = driver({
-        overlayColor: "#00000094",
-        showProgress: true,
-        steps: [
-          {
-            element: "#view",
-            popover: {
-              title: "Textify",
-              description:
-                "Effortlessly input recipient addresses and amounts in one line with Textify, whether through copy-paste or direct entry",
-              side: "right",
-              align: "start",
-            },
+    // if (!hasVisitedBefore) {
+    // document.cookie = "visited=true; max-age=31536000"; // Max age is set to 1 year in seconds
+    const driverObj = driver({
+      overlayColor: "#00000094",
+      popoverClass: ` ${samechainStyle.driverpopover01}`,
+      showProgress: true,
+      steps: [
+        {
+          element: "#view",
+          popover: {
+            title: "Textify",
+            description:
+              "Effortlessly input recipient addresses and amounts in one line with Textify, whether through copy-paste or direct entry",
+            side: "right",
+            align: "start",
           },
-          {
-            element: "#create",
-            popover: {
-              title: "Listify",
-              description:
-                "Effortlessly send funds: Use Listify to fill out recipient addresses and amounts in a simple form",
-              side: "right",
-              align: "start",
-            },
+        },
+        {
+          element: "#create",
+          popover: {
+            title: "Listify",
+            description:
+              "Effortlessly send funds: Use Listify to fill out recipient addresses and amounts in a simple form",
+            side: "right",
+            align: "start",
           },
-          {
-            element: "#csv",
-            popover: {
-              title: "Uploadify",
-              description:
-                "Effortless data management: Use Uploadify to seamlessly upload CSV files with recipient addresses and amounts for convenient editing on our platform",
-              side: "right",
-              align: "start",
-            },
+        },
+        {
+          element: "#csv",
+          popover: {
+            title: "Uploadify",
+            description:
+              "Effortless data management: Use Uploadify to seamlessly upload CSV files with recipient addresses and amounts for convenient editing on our platform",
+            side: "right",
+            align: "start",
           },
-        ],
-      });
-      driverObj.drive();
-    }
+        },
+      ],
+    });
+    driverObj.drive();
+    // }
   }, []);
 
   const renderComponent = (tab) => {
@@ -100,11 +101,7 @@ function Samechaindashboard() {
           <div className={samechainStyle.menubardashboard}>
             <button
               id={samechainStyle.view}
-              className={
-                activeTab === `${samechainStyle.text}`
-                  ? `${samechainStyle.active}`
-                  : ""
-              }
+              className={activeTab === "text" ? `${samechainStyle.active}` : ""}
               onClick={() => setActiveTab("text")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
@@ -116,9 +113,7 @@ function Samechaindashboard() {
             <button
               id={samechainStyle.create}
               className={
-                activeTab === `${samechainStyle.create}`
-                  ? `${samechainStyle.active}`
-                  : ""
+                activeTab === "create" ? `${samechainStyle.active}` : ""
               }
               onClick={() => setActiveTab("create")}
               data-bs-toggle="tooltip"
@@ -130,11 +125,7 @@ function Samechaindashboard() {
             </button>
             <button
               id={samechainStyle.csv}
-              className={
-                activeTab === `${samechainStyle.list}`
-                  ? `${samechainStyle.active}`
-                  : ""
-              }
+              className={activeTab === "list" ? `${samechainStyle.active}` : ""}
               onClick={() => setActiveTab("list")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"

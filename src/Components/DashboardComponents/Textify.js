@@ -465,7 +465,8 @@ function SameTextlist() {
             element: "#tt",
             popover: {
               title: "Textify Illustration",
-              description: `<img src=${textiftgif} style='height: 202.5px; width: 270px;' />`,
+              description:
+                "<Image src=${textiftgif} style='height: 202.5px; width: 270px;' />",
               side: "right",
               align: "start",
             },
