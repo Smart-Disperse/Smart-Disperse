@@ -888,14 +888,16 @@ function SameTextlist() {
                                   letterSpacing: "1px",
                                 }}
                               >
-                                {data.isUsdAmount
-                                  ? `${(+data.value).toFixed(2)} $`
-                                  : `${(
-                                      +ethers.utils.formatUnits(
-                                        data.value,
-                                        tokenDetails.decimal
-                                      ) * ethToUsdExchangeRate
-                                    ).toFixed(2)} $`}
+                                {totalUsd
+                                  ? data.isUsdAmount
+                                    ? `${(+data.value).toFixed(2)} $`
+                                    : `${(
+                                        +ethers.utils.formatUnits(
+                                          data.value,
+                                          tokenDetails.decimal
+                                        ) * ethToUsdExchangeRate
+                                      ).toFixed(2)} $`
+                                  : "Loading..."}
                               </div>
                             </td>
                           </tr>
@@ -970,7 +972,7 @@ function SameTextlist() {
                     <td id={textStyle.fontsize10px}>
                       {" "}
                       <div
-                        id="font-size-10px"
+                        id={textStyle.fontsize10px}
                         // className="font-size-12px"
                         style={{
                           width: "fit-content",
@@ -986,7 +988,7 @@ function SameTextlist() {
                           letterSpacing: "1px",
                         }}
                       >
-                        {totalUsd.toFixed(2)} $
+                        {totalUsd ? `${totalUsd.toFixed(2)} $` : "Loading..."}
                       </div>
                     </td>
                     <td id={textStyle.fontsize10px}>
@@ -1013,7 +1015,7 @@ function SameTextlist() {
                       }`}
                     >
                       <div
-                        id="font-size-10px"
+                        id={textStyle.fontsize10px}
                         // className="font-size-12px"
                         style={{
                           width: "fit-content",
@@ -1115,8 +1117,9 @@ function SameTextlist() {
                                 letterSpacing: "1px",
                               }}
                             >
-                              {totalUsd.toFixed(2)} $
-                              {/* {totalUsd.toFixed(2)} $ */}
+                              {totalUsd
+                                ? `${totalUsd.toFixed(2)} $`
+                                : "Loading..."}
                             </div>
                           </>
                         )}

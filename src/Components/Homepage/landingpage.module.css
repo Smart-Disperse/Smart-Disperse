@@ -145,6 +145,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
+  min-width: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
