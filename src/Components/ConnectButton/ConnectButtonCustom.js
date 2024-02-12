@@ -93,7 +93,7 @@ const ConnectButtonCustom = () => {
                   </button>
                 );
               }
-
+              console.log(account ? account : null);
               return (
                 <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
                   <div>
@@ -109,8 +109,8 @@ const ConnectButtonCustom = () => {
                         {account.displayName}
                         <br />
                         {account.displayBalance
-                          ? ` (${account.displayBalance})`
-                          : ""}
+                          ? account.displayBalance
+                          : "Loading..."}
                       </span>
                     </button>
 
