@@ -139,8 +139,9 @@
 #c:hover {
   box-shadow: #9f53ff 0px 0px 16px;
 }
-.light .wholelandingpage {
-  background-image: url("../../Assets/Homepage-bg.svg");
+.wholelandingpage {
+  background: var(--background);
+  /* background-color: red; */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -152,27 +153,17 @@
   justify-content: space-between;
 }
 
-.dark .wholelandingpage {
+/* .dark .wholelandingpage {
   background: #070707;
   color: white;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
-  /* min-width: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.dark-theme.whole-landing-page {
-  background-color: black;
-  color: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+} */
 
 .firstcomplandingpage {
   /* z-index: -1; */
