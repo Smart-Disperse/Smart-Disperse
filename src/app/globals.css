@@ -5,6 +5,7 @@ body {
   text-align: center !important;
   scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
 }
+
 body::-webkit-scrollbar {
   width: var(--sb-size);
 }

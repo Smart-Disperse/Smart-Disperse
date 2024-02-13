@@ -549,6 +549,16 @@
   }
 }
 @media only screen and (max-width: 425px) {
+  .orrrr {
+    margin: 5px 0px;
+  }
+  .buttontoaddformdata,
+  .buttontoaddformdataunload {
+    font-size: 15px !important;
+  }
+  .entertokenaddress {
+    padding: 0px !important;
+  }
   .fontsize12px {
     font-size: 12px !important;
   }
@@ -580,5 +590,19 @@
   }
   #tableheadercsvsame {
     font-size: 13px;
+  }
+
+  .sametextmain {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .importtokendiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .maindivforuploadcsvfile {
+    margin: 5px;
   }
 }

@@ -139,13 +139,27 @@
 #c:hover {
   box-shadow: #9f53ff 0px 0px 16px;
 }
-.wholelandingpage {
+.light .wholelandingpage {
   background-image: url("../../Assets/Homepage-bg.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
-  min-width: 100vh;
+  color: black;
+  /* min-width: 100vh; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dark .wholelandingpage {
+  background: #070707;
+  color: white;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  /* min-width: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -358,7 +372,6 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-
     flex-direction: row;
     align-items: center;
   }
@@ -442,8 +455,8 @@
     margin: 20px;
   }
   .imageright {
-    left: 0%;
-    top: -1%;
+    right: 0%;
+    top: 44%;
     position: absolute;
     height: auto;
     width: auto;
@@ -462,7 +475,7 @@
     font-size: 15px;
   }
   .homepera {
-    font-size: 18px !important;
+    font-size: 15px !important;
   }
   .card {
     margin: 5px 30px;

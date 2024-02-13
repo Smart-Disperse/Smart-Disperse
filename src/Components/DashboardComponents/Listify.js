@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
-import { useTheme } from "@/ThemeContext";
 import { CovalentClient } from "@covalenthq/client-sdk";
 import listStyle from "@/Components/DashboardComponents/listify.module.css";
 import { lightTheme } from "@rainbow-me/rainbowkit";
@@ -614,7 +613,7 @@ function SameCreateList() {
       </div> */}
       <div className={listStyle.divtokeninputs}>
         {/* {isTokenLoaded ? null : ( */}
-        <div>
+        <div className={listStyle.sendbuttindiv}>
           <button
             id=""
             className={listStyle.buttontoaddformdata}
@@ -656,7 +655,10 @@ function SameCreateList() {
               Load Your Token
             </h2>
           </div>
-          <div style={{ padding: "20px" }}>
+          <div
+            className={listStyle.entertokenaddress}
+            style={{ padding: "20px" }}
+          >
             <label style={{ margin: "5px" }}>Enter Token Address: </label>
             <input
               id={listStyle.inputtokenload}
@@ -809,11 +811,12 @@ function SameCreateList() {
               />
             </div>
             <div className={listStyle.inputflexlist}>
-              <lable
+              {/* <lable
                 className={listStyle.inputflexlistlabel}
                 style={{ width: "25%" }}
-              ></lable>
+              ></lable> */}
               <button
+                id={listStyle.addtolistbuttonid}
                 className={`${listStyle["buttontoaddformdata"]} ${listStyle["maddtolist"]}}`}
                 onClick={handleAddClick}
                 style={{ width: "45%" }}
@@ -997,6 +1000,7 @@ function SameCreateList() {
             <div>
               <div className={listStyle.accountsummarycreatetitle}>
                 <h2
+                  className={listStyle.accountsummaryh2}
                   style={{
                     padding: "10px",
                     fontSize: "20px",
@@ -1147,6 +1151,7 @@ function SameCreateList() {
             <div>
               <div className={listStyle.accountsummarycreatetitle}>
                 <h2
+                  className={listStyle.accountsummaryh2}
                   style={{
                     padding: "10px",
                     fontSize: "20px",

@@ -19,7 +19,7 @@
   background: black;
   -webkit-backdrop-filter: blur(30.5px);
   backdrop-filter: blur(30.5px);
-  margin: 50px 0px;
+  margin-bottom: 50px;
 }
 .listAccSum {
   width: fit-content;
@@ -612,6 +612,21 @@
   }
 }
 @media only screen and (max-width: 425px) {
+  #addtolistbuttonid {
+    width: 100% !important;
+  }
+  .entertokenaddress {
+    padding: 0px !important;
+  }
+  .accountsummaryh2 {
+    font-size: 15px !important;
+  }
+  .maindivsamecreatelist {
+    margin: 10px;
+  }
+  .sendbuttindiv {
+    display: flex;
+  }
   .viewaddressdivtitleh2 {
     font-size: 15px !important;
   }
@@ -620,7 +635,7 @@
   }
 
   #inputtokenload {
-    width: 85%;
+    width: auto;
     margin: 10px 20px !important;
   }
 
@@ -686,17 +701,16 @@
     width: fit-content;
   }
   .buttontoaddformdata {
+    font-size: 15px;
     width: -moz-fit-content;
-    width: fit-content;
-    width: 85%;
+    /* width: 100% !important; */
+    width: auto;
     margin: 10px 20px;
   }
   .sametextmain {
-    /* background-color: #fff; */
     color: #8f00ff;
-    /* font-size: 12px;
-    padding: 5px 0;
-    font-size: 15px !important; */
+
+    font-size: 15px !important;
   }
   .titleinline {
     font-size: 15px !important;
@@ -705,12 +719,12 @@
     font-size: 15px;
   } */
   .inputflexlist {
+    font-size: 12px;
     display: flex;
     width: 100%;
     margin: 10px auto;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    flex-direction: column;
   }
   .enteraddressdivtitlelabel {
     letter-spacing: 1px;
@@ -731,5 +745,18 @@
     text-align: start;
     font-size: 13px;
     letter-spacing: 1px;
+  }
+
+  .importtokendiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 30px 20px; */
+    flex-direction: column;
+  }
+
+  .buttontoaddformdataunload {
+    margin: 5px;
+    font-size: 15px;
   }
 }

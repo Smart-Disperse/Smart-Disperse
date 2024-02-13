@@ -453,6 +453,12 @@
   }
 }
 @media only screen and (max-width: 425px) {
+  .sametextmain {
+    display: flex !important;
+    font-size: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
   .sendethdiv {
     display: flex;
     justify-content: center;
@@ -568,7 +574,11 @@
     letter-spacing: 1px;
   }
   .eachinputofcreatelist {
-    width: 85%;
+    width: auto;
     margin: 10px 20px !important;
+  }
+
+  .entertokenaddress {
+    padding: 0px !important;
   }
 }

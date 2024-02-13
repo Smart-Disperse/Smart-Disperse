@@ -2,7 +2,7 @@
   color: white !important;
   background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%) !important;
 }
-.maindivofdashboard {
+.light .maindivofdashboard {
   background-image: url("../../Assets/dashboard-bg.svg");
   background-position: center;
   background-repeat: no-repeat;
@@ -13,6 +13,20 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.dark .maindivofdashboard {
+  background-color: black;
+  color: white;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .darktheme.maindivofdashboard {
   background-color: black;
   color: white;
@@ -280,7 +294,7 @@ textarea::-webkit-scrollbar {
     font-size: 2rem;
   }
   .maindivforalloptiondashboard {
-    margin: 0 50px !important;
+    margin: 0 30px !important;
   }
   .maindivofdashboard {
     height: auto;
@@ -288,7 +302,7 @@ textarea::-webkit-scrollbar {
     margin-bottom: auto;
   }
   .titledivdashboard {
-    margin: 0 50px !important;
+    margin: 0 30px !important;
     position: relative;
   }
   .dashbgImg2 {
@@ -308,6 +322,10 @@ textarea::-webkit-scrollbar {
     position: absolute;
     left: -22%;
     right: 24%;
+  }
+
+  .componentcontainerdashboard {
+    margin: 15px 30px !important;
   }
 }
 

@@ -620,7 +620,7 @@ function SameCsvList() {
               </div>
               {/* )} */}
               <div className={uploadStyle.importtokendiv}>
-                <div>OR</div>
+                <div className={uploadStyle.orrrr}>OR</div>
                 {/* {isTokenLoaded ? null : "OR  "} */}
                 <button
                   className={uploadStyle.buttontoaddformdataunload}
@@ -650,7 +650,10 @@ function SameCsvList() {
                     Load Your Token
                   </h2>
                 </div>
-                <div style={{ padding: "20px" }}>
+                <div
+                  className={uploadStyle.entertokenaddress}
+                  style={{ padding: "20px" }}
+                >
                   <label style={{ margin: "5px" }}>Enter Token Address: </label>
                   <input
                     id={uploadStyle.inputtokenload}

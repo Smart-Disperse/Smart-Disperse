@@ -593,7 +593,10 @@ function SameTextlist() {
                 </h2>
               </div>
               {isTokenLoaded ? null : " "}
-              <div style={{ padding: "20px" }}>
+              <div
+                className={textStyle.entertokenaddress}
+                style={{ padding: "20px" }}
+              >
                 <label style={{ margin: "5px" }}>Enter Token Address: </label>
                 <input
                   id="input-token-load"

@@ -5,11 +5,12 @@ import navStyle from "../Navbar/navbar.module.css";
 import smartlogo from "../../Assets/logo.png";
 import ConnectButtonCustom from "../ConnectButton/ConnectButtonCustom";
 import Image from "next/image";
-// import { useTheme } from "../../ThemeContext";
+import { useTheme } from "next-themes";
 
 function Navbar() {
   // const { themeClass, toggleDarkMode } = useTheme();
   const [toggleSVG, setToggleSVG] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   // useEffect(() => {
   //   console.log(themeClass);
@@ -36,10 +37,10 @@ function Navbar() {
         </div>
         <div className={navStyle.connectwalletbuttondiv}>
           <ConnectButtonCustom />
-          {toggleSVG && themeClass === "darkTheme" ? (
+          {theme === "light" ? (
             <svg
-              // onClick={changeMode}
               xmlns="http://www.w3.org/2000/svg"
+              onClick={() => setTheme("dark")}
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.5"
@@ -57,10 +58,10 @@ function Navbar() {
             </svg>
           ) : (
             <svg
-              // onClick={changeMode}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
+              onClick={() => setTheme("light")}
               strokeWidth="1.5"
               stroke="currentColor"
               className="sun "
