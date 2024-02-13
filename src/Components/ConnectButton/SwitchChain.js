@@ -43,7 +43,7 @@ function SwitchChain() {
         style={{
           position: "absolute",
           top: "55px",
-          right: "0px",
+
           padding: "30px 0px",
           width: "200px",
         }}
