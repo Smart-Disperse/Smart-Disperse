@@ -379,6 +379,10 @@
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
 }
 @media only screen and (max-width: 768px) {
+  .sendethdiv {
+    display: flex;
+    justify-content: center;
+  }
   #tableresponsive {
     overflow: scroll;
   }
@@ -449,6 +453,10 @@
   }
 }
 @media only screen and (max-width: 425px) {
+  .sendethdiv {
+    display: flex;
+    justify-content: center;
+  }
   .accountsummaryth {
     font-size: 12px;
   }
@@ -539,6 +547,11 @@
   }
 }
 @media only screen and (max-width: 375px) {
+  .sendethdiv {
+    display: flex;
+    justify-content: center;
+  }
+
   .divtocoversametextdiv {
     margin: 10px;
   }

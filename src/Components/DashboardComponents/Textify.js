@@ -549,7 +549,7 @@ function SameTextlist() {
             className={textStyle.sametextmain}
           >
             {/* {isTokenLoaded ? null : ( */}
-            <div id="send-eth">
+            <div id="send-eth" className={textStyle.sendethdiv}>
               <button
                 id="send-ethh"
                 className={textStyle.buttontoaddformdata}
