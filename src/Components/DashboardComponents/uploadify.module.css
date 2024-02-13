@@ -593,6 +593,7 @@
   }
 
   .sametextmain {
+    font-size: 15px !important;
     display: flex;
     flex-direction: column;
   }
@@ -604,5 +605,24 @@
 
   .maindivforuploadcsvfile {
     margin: 5px;
+  }
+
+  .eachinputofcreatelist {
+    font-size: 10px !important;
+  }
+
+  .tableheadertextlist {
+    font-size: 12px !important;
+  }
+  .tableheadtextlist {
+    font-size: 10px !important;
+  }
+
+  .UploadAccSum {
+    font-size: 10px !important;
+  }
+
+  .fontsize12px {
+    font-size: 10px !important;
   }
 }

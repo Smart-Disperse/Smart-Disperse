@@ -974,7 +974,7 @@ function SameCsvList() {
                           </th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody className={uploadStyle.tableheadtextlist}>
                         <tr>
                           <td style={{ letterSpacing: "1px", padding: "8px" }}>
                             {total && ethToUsdExchangeRate && (
