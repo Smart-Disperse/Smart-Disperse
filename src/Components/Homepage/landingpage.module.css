@@ -73,10 +73,10 @@
   padding: 20px; /* Reduce padding for smaller screens */
   border-radius: 20px;
 }
-
+/* 
 .card:hover {
   transform: scale(1.1);
-}
+} */
 .card {
   background-color: rgba(113, 16, 223, 0.161);
   border-radius: 20px;
@@ -109,7 +109,6 @@
   border: 1px solid #00ffff;
 }
 #a:hover {
-  padding: 0px 10px;
   box-shadow: #00ffff 0px 0px 16px;
 }
 #c4 {
@@ -152,18 +151,6 @@
   flex-direction: column;
   justify-content: space-between;
 }
-
-/* .dark .wholelandingpage {
-  background: #070707;
-  color: white;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-} */
 
 .firstcomplandingpage {
   /* z-index: -1; */

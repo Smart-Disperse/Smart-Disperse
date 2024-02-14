@@ -12,6 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center !important;
   scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  background-color: #000000;
 }
 
 body::-webkit-scrollbar {
