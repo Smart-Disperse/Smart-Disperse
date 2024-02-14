@@ -392,7 +392,7 @@ function SameTextlist() {
         setRemaining(null);
       }
     }
-  }, [isTokenLoaded, isSendingEth, total, listData]);
+  }, [isTokenLoaded, isSendingEth, total, listData, remaining]);
 
   useEffect(() => {
     if (isTokenLoaded) {
@@ -402,13 +402,13 @@ function SameTextlist() {
           tokenDetails.decimal
         );
         const remaining = tokenBalance.sub(total);
-        console.log(remaining);
-        setRemaining(ethers.utils.formatUnits(remaining, tokenDetails.decimal));
+        console.log("remaining hereeee", remaining);
+        ethers.utils.formatUnits(remaining, tokenDetails.decimal);
       } else {
         setRemaining(null);
       }
     }
-  }, [total]);
+  }, [total, setRemaining]);
 
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
   const [usdTotal, setUsdTotal] = useState(null);
@@ -551,12 +551,24 @@ function SameTextlist() {
           >
             {/* {isTokenLoaded ? null : ( */}
             <div id="send-eth" className={textStyle.sendethdiv}>
-              <button
+              {/* <button
                 style={{
                   backgroundColor: isSendingEth ? "white" : "",
                   color: isSendingEth ? "#924afc" : "",
                 }}
                 id="send-ethh"
+                className={textStyle.buttontoaddformdata}
+                onClick={handleSendEthbuttonClick}
+              >
+                Send Eth
+              </button> */}
+              <button
+                // style={{
+                //   backgroundColor: isSendingEth ? "white" : "",
+                //   color: isSendingEth ? "#924afc" : "",
+                // }}
+
+                id={isSendingEth ? textStyle.truee : textStyle.falsee}
                 className={textStyle.buttontoaddformdata}
                 onClick={handleSendEthbuttonClick}
               >

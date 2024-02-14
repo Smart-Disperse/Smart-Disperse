@@ -819,10 +819,10 @@ function SameCreateList() {
               />
             </div>
             <div className={listStyle.inputflexlist}>
-              {/* <lable
+              <lable
                 className={listStyle.inputflexlistlabel}
                 style={{ width: "25%" }}
-              ></lable> */}
+              ></lable>
               <button
                 id={listStyle.addtolistbuttonid}
                 className={`${listStyle["buttontoaddformdata"]} ${listStyle["maddtolist"]}}`}

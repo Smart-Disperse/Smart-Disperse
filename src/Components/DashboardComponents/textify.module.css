@@ -10,6 +10,11 @@
   animation: zoomAnimation 1s infinite alternate;
 }
 
+#truee {
+  background: white !important;
+  color: #924afc;
+}
+
 .driverpopover01 {
   color: white !important;
   background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%) !important;
