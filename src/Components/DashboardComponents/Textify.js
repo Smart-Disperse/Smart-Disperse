@@ -47,7 +47,7 @@ function SameTextlist() {
   const [total, setTotal] = useState(null);
   const [remaining, setRemaining] = useState(null);
   const [ethBalance, setEthBalance] = useState(null);
-  const [isSendingEth, setIsSendingEth] = useState(false);
+  const [isSendingEth, setIsSendingEth] = useState(true);
   const [isTokenLoaded, setTokenLoaded] = useState(false);
   const [recipientAddress, setRecipientAddress] = useState("");
   const [isInputValid, setIsInputValid] = useState(false);
@@ -552,6 +552,10 @@ function SameTextlist() {
             {/* {isTokenLoaded ? null : ( */}
             <div id="send-eth" className={textStyle.sendethdiv}>
               <button
+                style={{
+                  backgroundColor: isSendingEth ? "white" : "",
+                  color: isSendingEth ? "#924afc" : "",
+                }}
                 id="send-ethh"
                 className={textStyle.buttontoaddformdata}
                 onClick={handleSendEthbuttonClick}
@@ -565,6 +569,10 @@ function SameTextlist() {
               <div style={{ margin: "5px 0px" }}>OR</div>
               {/* OR */}
               <button
+                style={{
+                  backgroundColor: isSendingEth ? "" : "white",
+                  color: isSendingEth ? "" : "#924afc",
+                }}
                 className={textStyle.buttontoaddformdataunload}
                 onClick={handleImporttokenbuttonClick}
               >
@@ -717,57 +725,60 @@ function SameTextlist() {
             </div>
           ) : null}
         </div>
-        {/* {(isSendingEth || isTokenLoaded) && ( */}
-        <div>
-          <div id="textify-input" className={textStyle.textlistdiv}>
-            <div className={textStyle.titlesametexttextarea}>
-              <h2
-                style={{
-                  padding: "10px",
-                  fontSize: "20px",
-                  margin: "0px",
-                  letterSpacing: "1px",
-                  fontWeight: "700",
-                }}
-              >
-                Enter Recipients and Amount (enter one address and amount on
-                each line, supports any format)
-              </h2>
-            </div>
-            <div id="tt">
-              <textarea
-                spellCheck="false"
-                value={textValue}
-                onChange={(e) => setTextValue(e.target.value)}
-                style={{
-                  width: "100%",
-                  minHeight: "100px",
-                  padding: "10px",
-                  border: "none",
-                  background: "#e6e6fa",
-                  color: "black",
-                  fontSize: "16px",
-                  fontFamily: "Arial, sans-serif",
-                  boxSizing: "border-box",
-                  resize: "vertical",
-                }}
-                className={textStyle.textareaInput}
-                placeholder="0xe57f4c84539a6414C4Cf48f135210e01c477EFE0=1.41421 
+        {/* {isTokenLoaded ? ( */}
+        {(isSendingEth || isTokenLoaded) && (
+          <div>
+            <div id="textify-input" className={textStyle.textlistdiv}>
+              <div className={textStyle.titlesametexttextarea}>
+                <h2
+                  style={{
+                    padding: "10px",
+                    fontSize: "20px",
+                    margin: "0px",
+                    letterSpacing: "1px",
+                    fontWeight: "700",
+                  }}
+                >
+                  Enter Recipients and Amount (enter one address and amount on
+                  each line, supports any format)
+                </h2>
+              </div>
+              <div id="tt">
+                <textarea
+                  spellCheck="false"
+                  value={textValue}
+                  onChange={(e) => setTextValue(e.target.value)}
+                  style={{
+                    width: "100%",
+                    minHeight: "100px",
+                    padding: "10px",
+                    border: "none",
+                    background: "#e6e6fa",
+                    color: "black",
+                    fontSize: "16px",
+                    fontFamily: "Arial, sans-serif",
+                    boxSizing: "border-box",
+                    resize: "vertical",
+                  }}
+                  className={textStyle.textareaInput}
+                  placeholder="0xe57f4c84539a6414C4Cf48f135210e01c477EFE0=1.41421 
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
-              ></textarea>
+                ></textarea>
+              </div>
             </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "right",
+                paddingRight: "25px",
+                paddingBottom: "10px",
+              }}
+            ></div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "right",
-              paddingRight: "25px",
-              paddingBottom: "10px",
-            }}
-          ></div>
-        </div>
-        {/* // )} */}
+        )}
+        {/* ) :
+        null} */}
         {listData.length > 0 && (isSendingEth || isTokenLoaded) ? (
           // {listData.length > 0 && isSendingEth ? (
           <div>
