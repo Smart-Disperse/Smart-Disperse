@@ -11,6 +11,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center !important;
+  --sb-track-color: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    ),
+    #7c49f9;
+  --sb-thumb-color: #ffffff;
+  --sb-size: 5px;
+
+  text-align: center !important;
   scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   background-color: #000000;
 }

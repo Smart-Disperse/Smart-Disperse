@@ -1,5 +1,5 @@
 "use client";
-import { React, useState } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import img1 from "../../Assets/homeImg2.webp";
 import { useRouter } from "next/navigation";
@@ -24,8 +24,26 @@ import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 function Modal({ closeModal, handleContinue, handleSameChain }) {
+  const modalRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        // Clicked outside the modal, close it
+        closeModal();
+      }
+    };
+
+    // Add event listener when the component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeModal]);
+
   return (
-    <div className={homeStyle.custommodal}>
+    <div ref={modalRef} className={homeStyle.custommodal}>
       <div className={homeStyle.custommodalheader}>
         <div style={{ width: "90%" }}>
           <h6 className={homeStyle.modaltitle}>

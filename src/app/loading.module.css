@@ -69,13 +69,13 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .loadingletter {
     font-size: 50px;
   }
 }
 
-@media (max-width: 340px) {
+@media (max-width: 425px) {
   .loadingletter {
     font-size: 40px;
   }
