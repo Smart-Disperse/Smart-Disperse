@@ -504,7 +504,31 @@
   color: #070707;
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
 }
+
+/* @media only screen and (min-width: 425px) {
+  .sametextmain {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .importtokendiv {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .orrrr {
+    margin: 5px 0px;
+  }
+} */
+
 @media (max-width: 768px) {
+  #tableresponsive {
+    overflow: scroll !important;
+  }
   .uploadordownload {
     display: flex;
     flex-direction: column;
@@ -563,7 +587,7 @@
     font-size: 12px !important;
   }
   #tableresponsive {
-    overflow: scroll;
+    overflow: scroll !important;
   }
   .downloadbtn button {
     border-radius: 63px;

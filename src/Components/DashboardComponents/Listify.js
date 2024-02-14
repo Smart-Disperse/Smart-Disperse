@@ -625,7 +625,7 @@ function SameCreateList() {
         </div>
         {/* )} */}
         <div className={listStyle.importtokendiv}>
-          <div>OR</div>
+          <div className={listStyle.orrr}>OR</div>
           {/* {isTokenLoaded ? null : "OR  "} */}
           <button
             className={listStyle.buttontoaddformdataunload}
@@ -749,7 +749,7 @@ function SameCreateList() {
           </table>
         </div>
       ) : null}
-      {(isSendingEth || isTokenLoaded) && (
+      {/* {(isSendingEth || isTokenLoaded) && ( */}
         <div className={listStyle.divinsamecreatelisttokenload}>
           <div className={listStyle.enteraddressdivtitle}>
             <h2
@@ -826,7 +826,7 @@ function SameCreateList() {
             </div>
           </div>
         </div>
-      )}
+      {/* )} */}
       {/* <div
         className={`user-form-for-list ${
           errorModalIsOpen ? "blurred-background" : ""

@@ -415,18 +415,18 @@
   .sametextmain {
     display: flex !important;
     font-size: 12px;
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .importtokendiv button {
-    margin: 5px;
+    /* margin: 5px; */
     font-size: 15px;
-    width: 100%;
+    /* width: 100%; */
   }
   .importtokendiv {
     font-size: 15px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
   .buttontoaddformdata {
     font-size: 15px;
@@ -453,10 +453,31 @@
   }
 }
 @media only screen and (max-width: 425px) {
+  .divtocoversametextdiv {
+    margin: 0px 10px;
+    margin-bottom: 0px !important;
+  }
+  .importtokendiv {
+    display: flex;
+    flex-direction: column;
+  }
+  .textAccSum,
+  .fontsize10px {
+    font-size: 10px !important;
+  }
+
+  #fontsize10px {
+    font-size: 10px !important;
+  }
+
+  .tbodytextifyaccsum,
+  .fontsize12px {
+    font-size: 10px !important;
+  }
   .sametextmain {
     display: flex !important;
     font-size: 12px;
-    flex-direction: column;
+    flex-direction: column !important;
     align-items: stretch;
   }
   .sendethdiv {

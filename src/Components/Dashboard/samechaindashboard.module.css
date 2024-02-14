@@ -262,6 +262,9 @@ textarea::-webkit-scrollbar {
 }
 
 @media only screen and (max-width: 425px) {
+  .samedashmainm {
+    margin: 0px;
+  }
   #tableresponsive {
     overflow: scroll;
   }
