@@ -28,7 +28,7 @@ function SameCreateList() {
   const [total, setTotal] = useState(null);
   const [remaining, setRemaining] = useState(null);
   const [ethBalance, setEthBalance] = useState(null);
-  const [isSendingEth, setIsSendingEth] = useState(false);
+  const [isSendingEth, setIsSendingEth] = useState(true);
   const [isTokenLoaded, setTokenLoaded] = useState(false);
   const [blockExplorerURL, setBlockExplorerURL] = useState("");
   const [createlist, setcreatelist] = useState();
@@ -615,6 +615,10 @@ function SameCreateList() {
         {/* {isTokenLoaded ? null : ( */}
         <div className={listStyle.sendbuttindiv}>
           <button
+            style={{
+              backgroundColor: isSendingEth ? "white" : "",
+              color: isSendingEth ? "#924afc" : "",
+            }}
             id=""
             className={listStyle.buttontoaddformdata}
             onClick={handleSendEthbuttonClick}
@@ -628,6 +632,10 @@ function SameCreateList() {
           <div className={listStyle.orrr}>OR</div>
           {/* {isTokenLoaded ? null : "OR  "} */}
           <button
+            style={{
+              backgroundColor: isSendingEth ? "" : "white",
+              color: isSendingEth ? "" : "#924afc",
+            }}
             className={listStyle.buttontoaddformdataunload}
             onClick={handleImporttokenbuttonClick}
           >
@@ -749,7 +757,7 @@ function SameCreateList() {
           </table>
         </div>
       ) : null}
-      {/* {(isSendingEth || isTokenLoaded) && ( */}
+      {(isSendingEth || isTokenLoaded) && (
         <div className={listStyle.divinsamecreatelisttokenload}>
           <div className={listStyle.enteraddressdivtitle}>
             <h2
@@ -826,7 +834,7 @@ function SameCreateList() {
             </div>
           </div>
         </div>
-      {/* )} */}
+      )}
       {/* <div
         className={`user-form-for-list ${
           errorModalIsOpen ? "blurred-background" : ""

@@ -167,7 +167,7 @@ function SameCsvList() {
   };
 
   const [ethBalance, setEthBalance] = useState(null);
-  const [isSendingEth, setIsSendingEth] = useState(false);
+  const [isSendingEth, setIsSendingEth] = useState(true);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -610,6 +610,10 @@ function SameCsvList() {
               {/* {isTokenLoaded ? null : ( */}
               <div>
                 <button
+                  style={{
+                    backgroundColor: isSendingEth ? "white" : "",
+                    color: isSendingEth ? "#924afc" : "",
+                  }}
                   id=""
                   className={uploadStyle.buttontoaddformdata}
                   onClick={handleSendEthbuttonClick}
@@ -623,6 +627,10 @@ function SameCsvList() {
                 <div className={uploadStyle.orrrr}>OR</div>
                 {/* {isTokenLoaded ? null : "OR  "} */}
                 <button
+                  style={{
+                    backgroundColor: isSendingEth ? "" : "white",
+                    color: isSendingEth ? "" : "#924afc",
+                  }}
                   className={uploadStyle.buttontoaddformdataunload}
                   onClick={handleImporttokenbuttonClick}
                 >
@@ -746,46 +754,46 @@ function SameCsvList() {
               </table>
             </div>
           ) : null}
-          {/* {(isSendingEth || isTokenLoaded) && ( */}
-          <div>
-            <div className={uploadStyle.titleforuploadfilecsvsame}>
-              <h2
-                style={{
-                  padding: "10px",
-                  fontSize: "20px",
-                  margin: "0px",
-                  fontWeight: "700",
-                  letterSpacing: "1px",
-                }}
-                className={uploadStyle.sametextmain}
-              >
-                Upload your Csv file which contains recipient Address and Token
-                Amount or Download Sample CSV file
-              </h2>
-            </div>
-            <div className={uploadStyle.uploadordownload}>
-              <div className={uploadStyle.inputdivforcsv}>
-                {/* <label>Upload File</label> &nbsp; &nbsp; */}
-                <input
-                  className={uploadStyle.uploadFile}
-                  type="file"
-                  accept=".csv"
-                  onChange={handleFileUpload}
-                />
-              </div>
-
-              <div>
-                <a
-                  href="/Book2.csv"
-                  download="Book2.csv"
-                  className={uploadStyle.downloadbtn}
+          {(isSendingEth || isTokenLoaded) && (
+            <div>
+              <div className={uploadStyle.titleforuploadfilecsvsame}>
+                <h2
+                  style={{
+                    padding: "10px",
+                    fontSize: "20px",
+                    margin: "0px",
+                    fontWeight: "700",
+                    letterSpacing: "1px",
+                  }}
+                  className={uploadStyle.sametextmain}
                 >
-                  <button>Download sample CSV file</button>
-                </a>
+                  Upload your Csv file which contains recipient Address and
+                  Token Amount or Download Sample CSV file
+                </h2>
+              </div>
+              <div className={uploadStyle.uploadordownload}>
+                <div className={uploadStyle.inputdivforcsv}>
+                  {/* <label>Upload File</label> &nbsp; &nbsp; */}
+                  <input
+                    className={uploadStyle.uploadFile}
+                    type="file"
+                    accept=".csv"
+                    onChange={handleFileUpload}
+                  />
+                </div>
+
+                <div>
+                  <a
+                    href="/Book2.csv"
+                    download="Book2.csv"
+                    className={uploadStyle.downloadbtn}
+                  >
+                    <button>Download sample CSV file</button>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          {/* )} */}
+          )}
           {/* {listData.length > 0 && (isSendingEth || isTokenLoaded) ? ( */}
 
           {listData.length > 0 && (isSendingEth || isTokenLoaded) ? (
