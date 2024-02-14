@@ -465,7 +465,18 @@
   .fontsize10px {
     font-size: 10px !important;
   }
-
+  .buttontoaddformdata {
+    font-size: 15px;
+    width: 100%;
+    margin: 5px;
+    cursor: pointer;
+    padding: 10px 35px;
+    background-color: transparent !important;
+    color: white;
+    border: 1px solid white !important;
+    border-radius: 63px;
+    margin: 0px 20px;
+  }
   #fontsize10px {
     font-size: 10px !important;
   }
@@ -493,6 +504,7 @@
 
   #tableresponsive {
     overflow: scroll;
+    margin: 5px 0px;
   }
   .divtocoversametextdiv {
     margin: 0px 10px;
@@ -568,9 +580,22 @@
     font-size: 15px;
   }
   .scrollabletablecontainer {
-    margin: 25px 0px;
+    margin: 5px 0px;
     max-height: 280px;
     overflow: auto;
+  }
+  .sendbutton {
+    background: #0000;
+    border: 1px solid #fff;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 37px;
+    margin-bottom: 35px;
+    padding: 5px 35px;
+    text-align: center;
   }
 }
 @media only screen and (max-width: 375px) {

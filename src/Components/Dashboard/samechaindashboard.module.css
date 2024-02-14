@@ -265,15 +265,23 @@ textarea::-webkit-scrollbar {
   .samedashmainm {
     margin: 0px;
   }
+  .dashpera {
+    font-size: 15px !important;
+  }
   #tableresponsive {
     overflow: scroll;
+  }
+  .menubardashboard button {
+    width: 100%;
+    margin: 5px 0;
+    font-size: 15px;
   }
   .samedashmainm {
     margin-top: 50px !important;
   }
   .titledivdashboard h1 {
     letter-spacing: 1.5px;
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
   .maindivforalloptiondashboard {
     margin: 0 30px !important;
@@ -307,7 +315,7 @@ textarea::-webkit-scrollbar {
   }
 
   .componentcontainerdashboard {
-    margin: 15px 30px !important;
+    margin: 20px 30px !important;
   }
 }
 

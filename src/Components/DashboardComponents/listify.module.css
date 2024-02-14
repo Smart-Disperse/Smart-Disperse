@@ -614,6 +614,12 @@
     color: #8f00ff;
     font-size: 15px !important;
   }
+  .inputflexlist label {
+    letter-spacing: 1px;
+    text-align: start;
+    width: 100%;
+    padding: 10px 0px;
+  }
 }
 /* @media only screen and (min-width: 425px) {
   .orrr {
@@ -634,8 +640,12 @@
   .tableheadertextlist {
     font-size: 12px !important;
   }
+  .orrr {
+    margin: 10px 0px;
+  }
   #addtolistbuttonid {
     width: 100% !important;
+    margin: 10px 0px !important;
   }
   .entertokenaddress {
     padding: 0px !important;
@@ -727,7 +737,7 @@
     width: -moz-fit-content;
     /* width: 100% !important; */
     width: auto;
-    margin: 10px 20px;
+    padding: 10px 35px;
   }
   .sametextmain {
     color: #8f00ff;
@@ -742,20 +752,22 @@
   .inputflexlist {
     font-size: 12px;
     display: flex;
-    width: 100%;
+    width: 90%;
     margin: 10px auto;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .enteraddressdivtitlelabel {
     letter-spacing: 1px;
     text-align: start;
-    width: 25%;
+    width: 100% !important  ;
+    padding: 10px 0px;
   }
   .inputflexlist input {
-    width: 100%;
+    width: 80%;
     letter-spacing: 1px;
     font-size: 12px;
+    margin: 0px !important;
   }
   .maddtolist {
     width: 100% !important;
@@ -778,6 +790,13 @@
 
   .buttontoaddformdataunload {
     margin: 5px;
+    font-size: 15px;
+  }
+  .inputflexlist label {
+    letter-spacing: 1px;
+    text-align: start;
+    width: 100%;
+    padding: 10px 0px;
     font-size: 15px;
   }
 }

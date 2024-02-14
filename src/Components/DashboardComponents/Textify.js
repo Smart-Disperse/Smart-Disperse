@@ -566,7 +566,7 @@ function SameTextlist() {
             {/* )} */}
             <div className={textStyle.importtokendiv}>
               {/* {isTokenLoaded ? null : " OR "} */}
-              <div style={{ margin: "5px 0px" }}>OR</div>
+              <div style={{ margin: "10px 0px" }}>OR</div>
               {/* OR */}
               <button
                 style={{

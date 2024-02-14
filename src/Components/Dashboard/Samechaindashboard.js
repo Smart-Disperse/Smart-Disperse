@@ -92,7 +92,7 @@ function Samechaindashboard() {
         <div className={samechainStyle.titledivdashboard}>
           <div className={samechainStyle.imagesinthis}></div>
           <h1>Effortless Token Distribution</h1>
-          <h3>
+          <h3 className={samechainStyle.dashpera}>
             Instant Multi-Account Dispersement – Seamlessly Send Tokens to
             Multiple Accounts in One Click
           </h3>
