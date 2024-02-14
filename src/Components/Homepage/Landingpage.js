@@ -69,15 +69,15 @@ export default function Landingpage() {
   // const { themeClass } = useTheme();
   const { openConnectModal } = useConnectModal();
   // const navigate = useNavigate();
-  // const { isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const [showModal, setShowModal] = useState(false);
 
   const handleGetStartedClick = () => {
-    // if (isConnected) {
-    setShowModal(true);
-    // } else {
-    // openConnectModal();
-    // }
+    if (isConnected) {
+      setShowModal(true);
+    } else {
+      openConnectModal();
+    }
   };
 
   const closeModal = () => {
