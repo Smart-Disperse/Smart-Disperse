@@ -1,6 +1,6 @@
 :root {
-  --background: url("../Assets/Homepage-bg.svg");
-  --background1: url("../Assets/dashboard-bg.svg");
+  --background: url("../Assets/Homepage-bg.webp");
+  --background1: url("../Assets/dashboard-bg.webp");
 }
 .dark {
   --background: #000000;
