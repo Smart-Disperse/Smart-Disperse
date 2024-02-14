@@ -17,6 +17,7 @@ import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 // import rettt from "../../../Assets/crypto11.jpeg";
 import textStyle from "./textify.module.css";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 const useLocalStorage = (key, initialValue = "") => {
   const [value, setValue] = useState(() => {
@@ -716,59 +717,57 @@ function SameTextlist() {
             </div>
           ) : null}
         </div>
-
-        {(isSendingEth || isTokenLoaded) && (
-          <div>
-            <div id="textify-input" className={textStyle.textlistdiv}>
-              <div className={textStyle.titlesametexttextarea}>
-                <h2
-                  style={{
-                    padding: "10px",
-                    fontSize: "20px",
-                    margin: "0px",
-                    letterSpacing: "1px",
-                    fontWeight: "700",
-                  }}
-                >
-                  Enter Recipients and Amount (enter one address and amount on
-                  each line, supports any format)
-                </h2>
-              </div>
-              <div id="tt">
-                <textarea
-                  spellCheck="false"
-                  value={textValue}
-                  onChange={(e) => setTextValue(e.target.value)}
-                  style={{
-                    width: "100%",
-                    minHeight: "100px",
-                    padding: "10px",
-                    border: "none",
-                    background: "#e6e6fa",
-                    color: "black",
-                    fontSize: "16px",
-                    fontFamily: "Arial, sans-serif",
-                    boxSizing: "border-box",
-                    resize: "vertical",
-                  }}
-                  className={textStyle.textareaInput}
-                  placeholder="0xe57f4c84539a6414C4Cf48f135210e01c477EFE0=1.41421 
+        {/* {(isSendingEth || isTokenLoaded) && ( */}
+        <div>
+          <div id="textify-input" className={textStyle.textlistdiv}>
+            <div className={textStyle.titlesametexttextarea}>
+              <h2
+                style={{
+                  padding: "10px",
+                  fontSize: "20px",
+                  margin: "0px",
+                  letterSpacing: "1px",
+                  fontWeight: "700",
+                }}
+              >
+                Enter Recipients and Amount (enter one address and amount on
+                each line, supports any format)
+              </h2>
+            </div>
+            <div id="tt">
+              <textarea
+                spellCheck="false"
+                value={textValue}
+                onChange={(e) => setTextValue(e.target.value)}
+                style={{
+                  width: "100%",
+                  minHeight: "100px",
+                  padding: "10px",
+                  border: "none",
+                  background: "#e6e6fa",
+                  color: "black",
+                  fontSize: "16px",
+                  fontFamily: "Arial, sans-serif",
+                  boxSizing: "border-box",
+                  resize: "vertical",
+                }}
+                className={textStyle.textareaInput}
+                placeholder="0xe57f4c84539a6414C4Cf48f135210e01c477EFE0=1.41421 
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
-                ></textarea>
-              </div>
+              ></textarea>
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "right",
-                paddingRight: "25px",
-                paddingBottom: "10px",
-              }}
-            ></div>
           </div>
-        )}
-
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "right",
+              paddingRight: "25px",
+              paddingBottom: "10px",
+            }}
+          ></div>
+        </div>
+        {/* // )} */}
         {listData.length > 0 && (isSendingEth || isTokenLoaded) ? (
           // {listData.length > 0 && isSendingEth ? (
           <div>
@@ -821,13 +820,13 @@ function SameTextlist() {
                       ? listData.map((data, index) => (
                           <tr key={index}>
                             <td
-                              id="font-size-10px"
+                              id={textStyle.fontsize10px}
                               style={{ letterSpacing: "1px", padding: "8px" }}
                             >
                               {data.address}
                             </td>
                             <td
-                              id="font-size-10px"
+                              id={textStyle.fontsize10px}
                               className={`showtoken-remaining-balance ${
                                 remaining < 0
                                   ? "showtoken-remaining-negative"
@@ -836,7 +835,7 @@ function SameTextlist() {
                               style={{ padding: "8px" }}
                             >
                               <div
-                                id="font-size-10px"
+                                id={textStyle.fontsize10px}
                                 // className="font-size-12px"
                                 style={{
                                   width: "fit-content",
@@ -911,7 +910,6 @@ function SameTextlist() {
             </div>
           </div>
         ) : null}
-
         {listData.length > 0 && isSendingEth ? (
           <div style={{ paddingBottom: "30px" }}>
             <div className={textStyle.titleforaccountsummarytextsame}>
@@ -949,7 +947,7 @@ function SameTextlist() {
           </p>
           <p>Total Amount (USD): {totalUsd.toFixed(2)} $</p>
         </div> */}
-                <tbody>
+                <tbody className={textStyle.tbodytextifyaccsum}>
                   <tr>
                     <td id={textStyle.fontsize10px}>
                       <div id="font-size-10px" className={textStyle.textAccSum}>
@@ -1076,7 +1074,7 @@ function SameTextlist() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className={textStyle.tbodytextifyaccsum}>
                     <tr>
                       <td
                         id="font-size-10px"
@@ -1184,7 +1182,6 @@ function SameTextlist() {
             ) : null}
           </div>
         </div>
-
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
@@ -1253,7 +1250,6 @@ function SameTextlist() {
             </button>
           </div>
         </Modal>
-
         <Modal
           className={textStyle.popupforpayment}
           isOpen={errorModalIsOpen}

@@ -746,46 +746,46 @@ function SameCsvList() {
               </table>
             </div>
           ) : null}
-          {(isSendingEth || isTokenLoaded) && (
-            <div>
-              <div className={uploadStyle.titleforuploadfilecsvsame}>
-                <h2
-                  style={{
-                    padding: "10px",
-                    fontSize: "20px",
-                    margin: "0px",
-                    fontWeight: "700",
-                    letterSpacing: "1px",
-                  }}
-                  className={uploadStyle.sametextmain}
-                >
-                  Upload your Csv file which contains recipient Address and
-                  Token Amount or Download Sample CSV file
-                </h2>
+          {/* {(isSendingEth || isTokenLoaded) && ( */}
+          <div>
+            <div className={uploadStyle.titleforuploadfilecsvsame}>
+              <h2
+                style={{
+                  padding: "10px",
+                  fontSize: "20px",
+                  margin: "0px",
+                  fontWeight: "700",
+                  letterSpacing: "1px",
+                }}
+                className={uploadStyle.sametextmain}
+              >
+                Upload your Csv file which contains recipient Address and Token
+                Amount or Download Sample CSV file
+              </h2>
+            </div>
+            <div className={uploadStyle.uploadordownload}>
+              <div className={uploadStyle.inputdivforcsv}>
+                {/* <label>Upload File</label> &nbsp; &nbsp; */}
+                <input
+                  className={uploadStyle.uploadFile}
+                  type="file"
+                  accept=".csv"
+                  onChange={handleFileUpload}
+                />
               </div>
-              <div className={uploadStyle.uploadordownload}>
-                <div className={uploadStyle.inputdivforcsv}>
-                  {/* <label>Upload File</label> &nbsp; &nbsp; */}
-                  <input
-                    className={uploadStyle.uploadFile}
-                    type="file"
-                    accept=".csv"
-                    onChange={handleFileUpload}
-                  />
-                </div>
 
-                <div>
-                  <a
-                    href="/Book2.csv"
-                    download="Book2.csv"
-                    className={uploadStyle.downloadbtn}
-                  >
-                    <button>Download sample CSV file</button>
-                  </a>
-                </div>
+              <div>
+                <a
+                  href="/Book2.csv"
+                  download="Book2.csv"
+                  className={uploadStyle.downloadbtn}
+                >
+                  <button>Download sample CSV file</button>
+                </a>
               </div>
             </div>
-          )}
+          </div>
+          {/* )} */}
           {/* {listData.length > 0 && (isSendingEth || isTokenLoaded) ? ( */}
 
           {listData.length > 0 && (isSendingEth || isTokenLoaded) ? (

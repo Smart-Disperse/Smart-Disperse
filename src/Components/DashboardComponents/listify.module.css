@@ -603,15 +603,37 @@
     display: flex;
     justify-content: center;
     padding: 30px 20px;
-    flex-direction: column;
+    flex-direction: row !important;
     align-items: center;
   }
 
   .enteraddressdivtitleh2 {
     font-size: 15px !important;
   }
+  .sametextmain {
+    color: #8f00ff;
+    font-size: 15px !important;
+  }
 }
+/* @media only screen and (min-width: 425px) {
+  .orrr {
+    margin: 5px 0px;
+  }
+  .importtokendiv {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    /* padding: 30px 20px; */
+/* flex-direction: column !important; */
+/* } */
+/* .sametextmain {
+    font-size: 15px !important;
+  } */
+/* } */
 @media only screen and (max-width: 425px) {
+  .tableheadertextlist {
+    font-size: 12px !important;
+  }
   #addtolistbuttonid {
     width: 100% !important;
   }
@@ -693,7 +715,7 @@
   .divtokeninputs {
     display: flex;
     padding: 30px 20px;
-    flex-direction: column;
+    flex-direction: column !important;
     align-items: center;
   }
   .buttontoaddformdata {
@@ -709,7 +731,6 @@
   }
   .sametextmain {
     color: #8f00ff;
-
     font-size: 15px !important;
   }
   .titleinline {
@@ -748,11 +769,11 @@
   }
 
   .importtokendiv {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     /* padding: 30px 20px; */
-    flex-direction: column;
+    flex-direction: column !important;
   }
 
   .buttontoaddformdataunload {
