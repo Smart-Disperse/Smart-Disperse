@@ -574,9 +574,12 @@
 }
 @media only screen and (max-width: 425px) {
   .orrrr {
-    margin: 5px 0px;
+    margin: 10px 0px;
   }
-  .buttontoaddformdata,
+  .buttontoaddformdata {
+    font-size: 15px !important;
+    padding: 10px 35px;
+  }
   .buttontoaddformdataunload {
     font-size: 15px !important;
   }
@@ -589,6 +592,24 @@
   #tableresponsive {
     overflow: scroll !important;
   }
+  .sendbutton {
+    background: #0000;
+    border: 1px solid #fff;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 37px;
+    margin-bottom: 35px;
+    padding: 5px 35px;
+    text-align: center;
+  }
+
+  .inputdivforcsv {
+    padding: 10px 0px;
+    margin-top: 10px !important;
+  }
   .downloadbtn button {
     border-radius: 63px;
     background-color: transparent;
@@ -600,7 +621,7 @@
     font-size: 12px;
     text-align: center;
     width: max-content;
-    padding: 5px 15px;
+    padding: 5px 20px;
     border: none;
     margin-right: 20px;
     margin-left: 10px;

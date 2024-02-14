@@ -255,25 +255,7 @@
   max-height: 230px;
   overflow: auto;
 }
-.scrollabletablecontainer::-webkit-scrollbar {
-  width: 1px;
-}
 
-.scrollabletablecontainer::-webkit-scrollbar-thumb {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.92
-  ); /* Change the color to your preference */
-  border-radius: 10px;
-  width: 2px;
-}
-
-.scrollabletablecontainer::-webkit-scrollbar-track {
-  background-color: transparent;
-  width: 2px;
-}
 .divtoaddthetx table {
   width: 100%;
   border-collapse: collapse;
@@ -365,9 +347,33 @@
 
 .scrollabletablecontainer {
   margin: 25px 0px;
-  max-height: 280px;
+
   overflow: auto;
+  /* --sb-track-color: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    ),
+    #7c49f9;
+  --sb-thumb-color: #ffffff;
+  --sb-size: 1px;
+
+  text-align: center !important;
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color); */
 }
+
+/* .scrollabletablecontainer::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.scrollabletablecontainer::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+}
+
+.scrollabletablecontainer::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+} */
 
 .sendbutton:hover {
   cursor: pointer;
@@ -671,24 +677,34 @@
     margin: 10px 20px !important;
   }
 
-  #tableresponsive::-webkit-scrollbar {
-    width: 2px;
-  }
-
-  #tableresponsive::-webkit-scrollbar-thumb {
-    background-color: rgb(254, 254, 255);
-    border-radius: 21px;
-    width: 5px;
-  }
-
-  #tableresponsive::-webkit-scrollbar-track {
-    background-color: #f8f8f800;
-    width: 2px;
-  }
   #tableresponsive {
     max-height: 400px;
     overflow: scroll;
+    /* --sb-track-color: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.2) 100%
+      ),
+      #7c49f9;
+    --sb-thumb-color: #ffffff;
+    --sb-size: 1px;
+
+    text-align: center !important;
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color); */
   }
+
+  /* #tableresponsive::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+
+  #tableresponsive::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+  }
+
+  #tableresponsive::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 10px;
+  } */
   .fontsize12px {
     font-size: 12px !important;
   }
@@ -710,16 +726,16 @@
     padding: 5px 35px;
     border: 1px solid white;
     background: transparent;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 700;
     /* width: max-content; */
     line-height: 37px;
     letter-spacing: 1px;
     text-align: center;
     /* margin: 10px 400px; */
-    margin: 30px 0px;
+
     color: white;
-    /* margin-bottom: 50px; */
+    margin-bottom: 35px;
     border-radius: 40px;
   }
   .divtokeninputs {
