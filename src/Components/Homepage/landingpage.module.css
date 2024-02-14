@@ -108,36 +108,29 @@
 #a {
   border: 1px solid #00ffff;
 }
-#a:hover {
-  box-shadow: #00ffff 0px 0px 16px;
-}
+
 #c4 {
   color: #1bff76;
 }
 #d {
   border: 1px solid #1bff76;
 }
-#d:hover {
-  box-shadow: #1bff76 0px 0px 16px;
-}
+
 #c2 {
   color: #3b7dff;
 }
+
 #b {
   border: 1px solid #3b7dff;
 }
-#b:hover {
-  box-shadow: #3b7dff 0px 0px 16px;
-}
+
 #c3 {
   color: #9f53ff;
 }
 #c {
   border: 1px solid #9f53ff;
 }
-#c:hover {
-  box-shadow: #9f53ff 0px 0px 16px;
-}
+
 .wholelandingpage {
   background: var(--background);
   /* background-color: red; */
@@ -182,10 +175,21 @@
 @media only screen and (max-width: 768px) {
   .maincontainer {
     position: relative;
-    margin-top: 60px;
+    margin-top: 25px;
+  }
+  .homepera {
+    margin-bottom: 0rem;
+  }
+  .userguideborderdiv {
+    margin: 0px 100px;
+    padding: 30px 30px;
+  }
+  .cardpera {
+    margin-top: 0px !important;
   }
   .ihomepagetitlei h1 {
     font-size: 1.7rem;
+    letter-spacing: 1px;
   }
   .imageright {
     top: 35%;
@@ -202,10 +206,10 @@
   }
   .getstartedbutton {
     padding: 4px 0;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 35px;
     width: 250px;
-    height: 60px;
+    height: 50px;
   }
   .maindivihomepage {
     margin-top: -40px;
@@ -320,7 +324,7 @@
     height: 45px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 5px;
     justify-content: center;
     margin: 1px 200px;
     padding: 20px;

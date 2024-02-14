@@ -23,15 +23,15 @@ function Footer() {
         marginTop: "auto",
       }}
     >
-      <p className={footerStyle.footercopyright} style={{ margin: "0px" }}>
+      <p className={footerStyle.footercopyrightText} style={{ margin: "0px" }}>
         Copyright © {currentYear} Smart-Disperse | All rights reserved
       </p>
       <div
         className={footerStyle.footercopyright}
         style={{
           display: "flex",
-          width: "10%",
-          margin: "0px 30px",
+
+          margin: "10px 30px",
           justifyContent: "space-evenly",
           alignItems: "center",
         }}

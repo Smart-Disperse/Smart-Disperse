@@ -16,7 +16,7 @@
   width: 30px;
   height: 30px;
   cursor: pointer;
-  margin-left: 1rem;
+  margin-left: 10px;
 }
 .connectwalletbuttondiv {
   display: flex;
@@ -34,8 +34,8 @@
     margin: 0px !important;
   }
   .smartlogportal {
-    height: 65px;
-    width: 175px;
+    height: auto;
+    width: 255px;
   }
 
   .connectwallet {
@@ -48,7 +48,7 @@
     padding: 11px 4px;
   }
   #changeMode {
-    margin-left: 2px;
+    margin-left: 1rem;
   }
 
   .connectwalletbuttondiv {
@@ -90,11 +90,11 @@
   }
 
   .smartlogportal {
-    height: 65px;
-    width: 150px;
+    height: auto;
+    width: 180px;
   }
   #changeMode {
-    margin-left: 1px;
+    margin-left: 1rem;
     height: 25px;
     width: 25px;
   }
