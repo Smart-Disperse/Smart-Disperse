@@ -1,5 +1,5 @@
 "use client";
-import { React, useState } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import img1 from "../../Assets/homeImg2.webp";
 import { useRouter } from "next/navigation";
@@ -24,8 +24,26 @@ import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 function Modal({ closeModal, handleContinue, handleSameChain }) {
+  const modalRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        // Clicked outside the modal, close it
+        closeModal();
+      }
+    };
+
+    // Add event listener when the component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeModal]);
+
   return (
-    <div className={homeStyle.custommodal}>
+    <div ref={modalRef} className={homeStyle.custommodal}>
       <div className={homeStyle.custommodalheader}>
         <div style={{ width: "90%" }}>
           <h6 className={homeStyle.modaltitle}>
@@ -44,6 +62,13 @@ function Modal({ closeModal, handleContinue, handleSameChain }) {
 
       <div className={homeStyle.popupbuttonflex}>
         <button
+          className={homeStyle.samechainbutton}
+          onClick={handleSameChain}
+          style={{ width: "70%", margin: "10px auto" }}
+        >
+          Continue on the Same Chain
+        </button>
+        <button
           className={homeStyle.continuebutton}
           onClick={handleContinue}
           disabled
@@ -51,13 +76,6 @@ function Modal({ closeModal, handleContinue, handleSameChain }) {
         >
           Start Cross-Chain Transaction <br />
           (Coming Soon...)
-        </button>
-        <button
-          className={homeStyle.samechainbutton}
-          onClick={handleSameChain}
-          style={{ width: "70%", margin: "10px auto" }}
-        >
-          Continue on the Same Chain
         </button>
       </div>
     </div>
@@ -164,7 +182,10 @@ export default function Landingpage() {
                 >
                   Connect Your Wallet
                 </h3>
-                <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
+                <p
+                  style={{ letterSpacing: "1px", marginTop: "-15px" }}
+                  className={homeStyle.cardpera}
+                >
                   Link your Wallet
                 </p>
               </div>
@@ -177,7 +198,10 @@ export default function Landingpage() {
                 >
                   List Transactions
                 </h3>
-                <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
+                <p
+                  style={{ letterSpacing: "1px", marginTop: "-15px" }}
+                  className={homeStyle.cardpera}
+                >
                   Enter Recipient Details
                 </p>
               </div>
@@ -190,7 +214,10 @@ export default function Landingpage() {
                 >
                   Send Transaction
                 </h3>
-                <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
+                <p
+                  style={{ letterSpacing: "1px", marginTop: "-15px" }}
+                  className={homeStyle.cardpera}
+                >
                   Initiate the transaction
                 </p>
               </div>
@@ -207,7 +234,10 @@ export default function Landingpage() {
                 >
                   View History
                 </h3>
-                <p style={{ letterSpacing: "1px", marginTop: "-15px" }}>
+                <p
+                  style={{ letterSpacing: "1px", marginTop: "-15px" }}
+                  className={homeStyle.cardpera}
+                >
                   Monitor your Transactions
                 </p>
               </div>
