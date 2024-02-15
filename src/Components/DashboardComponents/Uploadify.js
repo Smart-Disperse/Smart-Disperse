@@ -689,7 +689,7 @@ function SameCsvList() {
                   />
                   {isTokenLoaded ? (
                     <button
-                      // id="background-green"
+                      id={uploadStyle.backgroundgreen}
                       className={uploadStyle.buttontoaddformdataunload}
                       onClick={() => {
                         unloadToken();
@@ -699,7 +699,7 @@ function SameCsvList() {
                     </button>
                   ) : (
                     <button
-                      // id="background-purple"
+                      id={uploadStyle.backgroundgreen}
                       className={uploadStyle.buttontoaddformdata}
                       onClick={() => {
                         loadToken();
@@ -745,13 +745,22 @@ function SameCsvList() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                    <td
+                      style={{ letterSpacing: "1px", padding: "8px" }}
+                      className={uploadStyle.tableTd}
+                    >
                       {tokenDetails.name}
                     </td>
-                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                    <td
+                      style={{ letterSpacing: "1px", padding: "8px" }}
+                      className={uploadStyle.tableTd}
+                    >
                       {tokenDetails.symbol}
                     </td>
-                    <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                    <td
+                      style={{ letterSpacing: "1px", padding: "8px" }}
+                      className={uploadStyle.tableTd}
+                    >
                       {tokenDetails.balance}
                     </td>
                   </tr>

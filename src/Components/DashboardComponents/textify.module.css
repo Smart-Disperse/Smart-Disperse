@@ -462,6 +462,9 @@
     margin: 0px 10px;
     margin-bottom: 0px !important;
   }
+  .tableTd {
+    font-size: 12px;
+  }
   .importtokendiv {
     display: flex;
     flex-direction: column;
@@ -549,7 +552,7 @@
     border-radius: 63px;
     margin: 10px 20px;
     font-size: 15px;
-    width: 85%;
+    width: 70%;
     letter-spacing: 1px;
   }
   .textlistdiv textarea::placeholder {
@@ -599,8 +602,35 @@
     letter-spacing: 1px;
     line-height: 37px;
     margin-bottom: 35px;
+    margin-top: 10px;
     padding: 5px 35px;
     text-align: center;
+  }
+  .popupforpayment {
+    background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
+    border-radius: 30px;
+    box-shadow: 0 0 10px #0000001a;
+    color: #fff;
+    left: 50%;
+    width: 80%;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+
+  .popupforpayment button {
+    background: #0000;
+    border: 1px solid #1bff76;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 15px;
+    width: 65%;
+    cursor: pointer;
+    margin: 10px 0px;
   }
 }
 @media only screen and (max-width: 375px) {
@@ -627,9 +657,5 @@
   .eachinputofcreatelist {
     width: auto;
     margin: 10px 20px !important;
-  }
-
-  .entertokenaddress {
-    padding: 0px !important;
   }
 }

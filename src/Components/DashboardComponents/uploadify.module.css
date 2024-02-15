@@ -583,9 +583,7 @@
   .buttontoaddformdataunload {
     font-size: 15px !important;
   }
-  .entertokenaddress {
-    padding: 0px !important;
-  }
+
   .fontsize12px {
     font-size: 12px !important;
   }
@@ -636,7 +634,18 @@
   #tableheadercsvsame {
     font-size: 13px;
   }
-
+  #backgroundgreen {
+    cursor: pointer;
+    padding: 10px 25px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 63px;
+    margin: 10px 20px;
+    font-size: 15px;
+    width: 70%;
+    letter-spacing: 1px;
+  }
   .sametextmain {
     font-size: 15px !important;
     display: flex;
@@ -653,20 +662,21 @@
   }
 
   .eachinputofcreatelist {
-    font-size: 10px !important;
+    margin: 10px 20px !important;
   }
-
+  .accountsummarycreatetitle h2 {
+    font-size: 15px !important;
+  }
   .tableheadertextlist {
-    font-size: 12px !important;
-  }
-  .tableheadtextlist {
-    font-size: 10px !important;
+    font-size: 15px !important;
   }
 
   .UploadAccSum {
     font-size: 10px !important;
   }
-
+  .tableTd {
+    font-size: 12px !important;
+  }
   .fontsize12px {
     font-size: 10px !important;
   }
