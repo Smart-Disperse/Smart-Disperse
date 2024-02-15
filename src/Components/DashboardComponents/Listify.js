@@ -688,7 +688,7 @@ function SameCreateList() {
             />
             {isTokenLoaded ? (
               <button
-                // className={`button-to-add-form-data-unload ${themeClass}`}
+                id={listStyle.backgroundgreen}
                 className={listStyle.buttontoaddformdataunload}
                 onClick={() => {
                   unloadToken();
@@ -699,6 +699,7 @@ function SameCreateList() {
             ) : (
               <button
                 className={listStyle.buttontoaddformdata}
+                id={listStyle.backgroundgreen}
                 onClick={() => {
                   loadToken();
                 }}
@@ -743,13 +744,22 @@ function SameCreateList() {
             </thead>
             <tbody>
               <tr>
-                <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                <td
+                  style={{ letterSpacing: "1px", padding: "8px" }}
+                  className={listStyle.tableTd}
+                >
                   {tokenDetails.name}
                 </td>
-                <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                <td
+                  style={{ letterSpacing: "1px", padding: "8px" }}
+                  className={listStyle.tableTd}
+                >
                   {tokenDetails.symbol}
                 </td>
-                <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                <td
+                  style={{ letterSpacing: "1px", padding: "8px" }}
+                  className={listStyle.tableTd}
+                >
                   {tokenDetails.balance}
                 </td>
               </tr>

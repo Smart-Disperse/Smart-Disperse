@@ -644,7 +644,10 @@
 /* } */
 @media only screen and (max-width: 425px) {
   .tableheadertextlist {
-    font-size: 12px !important;
+    font-size: 15px !important;
+  }
+  .tableTd {
+    font-size: 12px;
   }
   .orrr {
     margin: 10px 0px;
@@ -653,9 +656,7 @@
     width: 100% !important;
     margin: 10px 0px !important;
   }
-  .entertokenaddress {
-    padding: 0px !important;
-  }
+
   .accountsummaryh2 {
     font-size: 15px !important;
   }
@@ -805,7 +806,6 @@
   }
 
   .buttontoaddformdataunload {
-    margin: 5px;
     font-size: 15px;
   }
   .inputflexlist label {
@@ -814,5 +814,20 @@
     width: 100%;
     padding: 10px 0px;
     font-size: 15px;
+  }
+  .accountsummarycreatetitle h2 {
+    font-size: 15px !important;
+  }
+  #backgroundgreen {
+    cursor: pointer;
+    padding: 10px 25px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 63px;
+    margin: 10px 20px;
+    font-size: 15px;
+    width: 70%;
+    letter-spacing: 1px;
   }
 }
