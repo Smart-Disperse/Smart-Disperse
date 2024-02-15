@@ -404,7 +404,7 @@ function SameCreateList() {
         setRemaining(null);
       }
     }
-  }, [total]);
+  }, [total, listData, ethBalance]);
 
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
   const [usdTotal, setUsdTotal] = useState(null);
@@ -445,7 +445,7 @@ function SameCreateList() {
         setRemaining(null);
       }
     }
-  }, [total]);
+  }, [total, listData]);
 
   useEffect(() => {
     const getConnectedChain = async () => {
@@ -536,6 +536,13 @@ function SameCreateList() {
       console.error("Error fetching user token:", error);
     }
   };
+
+  useEffect(() => {
+    if (isSendingEth) {
+      getEthBalance();
+    }
+  });
+
   useEffect(() => {
     const getUserToken = async () => {
       try {

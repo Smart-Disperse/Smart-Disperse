@@ -440,7 +440,7 @@ function SameCsvList() {
         setRemaining(null);
       }
     }
-  }, [total, isSendingEth]);
+  }, [total, listData, ethBalance]);
   useEffect(() => {
     if (isTokenLoaded) {
       if (tokenDetails.balance && total) {
@@ -455,7 +455,7 @@ function SameCsvList() {
         setRemaining(null);
       }
     }
-  }, [total, isSendingEth]);
+  }, [total, listData]);
 
   useEffect(() => {
     const getConnectedChain = async () => {
@@ -505,6 +505,11 @@ function SameCsvList() {
       }
     };
   }, []);
+  useEffect(() => {
+    if (isSendingEth) {
+      getEthBalance();
+    }
+  });
 
   const handleImporttokenbuttonClick = () => {
     setIsSendingEth(false);

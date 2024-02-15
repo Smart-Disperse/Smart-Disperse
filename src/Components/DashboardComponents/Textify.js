@@ -380,19 +380,22 @@ function SameTextlist() {
   }, [recipientAddress, customTokenAddress]);
 
   useEffect(() => {
+    console.log("going");
     if (isSendingEth) {
+      console.log("inside send eth");
       textifytour();
+      console.log("ethbalance:", ethBalance);
       if (ethBalance && total) {
         const tokenBalance = ethers.utils.parseEther(ethBalance);
         const remaining = tokenBalance.sub(total);
-        console.log(remaining);
+        console.log("remaining amount :", remaining);
         setRemaining(ethers.utils.formatEther(remaining));
         // textifytour();
       } else {
         setRemaining(null);
       }
     }
-  }, [isTokenLoaded, isSendingEth, total, listData, remaining]);
+  }, [total, listData, ethBalance]);
 
   useEffect(() => {
     if (isTokenLoaded) {
@@ -402,13 +405,13 @@ function SameTextlist() {
           tokenDetails.decimal
         );
         const remaining = tokenBalance.sub(total);
-        console.log("remaining hereeee", remaining);
-        ethers.utils.formatUnits(remaining, tokenDetails.decimal);
+        console.log("remaining here", remaining);
+        setRemaining(ethers.utils.formatUnits(remaining, tokenDetails.decimal));
       } else {
         setRemaining(null);
       }
     }
-  }, [total, setRemaining]);
+  }, [total, listData]);
 
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
   const [usdTotal, setUsdTotal] = useState(null);
@@ -417,11 +420,11 @@ function SameTextlist() {
     const fetchExchangeRate = async () => {
       try {
         const response = await fetch(
-          "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+          "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD"
         );
         const data = await response.json();
-        const rate = data.ethereum.usd;
-        console.log("data here", data);
+        const rate = data.USD;
+        console.log("data here", data.USD);
         setEthToUsdExchangeRate(rate);
         if (total) {
           console.log(data);
@@ -435,6 +438,12 @@ function SameTextlist() {
     };
     fetchExchangeRate();
   }, [total]);
+
+  useEffect(() => {
+    if (isSendingEth) {
+      getEthBalance();
+    }
+  });
 
   // useEffect(() => {
   //   const savedTokenAddress = localStorage.getItem("customTokenAddress");
