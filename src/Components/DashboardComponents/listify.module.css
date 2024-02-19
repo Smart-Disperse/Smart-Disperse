@@ -1,12 +1,3 @@
-/* .dark-theme.main-div-same-create-list {
-    border-radius: 47px;
-    border: 1px solid #fff;
-    background: black;
-    -webkit-backdrop-filter: blur(30.5px);
-    backdrop-filter: blur(30.5px);
-    margin: 50px 0px;
-  } */
-
 .importtokendiv {
   display: flex;
   justify-content: center;
@@ -40,20 +31,6 @@
     transform: scale(1.2);
   }
 }
-
-/* .light-theme.main-div-same-create-list {
-  border-radius: 47px;
-  border: 1px solid #fff;
-  background: linear-gradient(
-    101deg,
-    rgba(255, 255, 255, 0.31) 1.58%,
-    rgba(255, 255, 255, 0.03) 98.15%
-  );
-  -webkit-backdrop-filter: blur(30.5px);
-  backdrop-filter: blur(30.5px);
-  margin: 50px 0px;
-} */
-
 .maindivsamecreatelist {
   border-radius: 47px;
   border: 1px solid #fff;
@@ -109,19 +86,6 @@
 .eachinputofcreatelist::placeholder {
   color: rgba(255, 255, 255, 0.542);
 }
-/* .light-theme.each-input-of-create-list.token-input {
-  border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(97, 38, 193, 0.58) 0.06%,
-    rgba(63, 47, 110, 0.58) 98.57%
-  );
-  color: white;
-
-  padding: 10px 20px;
-  margin: 0px 20px;
-} */
 
 .eachinputofcreatelist.tokeninput {
   border-radius: 5px;
@@ -140,15 +104,7 @@
   width: 100%;
   border-collapse: collapse;
 }
-/* .dark-theme.each-input-of-create-list.token-input {
-  border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: black;
-  color: white;
 
-  padding: 10px 20px;
-  margin: 0px 20px;
-} */
 .inputflexlist {
   display: flex;
   width: 100%;
@@ -210,18 +166,10 @@
 .deletebutton {
   color: white;
   font-size: 20px;
-  /* padding: 10px 25px; */
   background-color: transparent;
-  /* color: white; */
   border: none;
   border-radius: 15px;
   margin-left: 20px;
-  /* padding: 10px 25px;
-    background-color: red;
-    color: white;
-    border: 1px solid red;
-    border-radius: 15px;
-    margin-left: 20px; */
 }
 
 .divtoaddthetx {
@@ -231,7 +179,6 @@
   margin-bottom: 55px;
   border-radius: 10px;
   flex-direction: column;
-  /* padding: 10px 10px; */
 }
 
 .stepstogetausdc {
@@ -299,7 +246,6 @@
 }
 
 .viewaddressdivtitle {
-  /* border-radius: 10px 10px 0px 0px; */
   font-size: 12px;
   background-color: white;
   color: #8f00ff;
@@ -335,10 +281,6 @@
   text-align: center;
   padding: 10px;
 }
-
-/* table tbody tr:nth-child(even) {
-  background-color: transparent;
-} */
 
 .scrollabletable {
   max-height: 300px;

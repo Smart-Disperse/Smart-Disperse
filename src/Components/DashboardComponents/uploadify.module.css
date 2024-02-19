@@ -11,15 +11,7 @@
   padding: 5px 35px;
   text-align: center;
 }
-/* .dark-theme.maindivforuploadcsvfile {
-  margin-top: 10px;
-  border-radius: 47px;
-  border: 1px solid #fff;
-  background: black;
-  -webkit-backdrop-filter: blur(30.5px);
-  backdrop-filter: blur(30.5px);
-  margin: 50px 0px;
-} */
+
 .maindivforuploadcsvfile {
   margin-top: 10px;
   border-radius: 47px;
@@ -30,19 +22,7 @@
   backdrop-filter: blur(30.5px);
   margin: 50px 0px;
 }
-/* .light-theme.maindivforuploadcsvfile {
-  margin-top: 10px;
-  border-radius: 47px;
-  border: 1px solid #fff;
-  background: linear-gradient(
-    101deg,
-    rgba(255, 255, 255, 0.31) 1.58%,
-    rgba(255, 255, 255, 0.03) 98.15%
-  );
-  -webkit-backdrop-filter: blur(30.5px);
-  backdrop-filter: blur(30.5px);
-  margin: 50px 0px;
-} */
+
 .maindivforuploadcsvfile {
   margin-top: 10px;
   border-radius: 47px;
@@ -58,19 +38,6 @@
   margin: 50px 0px;
 }
 
-/* .light-theme.eachinputofcreatelist {
-  border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(97, 38, 193, 0.58) 0.06%,
-    rgba(63, 47, 110, 0.58) 98.57%
-  );
-  color: white;
-
-  padding: 10px 20px;
-  margin: 0px 20px;
-} */
 .buttontoaddformdata:hover {
   box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
 }
@@ -129,15 +96,7 @@
   padding: 10px 20px;
   margin: 0px 20px;
 }
-/* .dark-theme.each-input-of-create-list {
-  border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: black;
-  color: white;
 
-  padding: 10px 20px;
-  margin: 0px 20px;
-} */
 .deletebutton {
   background-color: initial;
   border: none;
@@ -504,26 +463,6 @@
   color: #070707;
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
 }
-
-/* @media only screen and (min-width: 425px) {
-  .sametextmain {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  .importtokendiv {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  .orrrr {
-    margin: 5px 0px;
-  }
-} */
 
 @media (max-width: 768px) {
   #tableresponsive {

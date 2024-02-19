@@ -8,7 +8,6 @@ import Uploadify from "../DashboardComponents/Uploadify";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
 import img4 from "../../Assets/img4-bg.webp";
-// import { useTheme } from "../../../ThemeProvider";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import samechainStyle from "./samechaindashboard.module.css";
@@ -16,11 +15,8 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 
 function Samechaindashboard() {
-  //   const { toggleDarkMode, themeClass } = useTheme();
   const [activeTab, setActiveTab] = useState("text");
-  //   const navigate = useNavigate();
   const { openConnectModal } = useConnectModal();
-  //   const { address, isConnected } = useAccount();
 
   useEffect(() => {
     const hasVisitedBefore = document.cookie.includes("visited=true");
@@ -81,7 +77,6 @@ function Samechaindashboard() {
   };
 
   return (
-    // <div className={`main-div-of-dashboard ${themeClass}`}>
     <div className={samechainStyle.maindivofdashboard}>
       <Navbar />
       <div style={{ position: "relative" }}>

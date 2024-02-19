@@ -8,18 +8,9 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 
 function Navbar() {
-  // const { themeClass, toggleDarkMode } = useTheme();
   const [toggleSVG, setToggleSVG] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  // useEffect(() => {
-  //   console.log(themeClass);
-  //   if (themeClass === "darkTheme") {
-  //     setToggleSVG(true);
-  //   } else {
-  //     setToggleSVG(true);
-  //   }
-  // }, [themeClass]);
   const changeMode = () => {
     toggleDarkMode();
   };

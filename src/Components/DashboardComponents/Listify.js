@@ -16,7 +16,6 @@ import listStyle from "@/Components/DashboardComponents/listify.module.css";
 import { lightTheme } from "@rainbow-me/rainbowkit";
 
 function SameCreateList() {
-  // const { toggleDarkMode, themeClass } = useTheme();
   const { address } = useAccount();
   const [listData, setListData] = useState([]);
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);

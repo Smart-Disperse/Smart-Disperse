@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { crossSendInstance } from "@/Helpers/ContractInstance";
-import { getTokenBalance } from "@/Helpers/TokenBalance";
+// import { getTokenBalance } from "@/Helpers/TokenBalance";
 import { approveToken } from "@/Helpers/ApproveToken";
-import tokensContractAddress from "@/Helpers/GetTokenContractAddress.json";
-import DecimalValue from "@/Helpers/DecimalValue.json";
+// import tokensContractAddress from "@/Helpers/GetTokenContractAddress.json";
+// import DecimalValue from "@/Helpers/DecimalValue.json";
 import ERC20 from "@/artifacts/contracts/ERC20.sol/ERC20.json";
-// import { useTheme } from "../../../ThemeProvider";
 import Modal from "react-modal";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
@@ -15,9 +14,8 @@ import textiftgif from "@/Assets/TextifyDemo.gif";
 import { isAddress } from "viem";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
-// import rettt from "../../../Assets/crypto11.jpeg";
 import textStyle from "./textify.module.css";
-import { text } from "@fortawesome/fontawesome-svg-core";
+// import { text } from "@fortawesome/fontawesome-svg-core";
 
 const useLocalStorage = (key, initialValue = "") => {
   const [value, setValue] = useState(() => {
@@ -32,7 +30,6 @@ const useLocalStorage = (key, initialValue = "") => {
 };
 
 function SameTextlist() {
-  // const { toggleDarkMode, themeClass } = useTheme();
   const [inputText, setInputText] = useState("");
   // const [textValue, setTextValue] = useState("");
   const [walletList, setWalletList] = useState([]);
@@ -560,23 +557,7 @@ function SameTextlist() {
           >
             {/* {isTokenLoaded ? null : ( */}
             <div id="send-eth" className={textStyle.sendethdiv}>
-              {/* <button
-                style={{
-                  backgroundColor: isSendingEth ? "white" : "",
-                  color: isSendingEth ? "#924afc" : "",
-                }}
-                id="send-ethh"
-                className={textStyle.buttontoaddformdata}
-                onClick={handleSendEthbuttonClick}
-              >
-                Send Eth
-              </button> */}
               <button
-                // style={{
-                //   backgroundColor: isSendingEth ? "white" : "",
-                //   color: isSendingEth ? "#924afc" : "",
-                // }}
-
                 id={isSendingEth ? textStyle.truee : textStyle.falsee}
                 className={textStyle.buttontoaddformdata}
                 onClick={handleSendEthbuttonClick}
@@ -630,9 +611,7 @@ function SameTextlist() {
                 <label style={{ margin: "5px" }}>Enter Token Address: </label>
                 <input
                   id="input-token-load"
-                  // id="border-green"
                   type="text"
-                  // className={`each-input-of-create-list token-input ${themeClass}`}
                   className={`${textStyle["eachinputofcreatelist"]} ${textStyle["tokeninput"]}`}
                   placeholder="Enter token Address"
                   value={customTokenAddress}
@@ -650,7 +629,6 @@ function SameTextlist() {
                 {isTokenLoaded ? (
                   <button
                     id={textStyle.backgroundgreen}
-                    // className={`buttontaddformdataunload ${themeClass}`}
                     className={textStyle.buttontaddformdataunload}
                     onClick={() => {
                       unloadToken();
@@ -906,12 +884,10 @@ function SameTextlist() {
                             >
                               <div
                                 id="font-size-10px"
-                                // className="font-size-12px"
                                 style={{
                                   width: "fit-content",
                                   margin: "0 auto",
-                                  // background:
-                                  //   "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
+
                                   background:
                                     "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
                                   color: "white",
@@ -1005,12 +981,10 @@ function SameTextlist() {
                       {" "}
                       <div
                         id={textStyle.fontsize10px}
-                        // className="font-size-12px"
                         style={{
                           width: "fit-content",
                           margin: "0 auto",
-                          // background:
-                          //   "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
+
                           background:
                             "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
                           color: "white",
@@ -1031,8 +1005,7 @@ function SameTextlist() {
                           margin: "0 auto",
                           color: "white",
                           borderRadius: "10px",
-                          // fontSize: "17px",
-                          // fontWeight: "700",
+
                           letterSpacing: "1px",
                         }}
                       >
@@ -1138,8 +1111,7 @@ function SameTextlist() {
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
-                                // background:
-                                //   "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
+
                                 background:
                                   "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
                                 color: "white",
