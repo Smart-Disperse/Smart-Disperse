@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { crossSendInstance } from "@/Helpers/ContractInstance";
+import { smartDisperseInstance } from "@/Helpers/ContractInstance";
 import { getDestChainAddress } from "@/Helpers/DestChainAddresses";
 import { getTokenBalance } from "@/Helpers/TokenBalance";
 import { getGasFees } from "@/Helpers/getGasEstimation";
@@ -324,7 +324,7 @@ function SameCsvList() {
         console.log(recipients, values, total);
         try {
           console.log(recipients);
-          const con = await crossSendInstance();
+          const con = await smartDisperseInstance();
           const txsendPayment = await con.disperseEther(recipients, values, {
             value: total,
           });
@@ -368,7 +368,7 @@ function SameCsvList() {
 
         if (isTokenApproved) {
           try {
-            const con = await crossSendInstance();
+            const con = await smartDisperseInstance();
             const txsendPayment = await con.disperseToken(
               customTokenAddress,
               recipients,

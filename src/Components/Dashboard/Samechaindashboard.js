@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useAccount, useSigner } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import Textify from "../DashboardComponents/Textify";
-import Listify from "../DashboardComponents/Listify";
+import Textify from "../DashboardComponents/Textifymain";
+import Listify from "../DashboardComponents/Listify/Listify";
 import Uploadify from "../DashboardComponents/Uploadify";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
@@ -14,6 +14,7 @@ import "driver.js/dist/driver.css";
 import samechainStyle from "./samechaindashboard.module.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import SameChain from "../../Components/DashboardComponents/SameChain";
 
 function Samechaindashboard() {
   //   const { toggleDarkMode, themeClass } = useTheme();
@@ -66,19 +67,6 @@ function Samechaindashboard() {
       driverObj.drive();
     }
   }, []);
-
-  const renderComponent = (tab) => {
-    switch (tab) {
-      case "text":
-        return <Textify />;
-      case "create":
-        return <Listify />;
-      case "list":
-        return <Uploadify />;
-      default:
-        return <Textify />;
-    }
-  };
 
   return (
     // <div className={`main-div-of-dashboard ${themeClass}`}>
@@ -141,7 +129,9 @@ function Samechaindashboard() {
         </div>
         <div className={samechainStyle.divtocenterthecomponentrender}>
           <div className={samechainStyle.componentcontainerdashboard}>
-            {renderComponent(activeTab)}
+            {/* {renderComponent(activeTab)}
+             */}
+            <SameChain activeTab={activeTab} />
           </div>
         </div>
       </div>

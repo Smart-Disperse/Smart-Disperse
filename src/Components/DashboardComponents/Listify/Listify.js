@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { crossSendInstance } from "@/Helpers/ContractInstance";
+import { smartDisperseInstance } from "@/Helpers/ContractInstance";
 import { getTokenBalance } from "@/Helpers/TokenBalance";
 import { approveToken } from "@/Helpers/ApproveToken";
 import tokensContractAddress from "@/Helpers/GetTokenContractAddress.json";
@@ -12,17 +12,18 @@ import Modal from "react-modal";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import { CovalentClient } from "@covalenthq/client-sdk";
-import listStyle from "@/Components/DashboardComponents/listify.module.css";
+import listStyle from "@/Components/DashboardComponents/Listify/listify.module.css";
 import { lightTheme } from "@rainbow-me/rainbowkit";
+import { getChain } from "@/Helpers/GetChain";
+import contracts from "@/Helpers/ContractAddresses";
 
 function SameCreateList() {
-  // const { toggleDarkMode, themeClass } = useTheme();
-  const { address } = useAccount();
-  const [listData, setListData] = useState([]);
-  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const { address } = useAccount(); //  user Address
+  const [listData, setListData] = useState([]); //data added in the textify box
+  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
+  const [errorMessage, setErrorMessage] = useState(""); //error in model
   const [alertMessage, setAlertMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); //loader
   const [success, setSuccess] = useState(false);
   const [customTokenAddress, setCustomTokenAddress] = useState("");
   const [total, setTotal] = useState(null);
@@ -38,23 +39,13 @@ function SameCreateList() {
   const [getUserAddress, SetUserAddress] = useState(null);
   const [tokenData, setTokenData] = useState([]);
   const [selectedToken, setSelectedToken] = useState(null);
-
-  // const [custoomTokenAddress, setCustoomTokenAddress] = useLocalStorage(
-  //   "customTokenAddress",
-  //   ""
-  // );
-  useEffect(() => {
-    const storedFormData = localStorage.getItem("formData");
-    if (storedFormData) {
-      setFormData(JSON.parse(storedFormData));
-    }
-  }, []);
+  const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
+  const [usdTotal, setUsdTotal] = useState(null);
   const [formData, setFormData] = useState({
     receiverAddress: "",
     tokenAmount: "",
     chainName: "Scroll",
   });
-
   const defaultTokenDetails = {
     name: null,
     symbol: null,
@@ -63,25 +54,18 @@ function SameCreateList() {
   };
   const [tokenDetails, setTokenDetails] = useState(defaultTokenDetails);
 
-  const getExplorer = async () => {
-    const chainId = Number(
-      await window.ethereum.request({ method: "eth_chainId" })
-    );
-    const network = ethers.providers.getNetwork(chainId);
+  useEffect(() => {
+    const storedFormData = localStorage.getItem("formData");
+    if (storedFormData) {
+      setFormData(JSON.parse(storedFormData));
+    }
+  }, []);
 
-    if (network.chainId == 534351) {
-      setBlockExplorerURL("sepolia.scrollscan.dev");
-    }
-    if (network.chainId == 534352) {
-      setBlockExplorerURL("scrollscan.com");
-    }
-    if (network.chainId == 919) {
-      setBlockExplorerURL("sepolia.explorer.mode.network");
-    }
-    if (network.chainId == 34443) {
-      setBlockExplorerURL("explorer.mode.network");
-    }
+  const getExplorer = async () => {
+    const chainId = await getChain();
+    return contracts[chainId]["block-explorer"];
   };
+
   const loadToken = async () => {
     setRemaining(null);
     setTotal(null);
@@ -294,7 +278,7 @@ function SameCreateList() {
         }
 
         try {
-          const con = await crossSendInstance();
+          const con = await smartDisperseInstance();
           console.log(recipients, values, total);
 
           const txsendPayment = await con.disperseEther(recipients, values, {
@@ -337,7 +321,7 @@ function SameCreateList() {
         const isTokenApproved = await approveToken(total, customTokenAddress);
         if (isTokenApproved) {
           try {
-            const con = await crossSendInstance();
+            const con = await smartDisperseInstance();
             const txsendPayment = await con.disperseToken(
               customTokenAddress,
               recipients,
@@ -405,9 +389,6 @@ function SameCreateList() {
       }
     }
   }, [total, listData, ethBalance]);
-
-  const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
-  const [usdTotal, setUsdTotal] = useState(null);
 
   useEffect(() => {
     const fetchExchangeRate = async () => {
@@ -598,28 +579,8 @@ function SameCreateList() {
           Select or Import Token you want to Disperse
         </h2>
       </div>
-      {/* <button onClick={getUserToken}>get token</button>
-      <div>
-        <h1>Token Balances</h1>
-        <label htmlFor="tokenDropdown">Select a Token:</label>
-        <select id="tokenDropdown" onChange={handleTokenChange}>
-          <option value="">Select a token</option>
-          {tokenData.map((token, index) => (
-            <option key={index} value={index}>
-              {`${token.contract_display_name} - ${token.balance}`}
-            </option>
-          ))}
-        </select>
 
-        {selectedToken && (
-          <div>
-            <p>Token Name: {selectedToken.contract_display_name}</p>
-            <p>Token Balance: {selectedToken.balance}</p>
-          </div>
-        )}
-      </div> */}
       <div className={listStyle.divtokeninputs}>
-        {/* {isTokenLoaded ? null : ( */}
         <div className={listStyle.sendbuttindiv}>
           <button
             style={{
