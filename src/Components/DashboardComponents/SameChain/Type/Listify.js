@@ -2,7 +2,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import listStyle from "./listify.module.css";
-import { ethers } from "ethers";
+import { isValidAddress } from "@/Helpers/ValidateInput.js";
+import { isValidValue } from "@/Helpers/ValidateInput.js";
+import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 
 function Listify({ listData, setListData, tokenDecimal }) {
   const [formData, setFormData] = useState({
@@ -11,8 +13,6 @@ function Listify({ listData, setListData, tokenDecimal }) {
   });
   const [errorMessage, setErrorMessage] = useState(""); //error in model
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
-
-  const isValidAddress = (address) => ethers.utils.isAddress(address);
 
   const handleReceiverAddressChange = (event) => {
     setFormData({
@@ -32,32 +32,6 @@ function Listify({ listData, setListData, tokenDecimal }) {
         ...prevData,
         [name]: value,
       }));
-    }
-  };
-
-  const isValidValue = (value) => {
-    console.log(value);
-
-    try {
-      if (ethers.utils.parseUnits(value, "ether") <= 0) {
-        return false;
-      }
-      return ethers.utils.parseUnits(value, "ether");
-    } catch (err) {
-      return false;
-    }
-  };
-
-  const isValidTokenValue = (value) => {
-    try {
-      // regex to check if the value starts from digits 0-9
-      if (!/^\d/.test(value)) {
-        value = value.slice(1);
-      }
-      return ethers.utils.parseUnits(value, tokenDecimal);
-    } catch (err) {
-      // console.log(err);
-      return false;
     }
   };
 
@@ -85,7 +59,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
       return false;
     }
     if (tokenDecimal) {
-      formData.value = isValidTokenValue(amount);
+      formData.value = isValidTokenValue(amount, tokenDecimal);
     } else {
       formData.value = isValidValue(amount);
     }

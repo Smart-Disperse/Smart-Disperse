@@ -1,7 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import textStyle from "./textify.module.css";
-import { ethers } from "ethers";
+import { isValidAddress } from "@/Helpers/ValidateInput.js";
+import { isValidValue } from "@/Helpers/ValidateInput.js";
+import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 
 /*
 Funtion :Storing value for more personalization
@@ -32,10 +34,10 @@ function Textify({ listData, setListData, tokenDecimal }) {
     let updatedRecipients = [];
     lines.forEach((line) => {
       const [address, value] = line.split(/[,= \t]+/);
-      console.log(typeof value);
 
       if (tokenDecimal) {
-        var validValue = isValidTokenValue(value);
+        var validValue = isValidTokenValue(value, tokenDecimal);
+        console.log("go", validValue);
       } else {
         var validValue = isValidValue(value);
       }
@@ -50,41 +52,6 @@ function Textify({ listData, setListData, tokenDecimal }) {
 
     console.log(updatedRecipients);
     setListData(updatedRecipients);
-  };
-
-  /*
-  Funtion : for checking if it is an EOA address
-  */
-  const isValidAddress = (address) => ethers.utils.isAddress(address);
-
-  /*
-  Funtion : for checking if the value is in correct format and 
-  can be added to the listData for transaction lineup
-  */
-  const isValidValue = (value) => {
-    try {
-      // regex to check if the value starts from digits 0-9
-      if (!/^\d/.test(value)) {
-        value = value.slice(1);
-      }
-      return ethers.utils.parseUnits(value, "ether");
-    } catch (err) {
-      // console.log(err);
-      return false;
-    }
-  };
-
-  const isValidTokenValue = (value) => {
-    try {
-      // regex to check if the value starts from digits 0-9
-      if (!/^\d/.test(value)) {
-        value = value.slice(1);
-      }
-      return ethers.utils.parseUnits(value, tokenDecimal);
-    } catch (err) {
-      // console.log(err);
-      return false;
-    }
   };
 
   /*

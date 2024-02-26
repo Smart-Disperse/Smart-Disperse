@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
 import uploadStyle from "./uploadify.module.css";
+import { isValidAddress } from "@/Helpers/ValidateInput.js";
+import { isValidValue } from "@/Helpers/ValidateInput.js";
+import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 
 function Uploadify({ listData, setListData, tokenDecimal }) {
   const [csvData, setCsvData] = useState([]);
@@ -53,7 +55,8 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
             for (let i = 0; i < parsedData.length; i++) {
               if (tokenDecimal) {
                 var validValue = isValidTokenValue(
-                  parsedData[i]["Token Amount"]
+                  parsedData[i]["Token Amount"],
+                  tokenDecimal
                 );
               } else {
                 var validValue = isValidValue(parsedData[i]["Token Amount"]);
@@ -84,41 +87,6 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
     }
   };
 
-  /*
-  Funtion : for checking if it is an EOA address
-  */
-  const isValidAddress = (address) => ethers.utils.isAddress(address);
-
-  /*
-  Funtion : for checking if the value is in correct format and 
-  can be added to the listData for transaction lineup
-  */
-  const isValidValue = (value) => {
-    try {
-      // regex to check if the value starts from digits 0-9
-      if (!/^\d/.test(value)) {
-        value = value.slice(1);
-      }
-      return ethers.utils.parseUnits(value, "ether");
-    } catch (err) {
-      // console.log(err);
-      return false;
-    }
-  };
-
-  const isValidTokenValue = (value) => {
-    try {
-      // regex to check if the value starts from digits 0-9
-      if (!/^\d/.test(value)) {
-        value = value.slice(1);
-      }
-      return ethers.utils.parseUnits(value, tokenDecimal);
-    } catch (err) {
-      // console.log(err);
-      return false;
-    }
-  };
-
   const handleInputChange = (index, field, value) => {
     const updatedCsvData = [...csvData];
     updatedCsvData[index][field] = value;
@@ -129,7 +97,10 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
     const newListData = [];
     for (let i = 0; i < csvData.length; i++) {
       if (tokenDecimal) {
-        var validValue = isValidTokenValue(csvData[i]["Token Amount"]);
+        var validValue = isValidTokenValue(
+          csvData[i]["Token Amount"],
+          tokenDecimal
+        );
       } else {
         var validValue = isValidValue(csvData[i]["Token Amount"]);
       }
@@ -174,7 +145,7 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
             }
             className={
               tokenDecimal
-                ? isValidTokenValue(rowData["Token Amount"])
+                ? isValidTokenValue(rowData["Token Amount"], tokenDecimal)
                   ? uploadStyle.normal
                   : uploadStyle.red
                 : isValidValue(rowData["Token Amount"])

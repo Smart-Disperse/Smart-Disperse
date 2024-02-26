@@ -173,7 +173,7 @@ function SendToken({ activeTab, listData, setListData }) {
 
   useEffect(() => {
     calculateRemaining();
-  });
+  }, []);
 
   return (
     <>
