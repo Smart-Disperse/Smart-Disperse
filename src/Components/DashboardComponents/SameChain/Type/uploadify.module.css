@@ -297,13 +297,6 @@
   border: 1px solid #09112c !important;
 }
 
-#backgroundpurple {
-  /* background-color: #09112c !important; */
-}
-
-.token-div-same-csv {
-  /* padding-bottom: 10px; */
-}
 .tableheadertextlist {
   background-color: #fff0;
   border-bottom: 1px solid #fff;
@@ -430,7 +423,7 @@
   height: 20px;
   width: 22px;
   content: "";
-  background-image: url("../../Assets//upload.png");
+  background-image: url("../../../../Assets/upload.png");
 }
 
 /* ------- From Step 1 ------- */

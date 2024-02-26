@@ -1,27 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useAccount, useSigner } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import Textify from "../DashboardComponents/Textifymain";
-import Listify from "../DashboardComponents/Listify/Listify";
-import Uploadify from "../DashboardComponents/Uploadify";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
 import img4 from "../../Assets/img4-bg.webp";
-// import { useTheme } from "../../../ThemeProvider";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import samechainStyle from "./samechaindashboard.module.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import SameChain from "../../Components/DashboardComponents/SameChain";
+import SameChain from "../DashboardComponents/SameChain/SameChain";
 
 function Samechaindashboard() {
-  //   const { toggleDarkMode, themeClass } = useTheme();
   const [activeTab, setActiveTab] = useState("text");
-  //   const navigate = useNavigate();
-  const { openConnectModal } = useConnectModal();
-  //   const { address, isConnected } = useAccount();
 
   useEffect(() => {
     const hasVisitedBefore = document.cookie.includes("visited=true");
@@ -33,7 +24,7 @@ function Samechaindashboard() {
         showProgress: true,
         steps: [
           {
-            element: "#view",
+            element: "#text",
             popover: {
               title: "Textify",
               description:
@@ -43,7 +34,7 @@ function Samechaindashboard() {
             },
           },
           {
-            element: "#create",
+            element: "#list",
             popover: {
               title: "Listify",
               description:
@@ -88,40 +79,32 @@ function Samechaindashboard() {
         <div className={samechainStyle.maindivforalloptiondashboard}>
           <div className={samechainStyle.menubardashboard}>
             <button
-              // id={samechainStyle.view}
-              id="view"
+              id="text"
               className={activeTab === "text" ? `${samechainStyle.active}` : ""}
               onClick={() => setActiveTab("text")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               data-bs-custom-class="color-tooltip"
-              // title="Paste or Type recipient addresses and amounts in one line!"
             >
               Textify
             </button>
             <button
-              // id={samechainStyle.create}
-              id="create"
-              className={
-                activeTab === "create" ? `${samechainStyle.active}` : ""
-              }
-              onClick={() => setActiveTab("create")}
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-custom-class="color-tooltip"
-              // title=" Fill recipient addresses and amounts in a simple form."
-            >
-              Listify
-            </button>
-            <button
-              // id={samechainStyle.csv}
-              id="csv"
+              id="list"
               className={activeTab === "list" ? `${samechainStyle.active}` : ""}
               onClick={() => setActiveTab("list")}
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               data-bs-custom-class="color-tooltip"
-              // title=" Upload CSV with recipient info using Uploadify for easy editing."
+            >
+              Listify
+            </button>
+            <button
+              id="csv"
+              className={activeTab === "csv" ? `${samechainStyle.active}` : ""}
+              onClick={() => setActiveTab("csv")}
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-custom-class="color-tooltip"
             >
               Uploadify
             </button>
@@ -129,8 +112,6 @@ function Samechaindashboard() {
         </div>
         <div className={samechainStyle.divtocenterthecomponentrender}>
           <div className={samechainStyle.componentcontainerdashboard}>
-            {/* {renderComponent(activeTab)}
-             */}
             <SameChain activeTab={activeTab} />
           </div>
         </div>

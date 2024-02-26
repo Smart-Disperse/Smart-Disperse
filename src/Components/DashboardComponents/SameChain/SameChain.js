@@ -1,91 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
-import { ethers } from "ethers";
 import "driver.js/dist/driver.css";
-import textStyle from "./textify.module.css";
-import SendEth from "../../Components/DashboardComponents/SendEth";
-
-/*
-Funtion :Storing value for more personalization
-*/
-const useLocalStorage = (key, initialValue = "") => {
-  const [value, setValue] = useState(() => {
-    const storedValue = localStorage.getItem(key);
-    return storedValue !== null ? storedValue : initialValue;
-  });
-  useEffect(() => {
-    localStorage.setItem(key, value);
-  }, [key, value]);
-
-  return [value, setValue];
-};
+import textStyle from "./Type/textify.module.css";
+import SendEth from "./Send/SendEth";
+import SendToken from "./Send/SendToken";
 
 /*
 Main Component : the prop is use to get which of the three from textify, listify or uplaodify should ne loaded
 It will be handled further by sendEth or sendToken component
 */
 function SameChain({ activeTab }) {
-  const [isSendingEth, setIsSendingEth] = useState(false);
+  const [isSendingEth, setIsSendingEth] = useState(true);
   const [isSendingToken, setIsSendingToken] = useState(false);
-  const [textValue, setTextValue] = useLocalStorage("textValue", "");
   const [listData, setListData] = useState([]);
-
-  /*
-  UseEffect :For updating user Input in the textbox for adding  Recipient address and value
-  */
-
-  useEffect(() => {
-    console.log(textValue);
-    parseText(textValue);
-  }, [textValue]);
-
-  /*
-  Funtion : for parsing and validation the value received from user Input and store
-  it in our desired format for Showing in Transaction Lineup
-  */
-  const parseText = async (textValue) => {
-    const lines = textValue.split("\n").filter((line) => line.trim() !== "");
-
-    let updatedRecipients = [];
-    lines.forEach((line) => {
-      const [address, value] = line.split(/[,= \t]+/);
-      console.log(typeof value);
-      const validValue = isValidValue(value);
-
-      if (isValidAddress(address) && validValue) {
-        updatedRecipients.push({
-          address,
-          value: validValue,
-        });
-      }
-    });
-
-    setListData(updatedRecipients);
-    console.log(updatedRecipients);
-  };
-
-  /*
-  Funtion : for checking if the value is in correct format and 
-  can be added to the listData for transaction lineup
-  */
-  const isValidValue = (value) => {
-    try {
-      // regex to check if the value starts from digits 0-9
-      if (!/^\d/.test(value)) {
-        value = value.slice(1);
-      }
-      return ethers.utils.parseUnits(value, "ether");
-    } catch (err) {
-      // console.log(err);
-      return false;
-    }
-  };
-
-  /*
-  Funtion : for checking if it is an EOA address
-  */
-  const isValidAddress = (address) => ethers.utils.isAddress(address);
 
   /*
   Funtion : To load SendEth component
@@ -101,6 +28,7 @@ function SameChain({ activeTab }) {
 
   const handleImporttokenbuttonClick = () => {
     setIsSendingToken(true);
+    setListData([]);
     setIsSendingEth(false);
   };
 
@@ -150,7 +78,7 @@ function SameChain({ activeTab }) {
                   color: isSendingEth ? "" : "#924afc",
                 }}
                 className={textStyle.buttontoaddformdataunload}
-                onClick={handleImporttokenbuttonClick}
+                onClick={() => handleImporttokenbuttonClick()}
               >
                 Import Token
               </button>
@@ -160,18 +88,16 @@ function SameChain({ activeTab }) {
           {isSendingEth ? (
             <SendEth
               activeTab={activeTab}
-              setTextValue={setTextValue}
-              textValue={textValue}
               listData={listData}
+              setListData={setListData}
             />
           ) : null}
 
           {isSendingToken ? (
-            <SendEth
+            <SendToken
               activeTab={activeTab}
-              setTextValue={setTextValue}
-              textValue={textValue}
               listData={listData}
+              setListData={setListData}
             />
           ) : null}
         </div>

@@ -7,6 +7,7 @@ export const smartDisperseInstance = async () => {
     const chainId = await getChain();
 
     console.log(chainId);
+    console.log(contracts[chainId]["Abi"]);
 
     const { ethereum } = window;
     if (!ethereum) {
@@ -18,7 +19,7 @@ export const smartDisperseInstance = async () => {
 
     const contract = new ethers.Contract(
       contracts[chainId]["address"],
-      contracts[chainId]["Abi"],
+      contracts[chainId]["Abi"].abi,
       signer
     );
 

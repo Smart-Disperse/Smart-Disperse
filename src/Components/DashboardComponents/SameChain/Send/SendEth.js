@@ -1,11 +1,16 @@
 import React from "react";
-import Textify from "./Textify";
+import Textify from "../Type/Textify";
+import Listify from "../Type/Listify";
+import Uploadify from "../Type/Uploadify";
 import { useState, useEffect } from "react";
-import textStyle from "./textify.module.css";
+import textStyle from "../Type/textify.module.css";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import ExecuteEth from "../Execute/ExecuteEth";
 
-function SendEth({ activeTab, setTextValue, textValue, listData }) {
+function SendEth({ activeTab, listData, setListData }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
   const [totalEth, setTotalEth] = useState(null);
   const [remaining, setRemaining] = useState(null);
@@ -16,13 +21,13 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
   const renderComponent = (tab) => {
     switch (tab) {
       case "text":
-        return <Textify setTextValue={setTextValue} textValue={textValue} />;
-      //   case "create":
-      //     return <Listify />;
-      //   case "list":
-      //     return <Uploadify />;
+        return <Textify listData={listData} setListData={setListData} />;
+      case "list":
+        return <Listify listData={listData} setListData={setListData} />;
+      case "csv":
+        return <Uploadify listData={listData} setListData={setListData} />;
       default:
-        return <Textify />;
+        return <Textify listData={listData} setListData={setListData} />;
     }
   };
 
@@ -50,7 +55,7 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
 
     // Clean up the interval when the component unmounts
     // return () => clearInterval(interval);
-  }, [textValue]);
+  }, [listData]);
 
   /* For getting the user Balance
    */
@@ -61,6 +66,12 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
       let ethBalance = await provider.getBalance(address);
       setEthBalance(ethBalance);
     }
+  };
+
+  const handleDeleteRow = (index) => {
+    const updatedList = [...listData];
+    updatedList.splice(index, 1);
+    setListData(updatedList);
   };
 
   /*
@@ -86,6 +97,7 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
 
   /* for getting values on render */
   useEffect(() => {
+    console.log(listData);
     getEthBalance();
   });
 
@@ -96,7 +108,6 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
   const calculateRemaining = () => {
     if (ethBalance && totalEth) {
       const remaining = ethBalance.sub(totalEth);
-
       setRemaining(ethers.utils.formatEther(remaining));
     } else {
       setRemaining(null);
@@ -139,7 +150,7 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
                       className={textStyle.fontsize12px}
                       style={{ letterSpacing: "1px", padding: "8px" }}
                     >
-                      Wallet Address
+                      Receiver Address
                     </th>
                     <th
                       className={textStyle.fontsize12px}
@@ -152,6 +163,12 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
                       style={{ letterSpacing: "1px", padding: "8px" }}
                     >
                       Amount(USD)
+                    </th>
+                    <th
+                      className={textStyle.fontsize12px}
+                      style={{ letterSpacing: "1px", padding: "8px" }}
+                    >
+                      Action
                     </th>
                   </tr>
                 </thead>
@@ -208,6 +225,15 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
                                 ethToUsdExchangeRate
                               ).toFixed(2)} $`}
                             </div>
+                          </td>
+
+                          <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                            <button
+                              className={textStyle.deletebutton}
+                              onClick={() => handleDeleteRow(index)}
+                            >
+                              <FontAwesomeIcon icon={faTrashAlt} />
+                            </button>
                           </td>
                         </tr>
                       ))
@@ -340,20 +366,14 @@ function SendEth({ activeTab, setTextValue, textValue, listData }) {
       ) : null}
       <div>
         {listData.length > 0 ? (
-          <button
-            id={textStyle.greenbackground}
-            className={textStyle.sendbutton}
-            onClick={() => {
-              executeTransaction();
-            }}
-            disabled={loading}
-          >
-            {loading ? (
-              <div className={textStyle.loader}></div>
-            ) : (
-              "Begin Payment"
-            )}
-          </button>
+          <ExecuteEth
+            listData={listData}
+            setListData={setListData}
+            ethBalance={ethBalance}
+            totalEth={totalEth}
+            loading={loading}
+            setLoading={setLoading}
+          />
         ) : null}
       </div>
     </>
