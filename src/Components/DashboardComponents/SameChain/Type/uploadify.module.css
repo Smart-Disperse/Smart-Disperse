@@ -293,6 +293,18 @@
   margin-top: -15px;
 }
 
+.normal {
+  border: 1px solid green; /* Normal border color */
+  background-color: green; /* Normal background color */
+  /* Any other styles for normal input */
+}
+
+.red {
+  border: 1px solid red; /* Red border color for invalid input */
+  background-color: red; /* Red background color for invalid input */
+  /* Any other styles for invalid input */
+}
+
 #borderpurple {
   border: 1px solid #09112c !important;
 }

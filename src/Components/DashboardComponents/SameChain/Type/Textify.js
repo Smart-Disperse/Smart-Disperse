@@ -98,7 +98,7 @@ function Textify({ listData, setListData, tokenDecimal }) {
 
   return (
     <div>
-      <div className={textStyle.divtocoversametextdiv}>
+      <div className={textStyle.divtocoversametextdi}>
         <div>
           <div id="textify-input" className={textStyle.textlistdiv}>
             <div className={textStyle.titlesametexttextarea}>
