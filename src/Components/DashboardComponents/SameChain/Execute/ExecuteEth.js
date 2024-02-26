@@ -6,6 +6,7 @@ import contracts from "@/Helpers/ContractAddresses.js";
 import { ethers } from "ethers";
 import Modal from "react-modal";
 
+// Function to execute the Ethereum transaction
 function ExecuteEth(props) {
   const [message, setMessage] = useState("");
   const [isModalIsOpen, setModalIsOpen] = useState(false);
@@ -17,6 +18,7 @@ function ExecuteEth(props) {
     console.log(props.ethBalance);
     console.log(props.totalEth);
 
+    // Check if the Ethereum balance is sufficient for the transaction
     if (!props.ethBalance.gt(props.totalEth)) {
       props.setLoading(false);
       setMessage(
@@ -69,6 +71,7 @@ function ExecuteEth(props) {
     }
   };
 
+  // Function to get the block explorer URL
   const getExplorer = async () => {
     const chainId = await getChain();
     return contracts[chainId]["block-explorer"];
