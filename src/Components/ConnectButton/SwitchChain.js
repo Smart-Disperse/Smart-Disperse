@@ -2,8 +2,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNetwork, useSwitchNetwork } from "wagmi";
 import connectStyle from "../ConnectButton/connect.module.css";
+import useChainChangeReload from "./useChainChangeReload";
 
 function SwitchChain() {
+  useChainChangeReload(); // Call this hook on every render to ensure the page reloads when chain changes
   const { chain } = useNetwork();
   const { chains, error, isLoading, pendingChainId, switchNetwork } =
     useSwitchNetwork();
