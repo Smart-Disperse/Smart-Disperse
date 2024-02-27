@@ -7,24 +7,30 @@ import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 
 function Listify({ listData, setListData, tokenDecimal }) {
+  // Form data for input fields
   const [formData, setFormData] = useState({
-    // Form data for input fields
     address: "",
     value: "",
   });
   const [errorMessage, setErrorMessage] = useState(""); //error in model
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
 
+  //Handle change of receiver's address field
   const handleReceiverAddressChange = (event) => {
-    //Handle change of receiver's address field
-    setFormData({
-      ...formData,
-      address: event.target.value,
-    });
+    const inputValue = event.target.value;
+    // Regular expression to allow only alphanumeric characters
+    const validInputRegex = /^[a-zA-Z0-9]+$/;
+
+    if (validInputRegex.test(inputValue) || inputValue === "") {
+      setFormData({
+        ...formData,
+        address: inputValue,
+      });
+    }
   };
 
+  // Handle change of value field
   const handleValueInputChange = (e) => {
-    // Handle change of value field
     const { name, value } = e.target;
 
     // Regular expression to allow numeric and decimal values
