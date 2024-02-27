@@ -10,25 +10,33 @@ import connectStyle from "../ConnectButton/connect.module.css";
 import Image from "next/image";
 
 const ConnectButtonCustom = () => {
-  const [isAccountModalOpen, setAccountModalOpen] = useState(false);
-  const [isCopied, setIsCopied] = useState(false);
-  const { disconnect } = useDisconnect();
-  const modalRef = useRef();
+  const [isAccountModalOpen, setAccountModalOpen] = useState(false); // Modal for account info
+  const [isCopied, setIsCopied] =
+    useState(
+      false
+    ); /*/* Indicates if the address has been copied to clipboard */
+  const { disconnect } = useDisconnect(); // Disconnect button functionality
+  const modalRef = useRef(); /*/ Reference to the HTML element of the modal */
 
   const handleDisConnect = () => {
+    // Function that handles the click on the disconnect button
     disconnect();
     setAccountModalOpen(false);
   };
+
+  // Close the modal when clicking outside it (if not in mobile view)
   const modelOpen = () => {
     setAccountModalOpen(!isAccountModalOpen);
   };
 
+  // Add an event listener to close the modal when clicking outside it
   const closeModalOnOutsideClick = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       setAccountModalOpen(false);
     }
   };
 
+  // When the component mounts, add the event listener
   useEffect(() => {
     document.addEventListener("mousedown", closeModalOnOutsideClick);
     return () => {
@@ -36,6 +44,7 @@ const ConnectButtonCustom = () => {
     };
   }, []);
 
+  /** Copy functionnality */
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(
       () => {

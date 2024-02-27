@@ -30,7 +30,6 @@ function Textify({ listData, setListData, tokenDecimal }) {
   */
   const parseText = async (textValue) => {
     const lines = textValue.split("\n").filter((line) => line.trim() !== "");
-
     let updatedRecipients = [];
     lines.forEach((line) => {
       const [address, value] = line.split(/[,= \t]+/);

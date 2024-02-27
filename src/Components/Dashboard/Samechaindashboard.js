@@ -4,7 +4,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
 import img4 from "../../Assets/img4-bg.webp";
-import { driver } from "driver.js";
+import { driver } from "driver.js"; //driver .js is a javascript library used for guiding
 import "driver.js/dist/driver.css";
 import samechainStyle from "./samechaindashboard.module.css";
 import Navbar from "../Navbar/Navbar";
@@ -12,10 +12,12 @@ import Footer from "../Footer/Footer";
 import SameChain from "../DashboardComponents/SameChain/SameChain";
 
 function Samechaindashboard() {
-  const [activeTab, setActiveTab] = useState("text");
+  const [activeTab, setActiveTab] = useState("text"); //default tab is textify
 
+  /******************************Driver.JS Code Starts Here******************************* */
+  //Function to start the tour
   useEffect(() => {
-    const hasVisitedBefore = document.cookie.includes("visited=true");
+    const hasVisitedBefore = document.cookie.includes("visited=true"); //Checks if user has visited the page
     if (!hasVisitedBefore) {
       document.cookie = "visited=true; max-age=31536000"; // Max age is set to 1 year in seconds
       const driverObj = driver({
