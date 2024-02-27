@@ -41,3 +41,18 @@ export const isValidTokenValue = (value, tokenDecimal) => {
     return false;
   }
 };
+
+export const isContractAddress = async (address) => {
+  const { ethereum } = window;
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const code = await provider.getCode(address);
+  // If code is not empty, it's a contract address
+  console.log("code", code);
+  if (code.toLowerCase() === "0x") {
+    console.log("not a contract");
+    return false;
+  } else {
+    console.log("is a contract");
+    return true;
+  }
+};

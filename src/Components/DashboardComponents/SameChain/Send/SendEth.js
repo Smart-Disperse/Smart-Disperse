@@ -9,6 +9,8 @@ import { useAccount } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import ExecuteEth from "../Execute/ExecuteEth";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { isContractAddress } from "@/Helpers/ValidateInput.js";
 
 function SendEth({ activeTab, listData, setListData }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
@@ -168,6 +170,12 @@ function SendEth({ activeTab, listData, setListData }) {
                       className={textStyle.fontsize12px}
                       style={{ letterSpacing: "1px", padding: "8px" }}
                     >
+                      Warnings
+                    </th>
+                    <th
+                      className={textStyle.fontsize12px}
+                      style={{ letterSpacing: "1px", padding: "8px" }}
+                    >
                       Action
                     </th>
                   </tr>
@@ -225,6 +233,17 @@ function SendEth({ activeTab, listData, setListData }) {
                                 ethToUsdExchangeRate
                               ).toFixed(2)} $`}
                             </div>
+                          </td>
+
+                          <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                            <span
+                              className={textStyle.warningIcon}
+                              title="This is a contract address"
+                            >
+                              {data.isContract ? (
+                                <FontAwesomeIcon icon={faExclamationTriangle} />
+                              ) : null}
+                            </span>
                           </td>
 
                           <td style={{ letterSpacing: "1px", padding: "8px" }}>
