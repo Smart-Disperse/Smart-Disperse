@@ -8,7 +8,7 @@ import footerStyle from "../Footer/footer.module.css";
 import Image from "next/image";
 
 function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear(); // Get the Current Year
   return (
     <div
       className={footerStyle.footerouterdiv}

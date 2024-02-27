@@ -7,9 +7,11 @@ import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 
 function Uploadify({ listData, setListData, tokenDecimal }) {
-  const [csvData, setCsvData] = useState([]);
-  const [isCsvDataEmpty, setIsCsvDataEmpty] = useState(true);
+  const [csvData, setCsvData] = useState([]); // Stores the parsed CSV data
+  const [isCsvDataEmpty, setIsCsvDataEmpty] =
+    useState(true); /*True if csvData array is empty */
 
+  /* Parses a given string content into an array of objects and returns it.*/
   const parseCSV = (content) => {
     const rows = content.split("\n");
     if (rows.length < 2) {
@@ -35,6 +37,7 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
     return data;
   };
 
+  /* Validates all fields in each object of csvData array. Returns true if all are valid or false otherwise.*/
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
 
@@ -87,12 +90,14 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
     }
   };
 
+  // Function to handle form submission after validation checks
   const handleInputChange = (index, field, value) => {
     const updatedCsvData = [...csvData];
     updatedCsvData[index][field] = value;
     setCsvData(updatedCsvData);
   };
 
+  // Add a new row to the csvData array and reset the input fields
   const updateListData = () => {
     const newListData = [];
     for (let i = 0; i < csvData.length; i++) {

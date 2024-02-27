@@ -8,16 +8,18 @@ import Modal from "react-modal";
 import { approveToken } from "@/Helpers/ApproveToken";
 
 function ExecuteToken(props) {
-  const [message, setMessage] = useState("");
-  const [isModalIsOpen, setModalIsOpen] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState(""); //manage message to display in popup
+  const [isModalIsOpen, setModalIsOpen] = useState(false); //Control modal visibility state
+  const [success, setSuccess] = useState(false); //If transaction was successful or not
 
+  // Function to execute token transfer
   const execute = async () => {
     console.log(props.listData);
     props.setLoading(true);
     console.log(props.ERC20Balance);
     console.log(props.totalERC20);
 
+    // Check if ERC20 balance is sufficient for transaction
     if (!props.ERC20Balance.gt(props.totalERC20)) {
       props.setLoading(false);
       setMessage(
@@ -34,13 +36,14 @@ function ExecuteToken(props) {
       setModalIsOpen(true);
       return;
     } else {
+      // Prepare recipients and values arrays
       var recipients = [];
       var values = [];
       for (let i = 0; i < props.listData.length; i++) {
         recipients.push(props.listData[i]["address"]);
         values.push(props.listData[i]["value"]);
       }
-
+      // Check if token is approved
       const isTokenApproved = await approveToken(
         props.totalERC20,
         props.customTokenAddress
@@ -49,6 +52,7 @@ function ExecuteToken(props) {
       if (isTokenApproved) {
         try {
           const con = await smartDisperseInstance();
+          // Execute token transfer
           const txsendPayment = await con.disperseToken(
             props.customTokenAddress,
             recipients,
@@ -85,6 +89,7 @@ function ExecuteToken(props) {
     }
   };
 
+  // Function to get explorer URL based on chain
   const getExplorer = async () => {
     const chainId = await getChain();
     return contracts[chainId]["block-explorer"];
@@ -107,6 +112,7 @@ function ExecuteToken(props) {
           "Begin Payment"
         )}
       </button>
+      {/* Modal for displaying transaction status */}
       <Modal
         className={textStyle.popupforpayment}
         isOpen={isModalIsOpen}

@@ -11,12 +11,12 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import ExecuteEth from "../Execute/ExecuteEth";
 
 function SendEth({ activeTab, listData, setListData }) {
-  const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
-  const [totalEth, setTotalEth] = useState(null);
-  const [remaining, setRemaining] = useState(null);
-  const [ethBalance, setEthBalance] = useState(null);
-  const { address } = useAccount();
-  const [loading, setLoading] = useState(false);
+  const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
+  const [totalEth, setTotalEth] = useState(null); // store total amount of Ether in the transaction
+  const [remaining, setRemaining] = useState(null); // store remaining amount after deducting already sent value
+  const [ethBalance, setEthBalance] = useState(null); // store user's Ether balance
+  const { address } = useAccount(); /*/gather account data for current user */
+  const [loading, setLoading] = useState(false); //indicate whether a request is being processed or not
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -31,9 +31,8 @@ function SendEth({ activeTab, listData, setListData }) {
     }
   };
 
-  /*
-  For fetching the Exchnage rate of ETH to USD to display value in USD
-  */
+  
+  // For fetching the Exchange rate of ETH to USD to display value in USD
   useEffect(() => {
     const fetchExchangeRate = async () => {
       try {
@@ -52,7 +51,6 @@ function SendEth({ activeTab, listData, setListData }) {
     };
     fetchExchangeRate();
     // const interval = setInterval(fetchExchangeRate, 10000); // Call fetchExchangeRate every 2 seconds
-
     // Clean up the interval when the component unmounts
     // return () => clearInterval(interval);
   }, [listData]);
@@ -77,7 +75,6 @@ function SendEth({ activeTab, listData, setListData }) {
   /*
   For Calculating the total amount of sending ETH
   */
-
   useEffect(() => {
     const calculateTotal = () => {
       let totalEth = ethers.BigNumber.from(0);
@@ -320,7 +317,6 @@ function SendEth({ activeTab, listData, setListData }) {
                         margin: "0 auto",
                         color: "white",
                         borderRadius: "10px",
-
                         letterSpacing: "1px",
                       }}
                     >

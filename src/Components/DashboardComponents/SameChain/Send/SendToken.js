@@ -12,21 +12,30 @@ import ExecuteToken from "../Execute/ExecuteToken";
 import { LoadToken } from "@/Helpers/LoadToken.js";
 
 function SendToken({ activeTab, listData, setListData }) {
-  const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null);
-  const [totalERC20, setTotalERC20] = useState(null);
-  const [remaining, setRemaining] = useState(null);
-  const [ERC20Balance, setERC20Balance] = useState(null);
-  const { address } = useAccount();
-  const [loading, setLoading] = useState(false);
-  const [customTokenAddress, setCustomTokenAddress] = useState("");
-  const [isTokenLoaded, setTokenLoaded] = useState(false);
+  const [ethToUsdExchangeRate, setEthToUsdExchangeRate] =
+    useState(null); /*/USD/ETH exchange rate */
+  const [totalERC20, setTotalERC20] =
+    useState(null); /* Total ERC20 tokens in wallet */
+  const [remaining, setRemaining] = useState(null); // store remaining amount after deducting already sent value
+  const [ERC20Balance, setERC20Balance] =
+    useState(null); /* User's ERC20 token balance */
+  const { address } = useAccount(); /*/User's Ethereum Address*/
+  const [loading, setLoading] =
+    useState(false); /* Loading indicator for sending transaction */
+  const [customTokenAddress, setCustomTokenAddress] =
+    useState(""); /* Custom token address input field state */
+  const [isTokenLoaded, setTokenLoaded] =
+    useState(
+      false
+    ); /* Flag to check if the user has loaded their ERC20 Tokens */
   const defaultTokenDetails = {
     name: null,
     symbol: null,
     balance: null,
     decimal: null,
   };
-  const [tokenDetails, setTokenDetails] = useState(defaultTokenDetails);
+  const [tokenDetails, setTokenDetails] =
+    useState(defaultTokenDetails); /*/Details of the selected token to be sent*/
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -85,12 +94,14 @@ function SendToken({ activeTab, listData, setListData }) {
     // return () => clearInterval(interval);
   }, [listData]);
 
+  // Function to delete row in table
   const handleDeleteRow = (index) => {
     const updatedList = [...listData];
     updatedList.splice(index, 1);
     setListData(updatedList);
   };
 
+  // Function to load token details
   const loadToken = async () => {
     setRemaining(null);
     setTotalERC20(null);
@@ -119,6 +130,7 @@ function SendToken({ activeTab, listData, setListData }) {
     }
   };
 
+  // Function to unload token details
   const unloadToken = async () => {
     setTokenDetails(defaultTokenDetails);
     setRemaining(null);
@@ -127,9 +139,9 @@ function SendToken({ activeTab, listData, setListData }) {
     setListData([]);
   };
 
+  // Handle input change for token address
   const handleInputTokenAddressChange = (e) => {
     const inputValue = e.target.value;
-
     const isValidInput = /^[a-zA-Z0-9]+$/.test(inputValue);
 
     if (isValidInput || inputValue === "") {
@@ -156,7 +168,7 @@ function SendToken({ activeTab, listData, setListData }) {
     };
 
     calculateTotal();
-  }, [listData]);
+  }, [listData]); // Execute when listData changes
 
   useEffect(() => {
     calculateRemaining();
@@ -173,7 +185,7 @@ function SendToken({ activeTab, listData, setListData }) {
 
   useEffect(() => {
     calculateRemaining();
-  }, []);
+  }, []); // Execute once on component mount
 
   return (
     <>

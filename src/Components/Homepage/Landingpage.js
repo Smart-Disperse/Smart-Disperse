@@ -24,8 +24,10 @@ import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 function Modal({ closeModal, handleContinue, handleSameChain }) {
-  const modalRef = useRef();
-  useEffect(() => {
+  const modalRef = useRef(); // to access the DOM node for focus management
+  
+  // Focus on the modal when it first opens
+  useEffect(() => { 
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         // Clicked outside the modal, close it

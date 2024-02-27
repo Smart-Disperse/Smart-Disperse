@@ -8,6 +8,7 @@ import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 
 function Listify({ listData, setListData, tokenDecimal }) {
   const [formData, setFormData] = useState({
+    // Form data for input fields
     address: "",
     value: "",
   });
@@ -15,6 +16,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
 
   const handleReceiverAddressChange = (event) => {
+    //Handle change of receiver's address field
     setFormData({
       ...formData,
       address: event.target.value,
@@ -22,6 +24,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
   };
 
   const handleValueInputChange = (e) => {
+    // Handle change of value field
     const { name, value } = e.target;
 
     // Regular expression to allow numeric and decimal values
@@ -35,6 +38,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
     }
   };
 
+  //   Add new item to the list on submit
   const validateFormData = async () => {
     var address = formData.address;
     var amount = formData.value;
@@ -67,6 +71,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
     return true;
   };
 
+  //reset Form Data when user submits a valid transaction request
   const handleAddClick = async () => {
     const isvalid = await validateFormData();
     console.log(listData);
@@ -81,6 +86,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
     }
   };
 
+  //function  to delete the row from list of transactions table
   const handleDeleteRow = (index) => {
     const updatedList = [...listData];
     updatedList.splice(index, 1);

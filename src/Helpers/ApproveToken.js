@@ -4,8 +4,10 @@ import contracts from "@/Helpers/ContractAddresses.js";
 import { getChain } from "@/Helpers/GetChain";
 
 export const approveToken = async (amount, tokenContractAddress) => {
-  const chainId = await getChain();
-  const { ethereum } = window;
+  const chainId = await getChain(); // Get the current Chain ID
+  const { ethereum } = window; // Grab the global ethereum object so we can interact with it
+
+  // Make sure that the user has MetaMask installed and is connected to our network.
   if (ethereum) {
     try {
       const provider = new ethers.providers.Web3Provider(ethereum);
@@ -15,7 +17,6 @@ export const approveToken = async (amount, tokenContractAddress) => {
         ERC20ABI.abi,
         signer
       );
-
       const tx = await tokenContract.approve(
         contracts[chainId]["address"],
         amount

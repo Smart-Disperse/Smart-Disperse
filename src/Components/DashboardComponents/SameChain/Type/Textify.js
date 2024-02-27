@@ -22,14 +22,14 @@ Funtion :Storing value for more personalization
 
 function Textify({ listData, setListData, tokenDecimal }) {
   // const [textValue, setTextValue] = useLocalStorage("textValue", "");
-  const [textValue, setTextValue] = useState("");
+  const [textValue, setTextValue] = useState(""); 
 
   /*
   Funtion : for parsing and validation the value received from user Input and store
   it in our desired format for Showing in Transaction Lineup
   */
   const parseText = async (textValue) => {
-    const lines = textValue.split("\n").filter((line) => line.trim() !== "");
+    const lines = textValue.split("\n").filter((line) => line.trim() !== ""); 
 
     let updatedRecipients = [];
     lines.forEach((line) => {
