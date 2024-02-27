@@ -25,7 +25,7 @@ export const LoadToken = async (customTokenAddress, address) => {
         decimal: decimals,
       };
     } catch (error) {
-      console.log("loading token error", error);
+      console.log("loading token error", error.message);
       return null;
     }
   }

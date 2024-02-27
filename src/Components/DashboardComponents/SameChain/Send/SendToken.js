@@ -120,11 +120,8 @@ function SendToken({ activeTab, listData, setListData }) {
       if (tokenDetails) {
         setTokenDetails(tokenDetails);
         setERC20Balance(tokenDetails.balance);
-
         setTokenLoaded(true);
       }
-
-      // textifytour();
     } catch (error) {
       console.log(error);
     }
