@@ -5,6 +5,7 @@ import listStyle from "./listify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
+import { isContractAddress } from "@/Helpers/ValidateInput.js";
 
 function Listify({ listData, setListData, tokenDecimal }) {
   // Form data for input fields
@@ -82,7 +83,13 @@ function Listify({ listData, setListData, tokenDecimal }) {
     const isvalid = await validateFormData();
     console.log(listData);
     if (isvalid) {
-      setListData([...listData, formData]);
+      const test = await isContractAddress(formData.address);
+      let ans = {
+        address: formData.address,
+        value: formData.value,
+        isContract: test,
+      };
+      setListData([...listData, ans]);
       setFormData({
         address: "",
         value: "",
