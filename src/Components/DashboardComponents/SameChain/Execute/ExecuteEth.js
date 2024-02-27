@@ -8,13 +8,13 @@ import Modal from "react-modal";
 
 // Function to execute the Ethereum transaction
 function ExecuteEth(props) {
-  const [message, setMessage] = useState(""); //display the message in modal
-  const [isModalIsOpen, setModalIsOpen] = useState(false); //control whether the modal is open or not
-  const [success, setSuccess] = useState(false); //If transaction was successful or not
+  const [message, setMessage] = useState("");
+  const [isModalIsOpen, setModalIsOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const execute = async () => {
     console.log(props.listData);
-    props.setLoading(true); //show loading spinner while executing the transaction
+    props.setLoading(true);
     console.log(props.ethBalance);
     console.log(props.totalEth);
 
@@ -94,7 +94,6 @@ function ExecuteEth(props) {
           "Begin Payment"
         )}
       </button>
-      {/* Modal for displaying success or failure message of transaction */}
       <Modal
         className={textStyle.popupforpayment}
         isOpen={isModalIsOpen}
