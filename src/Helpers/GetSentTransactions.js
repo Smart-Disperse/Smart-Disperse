@@ -1,5 +1,5 @@
 import axios from "axios";
-import ContractAddress from "../Helpers/ContractAddresses.json";
+import ContractAddress from "./ContractAddresses.js";
 import { ethers } from "ethers";
 
 export const getSentTransaction = async (address) => {

@@ -10,6 +10,21 @@
   animation: zoomAnimation 1s infinite alternate;
 }
 
+.deletebutton:hover {
+  cursor: pointer;
+  /* border-color: red; */
+  /* background-color: rgba(0, 213, 255, 0.019); */
+}
+
+.deletebutton {
+  color: white;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  border-radius: 15px;
+  margin-left: 20px;
+}
+
 #truee {
   background: white !important;
   color: #924afc;
