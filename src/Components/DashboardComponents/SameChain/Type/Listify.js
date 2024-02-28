@@ -5,10 +5,8 @@ import listStyle from "./listify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
-import { isContractAddress } from "@/Helpers/ValidateInput.js";
 
 function Listify({ listData, setListData, tokenDecimal }) {
-  // Form data for input fields
   const [formData, setFormData] = useState({
     address: "",
     value: "",
@@ -16,21 +14,13 @@ function Listify({ listData, setListData, tokenDecimal }) {
   const [errorMessage, setErrorMessage] = useState(""); //error in model
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
 
-  //Handle change of receiver's address field
   const handleReceiverAddressChange = (event) => {
-    const inputValue = event.target.value;
-    // Regular expression to allow only alphanumeric characters
-    const validInputRegex = /^[a-zA-Z0-9]+$/;
-
-    if (validInputRegex.test(inputValue) || inputValue === "") {
-      setFormData({
-        ...formData,
-        address: inputValue,
-      });
-    }
+    setFormData({
+      ...formData,
+      address: event.target.value,
+    });
   };
 
-  // Handle change of value field
   const handleValueInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -45,7 +35,6 @@ function Listify({ listData, setListData, tokenDecimal }) {
     }
   };
 
-  //   Add new item to the list on submit
   const validateFormData = async () => {
     var address = formData.address;
     var amount = formData.value;
@@ -78,18 +67,11 @@ function Listify({ listData, setListData, tokenDecimal }) {
     return true;
   };
 
-  //reset Form Data when user submits a valid transaction request
   const handleAddClick = async () => {
     const isvalid = await validateFormData();
     console.log(listData);
     if (isvalid) {
-      const test = await isContractAddress(formData.address);
-      let ans = {
-        address: formData.address,
-        value: formData.value,
-        isContract: test,
-      };
-      setListData([...listData, ans]);
+      setListData([...listData, formData]);
       setFormData({
         address: "",
         value: "",
@@ -99,7 +81,6 @@ function Listify({ listData, setListData, tokenDecimal }) {
     }
   };
 
-  //function  to delete the row from list of transactions table
   const handleDeleteRow = (index) => {
     const updatedList = [...listData];
     updatedList.splice(index, 1);
