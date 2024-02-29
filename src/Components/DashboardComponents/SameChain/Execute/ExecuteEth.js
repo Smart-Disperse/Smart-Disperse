@@ -5,6 +5,8 @@ import textStyle from "../Type/textify.module.css";
 import contracts from "@/Helpers/ContractAddresses.js";
 import { ethers } from "ethers";
 import Modal from "react-modal";
+import Image from "next/image";
+import oopsimage from "@/Assets/oops.webp";
 
 // Function to execute the Ethereum transaction
 function ExecuteEth(props) {
@@ -13,20 +15,20 @@ function ExecuteEth(props) {
   const [success, setSuccess] = useState(false);
 
   const execute = async () => {
-    console.log(props.listData);
+    // console.log(props.listData);
     props.setLoading(true);
-    console.log(props.ethBalance);
-    console.log(props.totalEth);
+    // console.log(props.ethBalance);
+    // console.log(props.totalEth);
 
     // Check if the Ethereum balance is sufficient for the transaction
     if (!props.ethBalance.gt(props.totalEth)) {
       props.setLoading(false);
       setMessage(
-        `Eth Limit Exceeded. Your Eth Balance is ${(+ethers.utils.formatEther(
+        `Current ETH Balance is ${(+ethers.utils.formatEther(
           props.ethBalance
         )).toFixed(
           9
-        )}  ETH and you total sending Eth amount is ${(+ethers.utils.formatEther(
+        )}ETH & your Total Sending ETH Amount is ${(+ethers.utils.formatEther(
           props.totalEth
         )).toFixed(9)} ETH `
       );
@@ -57,10 +59,10 @@ function ExecuteEth(props) {
             }}
           />
         );
-        console.log("opening it sir");
+        // console.log("opening it sir");
         setModalIsOpen(true);
         setSuccess(true);
-        console.log("Transaction receipt:", receipt);
+        // console.log("Transaction receipt:", receipt);
       } catch (error) {
         props.setLoading(false);
         setMessage(`Transaction cancelled.`);
@@ -102,7 +104,18 @@ function ExecuteEth(props) {
       >
         {message ? (
           <>
-            <h2>{success ? "Congratulations!!" : "Error"}</h2>
+            <h2>{success ? "Congratulations!!" : "Something went Wrong..."}</h2>
+            <div>
+              <Image
+                height={150}
+                width={150}
+                src={oopsimage.src}
+                alt="not found"
+              />
+            </div>
+            <p className={textStyle.errormessagep}>
+              {success ? "" : "Eth Limit Exceeded"}
+            </p>
             <p>{message}</p>
             <div className={textStyle.divtocenter}>
               <button
