@@ -5,6 +5,10 @@ import listStyle from "./listify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
+import Modal from "react-modal";
+import textStyle from "./textify.module.css";
+import oopsimage from "@/Assets/oops.webp";
+import Image from "next/image";
 
 function Listify({ listData, setListData, tokenDecimal }) {
   const [formData, setFormData] = useState({
@@ -13,6 +17,14 @@ function Listify({ listData, setListData, tokenDecimal }) {
   });
   const [errorMessage, setErrorMessage] = useState(""); //error in model
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
+
+  // Function to close the error modal
+  const closeErrorModal = () => {
+    console.log("clicked");
+    setErrorModalIsOpen(false);
+    setErrorMessage("");
+    console.log("modal open");
+  };
 
   const handleReceiverAddressChange = (event) => {
     setFormData({
@@ -43,6 +55,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
     }
 
     if (!isValidValue(amount) && !isValidAddress(address)) {
+      console.log("Invalid address");
       setErrorMessage("Incorrect details");
       setErrorModalIsOpen(true);
       return false;
@@ -63,11 +76,12 @@ function Listify({ listData, setListData, tokenDecimal }) {
     } else {
       formData.value = isValidValue(amount);
     }
-
+    console.log("here");
     return true;
   };
 
   const handleAddClick = async () => {
+    console.log("checking");
     const isvalid = await validateFormData();
     console.log(listData);
     if (isvalid) {
@@ -148,6 +162,33 @@ function Listify({ listData, setListData, tokenDecimal }) {
           </button>
         </div>
       </div>
+      <>
+        <Modal
+          className={textStyle.popupforpayment}
+          isOpen={errorModalIsOpen}
+          onRequestClose={() => setErrorModalIsOpen(false)}
+          contentLabel="Error Modal"
+        >
+          <>
+            <h2>Oops...</h2>
+            <p>Something went Wrong,</p>
+            <div>
+              {/* <Image src={oopsimage} alt="not found" /> */}
+              <Image
+                height={150}
+                width={150}
+                src={oopsimage.src}
+                alt="not found"
+              />
+            </div>
+            <p className={textStyle.errormessagep}>{errorMessage}</p>
+
+            <div className={textStyle.divtocenter}>
+              <button onClick={closeErrorModal}>Close</button>
+            </div>
+          </>
+        </Modal>
+      </>
     </div>
   );
 }

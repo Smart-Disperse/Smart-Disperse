@@ -11,6 +11,7 @@
 }
 
 .errormessagep {
+  font-weight: 900;
   transform: translate(-50%, -50%);
   animation: zoomAnimation 1.5s infinite alternate;
 }

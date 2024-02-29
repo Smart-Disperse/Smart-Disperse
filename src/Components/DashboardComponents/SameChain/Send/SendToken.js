@@ -633,17 +633,6 @@ function SendToken({ activeTab, listData, setListData }) {
           onRequestClose={() => setErrorModalIsOpen(false)}
           contentLabel="Error Modal"
         >
-          {/* {errorMessage ? (
-            <>
-              <h2>{success ? "Congratulations!!" : "Error"}</h2>
-              <p>{errorMessage}</p>
-              <div className={textStyle.divtocenter}>
-                <button onClick={() => setErrorModalIsOpen(false)}>
-                  Close
-                </button>
-              </div>
-            </>
-          ) : ( */}
           <>
             <h2>Oops...</h2>
             <p>Something went Wrong,</p>
@@ -663,49 +652,7 @@ function SendToken({ activeTab, listData, setListData }) {
               <button onClick={closeErrorModal}>Close</button>
             </div>
           </>
-          {/* )} */}
         </Modal>
-        {/* {true && (
-          <div className={homeStyle.custommodal}>
-            <div className={homeStyle.custommodalheader}>
-              <div style={{ width: "90%" }}>
-                <h6 className={homeStyle.modaltitle}>
-                  <FontAwesomeIcon icon={faCircleExclamation} />
-                  &nbsp; Alert!
-                </h6>
-              </div>
-            </div>
-
-            <div className={homeStyle.popupbuttonflex}>
-              <iv
-                style={{
-                  width: "100%",
-                  margin: "10px auto",
-                  fontSize: "20px",
-                }}
-              >
-                Kindly ensure to enter the correct Token Address.
-              </iv>
-              <div
-                className={homeStyle.samechainbutton}
-                style={{
-                  width: "70%",
-                  margin: "10px auto",
-                  fontSize: "15px",
-                }}
-              >
-                {errorMessage}
-              </div>
-              <button
-                onClick={closeErrorModal}
-                className={homeStyle.samechainbutton}
-                style={{ width: "70%", margin: "10px auto" }}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        )} */}
       </>
     </>
   );
