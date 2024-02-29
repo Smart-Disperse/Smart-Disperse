@@ -656,7 +656,9 @@ function SendToken({ activeTab, listData, setListData }) {
                 alt="not found"
               />
             </div>
-            <p>{errorMessage}</p>
+            {/* <p>{errorMessage}</p> */}
+            <p className={textStyle.errormessagep}>{errorMessage}</p>
+
             <div className={textStyle.divtocenter}>
               <button onClick={closeErrorModal}>Close</button>
             </div>

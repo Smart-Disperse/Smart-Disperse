@@ -10,6 +10,11 @@
   animation: zoomAnimation 1s infinite alternate;
 }
 
+.errormessagep {
+  transform: translate(-50%, -50%);
+  animation: zoomAnimation 1.5s infinite alternate;
+}
+
 .deletebutton:hover {
   cursor: pointer;
   /* border-color: red; */
