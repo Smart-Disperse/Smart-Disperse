@@ -11,6 +11,7 @@ import ExecuteToken from "../Execute/ExecuteToken";
 import { LoadToken } from "@/Helpers/LoadToken.js";
 import {
   faCircleExclamation,
+  faTrashAlt,
   faExclamationTriangle,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
@@ -90,9 +91,9 @@ function SendToken({ activeTab, listData, setListData }) {
         );
         const data = await response.json();
         const rate = data.USD;
-        console.log(typeof data.USD);
+        // console.log(typeof data.USD);
 
-        console.log("data here", data.USD);
+        // console.log("data here", data.USD);
         setEthToUsdExchangeRate(rate);
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
@@ -142,10 +143,10 @@ function SendToken({ activeTab, listData, setListData }) {
   };
   // Function to close the error modal
   const closeErrorModal = () => {
-    console.log("clicked");
+    // console.log("clicked");
     setErrorModalIsOpen(false);
     setErrorMessage("");
-    console.log("modal open");
+    // console.log("modal open");
   };
 
   // Function to unload token details
@@ -180,7 +181,7 @@ function SendToken({ activeTab, listData, setListData }) {
           totalERC20 = totalERC20.add(data.value);
         });
       }
-      console.log(totalERC20);
+      // console.log(totalERC20);
 
       setTotalERC20(totalERC20);
     };
@@ -208,6 +209,71 @@ function SendToken({ activeTab, listData, setListData }) {
   return (
     <>
       <>
+        <div>
+          <div
+            style={{
+              marginBottom: "10px ",
+            }}
+            className={textStyle.accountsummarycreatetitle}
+          >
+            <h2
+              style={{
+                padding: "10px",
+                fontSize: "20px",
+                margin: "0px",
+                letterSpacing: "1px",
+                fontWeight: "700",
+              }}
+            >
+              Load Your Token
+            </h2>
+          </div>
+
+          <div
+            className={textStyle.entertokenaddress}
+            style={{ padding: "20px" }}
+          >
+            <label style={{ margin: "5px" }}>Enter Token Address: </label>
+            <input
+              id="input-token-load"
+              type="text"
+              className={`${textStyle["eachinputofcreatelist"]} ${textStyle["tokeninput"]}`}
+              placeholder="Enter token Address"
+              value={customTokenAddress}
+              onChange={(e) => handleInputTokenAddressChange(e)}
+              style={{
+                borderRadius: "5px",
+                border: "1px solid #fff",
+                background:
+                  "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
+                padding: "10px 20px",
+                margin: "0px 20px",
+                color: "white",
+              }}
+            />
+            {isTokenLoaded ? (
+              <button
+                id={textStyle.backgroundgreen}
+                className={textStyle.buttontaddformdataunload}
+                onClick={() => {
+                  unloadToken();
+                }}
+              >
+                Unload Token
+              </button>
+            ) : (
+              <button
+                id={textStyle.backgroundgreen}
+                className={textStyle.buttontoaddformdata}
+                onClick={() => {
+                  loadToken();
+                }}
+              >
+                Load Token
+              </button>
+            )}
+          </div>
+        </div>
         {isTokenLoaded ? (
           // <div
           //   className={`${textStyle["accountsummarycreatetitle"]} ${
@@ -288,72 +354,6 @@ function SendToken({ activeTab, listData, setListData }) {
           </div>
         ) : null}
         {isTokenLoaded ? renderComponent(activeTab) : null}
-
-        <div>
-          <div
-            style={{
-              marginBottom: "10px ",
-            }}
-            className={textStyle.accountsummarycreatetitle}
-          >
-            <h2
-              style={{
-                padding: "10px",
-                fontSize: "20px",
-                margin: "0px",
-                letterSpacing: "1px",
-                fontWeight: "700",
-              }}
-            >
-              Load Your Token
-            </h2>
-          </div>
-
-          <div
-            className={textStyle.entertokenaddress}
-            style={{ padding: "20px" }}
-          >
-            <label style={{ margin: "5px" }}>Enter Token Address: </label>
-            <input
-              id="input-token-load"
-              type="text"
-              className={`${textStyle["eachinputofcreatelist"]} ${textStyle["tokeninput"]}`}
-              placeholder="Enter token Address"
-              value={customTokenAddress}
-              onChange={(e) => handleInputTokenAddressChange(e)}
-              style={{
-                borderRadius: "5px",
-                border: "1px solid #fff",
-                background:
-                  "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
-                padding: "10px 20px",
-                margin: "0px 20px",
-                color: "white",
-              }}
-            />
-            {isTokenLoaded ? (
-              <button
-                id={textStyle.backgroundgreen}
-                className={textStyle.buttontaddformdataunload}
-                onClick={() => {
-                  unloadToken();
-                }}
-              >
-                Unload Token
-              </button>
-            ) : (
-              <button
-                id={textStyle.backgroundgreen}
-                className={textStyle.buttontoaddformdata}
-                onClick={() => {
-                  loadToken();
-                }}
-              >
-                Load Token
-              </button>
-            )}
-          </div>
-        </div>
 
         {isTokenLoaded && listData.length > 0 ? (
           <div>

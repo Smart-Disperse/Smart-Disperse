@@ -46,14 +46,14 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
 
       reader.onload = async (e) => {
         const content = e.target.result;
-        console.log(content);
+        // console.log(content);
         try {
           const parsedData = parseCSV(content);
 
           if (parsedData) {
             setCsvData(parsedData);
             setIsCsvDataEmpty(parsedData.length === 0);
-            console.log(parsedData);
+            // console.log(parsedData);
             const listData = [];
             for (let i = 0; i < parsedData.length; i++) {
               if (tokenDecimal) {
@@ -75,9 +75,9 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
                 });
               }
             }
-            console.log(listData);
+            // console.log(listData);
             setListData(listData);
-            console.log("list data is set");
+            // console.log("list data is set");
           } else {
             console.error("Parsed data is empty.");
           }

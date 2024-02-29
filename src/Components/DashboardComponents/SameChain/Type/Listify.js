@@ -20,10 +20,10 @@ function Listify({ listData, setListData, tokenDecimal }) {
 
   // Function to close the error modal
   const closeErrorModal = () => {
-    console.log("clicked");
+    // console.log("clicked");
     setErrorModalIsOpen(false);
     setErrorMessage("");
-    console.log("modal open");
+    // console.log("modal open");
   };
 
   const handleReceiverAddressChange = (event) => {
@@ -55,7 +55,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
     }
 
     if (!isValidValue(amount) && !isValidAddress(address)) {
-      console.log("Invalid address");
+      // console.log("Invalid address");
       setErrorMessage("Incorrect details");
       setErrorModalIsOpen(true);
       return false;
@@ -76,14 +76,14 @@ function Listify({ listData, setListData, tokenDecimal }) {
     } else {
       formData.value = isValidValue(amount);
     }
-    console.log("here");
+    // console.log("here");
     return true;
   };
 
   const handleAddClick = async () => {
-    console.log("checking");
+    // console.log("checking");
     const isvalid = await validateFormData();
-    console.log(listData);
+    // console.log(listData);
     if (isvalid) {
       setListData([...listData, formData]);
       setFormData({

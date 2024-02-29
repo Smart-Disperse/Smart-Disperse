@@ -6,8 +6,8 @@ export const smartDisperseInstance = async () => {
   try {
     const chainId = await getChain();
 
-    console.log(chainId);
-    console.log(contracts[chainId]["Abi"]);
+    // console.log(chainId);
+    // console.log(contracts[chainId]["Abi"]);
 
     const { ethereum } = window;
     if (!ethereum) {
@@ -23,7 +23,7 @@ export const smartDisperseInstance = async () => {
       signer
     );
 
-    console.log(contract);
+    // console.log(contract);
     return contract;
   } catch (error) {
     console.error("Error:", error.message);

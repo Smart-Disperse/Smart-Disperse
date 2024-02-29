@@ -27,7 +27,7 @@ function SameChain({ activeTab }) {
   */
 
   const handleImporttokenbuttonClick = () => {
-    console.log("import token");
+    // console.log("import token");
     setIsSendingToken(true);
     setListData([]);
     setIsSendingEth(false);

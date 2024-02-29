@@ -6,18 +6,33 @@ import contracts from "@/Helpers/ContractAddresses.js";
 import { ethers } from "ethers";
 import Modal from "react-modal";
 import { approveToken } from "@/Helpers/ApproveToken";
+import Image from "next/image";
+import oopsimage from "@/Assets/oops.webp";
+import bggif from "@/Assets/bp.gif";
+import completegif from "@/Assets/complete.gif";
+import confetti from "canvas-confetti";
+import Head from "next/head";
+
+const ConfettiScript = () => (
+  <Head>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1/confetti.min.js"></script>
+  </Head>
+);
 
 function ExecuteToken(props) {
   const [message, setMessage] = useState(""); //manage message to display in popup
   const [isModalIsOpen, setModalIsOpen] = useState(false); //Control modal visibility state
   const [success, setSuccess] = useState(false); //If transaction was successful or not
+  const [paymentmodal, setPaymentmodal] = useState(false);
+  const [limitexceed, setLimitexceed] = useState(null);
 
   // Function to execute token transfer
   const execute = async () => {
-    console.log(props.listData);
+    setPaymentmodal(true);
+    // console.log(props.listData);
     props.setLoading(true);
-    console.log(props.ERC20Balance);
-    console.log(props.totalERC20);
+    // console.log(props.ERC20Balance);
+    // console.log(props.totalERC20);
 
     // Check if ERC20 balance is sufficient for transaction
     if (!props.ERC20Balance.gt(props.totalERC20)) {
@@ -61,8 +76,8 @@ function ExecuteToken(props) {
 
           const receipt = await txsendPayment.wait();
           let blockExplorerURL = await getExplorer();
-
           props.setLoading(false);
+          // console.log("yayy");
           setMessage(
             <div
               dangerouslySetInnerHTML={{
@@ -70,9 +85,11 @@ function ExecuteToken(props) {
               }}
             />
           );
+          // console.log("modal opening");
           setModalIsOpen(true);
-          props.setListData([]);
           setSuccess(true);
+          // console.log("success is true");
+          // props.setListData([]);
         } catch (e) {
           props.setLoading(false);
           console.log("error", e);
@@ -95,6 +112,50 @@ function ExecuteToken(props) {
     return contracts[chainId]["block-explorer"];
   };
 
+  useEffect(() => {
+    if (success) {
+      const count = 500,
+        defaults = {
+          origin: { y: 0.7 },
+        };
+
+      function fire(particleRatio, opts) {
+        confetti(
+          Object.assign({}, defaults, opts, {
+            particleCount: Math.floor(count * particleRatio),
+          })
+        );
+      }
+
+      fire(0.25, {
+        spread: 26,
+        startVelocity: 55,
+      });
+
+      fire(0.2, {
+        spread: 60,
+      });
+
+      fire(0.35, {
+        spread: 100,
+        decay: 0.91,
+        scalar: 0.8,
+      });
+
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 25,
+        decay: 0.92,
+        scalar: 1.2,
+      });
+
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 45,
+      });
+    }
+  }, [success]); // Trigger confetti effect when success state changes
+
   return (
     <div>
       {" "}
@@ -107,7 +168,18 @@ function ExecuteToken(props) {
         disabled={props.loading}
       >
         {props.loading ? (
-          <div className={textStyle.loader}></div>
+          <div>
+            <Modal
+              className={textStyle.popupforpayment}
+              isOpen={paymentmodal}
+              onRequestClose={() => setPaymentmodal(false)}
+              contentLabel="Error Modal"
+            >
+              <h2>Please wait...</h2>
+              <Image src={bggif.src} alt="not found" width={150} height={150} />
+              <p>We securely processing your payment.</p>
+            </Modal>
+          </div>
         ) : (
           "Begin Payment"
         )}
@@ -121,7 +193,30 @@ function ExecuteToken(props) {
       >
         {message ? (
           <>
-            <h2>{success ? "Congratulations!!" : "Error"}</h2>
+            <h2>{success ? "Congratulations!!" : "Something went Wrong..."}</h2>
+            <div>
+              {success ? (
+                <div>
+                  <Image
+                    src={completegif}
+                    alt="not found"
+                    width={150}
+                    height={150}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <Image
+                    src={oopsimage}
+                    alt="not found"
+                    width={150}
+                    height={150}
+                  />
+                </div>
+              )}
+            </div>
+            <p>{success ? "" : "Please Try again"}</p>
+            <p className={textStyle.errormessagep}>{limitexceed}</p>
             <p>{message}</p>
             <div className={textStyle.divtocenter}>
               <button

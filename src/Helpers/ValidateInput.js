@@ -20,7 +20,7 @@ export const isValidValue = (value) => {
     }
     return false;
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     return false;
   }
 };
@@ -37,7 +37,7 @@ export const isValidTokenValue = (value, tokenDecimal) => {
 
     return false;
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     return false;
   }
 };
@@ -47,12 +47,12 @@ export const isContractAddress = async (address) => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const code = await provider.getCode(address);
   // If code is not empty, it's a contract address
-  console.log("code", code);
+  // console.log("code", code);
   if (code.toLowerCase() === "0x") {
-    console.log("not a contract");
+    // console.log("not a contract");
     return false;
   } else {
-    console.log("is a contract");
+    // console.log("is a contract");
     return true;
   }
 };
