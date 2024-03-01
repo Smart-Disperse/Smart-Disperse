@@ -162,12 +162,12 @@ function SendEth({ activeTab, listData, setListData }) {
                     >
                       Amount(USD)
                     </th>
-                    <th
+                    {/* <th
                       className={textStyle.fontsize12px}
                       style={{ letterSpacing: "1px", padding: "8px" }}
                     >
                       Warnings
-                    </th>
+                    </th> */}
                     <th
                       className={textStyle.fontsize12px}
                       style={{ letterSpacing: "1px", padding: "8px" }}
@@ -231,7 +231,7 @@ function SendEth({ activeTab, listData, setListData }) {
                             </div>
                           </td>
 
-                          <td style={{ letterSpacing: "1px", padding: "8px" }}>
+                          {/* <td style={{ letterSpacing: "1px", padding: "8px" }}>
                             <span
                               className={textStyle.warningIcon}
                               title="This is a contract address"
@@ -240,7 +240,7 @@ function SendEth({ activeTab, listData, setListData }) {
                                 <FontAwesomeIcon icon={faExclamationTriangle} />
                               ) : null}
                             </span>
-                          </td>
+                          </td> */}
 
                           <td style={{ letterSpacing: "1px", padding: "8px" }}>
                             <button
