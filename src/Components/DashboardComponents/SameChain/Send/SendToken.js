@@ -15,7 +15,6 @@ import {
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
-import SendEth from "./SendEth";
 import Modal from "react-modal";
 
 function SendToken({ activeTab, listData, setListData }) {
@@ -629,13 +628,13 @@ function SendToken({ activeTab, listData, setListData }) {
       <>
         <Modal
           className={textStyle.popupforpayment}
-          isOpen={true}
+          isOpen={errorModalIsOpen}
           onRequestClose={() => setErrorModalIsOpen(false)}
           contentLabel="Error Modal"
         >
           {errorMessage ? (
             <>
-              <h2>{success ? "Congratulations!!" : "Error"}</h2>
+              <h2>{"Error"}</h2>
               <p>{errorMessage}</p>
               <div className={textStyle.divtocenter}>
                 <button onClick={() => setErrorModalIsOpen(false)}>
