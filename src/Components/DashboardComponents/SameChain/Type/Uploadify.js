@@ -190,11 +190,13 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
         <div>
           <div>
             <a
-              href="/Book2.csv"
-              download="Book2.csv"
+              href="/SampleUpload.csv"
+              download="SampleUpload.csv"
               className={uploadStyle.downloadbtn}
             >
-              <button>Download sample CSV file</button>
+              <button style={{ cursor: "pointer" }}>
+                Download sample CSV file
+              </button>
             </a>
           </div>
         </div>
