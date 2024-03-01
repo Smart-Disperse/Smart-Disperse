@@ -632,37 +632,6 @@ function SendToken({ activeTab, listData, setListData }) {
           onRequestClose={() => setErrorModalIsOpen(false)}
           contentLabel="Error Modal"
         >
-<<<<<<< HEAD
-          {errorMessage ? (
-            <>
-              <h2>{"Error"}</h2>
-              <p>{errorMessage}</p>
-              <div className={textStyle.divtocenter}>
-                <button onClick={() => setErrorModalIsOpen(false)}>
-                  Close
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <h2>Notice</h2>
-              <p>{errorMessage}</p>
-              <div className={textStyle.divtocenter}>
-                <button onClick={closeErrorModal}>Close</button>
-              </div>
-            </>
-          )}
-        </Modal>
-        {/* {true && (
-          <div className={homeStyle.custommodal}>
-            <div className={homeStyle.custommodalheader}>
-              <div style={{ width: "90%" }}>
-                <h6 className={homeStyle.modaltitle}>
-                  <FontAwesomeIcon icon={faCircleExclamation} />
-                  &nbsp; Alert!
-                </h6>
-              </div>
-=======
           <>
             <h2>Oops...</h2>
             <p>Something went Wrong,</p>
@@ -674,7 +643,6 @@ function SendToken({ activeTab, listData, setListData }) {
                 src={oopsimage.src}
                 alt="not found"
               />
->>>>>>> 8c73366ca87983bea909af91bc676998e74a298f
             </div>
             {/* <p>{errorMessage}</p> */}
             <p className={textStyle.errormessagep}>{errorMessage}</p>
