@@ -11,7 +11,7 @@ export const decode = (payload) => {
         PaymentDataStruct,
         payload
       );
-      console.log(decodedData);
+      // console.log(decodedData);
       resolve(decodedData);
     } catch (error) {
       reject(error);

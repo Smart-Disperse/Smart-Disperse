@@ -10,6 +10,12 @@
   animation: zoomAnimation 1s infinite alternate;
 }
 
+.errormessagep {
+  font-weight: 900;
+  transform: translate(-50%, -50%);
+  animation: zoomAnimation 1.5s infinite alternate;
+}
+
 .deletebutton:hover {
   cursor: pointer;
   /* border-color: red; */
@@ -349,6 +355,9 @@
   border: none;
   color: #070707;
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
+}
+
+.pmessage {
 }
 @media only screen and (max-width: 768px) {
   .sendethdiv {

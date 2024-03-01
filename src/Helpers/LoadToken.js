@@ -17,7 +17,7 @@ export const LoadToken = async (customTokenAddress, address) => {
       const symbol = await erc20.symbol();
       const balance = await erc20.balanceOf(address);
       const decimals = await erc20.decimals();
-      console.log(symbol, balance);
+      // console.log(symbol, balance);
       return {
         name,
         symbol,
@@ -25,7 +25,7 @@ export const LoadToken = async (customTokenAddress, address) => {
         decimal: decimals,
       };
     } catch (error) {
-      console.log("loading token error", error);
+      console.log("loading token error", error.message);
       return null;
     }
   }

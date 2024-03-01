@@ -49,7 +49,7 @@ function Textify({ listData, setListData, tokenDecimal }) {
       }
     });
 
-    console.log(updatedRecipients);
+    // console.log(updatedRecipients);
     setListData(updatedRecipients);
   };
 
@@ -58,7 +58,7 @@ function Textify({ listData, setListData, tokenDecimal }) {
   */
 
   useEffect(() => {
-    console.log(textValue);
+    // console.log(textValue);
     parseText(textValue);
   }, [textValue]);
 

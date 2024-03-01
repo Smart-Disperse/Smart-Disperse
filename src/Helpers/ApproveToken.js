@@ -22,7 +22,7 @@ export const approveToken = async (amount, tokenContractAddress) => {
         amount
       );
       await tx.wait();
-      console.log(`${amount} tokens Approved`);
+      // console.log(`${amount} tokens Approved`);
 
       return true;
     } catch (error) {

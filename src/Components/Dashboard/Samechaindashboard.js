@@ -9,10 +9,12 @@ import "driver.js/dist/driver.css";
 import samechainStyle from "./samechaindashboard.module.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import SameChain from "../DashboardComponents/SameChain/SameChain";
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
+  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
 
   /******************************Driver.JS Code Starts Here******************************* */
   //Function to start the tour
@@ -68,7 +70,12 @@ function Samechaindashboard() {
         <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
       </div>
-      <div className={samechainStyle.samedashmainm}>
+      {/* <div className={samechainStyle.samedashmainm}> */}
+      <div
+        className={`${samechainStyle["samedashmainm"]} ${
+          errorModalIsOpen ? `${homeStyle["blurbackground"]}` : ""
+        }`}
+      >
         <div className={samechainStyle.titledivdashboard}>
           <div className={samechainStyle.imagesinthis}></div>
           <h1>Effortless Token Distribution</h1>
@@ -113,7 +120,13 @@ function Samechaindashboard() {
         </div>
         <div className={samechainStyle.divtocenterthecomponentrender}>
           <div className={samechainStyle.componentcontainerdashboard}>
-            <SameChain activeTab={activeTab} />
+            <SameChain
+              activeTab={activeTab}
+              setErrorModalIsOpen={setErrorModalIsOpen}
+              errorModalIsOpen={errorModalIsOpen}
+              // closeErrorModal={closeErrorModal}
+              // errorModalIsOpen={errorModalIsOpen}
+            />
           </div>
         </div>
       </div>
