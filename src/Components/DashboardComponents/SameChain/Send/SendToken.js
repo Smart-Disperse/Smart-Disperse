@@ -11,11 +11,14 @@ import ExecuteToken from "../Execute/ExecuteToken";
 import { LoadToken } from "@/Helpers/LoadToken.js";
 import {
   faCircleExclamation,
+  faTrashAlt,
   faExclamationTriangle,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import Modal from "react-modal";
+import Image from "next/image";
+import oopsimage from "@/Assets/oops.webp";
 
 function SendToken({ activeTab, listData, setListData }) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
@@ -87,9 +90,9 @@ function SendToken({ activeTab, listData, setListData }) {
         );
         const data = await response.json();
         const rate = data.USD;
-        console.log(typeof data.USD);
+        // console.log(typeof data.USD);
 
-        console.log("data here", data.USD);
+        // console.log("data here", data.USD);
         setEthToUsdExchangeRate(rate);
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
@@ -139,9 +142,10 @@ function SendToken({ activeTab, listData, setListData }) {
   };
   // Function to close the error modal
   const closeErrorModal = () => {
-    console.log("yoo");
+    // console.log("clicked");
     setErrorModalIsOpen(false);
     setErrorMessage("");
+    // console.log("modal open");
   };
 
   // Function to unload token details
@@ -176,7 +180,7 @@ function SendToken({ activeTab, listData, setListData }) {
           totalERC20 = totalERC20.add(data.value);
         });
       }
-      console.log(totalERC20);
+      // console.log(totalERC20);
 
       setTotalERC20(totalERC20);
     };
@@ -204,87 +208,6 @@ function SendToken({ activeTab, listData, setListData }) {
   return (
     <>
       <>
-        {isTokenLoaded ? (
-          <div
-            className={`${textStyle["accountsummarycreatetitle"]} ${
-              errorModalIsOpen ? `${homeStyle["blurbackground"]}` : ""
-            }`}
-          >
-            <div>
-              <div className={textStyle.accountsummarycreatetitle}>
-                <h2
-                  style={{
-                    padding: "10px",
-                    fontSize: "20px",
-                    margin: "0px",
-                    letterSpacing: "1px",
-                    fontWeight: "700",
-                  }}
-                >
-                  Token Details
-                </h2>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "10px",
-                  border: "1px solid #ddd",
-                }}
-              >
-                <table className={textStyle.tabletextlist}>
-                  <thead className={textStyle.tableheadertextlist}>
-                    <tr className={textStyle.tableTr}>
-                      <th
-                        style={{ letterSpacing: "1px" }}
-                        className={textStyle.tableTh}
-                      >
-                        Name
-                      </th>
-                      <th
-                        style={{ letterSpacing: "1px" }}
-                        className={textStyle.tableTh}
-                      >
-                        Symbol
-                      </th>
-                      <th
-                        style={{ letterSpacing: "1px" }}
-                        className={textStyle.tableTh}
-                      >
-                        Balance
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className={textStyle.tableTr}>
-                      <td
-                        style={{ letterSpacing: "1px" }}
-                        className={textStyle.tableTd}
-                      >
-                        {tokenDetails.name}
-                      </td>
-                      <td
-                        style={{ letterSpacing: "1px" }}
-                        className={textStyle.tableTd}
-                      >
-                        {tokenDetails.symbol}
-                      </td>
-                      <td className={textStyle.tableTd}>
-                        {ethers.utils.formatUnits(
-                          tokenDetails.balance,
-                          tokenDetails.decimal
-                        )}{" "}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        ) : null}
-        {isTokenLoaded ? renderComponent(activeTab) : null}
-
         <div>
           <div
             style={{
@@ -341,9 +264,6 @@ function SendToken({ activeTab, listData, setListData }) {
               <button
                 id={textStyle.backgroundgreen}
                 className={textStyle.buttontoaddformdata}
-                onTouchStart={() => {
-                  loadToken();
-                }}
                 onClick={() => {
                   loadToken();
                 }}
@@ -353,6 +273,86 @@ function SendToken({ activeTab, listData, setListData }) {
             )}
           </div>
         </div>
+        {isTokenLoaded ? (
+          // <div
+          //   className={`${textStyle["accountsummarycreatetitle"]} ${
+          //     errorModalIsOpen ? `${homeStyle["blurbackground"]}` : ""
+          //   }`}
+          // >
+          <div>
+            <div className={textStyle.accountsummarycreatetitle}>
+              <h2
+                style={{
+                  padding: "10px",
+                  fontSize: "20px",
+                  margin: "0px",
+                  letterSpacing: "1px",
+                  fontWeight: "700",
+                }}
+              >
+                Token Details
+              </h2>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "10px",
+                border: "1px solid #ddd",
+              }}
+            >
+              <table className={textStyle.tabletextlist}>
+                <thead className={textStyle.tableheadertextlist}>
+                  <tr className={textStyle.tableTr}>
+                    <th
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTh}
+                    >
+                      Name
+                    </th>
+                    <th
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTh}
+                    >
+                      Symbol
+                    </th>
+                    <th
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTh}
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className={textStyle.tableTr}>
+                    <td
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTd}
+                    >
+                      {tokenDetails.name}
+                    </td>
+                    <td
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTd}
+                    >
+                      {tokenDetails.symbol}
+                    </td>
+                    <td className={textStyle.tableTd}>
+                      {ethers.utils.formatUnits(
+                        tokenDetails.balance,
+                        tokenDetails.decimal
+                      )}{" "}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {/* </div> */}
+          </div>
+        ) : null}
+        {isTokenLoaded ? renderComponent(activeTab) : null}
 
         {isTokenLoaded && listData.length > 0 ? (
           <div>
@@ -632,6 +632,7 @@ function SendToken({ activeTab, listData, setListData }) {
           onRequestClose={() => setErrorModalIsOpen(false)}
           contentLabel="Error Modal"
         >
+<<<<<<< HEAD
           {errorMessage ? (
             <>
               <h2>{"Error"}</h2>
@@ -661,38 +662,28 @@ function SendToken({ activeTab, listData, setListData }) {
                   &nbsp; Alert!
                 </h6>
               </div>
+=======
+          <>
+            <h2>Oops...</h2>
+            <p>Something went Wrong,</p>
+            <div>
+              {/* <Image src={oopsimage} alt="not found" /> */}
+              <Image
+                height={150}
+                width={150}
+                src={oopsimage.src}
+                alt="not found"
+              />
+>>>>>>> 8c73366ca87983bea909af91bc676998e74a298f
             </div>
+            {/* <p>{errorMessage}</p> */}
+            <p className={textStyle.errormessagep}>{errorMessage}</p>
 
-            <div className={homeStyle.popupbuttonflex}>
-              <iv
-                style={{
-                  width: "100%",
-                  margin: "10px auto",
-                  fontSize: "20px",
-                }}
-              >
-                Kindly ensure to enter the correct Token Address.
-              </iv>
-              <div
-                className={homeStyle.samechainbutton}
-                style={{
-                  width: "70%",
-                  margin: "10px auto",
-                  fontSize: "15px",
-                }}
-              >
-                {errorMessage}
-              </div>
-              <button
-                onClick={closeErrorModal}
-                className={homeStyle.samechainbutton}
-                style={{ width: "70%", margin: "10px auto" }}
-              >
-                Close
-              </button>
+            <div className={textStyle.divtocenter}>
+              <button onClick={closeErrorModal}>Close</button>
             </div>
-          </div>
-        )} */}
+          </>
+        </Modal>
       </>
     </>
   );

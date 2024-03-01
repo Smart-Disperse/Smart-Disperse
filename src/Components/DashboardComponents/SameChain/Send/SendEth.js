@@ -33,7 +33,6 @@ function SendEth({ activeTab, listData, setListData }) {
     }
   };
 
-  
   // For fetching the Exchange rate of ETH to USD to display value in USD
   useEffect(() => {
     const fetchExchangeRate = async () => {
@@ -43,9 +42,9 @@ function SendEth({ activeTab, listData, setListData }) {
         );
         const data = await response.json();
         const rate = data.USD;
-        console.log(typeof data.USD);
+        // console.log(typeof data.USD);
 
-        console.log("data here", data.USD);
+        // console.log("data here", data.USD);
         setEthToUsdExchangeRate(rate);
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
@@ -82,11 +81,11 @@ function SendEth({ activeTab, listData, setListData }) {
       let totalEth = ethers.BigNumber.from(0);
       if (listData.length > 0) {
         listData.forEach((data) => {
-          console.log(data);
+          // console.log(data);
           totalEth = totalEth.add(data.value);
         });
       }
-      console.log(totalEth);
+      // console.log(totalEth);
 
       setTotalEth(totalEth);
     };
@@ -96,7 +95,7 @@ function SendEth({ activeTab, listData, setListData }) {
 
   /* for getting values on render */
   useEffect(() => {
-    console.log(listData);
+    // console.log(listData);
     getEthBalance();
   });
 
