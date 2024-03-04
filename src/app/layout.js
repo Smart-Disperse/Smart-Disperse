@@ -40,11 +40,11 @@ export default function RootLayout({ children }) {
         >
           <Providers>{children}</Providers>
         </ThemeProvider>
-        <script
+        <noscript
           dangerouslySetInnerHTML={{
             __html: `
-            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCL85RRP"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCL85RRP"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
             `,
           }}
         />
