@@ -2,6 +2,11 @@
   transform: scale(1.2);
 }
 
+#mirroricon {
+  width: auto;
+  height: 28px;
+}
+
 .footericon {
   margin: 0px 3px;
   transition: transform 0.3s ease;
