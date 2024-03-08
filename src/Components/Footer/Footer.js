@@ -14,6 +14,7 @@ function Footer() {
       className={footerStyle.footerouterdiv}
       style={{
         display: "flex",
+        alignItems: "center",
         justifyContent: " space-between",
         margin: " 0px 50px",
         textAlign: "center",
@@ -33,7 +34,7 @@ function Footer() {
 
           margin: "10px 30px",
           justifyContent: "space-evenly",
-          alignItems: "center",
+          alignItems: "stretch",
         }}
       >
         <a href="https://discord.gg/W3asyJh7mC" target="blank">
@@ -50,7 +51,6 @@ function Footer() {
             alt=""
           ></Image>
         </a>
-
         <a href="https://x.com/smart_disperse?s=21" target="blank">
           <Image
             src={twitter}
@@ -58,8 +58,12 @@ function Footer() {
             alt=""
           ></Image>
         </a>
-
-        <Image src={mirror} className={footerStyle.footericon} alt=""></Image>
+        <Image
+          id={footerStyle.mirroricon}
+          src={mirror}
+          className={footerStyle.footericon}
+          alt=""
+        ></Image>
       </div>
     </div>
   );
