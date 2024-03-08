@@ -34,11 +34,13 @@ function Textify({ listData, setListData, tokenDecimal }) {
     lines.forEach((line) => {
       const [address, value] = line.split(/[,= \t]+/);
 
-      if (tokenDecimal) {
-        var validValue = isValidTokenValue(value, tokenDecimal);
-        console.log("go", validValue);
-      } else {
-        var validValue = isValidValue(value);
+      if (value) {
+        if (tokenDecimal) {
+          var validValue = isValidTokenValue(value, tokenDecimal);
+          console.log("go", validValue);
+        } else {
+          var validValue = isValidValue(value);
+        }
       }
 
       if (isValidAddress(address) && validValue) {
