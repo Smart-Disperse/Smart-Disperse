@@ -172,6 +172,12 @@
     font-size: 2rem;
   }
 }
+@media only screen and (max-width: 500px) {
+  .userguideborderdiv {
+    margin: 0px 50px !important;
+    padding: 30px 30px !important;
+  }
+}
 @media only screen and (max-width: 768px) {
   .maincontainer {
     position: relative;
@@ -300,8 +306,8 @@
     width: 55%;
   }
   .userguideborderdiv {
-    margin: 20px;
-    padding: 30px 5px;
+    margin: 20px !important;
+    padding: 30px 5px !important;
   }
   .card {
     margin: 5px 50px;

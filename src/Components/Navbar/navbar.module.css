@@ -28,6 +28,17 @@
     width: 250px;
   }
 }
+@media only screen and (max-width: 500px) {
+  .smartlogportal {
+    height: auto !important;
+    width: 150px !important;
+  }
+
+  .connectwallet {
+    padding: 7px !important;
+    font-size: 10px !important;
+  }
+}
 
 @media only screen and (max-width: 768px) {
   .divtoflexlogoconnectwallet {
@@ -101,6 +112,16 @@
   .connectwallet {
     padding: 12px 27px;
     font-size: 10px;
+  }
+}
+@media only screen and (max-width: 325px) {
+  #changeMode {
+    margin-left: 0rem !important;
+  }
+
+  .smartlogportal {
+    height: 70px !important;
+    width: 109px !important;
   }
 }
 @media only screen and (max-width: 375px) {
