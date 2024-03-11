@@ -19,6 +19,7 @@ function SendEth({ activeTab, listData, setListData }) {
   const [ethBalance, setEthBalance] = useState(null); // store user's Ether balance
   const { address } = useAccount(); /*/gather account data for current user */
   const [loading, setLoading] = useState(false); //indicate whether a request is being processed or not
+  const [labels, setLabels] = useState([]);
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -154,6 +155,12 @@ function SendEth({ activeTab, listData, setListData }) {
                       className={textStyle.fontsize12px}
                       style={{ letterSpacing: "1px", padding: "8px" }}
                     >
+                      Label
+                    </th>
+                    <th
+                      className={textStyle.fontsize12px}
+                      style={{ letterSpacing: "1px", padding: "8px" }}
+                    >
                       Amount(ETH)
                     </th>
                     <th
@@ -185,6 +192,12 @@ function SendEth({ activeTab, listData, setListData }) {
                             style={{ letterSpacing: "1px", padding: "8px" }}
                           >
                             {data.address}
+                          </td>
+                          <td
+                            id={textStyle.fontsize10px}
+                            style={{ letterSpacing: "1px", padding: "8px" }}
+                          >
+                            {data.label ? data.label : "----"}
                           </td>
                           <td
                             id={textStyle.fontsize10px}
