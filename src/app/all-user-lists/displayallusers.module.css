@@ -1,0 +1,145 @@
+.maindivofdashboard {
+  background: var(--background1);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 425px) {
+  .maindivofdashboard {
+    height: auto;
+    width: 100%;
+    margin-bottom: auto;
+  }
+}
+.dashbgImg1 {
+  width: 347.141px;
+  height: 321.106px;
+  transform: rotate(-61.16deg);
+  flex-shrink: 0;
+  position: absolute;
+  left: -13%;
+  right: 24%;
+}
+.dashbgImg2 {
+  width: 400px;
+  height: 400px;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: -288px;
+  right: 0;
+}
+.samedashmainm {
+  min-height: 65vh;
+  margin-top: 100px;
+}
+.titledivdashboard {
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.563);
+  border: none;
+  border-radius: 10px;
+  margin: 20px 300px;
+}
+.titledivdashboard h3 {
+  padding-top: -5px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid white;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+}
+.titledivdashboard h1 {
+  letter-spacing: 1.5px;
+  font-size: 2.2rem;
+  margin: 0px;
+}
+.imagesinthis img {
+  border-radius: 5px;
+  width: -webkit-fill-available;
+}
+.maindivforalloptiondashboard {
+  margin: 0px 300px;
+  display: flex;
+  justify-content: center;
+}
+.displaytable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.displayheader {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+
+.displayheader:first-child {
+  border-radius: 25px 0px 0px 25px;
+}
+
+.displayheader:last-child {
+  border-radius: 0px 25px 25px 0px;
+}
+
+.displaycell {
+  /* border: 1px solid #ddd; */
+  padding: 8px;
+}
+
+.displayevenrow {
+  border-bottom: 1px solid white;
+
+  /* background-color: #19030336; */
+}
+
+.displaycell:first-child {
+  border-radius: 50px 0px 0px 50px;
+}
+.displaycell:last-child {
+  border-radius: 0px 25px 25px 0px;
+}
+.displayoddrow {
+  border-bottom: 1px solid white;
+
+  /* background-color: #19030336; */
+}
+
+.displayupdatebutton,
+.displayeditbutton,
+.displaydeletebutton {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  font-size: 24px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.displayupdatebutton:hover,
+.displayeditbutton:hover,
+.displaydeletebutton:hover {
+  background-color: #1818183d;
+}
+
+.displayupdatebutton:active,
+.displayeditbutton:active,
+.displaydeletebutton:active {
+  background-color: #0909094e;
+}
+.deleteicon:hover {
+  color: red;
+}
+
+.editinput {
+  background-color: rgba(0, 0, 0, 0.206);
+  color: white;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
