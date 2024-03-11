@@ -62,8 +62,10 @@ function SendEth({ activeTab, listData, setListData }) {
     const { ethereum } = window;
     if (!ethBalance) {
       const provider = new ethers.providers.Web3Provider(ethereum);
-      let ethBalance = await provider.getBalance(address);
-      setEthBalance(ethBalance);
+      if (address) {
+        let ethBalance = await provider.getBalance(address);
+        setEthBalance(ethBalance);
+      }
     }
   };
 
