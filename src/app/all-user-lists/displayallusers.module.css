@@ -287,3 +287,16 @@
     font-size: 17px;
   }
 }
+
+.custom-toast {
+  background-color: #6960ef !important;
+}
+
+.custom-toast-body {
+  background-color: #6960ef !important;
+  /* Custom styles for the toast body */
+}
+
+.Toastify__toast-body {
+  background-color: #6960ef !important;
+}
