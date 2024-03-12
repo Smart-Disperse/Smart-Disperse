@@ -15,6 +15,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import loader from "../../Assets/dataloading.webp";
 import notfound from "../../Assets/oops.webp";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Displayallusers() {
   const [usersData, setUsersData] = useState([]);
@@ -68,7 +70,7 @@ function Displayallusers() {
       console.log("edit address", editAddress, "editname:", editName);
       if (result.ok) {
         console.log("Data updated successfully");
-        // Update local state after successful update
+        toast.success("Data updated successfully");
         const updatedUsersData = [...usersData];
         updatedUsersData[index] = {
           ...updatedUsersData[index],
@@ -83,9 +85,11 @@ function Displayallusers() {
         fetchUserDetails();
       } else {
         console.error("Error updating user:", result.statusText);
+        toast.error("Failed to update data");
       }
     } catch (error) {
       console.error("Error updating user:", error);
+      toast.error("An error occurred while updating data");
     }
   };
 
@@ -101,15 +105,17 @@ function Displayallusers() {
       });
       if (result.ok) {
         console.log("Data deleted successfully");
-        // Update local state after successful deletion
+        toast.success("Data deleted successfully");
         const updatedUsersData = [...usersData];
         updatedUsersData.splice(index, 1);
         setUsersData(updatedUsersData);
       } else {
         console.error("Failed to delete data");
+        toast.error("Failed to delete data");
       }
     } catch (error) {
       console.error("Error deleting user:", error);
+      toast.error("An error occurred while deleting data");
     }
   };
 
@@ -209,6 +215,7 @@ function Displayallusers() {
                 ))}
               </tbody>
             </table>
+            <ToastContainer />
           </div>
         )}
       </div>
