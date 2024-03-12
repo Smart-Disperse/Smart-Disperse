@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
-// const { default: mongoose } = require("mongoose");
+// import { useAccount } from "wagmi";
+// const { address } = useAccount();
 const disperse_data = new mongoose.Schema({
   userid: {
     type: String,
@@ -13,19 +14,18 @@ const disperse_data = new mongoose.Schema({
 export const smartdisperse_data =
   mongoose.models.tnx || mongoose.model("tnx", disperse_data);
 
-export async function GET(request) {
+export async function GET() {
   let data = [];
   console.log("Connecting to MongoDB...");
-  const payload = await request.json();
   try {
     await mongoose.connect(
       "mongodb+srv://princi:abcdefghijk@dispersesmart.4duwewu.mongodb.net/Smartdisperse?retryWrites=true&w=majority"
     );
     console.log("Connected to MongoDB!!");
-    data = await smartdisperse_data.find({
-      userid: address, //will pass a dynamic address
-    });
-    console.log("smart disperse data:", data);
+    data = await smartdisperse_data.find();
+    // const filteredData = data.result.filter((user) => user.userid === address);
+    // console.log("Filtered data:", filteredData);
+    console.log("API Data:", data);
   } catch (err) {
     return new Response("Error connecting to the database", { status: 503 });
   }
@@ -44,17 +44,25 @@ export async function POST(request) {
     const payload = await request.json();
     console.log("payload:", payload);
 
-    // Check if the address already exists in the database
-    let existingData = await smartdisperse_data.findOne({
+    let existingName = await smartdisperse_data.findOne({
+      name: payload.name,
+    });
+    if (existingName) {
+      return new Response("Name already exists", { status: 400 });
+    }
+
+    let existingAddress = await smartdisperse_data.findOne({
       address: payload.address,
     });
-
-    if (existingData) {
-      existingData.name = payload.name;
-      result = await existingData.save();
-      console.log("Data updated successfully");
+    if (existingAddress) {
+      if (existingAddress.name !== payload.name) {
+        existingAddress.name = payload.name;
+        result = await existingAddress.save();
+        console.log("Name updated successfully");
+      } else {
+        return new Response("Address already exists", { status: 400 });
+      }
     } else {
-      // If address doesn't exist, create a new entry
       let newData = new smartdisperse_data(payload);
       result = await newData.save();
       console.log("New data created successfully");
@@ -63,7 +71,7 @@ export async function POST(request) {
     console.log(err);
     return new Response("Error connecting to the database", { status: 503 });
   }
-  return NextResponse.json({ result: result });
+  return new Response("Success", { status: 200 });
 }
 
 export async function PUT(request) {
