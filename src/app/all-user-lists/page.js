@@ -1,37 +1,22 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Displayallusers from "./Displayallusers";
+import Loading from "../loading";
 
-function page() {
-  return (
-    <div>
-      <Displayallusers />
-    </div>
-  );
+function Page() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return typeof window !== "undefined" ? (
+    <div>{loading ? <Loading /> : <Displayallusers />}</div>
+  ) : null;
 }
 
-export default page;
-export const metadata = {
-  title: "SameChain Page",
-  // description: "Home Page Description...",
-  openGraph: {
-    title: "SameChain Page",
-    // description: "Home Page Description...",
-    url: "https://smartdisperse.vercel.app/all-user-lists",
-    siteName: "SmartDisperse",
-    // images: [
-    //   {
-    //     url: "https://app.optimism.io/og-image.png", // Must be an absolute URL
-    //     width: 800,
-    //     height: 600,
-    //   },
-    //   {
-    //     url: "https://app.optimism.io/og-image.png", // Must be an absolute URL
-    //     width: 1800,
-    //     height: 1600,
-    //     alt: "My custom alt",
-    //   },
-    // ],
-    locale: "en_US",
-    type: "website",
-  },
-};
+export default Page;

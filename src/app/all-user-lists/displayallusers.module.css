@@ -9,13 +9,7 @@
   flex-direction: column;
   justify-content: space-between;
 }
-@media only screen and (max-width: 425px) {
-  .maindivofdashboard {
-    height: auto;
-    width: 100%;
-    margin-bottom: auto;
-  }
-}
+
 .dashbgImg1 {
   width: 347.141px;
   height: 321.106px;
@@ -62,8 +56,6 @@
 }
 .maindivforalloptiondashboard {
   margin: 0px 300px;
-  display: flex;
-  justify-content: center;
 }
 .displaytable {
   border-collapse: collapse;
@@ -76,6 +68,7 @@
   font-weight: bold;
   padding: 10px;
   text-align: center;
+  font-size: 16px;
 }
 
 .displayheader:first-child {
@@ -87,26 +80,22 @@
 }
 
 .displaycell {
-  /* border: 1px solid #ddd; */
+  font-size: 14px;
   padding: 8px;
 }
 
+.displayevenrow:hover {
+  background-color: #19030310;
+}
 .displayevenrow {
   border-bottom: 1px solid white;
-
-  /* background-color: #19030336; */
 }
 
-.displaycell:first-child {
-  border-radius: 50px 0px 0px 50px;
-}
-.displaycell:last-child {
-  border-radius: 0px 25px 25px 0px;
+.displayoddrow:hover {
+  background-color: #1903030d;
 }
 .displayoddrow {
   border-bottom: 1px solid white;
-
-  /* background-color: #19030336; */
 }
 
 .displayupdatebutton,
@@ -122,9 +111,9 @@
   cursor: pointer;
 }
 .displayupdatebutton:hover,
-.displayeditbutton:hover,
-.displaydeletebutton:hover {
-  background-color: #1818183d;
+.displayeditbutton:hover {
+  padding: 3px 10px;
+  font-size: 28px;
 }
 
 .displayupdatebutton:active,
@@ -142,4 +131,159 @@
   padding: 10px;
   border: 1px solid white;
   border-radius: 10px;
+}
+
+.displaydatatablewrapper {
+  z-index: 2;
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.displaydatatablewrapper::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+.displaydatatablewrapper::-webkit-scrollbar-track {
+  background: #f1f1f12f;
+}
+
+.displaydatatablewrapper::-webkit-scrollbar-thumb {
+  background: #6960ef;
+  border-radius: 5px;
+}
+
+.displaydatatablewrapper::-webkit-scrollbar-thumb:hover {
+  background: #6960ef;
+}
+
+@media only screen and (max-width: 435px) {
+  .maindivofdashboard {
+    height: auto;
+    width: 100%;
+    margin-bottom: auto;
+  }
+  .dashbgImg2 {
+    width: 150px !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+    position: absolute !important;
+    bottom: -60px !important;
+    right: 0 !important;
+  }
+  .dashbgImg1 {
+    width: 150px !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+    position: absolute !important;
+    left: -14%;
+    right: 24%;
+  }
+  .titledivdashboard {
+    margin: 0 30px !important;
+    position: relative;
+  }
+  .titledivdashboard h1 {
+    font-size: 1.5rem !important;
+    margin-top: 40px !important;
+  }
+
+  .titledivdashboard h3 {
+    font-size: 12px;
+  }
+  .maindivforalloptiondashboard {
+    margin: 0px 30px !important;
+  }
+  .displayheader {
+    font-size: 10px !important;
+  }
+  .displaycell {
+    font-size: 9px !important;
+    padding: 2px !important;
+  }
+
+  .displaycellbuttons {
+    display: flex !important;
+    padding: 0px !important;
+  }
+
+  .displayupdatebutton,
+  .displayeditbutton,
+  .displaydeletebutton {
+    font-size: 12px !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .samedashmainm {
+    margin: 100px 0px;
+  }
+  .titledivdashboard {
+    margin: 0 150px;
+    position: relative;
+  }
+
+  .dashbgImg2 {
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: -179px;
+    right: 0;
+  }
+  .dashbgImg1 {
+    width: 300px;
+    height: 300px;
+    transform: rotate(-61.16deg);
+    flex-shrink: 0;
+    position: absolute;
+    left: -14%;
+    right: 24%;
+  }
+  .maindivforalloptiondashboard {
+    margin: 0px 150px;
+  }
+}
+
+@media only screen and (max-width: 778px) {
+  .titledivdashboard h1 {
+    letter-spacing: 1.5px;
+    font-size: 2rem;
+    margin: 0px;
+  }
+
+  .titledivdashboard h3 {
+    padding-top: -5px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid white;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+  }
+
+  .displaydatatablewrapper {
+    z-index: 2;
+    position: relative;
+  }
+
+  .titledivdashboard {
+    margin: 0px 100px;
+  }
+  .maindivforalloptiondashboard {
+    margin: 0px 100px;
+  }
+
+  .displayheader {
+    font-size: 14px;
+  }
+
+  .displaycell {
+    font-size: 12px;
+  }
+
+  .displayupdatebutton,
+  .displayeditbutton,
+  .displaydeletebutton {
+    font-size: 17px;
+  }
 }

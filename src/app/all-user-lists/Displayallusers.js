@@ -13,7 +13,8 @@ import {
   faCheck,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-// import loader from "../../Assets/";
+import loader from "../../Assets/dataloading.webp";
+import notfound from "../../Assets/oops.webp";
 
 function Displayallusers() {
   const [usersData, setUsersData] = useState([]);
@@ -26,7 +27,8 @@ function Displayallusers() {
   const fetchUserDetails = async () => {
     console.log(address);
     try {
-      const result = await fetch(`http://localhost:3000/api/all-user-data`);
+      console.log("entered into try block");
+      const result = await fetch(`http://localhost:3001/api/all-user-data`);
       const response = await result.json();
       console.log("Response from API:", response);
       const filteredData = response.result.filter(
@@ -52,7 +54,7 @@ function Displayallusers() {
   const handleUpdate = async (index) => {
     try {
       console.log("entered into try block");
-      const result = await fetch(`http://localhost:3000/api/all-user-data`, {
+      const result = await fetch(`http://localhost:3001/api/all-user-data`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +92,7 @@ function Displayallusers() {
   const handleDelete = async (index) => {
     try {
       const addressToDelete = usersData[index].address;
-      const result = await fetch(`http://localhost:3000/api/all-user-data`, {
+      const result = await fetch(`http://localhost:3001/api/all-user-data`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -128,86 +130,86 @@ function Displayallusers() {
       </div>
       <div className={displayuser.maindivforalloptiondashboard}>
         {isLoading ? (
-          <div>loading...</div>
+          <div>
+            <Image src={loader.src} alt="none" width={100} height={100} />
+          </div>
+        ) : usersData.length === 0 ? (
+          <div>
+            <Image src={notfound} alt="none" width={400} height={300} />
+            <h2>No Data Found!!</h2>
+            <h3>Please try again or Refresh the page.</h3>
+          </div>
         ) : (
-          <table className={displayuser.displaytable}>
-            <thead>
-              <tr>
-                <th className={displayuser.displayheader}>Name</th>
-                <th className={displayuser.displayheader}>Address</th>
-                <th className={displayuser.displayheader}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usersData.map((user, index) => (
-                <tr
-                  key={index}
-                  className={
-                    index % 2 === 0
-                      ? `${displayuser.displayevenrow}`
-                      : `${displayuser.displayoddrow}`
-                  }
-                >
-                  <td className={displayuser.displaycell}>
-                    {editUserIndex === index ? (
-                      <input
-                        className={displayuser.editinput}
-                        type="text"
-                        value={editName}
-                        onChange={(e) => setEditName(e.target.value)}
-                      />
-                    ) : (
-                      user.name
-                    )}
-                  </td>
-                  <td className={displayuser.displaycell}>
-                    {/* {editUserIndex === index ? (
-                    <input
-                      type="text"
-                      value={editAddress}
-                      onChange={(e) => setEditAddress(e.target.value)}
-                    />
-                  ) : ( */}
-                    {user.address}
-                    {/* )} */}
-                  </td>
-                  <td className={displayuser.displaycell}>
-                    {editUserIndex === index ? (
-                      <button
-                        className={displayuser.displayupdatebutton}
-                        onClick={handleUpdate}
-                      >
-                        <FontAwesomeIcon
-                          icon={faCheck}
-                          style={{ color: "#f5f9ff" }}
-                        />
-                      </button>
-                    ) : (
-                      <button
-                        className={displayuser.displayeditbutton}
-                        onClick={() => handleEdit(index)}
-                      >
-                        <FontAwesomeIcon
-                          className={displayuser.editicon}
-                          icon={faPenToSquare}
-                          // style={{ color: "#ffffff" }}
-                        />
-                      </button>
-                    )}
-                    <button
-                      className={displayuser.displaydeletebutton}
-                      onClick={() => handleDelete(index)}
-                    >
-                      <FontAwesomeIcon
-                        className={displayuser.deleteicon}
-                        icon={faTrash}
-                      />
-                    </button>
-                  </td>
+          <div className={displayuser.displaydatatablewrapper}>
+            <table className={displayuser.displaytable}>
+              <thead>
+                <tr>
+                  <th className={displayuser.displayheader}>Name</th>
+                  <th className={displayuser.displayheader}>Address</th>
+                  <th className={displayuser.displayheader}>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {usersData.map((user, index) => (
+                  <tr
+                    key={index}
+                    className={
+                      index % 2 === 0
+                        ? `${displayuser.displayevenrow}`
+                        : `${displayuser.displayoddrow}`
+                    }
+                  >
+                    <td className={displayuser.displaycell}>
+                      {editUserIndex === index ? (
+                        <input
+                          className={displayuser.editinput}
+                          type="text"
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                        />
+                      ) : (
+                        user.name
+                      )}
+                    </td>
+                    <td className={displayuser.displaycell}>{user.address}</td>
+                    <td className={displayuser.displaycellbuttons}>
+                      {editUserIndex === index ? (
+                        <button
+                          className={displayuser.displayupdatebutton}
+                          onClick={handleUpdate}
+                        >
+                          <FontAwesomeIcon
+                            icon={faCheck}
+                            style={{ color: "#f5f9ff" }}
+                          />
+                        </button>
+                      ) : (
+                        <button
+                          className={displayuser.displayeditbutton}
+                          onClick={() => handleEdit(index)}
+                        >
+                          <FontAwesomeIcon
+                            className={displayuser.editicon}
+                            icon={faPenToSquare}
+                            // style={{ color: "#ffffff" }}
+                          />
+                        </button>
+                      )}
+                      <button
+                        className={displayuser.displaydeletebutton}
+                        onClick={() => handleDelete(index)}
+                      >
+                        <FontAwesomeIcon
+                          className={displayuser.deleteicon}
+                          icon={faTrash}
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
       <Footer />
