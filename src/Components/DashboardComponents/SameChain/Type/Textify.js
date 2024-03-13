@@ -23,14 +23,28 @@ Funtion :Storing value for more personalization
 function Textify({ listData, setListData, tokenDecimal }) {
   // const [textValue, setTextValue] = useLocalStorage("textValue", "");
   const [textValue, setTextValue] = useState("");
+  const [allNames, setAllNames] = useState([]);
+  const [allAddresses, setAllAddresses] = useState([]);
 
   /*
   Funtion : for parsing and validation the value received from user Input and store
   it in our desired format for Showing in Transaction Lineup
   */
   const parseText = async (textValue) => {
-    const lines = textValue.split("\n").filter((line) => line.trim() !== "");
     let updatedRecipients = [];
+    const regex = /@(\w+)\s/g;
+    let newTextValue = textValue.replace(regex, (match, name) => {
+      const index = allNames.indexOf(name);
+      if (index !== -1) {
+        return allAddresses[index];
+      }
+      return match; // If name not found, return original match
+    });
+
+    console.log(newTextValue);
+    setTextValue(newTextValue);
+    const lines = newTextValue.split("\n").filter((line) => line.trim() !== "");
+
     lines.forEach((line) => {
       const [address, value] = line.split(/[,= \t]+/);
 
@@ -40,17 +54,44 @@ function Textify({ listData, setListData, tokenDecimal }) {
       } else {
         var validValue = isValidValue(value);
       }
-
+      const index = allAddresses.indexOf(address);
       if (isValidAddress(address) && validValue) {
         updatedRecipients.push({
           address,
           value: validValue,
+          label: allNames[index],
         });
       }
     });
 
-    // console.log(updatedRecipients);
+    console.log(updatedRecipients);
     setListData(updatedRecipients);
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const fetchUserDetails = async () => {
+    try {
+      const result = await fetch(`http://localhost:3000/api/all-user-data`);
+      const response = await result.json();
+      console.log("Response from API:", response);
+
+      const usersData = response.result;
+      const names = usersData.map((user) =>
+        user.name ? user.name.toLowerCase() : ""
+      );
+      const addresses = usersData.map((user) =>
+        user.address ? user.address.toLowerCase() : ""
+      );
+      console.log("Names:", names);
+      setAllNames(names);
+      console.log("Addresses:", addresses);
+      setAllAddresses(addresses);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
   };
 
   /*

@@ -18,7 +18,7 @@ function Page() {
   //fetching all names and address stored in the database
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(`http://localhost:3001/api/all-user-data`);
+      const result = await fetch(`http://localhost:3000/api/all-user-data`);
       const response = await result.json();
       console.log("Response from API:", response);
 
@@ -64,77 +64,100 @@ function Page() {
   }, [textValue]);
 
   // replace  @name --> its corresponding address in textarea
-  const handleNameSearch = async () => {
-    const regex = /@(\w+)/g;
-    let match;
-    let updatedTextValue = textValue; // Create a copy of the current textValue
+  const handleNameSearch = () => {
+    // Regex to match @Name mentions
+    const regex = /@(\w+)\s/g;
+    let newTextValue = textValue;
 
-    while ((match = regex.exec(textValue)) !== null) {
-      const name = match[1];
-      const index = allNames.indexOf(name.toLowerCase());
+    // Replace @Name mentions with corresponding addresses
+    newTextValue = newTextValue.replace(regex, (match, name) => {
+      const index = allNames.indexOf(name);
       if (index !== -1) {
-        const foundAddress = allAddresses[index];
-        console.log(`Name: ${name}, Address: ${foundAddress}`);
-        setMatchname(name);
-        setMatchaddress(foundAddress);
-        updatedTextValue = updatedTextValue.replace(`@${name}`, foundAddress);
-        const lines = updatedTextValue.split("\n");
-        const newData = lines.map((line, index) => {
-          const [name, address, amount] = line.split(/[,= \t]+/);
-          return {
-            id: index,
-            label: matchname || null,
-            address: foundAddress,
-            amount: parseFloat(amount) || 0,
-          };
-        });
-        setTableData(newData);
-      } else {
-        const lines = updatedTextValue.split("\n");
-        await Promise.all(
-          lines.map(async (line, index) => {
-            const [name, raddress, amount] = line.split(/[,= \t]+/);
-            const newAddress = name.slice(1);
-            console.log("Store this data in database:", {
-              userid: address,
-              name: newAddress,
-              address: raddress,
-            });
-            try {
-              let result = await fetch(
-                `http://localhost:3001/api/all-user-data`,
-                {
-                  method: "POST",
-                  body: JSON.stringify({
-                    userid: address,
-                    name: newAddress,
-                    address: raddress,
-                  }),
-                }
-              );
-              result = await result.json();
-              console.log("Result after submission:", result);
-              if (result.success) {
-                alert("Added to MongoDB");
-                setName("");
-                setAddress("");
-              }
-            } catch (error) {
-              console.error("Error:", error);
-            }
-            return {
-              id: index,
-              label: newAddress || null,
-              address: raddress,
-              amount: parseFloat(amount) || 0,
-            };
-          })
-        );
-        setTableData(newData);
+        return allAddresses[index];
       }
-    }
-    setTextValue(updatedTextValue);
+      return match; // If name not found, return original match
+    });
+
+    console.log(newTextValue);
+    setTextValue(newTextValue);
   };
+  // const handleNameSearch = async () => {
+  //   const regex = /@(\w+)/g;
+  //   let match;
+  //   let updatedTextValue = textValue; // Create a copy of the current textValue
+  //   const lines = updatedTextValue.split("\n");
+
+  //   for(let i=0;i<updatedTextValue.length;i++)
+  //   {
+
+  //   }
+  //   // while ((match = regex.exec(textValue)) !== null) {
+  //   //   const name = match[1];
+  //   //   const index = allNames.indexOf(name.toLowerCase());
+  //   //   if (index !== -1) {
+  //   //     const foundAddress = allAddresses[index];
+  //   //     console.log(`Name: ${name}, Address: ${foundAddress}`);
+  //   //     setMatchname(name);
+  //   //     setMatchaddress(foundAddress);
+  //   //     updatedTextValue = updatedTextValue.replace(`@${name}`, foundAddress);
+  //   //     const lines = updatedTextValue.split("\n");
+  //   //     console.log(newData);
+  //   //     const newData = lines.map((line, index) => {
+  //   //       const [name, address, amount] = line.split(/[,= \t]+/);
+  //   //       return {
+  //   //         id: index,
+  //   //         label: matchname || null,
+  //   //         address: foundAddress,
+  //   //         amount: parseFloat(amount) || 0,
+  //   //       };
+  //   //     });
+  //   //     setTableData(newData);
+  //   //   } else {
+  //   //     const lines = updatedTextValue.split("\n");
+  //   //     await Promise.all(
+  //   //       lines.map(async (line, index) => {
+  //   //         const [name, raddress, amount] = line.split(/[,= \t]+/);
+  //   //         const newAddress = name.slice(1);
+  //   //         console.log("Store this data in database:", {
+  //   //           userid: address,
+  //   //           name: newAddress,
+  //   //           address: raddress,
+  //   //         });
+  //   //         try {
+  //   //           let result = await fetch(
+  //   //             `http://localhost:3000/api/all-user-data`,
+  //   //             {
+  //   //               method: "POST",
+  //   //               body: JSON.stringify({
+  //   //                 userid: address,
+  //   //                 name: newAddress,
+  //   //                 address: raddress,
+  //   //               }),
+  //   //             }
+  //   //           );
+  //   //           result = await result.json();
+  //   //           console.log("Result after submission:", result);
+  //   //           if (result.success) {
+  //   //             alert("Added to MongoDB");
+  //   //             setName("");
+  //   //             setAddress("");
+  //   //           }
+  //   //         } catch (error) {
+  //   //           console.error("Error:", error);
+  //   //         }
+  //   //         return {
+  //   //           id: index,
+  //   //           label: newAddress || null,
+  //   //           address: raddress,
+  //   //           amount: parseFloat(amount) || 0,
+  //   //         };
+  //   //       })
+  //   //     );
+  //   //     setTableData(newData);
+  //   //   }
+  //   // }
+  //   setTextValue(updatedTextValue);
+  // };
 
   return (
     <div>
