@@ -146,7 +146,7 @@ function Listify({ listData, setListData, tokenDecimal }) {
   };
 
   const handleLabelChange = (event) => {
-    setLabel(event.target.value);
+    setLabel(event.target.value.toLowerCase());
   };
 
   const onAddLabel = async (isAdd) => {
@@ -330,9 +330,10 @@ function Listify({ listData, setListData, tokenDecimal }) {
           contentLabel="Label Prompt Modal"
         >
           <>
-            <h2>Do you wish to add a label for the address?</h2>
+            <h2>Do you wish to add a label for the Recipient?</h2>
             <p></p>
             <input
+              className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
               type="text"
               placeholder="Enter Label"
               value={label}
