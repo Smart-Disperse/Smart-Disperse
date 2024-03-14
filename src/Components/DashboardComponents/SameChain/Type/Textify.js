@@ -49,7 +49,6 @@ function Textify({ listData, setListData, tokenDecimal }) {
     lines.forEach(async (line) => {
       const [recipientAddress, value] = line.split(/[,= \t]+/);
 
-<<<<<<< HEAD
       if (value) {
         if (tokenDecimal) {
           var validValue = isValidTokenValue(value, tokenDecimal);
@@ -57,13 +56,8 @@ function Textify({ listData, setListData, tokenDecimal }) {
         } else {
           var validValue = isValidValue(value);
         }
-=======
-      if (tokenDecimal) {
-        var validValue = isValidTokenValue(value, tokenDecimal);
-      } else {
-        var validValue = isValidValue(value);
->>>>>>> textify-personalization
       }
+
       const index = allAddresses.indexOf(recipientAddress);
       if (isValidAddress(recipientAddress) && validValue) {
         updatedRecipients.push({
