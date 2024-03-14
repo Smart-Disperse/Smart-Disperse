@@ -21,13 +21,9 @@ export async function GET() {
       "mongodb+srv://princi:abcdefghijk@dispersesmart.4duwewu.mongodb.net/Smartdisperse?retryWrites=true&w=majority"
     );
     console.log("Connected to MongoDB!!");
-<<<<<<< HEAD
     data = await smartdisperse_data.find({
       userid: "0xe57f4c84539a6414C4Cf48f135210e01c477EFE0", //will pass a dynamic address
     });
-=======
-    data = await smartdisperse_data.find();
->>>>>>> textify-personalization
     console.log("smart disperse data:", data);
   } catch (err) {
     return new Response("Error connecting to the database", { status: 503 });
