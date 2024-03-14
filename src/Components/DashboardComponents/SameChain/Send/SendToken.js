@@ -389,6 +389,12 @@ function SendToken({ activeTab, listData, setListData }) {
                         className={textStyle.fontsize12px}
                         style={{ letterSpacing: "1px", padding: "8px" }}
                       >
+                        Label
+                      </th>
+                      <th
+                        className={textStyle.fontsize12px}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
+                      >
                         Amount({tokenDetails.symbol})
                       </th>
                       {/* <th
@@ -414,6 +420,12 @@ function SendToken({ activeTab, listData, setListData }) {
                               style={{ letterSpacing: "1px", padding: "8px" }}
                             >
                               {data.address}
+                            </td>
+                            <td
+                              id={textStyle.fontsize10px}
+                              style={{ letterSpacing: "1px", padding: "8px" }}
+                            >
+                              {data.label ? data.label : "----"}
                             </td>
                             <td
                               id={textStyle.fontsize10px}
