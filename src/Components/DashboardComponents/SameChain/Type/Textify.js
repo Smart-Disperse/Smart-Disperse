@@ -4,6 +4,7 @@ import textStyle from "./textify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
+import { useAccount } from "wagmi";
 
 /*
 Funtion :Storing value for more personalization
@@ -23,17 +24,32 @@ Funtion :Storing value for more personalization
 function Textify({ listData, setListData, tokenDecimal }) {
   // const [textValue, setTextValue] = useLocalStorage("textValue", "");
   const [textValue, setTextValue] = useState("");
+  const [allNames, setAllNames] = useState([]);
+  const [allAddresses, setAllAddresses] = useState([]);
+  const { address } = useAccount();
 
   /*
   Funtion : for parsing and validation the value received from user Input and store
   it in our desired format for Showing in Transaction Lineup
   */
   const parseText = async (textValue) => {
-    const lines = textValue.split("\n").filter((line) => line.trim() !== "");
     let updatedRecipients = [];
-    lines.forEach((line) => {
-      const [address, value] = line.split(/[,= \t]+/);
+    const resolveRegex = /@(\w+)\s/g;
+    let newTextValue = textValue.replace(resolveRegex, (match, name) => {
+      const index = allNames.indexOf(name);
+      if (index !== -1) {
+        return allAddresses[index] + " ";
+      }
+      return match;
+    });
 
+    console.log(newTextValue);
+    setTextValue(newTextValue);
+    const lines = newTextValue.split("\n").filter((line) => line.trim() !== "");
+    lines.forEach(async (line) => {
+      const [recipientAddress, value] = line.split(/[,= \t]+/);
+
+<<<<<<< HEAD
       if (value) {
         if (tokenDecimal) {
           var validValue = isValidTokenValue(value, tokenDecimal);
@@ -41,18 +57,51 @@ function Textify({ listData, setListData, tokenDecimal }) {
         } else {
           var validValue = isValidValue(value);
         }
+=======
+      if (tokenDecimal) {
+        var validValue = isValidTokenValue(value, tokenDecimal);
+      } else {
+        var validValue = isValidValue(value);
+>>>>>>> textify-personalization
       }
-
-      if (isValidAddress(address) && validValue) {
+      const index = allAddresses.indexOf(recipientAddress);
+      if (isValidAddress(recipientAddress) && validValue) {
         updatedRecipients.push({
-          address,
+          address: recipientAddress,
           value: validValue,
+          label: allNames[index],
         });
       }
     });
 
-    // console.log(updatedRecipients);
-    setListData(updatedRecipients);
+    console.log(updatedRecipients);
+    await setListData(updatedRecipients);
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const fetchUserDetails = async () => {
+    try {
+      const result = await fetch(`http://localhost:3000/api/all-user-data`);
+      const response = await result.json();
+      console.log("Response from API:", response);
+
+      const usersData = response.result;
+      const names = usersData.map((user) =>
+        user.name ? user.name.toLowerCase() : ""
+      );
+      const addresses = usersData.map((user) =>
+        user.address ? user.address.toLowerCase() : ""
+      );
+      console.log("Names:", names);
+      setAllNames(names);
+      console.log("Addresses:", addresses);
+      setAllAddresses(addresses);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
   };
 
   /*
@@ -60,7 +109,6 @@ function Textify({ listData, setListData, tokenDecimal }) {
   */
 
   useEffect(() => {
-    // console.log(textValue);
     parseText(textValue);
   }, [textValue]);
 
