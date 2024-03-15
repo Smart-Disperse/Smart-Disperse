@@ -31,7 +31,12 @@ function ExecuteEth(props) {
 
   const sendTweet = () => {
     console.log("tweeting");
-    const tweetContent = `Thrilled to have found @SmartDisperseXYZ! Sending all transactions in a single click? Finally, a solution that streamlines the process. Dive into the simplicity: https://SmartDisperse.xyz/ #SmartDisperse #Blockchain #Crypto`;
+    const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! 
+
+    Transferring to multiple accounts simultaneously has never been easier. 
+    
+    Check out Smart Disperse at https://smartdisperse.xyz/ and simplify your crypto transfers today!
+    `;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
     window.open(twitterUrl, "_blank");
   };
