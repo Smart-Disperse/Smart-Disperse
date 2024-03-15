@@ -47,7 +47,7 @@ function Textify({ listData, setListData, tokenDecimal }) {
     setTextValue(newTextValue);
     const lines = newTextValue.split("\n").filter((line) => line.trim() !== "");
     lines.forEach(async (line) => {
-      const [recipientAddress, value] = line.split(/[,= \t]+/);
+      const [recipientAddress, value, name] = line.split(/[,= \t]+/);
 
       if (tokenDecimal) {
         var validValue = isValidTokenValue(value, tokenDecimal);
@@ -59,7 +59,7 @@ function Textify({ listData, setListData, tokenDecimal }) {
         updatedRecipients.push({
           address: recipientAddress,
           value: validValue,
-          label: allNames[index],
+          label: allNames[index] ? allNames[index] : name ? name : undefined,
         });
       }
     });
