@@ -359,7 +359,8 @@ background: linear-gradient(90deg, rgba(0,255,239,1) 35%, rgba(9,255,0,1) 100%);
 .popupforpayment button:hover {
   border: none;
   color: #070707;
-  font-weight: 800;
+  /* font-weight: 750; */
+  /* padding: 13px 18px; */
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
 }
 
