@@ -10,6 +10,10 @@
   animation: zoomAnimation 1s infinite alternate;
 }
 
+.divtocenter{
+  display: flex;
+}
+
 .errormessagep {
   font-weight: 900;
   transform: translate(-50%, -50%);
@@ -341,10 +345,11 @@
   text-align: center;
 }
 .popupforpayment button {
-  background: #0000;
+  background: rgb(0,255,239);
+background: linear-gradient(90deg, rgba(0,255,239,1) 35%, rgba(9,255,0,1) 100%);
   border: 1px solid #1bff76;
   border-radius: 5px;
-  color: #fff;
+  color: black;
   cursor: pointer;
   font-weight: 700;
   padding: 15px 20px;
@@ -354,6 +359,7 @@
 .popupforpayment button:hover {
   border: none;
   color: #070707;
+  font-weight: 800;
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
 }
 
