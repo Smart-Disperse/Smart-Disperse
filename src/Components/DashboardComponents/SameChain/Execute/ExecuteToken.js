@@ -12,6 +12,9 @@ import bggif from "@/Assets/bp.gif";
 import completegif from "@/Assets/complete.gif";
 import confetti from "canvas-confetti";
 import Head from "next/head";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight,faPaperPlane,faX } from "@fortawesome/free-solid-svg-icons";
+
 
 const ConfettiScript = () => (
   <Head>
@@ -26,6 +29,12 @@ function ExecuteToken(props) {
   const [paymentmodal, setPaymentmodal] = useState(false);
   const [limitexceed, setLimitexceed] = useState(null);
 
+  const sendTweet = () => {
+    console.log("tweeting");
+    const tweetContent = `Thrilled to have found @SmartDisperseXYZ! Sending all transactions in a single click? Finally, a solution that streamlines the process. Dive into the simplicity: https://SmartDisperse.xyz/ #SmartDisperse #Blockchain #Crypto`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
+    window.open(twitterUrl, "_blank");
+  };
   // Function to execute token transfer
   const execute = async () => {
     setPaymentmodal(true);
@@ -193,7 +202,7 @@ function ExecuteToken(props) {
       >
         {message ? (
           <>
-            <h2>{success ? "Congratulations!!" : "Something went Wrong..."}</h2>
+            <h2>{success ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀" : "Something went Wrong..."}</h2>
             <div>
               {success ? (
                 <div>
@@ -203,7 +212,9 @@ function ExecuteToken(props) {
                     width={150}
                     height={150}
                   />
-                </div>
+                <p>{message}</p>
+<div>Why not extend the excitement? Invite your friends and followers on Twitter to join in the joy. Broadcast your seamless experience to the world. Click the tweet button below and spread the cheer instantly! 🌐✨</div>
+</div>
               ) : (
                 <div>
                   <Image
@@ -217,14 +228,16 @@ function ExecuteToken(props) {
             </div>
             <p>{success ? "" : "Please Try again"}</p>
             <p className={textStyle.errormessagep}>{limitexceed}</p>
-            <p>{message}</p>
             <div className={textStyle.divtocenter}>
-              <button
-                onClick={
-                  (() => setModalIsOpen(false), () => props.setListData([]))
-                }
+            <button style={{margin:"0px 5px"}}
+                   onClick={sendTweet}>Tweet Now &nbsp;  <FontAwesomeIcon icon={faPaperPlane} /></button>
+              <button style={{margin:"0px 5px"}}
+                onClick={() => {
+                  setModalIsOpen(false);
+                  props.setListData([]);
+                }}
               >
-                Close
+                Close &nbsp; <FontAwesomeIcon icon={faX} />
               </button>
             </div>
           </>
