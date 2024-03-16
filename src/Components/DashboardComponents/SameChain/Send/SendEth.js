@@ -19,11 +19,21 @@ function SendEth({ activeTab, listData, setListData }) {
   const [ethBalance, setEthBalance] = useState(null); // store user's Ether balance
   const { address } = useAccount(); /*/gather account data for current user */
   const [loading, setLoading] = useState(false); //indicate whether a request is being processed or not
+  const [labels, setLabels] = useState([]);
+  const [allNames, setAllNames] = useState([]);
+  const [allAddresses, setAllAddresses] = useState([]);
 
   const renderComponent = (tab) => {
     switch (tab) {
       case "text":
-        return <Textify listData={listData} setListData={setListData} />;
+        return (
+          <Textify
+            listData={listData}
+            setListData={setListData}
+            allNames={allNames}
+            allAddresses={allAddresses}
+          />
+        );
       case "list":
         return <Listify listData={listData} setListData={setListData} />;
       case "csv":
@@ -62,8 +72,10 @@ function SendEth({ activeTab, listData, setListData }) {
     const { ethereum } = window;
     if (!ethBalance) {
       const provider = new ethers.providers.Web3Provider(ethereum);
-      let ethBalance = await provider.getBalance(address);
-      setEthBalance(ethBalance);
+      if (address) {
+        let ethBalance = await provider.getBalance(address);
+        setEthBalance(ethBalance);
+      }
     }
   };
 
@@ -112,6 +124,76 @@ function SendEth({ activeTab, listData, setListData }) {
     }
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const result = await fetch(`http://localhost:3000/api/all-user-data`);
+      const response = await result.json();
+      console.log("Response from API:", response);
+
+      const usersData = response.result;
+      const names = usersData.map((user) =>
+        user.name ? user.name.toLowerCase() : ""
+      );
+      const addresses = usersData.map((user) =>
+        user.address ? user.address.toLowerCase() : ""
+      );
+      setAllNames(names);
+      console.log("Addresses:", addresses);
+      setAllAddresses(addresses);
+      console.log("Names:", names);
+      return { names, addresses };
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const setLabelValues = (index, name) => {
+    labels[index] = name;
+  };
+
+  const onAddLabel = async (name, recipientAddress) => {
+    const userData = {
+      userid: address,
+      name: name,
+      address: recipientAddress.toLowerCase(),
+    };
+    console.log(userData);
+    try {
+      console.log("entered into try block");
+      let result = await fetch(`http://localhost:3000/api/all-user-data`, {
+        method: "POST",
+        body: JSON.stringify(userData),
+      });
+
+      console.log(result);
+      result = await result.json();
+      console.log("Result after submission:", result);
+      if (result.success) {
+        alert("Added to MongoDB");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    const { names, addresses } = await fetchUserDetails();
+    console.log(names, addresses);
+
+    const updatedListData = listData.map((item) => {
+      if (item.label === undefined && addresses.includes(item.address)) {
+        const index = addresses.indexOf(item.address);
+        item.label = names[index];
+      }
+      return item; // Make sure to return the modified or unmodified item
+    });
+
+    console.log(updatedListData);
+    setListData(updatedListData);
+  };
+
   useEffect(() => {
     calculateRemaining();
   });
@@ -154,6 +236,12 @@ function SendEth({ activeTab, listData, setListData }) {
                       className={textStyle.fontsize12px}
                       style={{ letterSpacing: "1px", padding: "8px" }}
                     >
+                      Label
+                    </th>
+                    <th
+                      className={textStyle.fontsize12px}
+                      style={{ letterSpacing: "1px", padding: "8px" }}
+                    >
                       Amount(ETH)
                     </th>
                     <th
@@ -185,6 +273,34 @@ function SendEth({ activeTab, listData, setListData }) {
                             style={{ letterSpacing: "1px", padding: "8px" }}
                           >
                             {data.address}
+                          </td>
+                          <td
+                            id={textStyle.fontsize10px}
+                            style={{ letterSpacing: "1px", padding: "8px" }}
+                          >
+                            {data.label ? (
+                              data.label
+                            ) : (
+                              <>
+                                <input
+                                  type="text"
+                                  value={labels[index]}
+                                  style={{
+                                    border: "none",
+                                    backgroundColor: "transparent",
+                                  }}
+                                  onChange={(e) => {
+                                    setLabelValues(index, e.target.value);
+                                  }}
+                                />
+                                <input
+                                  type="button"
+                                  onClick={(e) => {
+                                    onAddLabel(labels[index], data.address);
+                                  }}
+                                />
+                              </>
+                            )}
                           </td>
                           <td
                             id={textStyle.fontsize10px}
