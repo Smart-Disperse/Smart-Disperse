@@ -11,7 +11,15 @@ import oopsimage from "@/Assets/oops.webp";
 import Image from "next/image";
 import { useAccount } from "wagmi";
 
-function Listify({ listData, setListData, tokenDecimal }) {
+function Listify({
+  listData,
+  setListData,
+  tokenDecimal,
+  allNames,
+  allAddresses,
+  setAllAddresses,
+  setAllNames,
+}) {
   const { address } = useAccount();
 
   const [formData, setFormData] = useState({
@@ -23,9 +31,6 @@ function Listify({ listData, setListData, tokenDecimal }) {
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
   const [LabelModelIsOpen, setLabelModelIsOpen] = useState(false); //model switch
   const [label, setLabel] = useState(""); //model switch
-
-  const [allNames, setAllNames] = useState([]);
-  const [allAddresses, setAllAddresses] = useState([]);
 
   // Function to close the error modal
   const closeErrorModal = () => {
