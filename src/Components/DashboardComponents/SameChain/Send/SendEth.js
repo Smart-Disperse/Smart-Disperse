@@ -35,7 +35,16 @@ function SendEth({ activeTab, listData, setListData }) {
           />
         );
       case "list":
-        return <Listify listData={listData} setListData={setListData} />;
+        return (
+          <Listify
+            listData={listData}
+            setListData={setListData}
+            allNames={allNames}
+            allAddresses={allAddresses}
+            setAllAddresses={setAllAddresses}
+            setAllNames={setAllNames}
+          />
+        );
       case "csv":
         return <Uploadify listData={listData} setListData={setListData} />;
       default:
@@ -183,8 +192,12 @@ function SendEth({ activeTab, listData, setListData }) {
     console.log(names, addresses);
 
     const updatedListData = listData.map((item) => {
-      if (item.label === undefined && addresses.includes(item.address)) {
+      if (
+        (item.label === undefined || item.label === "") &&
+        addresses.includes(item.address)
+      ) {
         const index = addresses.indexOf(item.address);
+        console.log(index);
         item.label = names[index];
       }
       return item; // Make sure to return the modified or unmodified item

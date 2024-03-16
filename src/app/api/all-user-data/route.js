@@ -22,7 +22,7 @@ export async function GET() {
     );
     console.log("Connected to MongoDB!!");
     data = await smartdisperse_data.find({
-      userid: "0xe57f4c84539a6414C4Cf48f135210e01c477EFE0", //will pass a dynamic address
+      //will pass a dynamic address
     });
     console.log("smart disperse data:", data);
   } catch (err) {
