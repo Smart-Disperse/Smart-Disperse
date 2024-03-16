@@ -13,16 +13,21 @@ const disperse_data = new mongoose.Schema({
 export const smartdisperse_data =
   mongoose.models.tnx || mongoose.model("tnx", disperse_data);
 
-export async function GET() {
+export async function GET(req) {
   let data = [];
   console.log("Connecting to MongoDB...");
+
+  const { searchParams } = new URL(req.url);
+  const address = searchParams.get("address");
+
   try {
     await mongoose.connect(
       "mongodb+srv://princi:abcdefghijk@dispersesmart.4duwewu.mongodb.net/Smartdisperse?retryWrites=true&w=majority"
     );
     console.log("Connected to MongoDB!!");
+
     data = await smartdisperse_data.find({
-      //will pass a dynamic address
+      userid: address,
     });
     console.log("smart disperse data:", data);
   } catch (err) {
