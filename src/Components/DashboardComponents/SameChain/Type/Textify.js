@@ -21,11 +21,15 @@ Funtion :Storing value for more personalization
 //   return [value, setValue];
 // };
 
-function Textify({ listData, setListData, tokenDecimal }) {
+function Textify({
+  listData,
+  setListData,
+  tokenDecimal,
+  allNames,
+  allAddresses,
+}) {
   // const [textValue, setTextValue] = useLocalStorage("textValue", "");
   const [textValue, setTextValue] = useState("");
-  const [allNames, setAllNames] = useState([]);
-  const [allAddresses, setAllAddresses] = useState([]);
   const { address } = useAccount();
 
   /*
@@ -47,7 +51,7 @@ function Textify({ listData, setListData, tokenDecimal }) {
     setTextValue(newTextValue);
     const lines = newTextValue.split("\n").filter((line) => line.trim() !== "");
     lines.forEach(async (line) => {
-      const [recipientAddress, value] = line.split(/[,= \t]+/);
+      const [recipientAddress, value, name] = line.split(/[,= \t]+/);
 
       if (value) {
         if (tokenDecimal) {
@@ -63,7 +67,7 @@ function Textify({ listData, setListData, tokenDecimal }) {
         updatedRecipients.push({
           address: recipientAddress,
           value: validValue,
-          label: allNames[index],
+          label: allNames[index] ? allNames[index] : name ? name : undefined,
         });
       }
     });
@@ -72,31 +76,31 @@ function Textify({ listData, setListData, tokenDecimal }) {
     await setListData(updatedRecipients);
   };
 
-  useEffect(() => {
-    fetchUserDetails();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserDetails();
+  // }, []);
 
-  const fetchUserDetails = async () => {
-    try {
-      const result = await fetch(`http://localhost:3000/api/all-user-data`);
-      const response = await result.json();
-      console.log("Response from API:", response);
+  // const fetchUserDetails = async () => {
+  //   try {
+  //     const result = await fetch(`http://localhost:3000/api/all-user-data`);
+  //     const response = await result.json();
+  //     console.log("Response from API:", response);
 
-      const usersData = response.result;
-      const names = usersData.map((user) =>
-        user.name ? user.name.toLowerCase() : ""
-      );
-      const addresses = usersData.map((user) =>
-        user.address ? user.address.toLowerCase() : ""
-      );
-      console.log("Names:", names);
-      setAllNames(names);
-      console.log("Addresses:", addresses);
-      setAllAddresses(addresses);
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  };
+  //     const usersData = response.result;
+  //     const names = usersData.map((user) =>
+  //       user.name ? user.name.toLowerCase() : ""
+  //     );
+  //     const addresses = usersData.map((user) =>
+  //       user.address ? user.address.toLowerCase() : ""
+  //     );
+  //     console.log("Names:", names);
+  //     setAllNames(names);
+  //     console.log("Addresses:", addresses);
+  //     setAllAddresses(addresses);
+  //   } catch (error) {
+  //     console.error("Error fetching user details:", error);
+  //   }
+  // };
 
   /*
   UseEffect :For updating user Input in the textbox for adding  Recipient address and value
