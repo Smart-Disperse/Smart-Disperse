@@ -11,10 +11,15 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import SameChain from "../DashboardComponents/SameChain/SameChain";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
+
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
+  const router = useRouter();
 
   /******************************Driver.JS Code Starts Here******************************* */
   //Function to start the tour
@@ -69,6 +74,9 @@ function Samechaindashboard() {
       <div style={{ position: "relative" }}>
         <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
+      </div>
+      <div >
+        <button onClick={()=> router.push("/all-user-lists")} title="View your contact" className={samechainStyle.displayuserlistbtn}><FontAwesomeIcon icon={faUser} /></button>
       </div>
       {/* <div className={samechainStyle.samedashmainm}> */}
       <div
