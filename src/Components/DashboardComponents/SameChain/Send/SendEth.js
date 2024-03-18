@@ -152,6 +152,7 @@ function SendEth({ activeTab, listData, setListData }) {
       console.log("Addresses:", addresses);
       setAllAddresses(addresses);
       console.log("Names:", names);
+      setLabels([]);
       return { names, addresses };
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -163,13 +164,16 @@ function SendEth({ activeTab, listData, setListData }) {
   }, []);
 
   const setLabelValues = (index, name) => {
-    labels[index] = name;
+    const updatedLabels = [...labels]; // Create a copy of the labels array
+    updatedLabels[index] = name; // Update the value at the specified index
+    console.log(updatedLabels);
+    setLabels(updatedLabels);
   };
 
-  const onAddLabel = async (name, recipientAddress) => {
+  const onAddLabel = async (index, recipientAddress) => {
     const userData = {
       userid: address,
-      name: name,
+      name: labels[index],
       address: recipientAddress.toLowerCase(),
     };
     console.log(userData);
@@ -193,7 +197,7 @@ function SendEth({ activeTab, listData, setListData }) {
     const { names, addresses } = await fetchUserDetails();
     console.log(names, addresses);
 
-    const updatedListData = listData.map((item) => {
+    const updatedListData = await listData.map((item) => {
       if (
         (item.label === undefined || item.label === "") &&
         addresses.includes(item.address)
@@ -206,7 +210,7 @@ function SendEth({ activeTab, listData, setListData }) {
     });
 
     console.log(updatedListData);
-    setListData(updatedListData);
+    await setListData(updatedListData);
   };
 
   useEffect(() => {
@@ -299,7 +303,7 @@ function SendEth({ activeTab, listData, setListData }) {
                               <>
                                 <input
                                   type="text"
-                                  value={labels[index]}
+                                  value={labels[index] ? labels[index] : ""}
                                   style={{
                                     border: "none",
                                     backgroundColor: "transparent",
@@ -311,7 +315,7 @@ function SendEth({ activeTab, listData, setListData }) {
                                 <input
                                   type="button"
                                   onClick={(e) => {
-                                    onAddLabel(labels[index], data.address);
+                                    onAddLabel(index, data.address);
                                   }}
                                 />
                               </>

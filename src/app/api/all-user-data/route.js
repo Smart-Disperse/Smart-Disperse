@@ -48,9 +48,23 @@ export async function POST(request) {
     const payload = await request.json();
     console.log("payload:", payload);
 
+    //check if name is already mapped to another address
+    let existingName = await smartdisperse_data.findOne({
+      name: payload.name,
+      userid: payload.userid,
+    });
+
+    if (existingName) {
+      console.log("Name is already alloted to other recipient address");
+      return NextResponse.json({
+        error: "Name is already alloted to other recipient address",
+      });
+    }
+
     // Check if the address already exists in the database
     let existingData = await smartdisperse_data.findOne({
       address: payload.address,
+      userid: payload.userid,
     });
 
     if (existingData) {
