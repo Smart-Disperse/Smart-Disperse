@@ -48,7 +48,14 @@ function SendEth({ activeTab, listData, setListData }) {
       case "csv":
         return <Uploadify listData={listData} setListData={setListData} />;
       default:
-        return <Textify listData={listData} setListData={setListData} />;
+        return (
+          <Textify
+            listData={listData}
+            setListData={setListData}
+            allNames={allNames}
+            allAddresses={allAddresses}
+          />
+        );
     }
   };
 
@@ -61,18 +68,13 @@ function SendEth({ activeTab, listData, setListData }) {
         );
         const data = await response.json();
         const rate = data.USD;
-        // console.log(typeof data.USD);
 
-        // console.log("data here", data.USD);
         setEthToUsdExchangeRate(rate);
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
       }
     };
     fetchExchangeRate();
-    // const interval = setInterval(fetchExchangeRate, 10000); // Call fetchExchangeRate every 2 seconds
-    // Clean up the interval when the component unmounts
-    // return () => clearInterval(interval);
   }, [listData]);
 
   /* For getting the user Balance

@@ -45,6 +45,10 @@ function SendToken({ activeTab, listData, setListData }) {
     balance: null,
     decimal: null,
   };
+
+  const [labels, setLabels] = useState([]);
+  const [allNames, setAllNames] = useState([]);
+  const [allAddresses, setAllAddresses] = useState([]);
   const [tokenDetails, setTokenDetails] =
     useState(defaultTokenDetails); /*Details of the selected token to be sent*/
 
@@ -56,6 +60,8 @@ function SendToken({ activeTab, listData, setListData }) {
             listData={listData}
             setListData={setListData}
             tokenDecimal={tokenDetails.decimal}
+            allNames={allNames}
+            allAddresses={allAddresses}
           />
         );
       case "list":
@@ -64,6 +70,10 @@ function SendToken({ activeTab, listData, setListData }) {
             listData={listData}
             setListData={setListData}
             tokenDecimal={tokenDetails.decimal}
+            allNames={allNames}
+            allAddresses={allAddresses}
+            setAllAddresses={setAllAddresses}
+            setAllNames={setAllNames}
           />
         );
       case "csv":
@@ -75,7 +85,15 @@ function SendToken({ activeTab, listData, setListData }) {
           />
         );
       default:
-        return <Textify listData={listData} setListData={setListData} />;
+        return (
+          <Textify
+            listData={listData}
+            setListData={setListData}
+            tokenDecimal={tokenDetails.decimal}
+            allNames={allNames}
+            allAddresses={allAddresses}
+          />
+        );
     }
   };
 
@@ -167,6 +185,49 @@ function SendToken({ activeTab, listData, setListData }) {
     }
   };
 
+  const onAddLabel = async (index, recipientAddress) => {
+    const userData = {
+      userid: address,
+      name: labels[index],
+      address: recipientAddress.toLowerCase(),
+    };
+    console.log(userData);
+    try {
+      console.log("entered into try block");
+      let result = await fetch(`http://localhost:3000/api/all-user-data`, {
+        method: "POST",
+        body: JSON.stringify(userData),
+      });
+
+      console.log(result);
+      result = await result.json();
+      console.log("Result after submission:", result);
+      if (result.success) {
+        alert("Added to MongoDB");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    const { names, addresses } = await fetchUserDetails();
+    console.log(names, addresses);
+
+    const updatedListData = await listData.map((item) => {
+      if (
+        (item.label === undefined || item.label === "") &&
+        addresses.includes(item.address)
+      ) {
+        const index = addresses.indexOf(item.address);
+        console.log(index);
+        item.label = names[index];
+      }
+      return item; // Make sure to return the modified or unmodified item
+    });
+
+    console.log(updatedListData);
+    await setListData(updatedListData);
+  };
+
   /*
   For Calculating the total amount of sending ETH
   */
@@ -201,6 +262,42 @@ function SendToken({ activeTab, listData, setListData }) {
     }
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const result = await fetch(
+        `http://localhost:3000/api/all-user-data?address=${address}`
+      );
+      const response = await result.json();
+      console.log("Response from API:", response);
+
+      const usersData = response.result;
+      const names = usersData.map((user) =>
+        user.name ? user.name.toLowerCase() : ""
+      );
+      const addresses = usersData.map((user) =>
+        user.address ? user.address.toLowerCase() : ""
+      );
+      setAllNames(names);
+      console.log("Addresses:", addresses);
+      setAllAddresses(addresses);
+      console.log("Names:", names);
+      setLabels([]);
+      return { names, addresses };
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const setLabelValues = (index, name) => {
+    const updatedLabels = [...labels]; // Create a copy of the labels array
+    updatedLabels[index] = name; // Update the value at the specified index
+    console.log(updatedLabels);
+    setLabels(updatedLabels);
+  };
   useEffect(() => {
     calculateRemaining();
   }, []); // Execute once on component mount
@@ -425,7 +522,29 @@ function SendToken({ activeTab, listData, setListData }) {
                               id={textStyle.fontsize10px}
                               style={{ letterSpacing: "1px", padding: "8px" }}
                             >
-                              {data.label ? data.label : "----"}
+                              {data.label ? (
+                                data.label
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    value={labels[index] ? labels[index] : ""}
+                                    style={{
+                                      border: "none",
+                                      backgroundColor: "transparent",
+                                    }}
+                                    onChange={(e) => {
+                                      setLabelValues(index, e.target.value);
+                                    }}
+                                  />
+                                  <input
+                                    type="button"
+                                    onClick={(e) => {
+                                      onAddLabel(index, data.address);
+                                    }}
+                                  />
+                                </>
+                              )}
                             </td>
                             <td
                               id={textStyle.fontsize10px}
