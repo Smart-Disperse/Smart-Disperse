@@ -1,0 +1,250 @@
+.poolList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 45px;
+  color: #8f00ff;
+  width: 100%;
+  height: 530px;
+
+  /* margin-top: 20px; */
+  box-sizing: border-box;
+}
+.upperPart {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border-bottom: 1px solid #8f00ff; */
+  padding: 20px 0;
+}
+.left {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.text h4 {
+  /* font-size: 30px; */
+  font-size: 25px;
+  font-weight: 600;
+  /* line-height: 20px; */
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+.total {
+  background: #ffffff;
+  width: max-content;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: max-content;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.total h4 {
+  color: #9657eb;
+  /* font-size: 10px; */
+  font-size: 0.8vw;
+  margin: 0 0 10px 0;
+}
+.total p {
+  /* font-size: 20px; */
+  font-size: 1.3vw;
+  line-height: 20px;
+  margin: 0;
+}
+.button {
+  color: #221f2a;
+  background-color: #fff;
+  /* border-radius: 45px;
+    padding: 10px 22px; */
+  border-radius: 10vw;
+  padding: 10px 2vw;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+.button:hover {
+  background-color: #e9e002;
+}
+.tablediv {
+  width: 90%;
+}
+.head .table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: separate;
+  /* border-radius: 20px; */
+  border-spacing: 0px 3px;
+  font-weight: 700;
+  font-size: 2vw;
+}
+.content .table {
+  width: 100%;
+  height: 270px;
+  border-collapse: separate;
+  border-spacing: 0px 6px;
+  /* border-radius: 20px; */
+  font-size: 2vw;
+}
+.head {
+  width: 100%;
+  position: sticky;
+}
+.content {
+  height: 275px;
+  overflow-y: scroll;
+}
+.content::-webkit-scrollbar {
+  width: 2px;
+  margin-right: 0;
+}
+.content::-webkit-scrollbar-thumb {
+  background: #9657eb;
+}
+.content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.head .column1,
+.head .column2,
+.head .column3,
+.head .column4,
+.head .column5,
+.head .column6,
+.head .column7 {
+  font-weight: 600;
+  font-size: 1vw;
+}
+.column1,
+.column2,
+.column3,
+.column4,
+.column5,
+.column6,
+.column7 {
+  margin: 0;
+  padding: 13px;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 300;
+  font-size: 1vw;
+  color: #fff;
+}
+.column1 {
+  border-radius: 5px 0px 0px 5px;
+  align-items: center;
+  width: 270px;
+}
+.column2 {
+  width: 300px;
+}
+.column3 {
+  width: 200px;
+}
+.column4 {
+  width: 250px;
+}
+.column5 {
+  width: 250px;
+}
+.column6 {
+  width: 250px;
+}
+.column7 {
+  width: 250px;
+  border-radius: 0px 5px 5px 0px;
+}
+.head .row {
+  background-color: #9657eb;
+}
+.content .row {
+  background-color: #18151f;
+  border: 1px solid white;
+  border-collapse: separate;
+  cursor: pointer;
+}
+/* .content .row:hover * {
+  background-color: #e4ff30;
+  color: #101010;
+} */
+
+@media screen and (max-width: 768px) and (min-width: 500px) {
+  .poolList {
+    width: 90%;
+  }
+  .text h3 {
+    font-size: 3.2vw;
+  }
+  .text p,
+  .total h4 {
+    font-size: 1.2vw;
+  }
+  .total p {
+    font-size: 2vw;
+  }
+  .button {
+    font-size: 2vw;
+  }
+  .left {
+    width: 60%;
+  }
+  .head .column1,
+  .head .column2,
+  .head .column3 {
+    font-weight: 700;
+    font-size: 1.4vw;
+  }
+  .column1,
+  .column2,
+  .column3 {
+    font-size: 1.4vw;
+  }
+}
+@media screen and (max-width: 500px) {
+  .poolList {
+    width: 95%;
+    border-radius: 30px;
+  }
+  .upperPart,
+  .tablediv {
+    width: 95%;
+  }
+  .text h3 {
+    font-size: 3.5vw;
+  }
+  .text p,
+  .total h4 {
+    font-size: 1.4vw;
+  }
+  .total p {
+    font-size: 2.2vw;
+  }
+  .button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 2.2vw;
+  }
+  .left {
+    width: 70%;
+  }
+  .head .column1,
+  .head .column2,
+  .head .column3 {
+    font-weight: 700;
+    font-size: 2vw;
+  }
+  .column1 {
+    font-size: 2vw;
+    width: 25vw;
+  }
+  .column2 {
+    width: 20vw;
+    font-size: 2vw;
+  }
+  .column3 {
+    font-size: 2vw;
+    width: 25vw;
+  }
+}
