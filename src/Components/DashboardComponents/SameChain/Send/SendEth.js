@@ -305,14 +305,14 @@ function SendEth({ activeTab, listData, setListData }) {
                             ) : (
                               <>
                             <input
-  type="text"
-  value={labels[index] ? labels[index] : ""}
-  style={{
-    borderRadius: "8px",
-    padding: "10px",
-    color: "white",
+        type="text"
+        value={labels[index] ? labels[index] : ""}
+        style={{
+          borderRadius: "8px",
+          padding: "10px",
+          color: "white",
     border: "none",
-    background: "linear-gradient(90deg, rgba(97, 38, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)"
+    background: "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)"
   }}
   
   onChange={(e) => {
