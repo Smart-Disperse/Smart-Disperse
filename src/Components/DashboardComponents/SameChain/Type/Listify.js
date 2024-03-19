@@ -333,7 +333,6 @@ function Listify({
         <Modal
           className={textStyle.popupforpayment}
           isOpen={LabelModelIsOpen}
-          // onRequestClose={() => setLabelModelIsOpen(false)}
           contentLabel="Label Prompt Modal"
         >
           <>
