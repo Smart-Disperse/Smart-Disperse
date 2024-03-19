@@ -199,6 +199,7 @@ function SendEth({ activeTab, listData, setListData }) {
     const { names, addresses } = await fetchUserDetails();
     console.log(names, addresses);
 
+    
     const updatedListData = await listData.map((item) => {
       if (
         (item.label === undefined || item.label === "") &&
@@ -303,23 +304,33 @@ function SendEth({ activeTab, listData, setListData }) {
                               data.label
                             ) : (
                               <>
-                                <input
-                                  type="text"
-                                  value={labels[index] ? labels[index] : ""}
-                                  style={{
-                                    border: "none",
-                                    backgroundColor: "transparent",
-                                  }}
-                                  onChange={(e) => {
-                                    setLabelValues(index, e.target.value);
-                                  }}
-                                />
-                                <input
-                                  type="button"
-                                  onClick={(e) => {
-                                    onAddLabel(index, data.address);
-                                  }}
-                                />
+                            <input
+  type="text"
+  value={labels[index] ? labels[index] : ""}
+  style={{
+    borderRadius: "8px",
+    padding: "10px",
+    color: "white",
+    border: "none",
+    background: "linear-gradient(90deg, rgba(97, 38, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)"
+  }}
+  
+  onChange={(e) => {
+    setLabelValues(index, e.target.value);
+  }}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter') {
+      onAddLabel(index, data.address);
+    }
+  }}
+/>
+{/* <input
+  type="button"
+  onClick={(e) => {
+    onAddLabel(index, data.address);
+  }}
+/> */}
+
                               </>
                             )}
                           </td>

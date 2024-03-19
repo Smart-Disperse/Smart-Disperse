@@ -10,7 +10,7 @@ import textStyle from "./textify.module.css";
 import oopsimage from "@/Assets/oops.webp";
 import Image from "next/image";
 import { useAccount } from "wagmi";
-
+import dp from "@/Assets/addname.png";
 function Listify({
   listData,
   setListData,
@@ -337,18 +337,21 @@ function Listify({
           contentLabel="Label Prompt Modal"
         >
           <>
-            <h2>Do you wish to add a label for the Recipient?</h2>
-            <p></p>
+            <h2>Please provide a label for the recipient</h2>
+            <div style={{display:"flex", alignItems:"center"}}>
+            <Image src={dp} alt="none" width={100} height={100}/>
             <input
               className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
               type="text"
               placeholder="Enter Label"
               value={label}
               onChange={handleLabelChange}
+              style={{height:"fit-content"}}
             />
-            <div style={{ marginTop: "10px" }}>
-              <button onClick={() => onAddLabel(true)}>Add Label</button>
-              <button onClick={() => onAddLabel(false)}>Skip</button>
+            </div>
+            <div style={{ marginTop: "10px", display:"flex" }}>
+              <button style={{margin:"0px 5px"}} onClick={() => onAddLabel(true)}>Add Label</button>
+              <button style={{margin:"0px 5px"}} onClick={() => onAddLabel(false)}>Skip</button>
             </div>
           </>
         </Modal>
