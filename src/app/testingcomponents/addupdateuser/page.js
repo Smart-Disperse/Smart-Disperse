@@ -21,7 +21,7 @@ export default function Page() {
     console.log(userData);
     try {
       console.log("entered into try block");
-      let result = await fetch(`http://localhost:3001/api/all-user-data`, {
+      let result = await fetch(`http://localhost:3000/api/all-user-data`, {
         method: "POST",
         body: JSON.stringify(userData),
       });
@@ -41,7 +41,7 @@ export default function Page() {
 
   const handleFetchUserDetails = async () => {
     try {
-      const result = await fetch(`http://localhost:3001/api/all-user-data`);
+      const result = await fetch(`http://localhost:3000/api/all-user-data`);
       const response = await result.json();
       console.log("Response from API:", response);
       const usersData = response.result;

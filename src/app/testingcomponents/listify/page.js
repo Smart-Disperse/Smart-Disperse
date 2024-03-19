@@ -13,7 +13,7 @@ const FetchUser = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(`http://localhost:3001/api/all-user-data`);
+      const result = await fetch(`http://localhost:3000/api/all-user-data`);
       const response = await result.json();
       console.log("Response from API:", response);
 
@@ -83,7 +83,7 @@ const FetchUser = () => {
       address: raddress,
     };
     try {
-      let result = await fetch(`http://localhost:3001/api/all-user-data`, {
+      let result = await fetch(`http://localhost:3000/api/all-user-data`, {
         method: "POST",
         body: JSON.stringify(post_user_data),
       });
