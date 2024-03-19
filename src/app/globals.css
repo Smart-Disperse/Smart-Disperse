@@ -132,3 +132,15 @@ button {
     font-size: 40px;
   }
 }
+.popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200px; /* Adjust width as needed */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  z-index: 1000; /* Ensure it appears above other content */
+}
+input[type="date"]::placeholder {
+  content: "date";
+}

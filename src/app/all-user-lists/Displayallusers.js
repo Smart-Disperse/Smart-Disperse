@@ -15,8 +15,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import loader from "../../Assets/dataloading.webp";
 import notfound from "../../Assets/oops.webp";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+// import "react-toastify/dist/ReactToastify.css";
 
 function Displayallusers() {
   const [usersData, setUsersData] = useState([]);
