@@ -6,13 +6,20 @@ import smartlogo from "../../Assets/logo.png";
 import ConnectButtonCustom from "../ConnectButton/ConnectButtonCustom";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import Cookies from "universal-cookie";
 
-function Navbar() {
+function Navbar({ setIsMainnet, isMainnet }) {
   const [toggleSVG, setToggleSVG] = useState(false);
   const { theme, setTheme } = useTheme();
+  const cookie = new Cookies();
 
   const changeMode = () => {
     toggleDarkMode();
+  };
+
+  const handelMainnet = () => {
+    setIsMainnet(!isMainnet);
+    cookie.set("isMainnet", !isMainnet);
   };
   return (
     <div>
@@ -27,6 +34,11 @@ function Navbar() {
           </Link>
         </div>
         <div className={navStyle.connectwalletbuttondiv}>
+          <>
+            <button onClick={handelMainnet}>
+              {isMainnet ? "Testnet krdo" : "Mainnet krdo"}
+            </button>
+          </>
           <ConnectButtonCustom />
           {theme === "light" ? (
             <svg
