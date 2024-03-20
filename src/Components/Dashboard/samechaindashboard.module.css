@@ -227,12 +227,21 @@ textarea::-webkit-scrollbar {
   border-radius: 5px;
   font-size: 1rem;
   width: 60%; /* Adjust width as needed */
+  border: 1px solid #8f00ff;
 }
-
+.inputDate1:focus {
+  outline: #8f00ff !important;
+}
+.inputSearch:focus {
+  outline: #8f00ff !important;
+}
+.dropdown:focus {
+  outline: #8f00ff !important;
+}
 .inputDate1 {
   padding: 0.5rem;
   margin-right: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid #8f00ff;
   border-radius: 5px;
   font-size: 1rem;
   width: 80%; /* Adjust width as needed */
@@ -241,7 +250,7 @@ textarea::-webkit-scrollbar {
 .dropdown {
   padding: 0.5rem;
   margin-right: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid #8f00ff;
   border-radius: 5px;
   font-size: 1rem;
   width: 20%; /* Adjust width as needed */

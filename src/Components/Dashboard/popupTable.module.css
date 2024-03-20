@@ -160,8 +160,8 @@
   background-color: #9657eb;
 }
 .content .row {
-  background-color: #18151f;
-  border: 1px solid white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 1px solid #9657eb;
   border-collapse: separate;
   cursor: pointer;
 }
