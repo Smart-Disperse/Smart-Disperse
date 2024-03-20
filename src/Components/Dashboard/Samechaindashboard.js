@@ -18,7 +18,10 @@ import SameChain from "../DashboardComponents/SameChain/SameChain";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { getEthTransactions } from "@/Helpers/GetSentTransactions";
+import {
+  getERC20Transactions,
+  getEthTransactions,
+} from "@/Helpers/GetSentTransactions";
 import { useAccount } from "wagmi";
 
 function Samechaindashboard() {
@@ -130,6 +133,7 @@ function Samechaindashboard() {
 
   useEffect(() => {
     getEthTransactions(address);
+    getERC20Transactions(address, "0x254d06f33bDc5b8ee05b2ea472107E300226659A");
   }, []);
 
   return (
