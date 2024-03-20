@@ -1,12 +1,19 @@
-"use client";
 import React, { useState, useRef, useEffect } from "react";
 import { useNetwork, useSwitchNetwork } from "wagmi";
 import connectStyle from "../ConnectButton/connect.module.css";
 import useChainChangeReload from "./useChainChangeReload";
+import Modal from "react-modal";
+import warning from "@/Assets/warning.webp";
+import Image from "next/image";
+import textStyle from "@/Components/DashboardComponents/SameChain/Type/textify.module.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SwitchChain() {
   useChainChangeReload(); // Call this hook on every render to ensure the page reloads when chain changes
   const { chain } = useNetwork();
+  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
+
   const { chains, error, isLoading, pendingChainId, switchNetwork } =
     useSwitchNetwork();
 
@@ -22,6 +29,12 @@ function SwitchChain() {
     switchNetwork?.(networkId);
     setDropdownVisible(false);
   };
+
+  useEffect(() => {
+    if (error && error.code !== "UNSUPPORTED_CHAIN") {
+      toast.error("Failed to change Network: User rejected the Request");
+    }
+  }, [error]);
 
   return (
     <div
@@ -118,15 +131,7 @@ function SwitchChain() {
         )}
       </div>
 
-      {error && (
-        <div>
-          {error.code === "UNSUPPORTED_CHAIN" ? (
-            <div>Wrong network. Please select the correct one.</div>
-          ) : (
-            <div>{error.message}</div>
-          )}
-        </div>
-      )}
+      <ToastContainer />
     </div>
   );
 }
