@@ -12,9 +12,8 @@ import ExecuteEth from "../Execute/ExecuteEth";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { isContractAddress } from "@/Helpers/ValidateInput.js";
 import Modal from "react-modal";
-import warning from "@/Assets/warning.webp"
+import warning from "@/Assets/warning.webp";
 import Image from "next/image";
-
 
 function SendEth({ activeTab, listData, setListData }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
@@ -26,9 +25,9 @@ function SendEth({ activeTab, listData, setListData }) {
   const [labels, setLabels] = useState([]);
   const [allNames, setAllNames] = useState([]);
   const [allAddresses, setAllAddresses] = useState([]);
-  const [errormsg,setErrormsg] = useState("");
-  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); 
- 
+  const [errormsg, setErrormsg] = useState("");
+  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
+
   const renderComponent = (tab) => {
     switch (tab) {
       case "text":
@@ -47,8 +46,6 @@ function SendEth({ activeTab, listData, setListData }) {
             setListData={setListData}
             allNames={allNames}
             allAddresses={allAddresses}
-            setAllAddresses={setAllAddresses}
-            setAllNames={setAllNames}
           />
         );
       case "csv":
@@ -204,22 +201,23 @@ function SendEth({ activeTab, listData, setListData }) {
         }
       }
     } catch (error) {
+      setNameErrorModalIsOpen(true);
+      setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
     const { names, addresses } = await fetchUserDetails();
     console.log(names, addresses);
 
-    
     const updatedListData = await listData.map((item) => {
       if (
         (item.label === undefined || item.label === "") &&
-        addresses.includes(item.address)
+        addresses.includes(item.address.toLowerCase())
       ) {
         const index = addresses.indexOf(item.address);
         console.log(index);
         item.label = names[index];
       }
-      return item; 
+      return item;
     });
 
     console.log(updatedListData);
@@ -239,7 +237,7 @@ function SendEth({ activeTab, listData, setListData }) {
             <div
               className={textStyle.titleforlinupsametext}
               style={{ padding: "5px 0px" }}
-              >
+            >
               <h2
                 style={{
                   padding: "10px",
@@ -314,33 +312,32 @@ function SendEth({ activeTab, listData, setListData }) {
                               data.label
                             ) : (
                               <>
-                            <input
-        type="text"
-        value={labels[index] ? labels[index] : ""}
-        style={{
-          borderRadius: "8px",
-          padding: "10px",
-          color: "white",
-    border: "none",
-    background: "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)"
-  }}
-  
-  onChange={(e) => {
-    setLabelValues(index, e.target.value);
-  }}
-  onKeyDown={(e) => {
-    if (e.key === 'Enter') {
-      onAddLabel(index, data.address);
-    }
-  }}
-/>
-{/* <input
+                                <input
+                                  type="text"
+                                  value={labels[index] ? labels[index] : ""}
+                                  style={{
+                                    borderRadius: "8px",
+                                    padding: "10px",
+                                    color: "white",
+                                    border: "none",
+                                    background:
+                                      "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)",
+                                  }}
+                                  onChange={(e) => {
+                                    setLabelValues(index, e.target.value);
+                                  }}
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                      onAddLabel(index, data.address);
+                                    }
+                                  }}
+                                />
+                                {/* <input
   type="button"
   onClick={(e) => {
     onAddLabel(index, data.address);
   }}
 /> */}
-
                               </>
                             )}
                           </td>
@@ -535,17 +532,18 @@ function SendEth({ activeTab, listData, setListData }) {
             </table>
           </div>
           <Modal
-          id={textStyle.popupwarning}
-          className={textStyle.popupforpayment}
-          isOpen={errorModalIsOpen}
-          onRequestClose={() => SETErrorModalIsOpen(false)}
-          contentLabel="Error Modal"
-        >
-          <Image src={warning} alt="none" width={100} height={100} />
-          <h2>Warning!</h2>
-          <p>{errormsg}</p>
-          <p>Please try different name</p>
-          <button onClick={()=>setErrorModalIsOpen(false)}>Close</button></Modal>
+            id={textStyle.popupwarning}
+            className={textStyle.popupforpayment}
+            isOpen={errorModalIsOpen}
+            onRequestClose={() => setErrorModalIsOpen(false)}
+            contentLabel="Error Modal"
+          >
+            <Image src={warning} alt="none" width={100} height={100} />
+            <h2>Warning!</h2>
+            <p>{errormsg}</p>
+            <p>Please try different name</p>
+            <button onClick={() => setErrorModalIsOpen(false)}>Close</button>
+          </Modal>
         </div>
       ) : null}
       <div>

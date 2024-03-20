@@ -17,14 +17,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import Modal from "react-modal";
-import warning from "@/Assets/warning.webp"
+import warning from "@/Assets/warning.webp";
 import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
 
 function SendToken({ activeTab, listData, setListData }) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
-  const [errormsg,setErrormsg] = useState("");
+  const [errormsg, setErrormsg] = useState("");
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
+  const [nameErrorModalIsOpen, setNameErrorModalIsOpen] = useState(false);
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] =
     useState(null); /*/USD/ETH exchange rate */
   const [totalERC20, setTotalERC20] =
@@ -75,8 +76,6 @@ function SendToken({ activeTab, listData, setListData }) {
             tokenDecimal={tokenDetails.decimal}
             allNames={allNames}
             allAddresses={allAddresses}
-            setAllAddresses={setAllAddresses}
-            setAllNames={setAllNames}
           />
         );
       case "csv":
@@ -206,7 +205,7 @@ function SendToken({ activeTab, listData, setListData }) {
       result = await result.json();
       console.log("Result after submission:", result);
       if (typeof result.error === "string") {
-        setErrorModalIsOpen(true);
+        setNameErrorModalIsOpen(true);
         setErrormsg(result.error);
       } else {
         if (result.success) {
@@ -214,6 +213,8 @@ function SendToken({ activeTab, listData, setListData }) {
         }
       }
     } catch (error) {
+      setNameErrorModalIsOpen(true);
+      setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
 
@@ -229,7 +230,7 @@ function SendToken({ activeTab, listData, setListData }) {
         console.log(index);
         item.label = names[index];
       }
-      return item; 
+      return item;
     });
 
     console.log(updatedListData);
@@ -541,17 +542,18 @@ function SendToken({ activeTab, listData, setListData }) {
                                       borderRadius: "8px",
                                       padding: "10px",
                                       color: "white",
-                                border: "none",
-                                background: "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)"
-                              }}
-                              onChange={(e) => {
-                                setLabelValues(index, e.target.value);
-                              }}
-                              onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                  onAddLabel(index, data.address);
-                                }
-                              }}
+                                      border: "none",
+                                      background:
+                                        "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)",
+                                    }}
+                                    onChange={(e) => {
+                                      setLabelValues(index, e.target.value);
+                                    }}
+                                    onKeyDown={(e) => {
+                                      if (e.key === "Enter") {
+                                        onAddLabel(index, data.address);
+                                      }
+                                    }}
                                   />
                                   {/* <input
                                     type="button"
@@ -773,18 +775,19 @@ function SendToken({ activeTab, listData, setListData }) {
         </div>
       </>
       <>
-      <Modal
+        <Modal
           id={textStyle.popupwarning}
           className={textStyle.popupforpayment}
-          isOpen={errorModalIsOpen}
-          onRequestClose={() => SETErrorModalIsOpen(false)}
+          isOpen={nameErrorModalIsOpen}
+          onRequestClose={() => setNameErrorModalIsOpen(false)}
           contentLabel="Error Modal"
         >
           <Image src={warning} alt="none" width={100} height={100} />
           <h2>Warning!</h2>
-          {/* <p>{errormsg}</p> */}
+          <p>{errormsg}</p>
           <p>Please try different name</p>
-          <button onClick={()=>setErrorModalIsOpen(false)}>Close</button></Modal>
+          <button onClick={() => setNameErrorModalIsOpen(false)}>Close</button>
+        </Modal>
         <Modal
           className={textStyle.popupforpayment}
           isOpen={errorModalIsOpen}
