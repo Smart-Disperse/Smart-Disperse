@@ -23,6 +23,7 @@ import oopsimage from "@/Assets/oops.webp";
 
 function SendToken({ activeTab, listData, setListData }) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
+  const [errormsg,setErrormsg] = useState("");
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] =
     useState(null); /*/USD/ETH exchange rate */
@@ -40,6 +41,7 @@ function SendToken({ activeTab, listData, setListData }) {
     useState(
       false
     ); /* Flag to check if the user has loaded their ERC20 Tokens */
+
   const defaultTokenDetails = {
     name: null,
     symbol: null,
@@ -536,19 +538,27 @@ function SendToken({ activeTab, listData, setListData }) {
                                     type="text"
                                     value={labels[index] ? labels[index] : ""}
                                     style={{
-                                      border: "none",
-                                      backgroundColor: "transparent",
-                                    }}
-                                    onChange={(e) => {
-                                      setLabelValues(index, e.target.value);
-                                    }}
+                                      borderRadius: "8px",
+                                      padding: "10px",
+                                      color: "white",
+                                border: "none",
+                                background: "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)"
+                              }}
+                              onChange={(e) => {
+                                setLabelValues(index, e.target.value);
+                              }}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  onAddLabel(index, data.address);
+                                }
+                              }}
                                   />
-                                  <input
+                                  {/* <input
                                     type="button"
                                     onClick={(e) => {
                                       onAddLabel(index, data.address);
                                     }}
-                                  />
+                                  /> */}
                                 </>
                               )}
                             </td>
@@ -772,7 +782,7 @@ function SendToken({ activeTab, listData, setListData }) {
         >
           <Image src={warning} alt="none" width={100} height={100} />
           <h2>Warning!</h2>
-          <p>{errormsg}</p>
+          {/* <p>{errormsg}</p> */}
           <p>Please try different name</p>
           <button onClick={()=>setErrorModalIsOpen(false)}>Close</button></Modal>
         <Modal
