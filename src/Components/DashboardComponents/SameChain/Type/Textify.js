@@ -51,8 +51,8 @@ function Textify({
     setTextValue(newTextValue);
     const lines = newTextValue.split("\n").filter((line) => line.trim() !== "");
     lines.forEach(async (line) => {
-      const [recipientAddress, value, name] = line.split(/[,= \t]+/);
-
+      const [recipientAddress, value] = line.split(/[,= \t]+/);
+      const recipientAddressFormatted = recipientAddress.toLowerCase();
       if (value) {
         if (tokenDecimal) {
           var validValue = isValidTokenValue(value, tokenDecimal);
@@ -62,12 +62,12 @@ function Textify({
         }
       }
 
-      const index = allAddresses.indexOf(recipientAddress);
-      if (isValidAddress(recipientAddress) && validValue) {
+      const index = allAddresses.indexOf(recipientAddressFormatted);
+      if (isValidAddress(recipientAddressFormatted) && validValue) {
         updatedRecipients.push({
-          address: recipientAddress,
+          address: recipientAddressFormatted,
           value: validValue,
-          label: allNames[index] ? allNames[index] : name ? name : undefined,
+          label: allNames[index] ? allNames[index] : "",
         });
       }
     });

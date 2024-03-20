@@ -9,19 +9,14 @@ import Modal from "react-modal";
 import textStyle from "./textify.module.css";
 import oopsimage from "@/Assets/oops.webp";
 import Image from "next/image";
-import { useAccount } from "wagmi";
-import dp from "@/Assets/addname.png";
+
 function Listify({
   listData,
   setListData,
   tokenDecimal,
   allNames,
   allAddresses,
-  setAllAddresses,
-  setAllNames,
 }) {
-  const { address } = useAccount();
-
   const [formData, setFormData] = useState({
     address: "",
     value: "",
@@ -29,8 +24,8 @@ function Listify({
   });
   const [errorMessage, setErrorMessage] = useState(""); //error in model
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
-  const [LabelModelIsOpen, setLabelModelIsOpen] = useState(false); //model switch
-  const [label, setLabel] = useState(""); //model switch
+  // const [LabelModelIsOpen, setLabelModelIsOpen] = useState(false); //model switch
+  // const [label, setLabel] = useState(""); //model switch
 
   // Function to close the error modal
   const closeErrorModal = () => {
@@ -41,11 +36,9 @@ function Listify({
   };
 
   const handleReceiverAddressChange = (event) => {
-    const receiverAddress = event.target.value;
+    const receiverAddress = event.target.value.toLowerCase();
 
-    const index = allAddresses.findIndex(
-      (n) => n === receiverAddress.toLowerCase()
-    );
+    const index = allAddresses.findIndex((n) => n === receiverAddress);
     if (index !== -1) {
       setFormData({
         ...formData,
@@ -134,103 +127,99 @@ function Listify({
     const isvalid = await validateFormData();
     console.log(formData);
     if (isvalid) {
-      if (formData.label === "") {
-        setLabelModelIsOpen(true);
-      } else {
-        setListData([...listData, formData]);
-        setFormData({
-          address: "",
-          value: "",
-          label: "",
-        });
-        localStorage.removeItem("address");
-        localStorage.removeItem("value");
-        localStorage.removeItem("label");
-      }
+      setListData([...listData, formData]);
+      setFormData({
+        address: "",
+        value: "",
+        label: "",
+      });
+      localStorage.removeItem("address");
+      localStorage.removeItem("value");
+      localStorage.removeItem("label");
     }
   };
 
-  const handleLabelChange = (event) => {
-    setLabel(event.target.value.toLowerCase());
-  };
+  // const handleLabelChange = (event) => {
+  //   setLabel(event.target.value.toLowerCase());
+  // };
 
-  const onAddLabel = async (isAdd) => {
-    if (isAdd) {
-      formData.label = label;
+  // const onAddLabel = async (isAdd) => {
+  //   if (isAdd) {
+  //     formData.label = label;
 
-      console.log(address);
-      const userData = {
-        userid: address,
-        name: formData.label,
-        address: formData.address.toLowerCase(),
-      };
-      console.log(userData);
-      try {
-        console.log("entered into try block");
-        let result = await fetch(`http://localhost:3000/api/all-user-data`, {
-          method: "POST",
-          body: JSON.stringify(userData),
-        });
+  //     console.log(address);
+  //     const userData = {
+  //       userid: address,
+  //       name: formData.label,
+  //       address: formData.address.toLowerCase(),
+  //     };
+  //     console.log(userData);
+  //     try {
+  //       console.log("entered into try block");
+  //       let result = await fetch(`http://localhost:3000/api/all-user-data`, {
+  //         method: "POST",
+  //         body: JSON.stringify(userData),
+  //       });
 
-        console.log(result);
-        result = await result.json();
-        console.log("Result after submission:", result);
-        const errortext = result.error
-        console.log(errortext);
-        setErrorMessage(errortext)
-        setErrorModalIsOpen(false)
-        if (result.success) {
-          alert("Added to MongoDB");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+  //       console.log(result);
+  //       result = await result.json();
+  //       console.log("Result after submission:", result);
+  //       const errortext = result.error;
+  //       console.log(errortext);
+  //       setErrorMessage(errortext);
+  //       setErrorModalIsOpen(false);
+  //       if (result.success) {
+  //         alert("Added to MongoDB");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
 
-      await fetchUserDetails();
-    }
-    setListData([...listData, formData]);
-    setFormData({
-      address: "",
-      value: "",
-      label: "",
-    });
-    localStorage.removeItem("address");
-    localStorage.removeItem("value");
-    localStorage.removeItem("label");
-    setLabel("");
+  //     await fetchUserDetails();
+  //   }
+  //   setListData([...listData, formData]);
+  //   setFormData({
+  //     address: "",
+  //     value: "",
+  //     label: "",
+  //   });
+  //   localStorage.removeItem("address");
+  //   localStorage.removeItem("value");
+  //   localStorage.removeItem("label");
+  //   setLabel("");
 
-    setLabelModelIsOpen(false);
-  };
+  //   setLabelModelIsOpen(false);
+  // };
 
-  const fetchUserDetails = async () => {
-    try {
-      const result = await fetch(
-        `http://localhost:3000/api/all-user-data?address=${address}`
-      );
-      const response = await result.json();
-      console.log("Response from API:", response);
+  // const fetchUserDetails = async () => {
+  //   try {
+  //     const result = await fetch(
+  //       `http://localhost:3000/api/all-user-data?address=${address}`
+  //     );
+  //     const response = await result.json();
+  //     console.log("Response from API:", response);
 
-      const usersData = response.result;
-      const names = usersData.map((user) =>
-        user.name ? user.name.toLowerCase() : ""
-      );
-      const addresses = usersData.map((user) =>
-        user.address ? user.address.toLowerCase() : ""
-      );
+  //     const usersData = response.result;
+  //     const names = usersData.map((user) =>
+  //       user.name ? user.name.toLowerCase() : ""
+  //     );
+  //     const addresses = usersData.map((user) =>
+  //       user.address ? user.address.toLowerCase() : ""
+  //     );
 
-      console.log("Names:", names);
-      console.log("Addresses:", addresses);
+  //     console.log("Names:", names);
+  //     console.log("Addresses:", addresses);
 
-      setAllNames(names);
-      setAllAddresses(addresses);
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  };
+  //     setAllNames(names);
+  //     setAllAddresses(addresses);
+  //   } catch (error) {
+  //     console.error("Error fetching user details:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchUserDetails();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserDetails();
+  // }, []);
   return (
     <div className={listStyle.divinsamecreatelisttokenload}>
       <div className={listStyle.enteraddressdivtitle}>
@@ -334,7 +323,7 @@ function Listify({
           </>
         </Modal>
 
-        <Modal
+        {/* <Modal
           className={textStyle.popupforpayment}
           isOpen={LabelModelIsOpen}
           contentLabel="Label Prompt Modal"
@@ -357,7 +346,7 @@ function Listify({
               <button style={{margin:"0px 5px"}} onClick={() => onAddLabel(false)}>Skip</button>
             </div>
           </>
-        </Modal>
+        </Modal> */}
       </>
     </div>
   );
