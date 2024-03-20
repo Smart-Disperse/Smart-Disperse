@@ -17,6 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import Modal from "react-modal";
+import warning from "@/Assets/warning.webp"
 import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
 
@@ -202,8 +203,13 @@ function SendToken({ activeTab, listData, setListData }) {
       console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
-      if (result.success) {
-        alert("Added to MongoDB");
+      if (typeof result.error === "string") {
+        setErrorModalIsOpen(true);
+        setErrormsg(result.error);
+      } else {
+        if (result.success) {
+          alert("Added to MongoDB");
+        }
       }
     } catch (error) {
       console.error("Error:", error);
@@ -221,7 +227,7 @@ function SendToken({ activeTab, listData, setListData }) {
         console.log(index);
         item.label = names[index];
       }
-      return item; // Make sure to return the modified or unmodified item
+      return item; 
     });
 
     console.log(updatedListData);
@@ -757,6 +763,18 @@ function SendToken({ activeTab, listData, setListData }) {
         </div>
       </>
       <>
+      <Modal
+          id={textStyle.popupwarning}
+          className={textStyle.popupforpayment}
+          isOpen={errorModalIsOpen}
+          onRequestClose={() => SETErrorModalIsOpen(false)}
+          contentLabel="Error Modal"
+        >
+          <Image src={warning} alt="none" width={100} height={100} />
+          <h2>Warning!</h2>
+          <p>{errormsg}</p>
+          <p>Please try different name</p>
+          <button onClick={()=>setErrorModalIsOpen(false)}>Close</button></Modal>
         <Modal
           className={textStyle.popupforpayment}
           isOpen={errorModalIsOpen}
