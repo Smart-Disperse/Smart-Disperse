@@ -175,6 +175,9 @@ function Listify({
         console.log(result);
         result = await result.json();
         console.log("Result after submission:", result);
+        const errortext = result.error
+        console.log(errortext);
+        setErrorMessage(errortext)
         setErrorModalIsOpen(false)
         if (result.success) {
           alert("Added to MongoDB");
