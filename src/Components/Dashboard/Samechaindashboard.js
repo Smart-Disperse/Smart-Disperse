@@ -42,8 +42,6 @@ function Samechaindashboard() {
     } else if (name === "endDate") {
       setEndDate(value);
     }
-    // Call the onSearch function with query, startDate, and endDate
-    onSearch({ query, startDate, endDate });
   };
 
   useEffect(() => {
@@ -230,7 +228,6 @@ function Samechaindashboard() {
         style={{
           display: "flex",
           justifyContent: "center",
-          backgroundColor: "gray",
         }}
       >
         <Transition in={!isOpen} timeout={1500}>
@@ -239,18 +236,19 @@ function Samechaindashboard() {
               style={{
                 ...fadeStyles[state],
                 width: "520px",
-                height: "calc(3rem + 100px)",
+                height: "calc(-4rem + 100px)",
                 border: "1px solid",
                 fontSize: "0.875rem",
                 borderColor: isOpen ? "white" : "white",
-                borderRadius: "1rem",
+                borderTopLeftRadius: "1rem",
+                borderTopRightRadius: "1rem",
                 padding: "1rem 1.25rem",
                 backgroundColor: isOpen ? "white" : "white",
                 color: isOpen ? "dark" : "custom-light",
                 overflow: "hidden",
-                position: "fixed",
+                position: "relative",
 
-                bottom: "-115px",
+                bottom: "-95px",
                 top: "unset",
               }}
             >
@@ -410,15 +408,13 @@ function Samechaindashboard() {
                   <input
                     type="text"
                     placeholder="Search..."
-                    value={query}
-                    onChange={handleChange}
                     className={samechainStyle.inputSearch}
                   />
 
                   <div>
                     <input
                       type="text"
-                      placeholder="Start-Date"
+                      placeholder="Start Date"
                       ref={inputRef1}
                       onChange={(e) => console.log(e.target.value)}
                       onFocus={() => (inputRef1.current.type = "date")}
@@ -429,7 +425,7 @@ function Samechaindashboard() {
                   <div>
                     <input
                       type="text"
-                      placeholder="End-Date"
+                      placeholder="End Date"
                       ref={inputRef3}
                       onChange={(e) => console.log(e.target.value)}
                       onFocus={() => (inputRef3.current.type = "date")}
@@ -442,7 +438,7 @@ function Samechaindashboard() {
                     onChange={handleTokenChange}
                     className={samechainStyle.dropdown}
                   >
-                    <option value="all">All Tokens</option>
+                    <option value="all">Select</option>
                     <option value="token1">Token 1</option>
                     <option value="token2">Token 2</option>
                     <option value="token3">Token 3</option>
@@ -469,17 +465,46 @@ function Samechaindashboard() {
                       <tbody>
                         {data.map((token, index) => (
                           <tr className={popup.row} key={index}>
-                            <td className={popup.column1}>
+                            <td
+                              className={popup.column1}
+                              style={{ color: "#8f00ff", fontWeight: "600" }}
+                            >
                               {token["Recipient Address"]}
                             </td>
-                            <td className={popup.column2}>{token["Amount"]}</td>
-                            <td className={popup.column3}>{token["Chain"]}</td>
-                            <td className={popup.column3}>
+                            <td
+                              className={popup.column2}
+                              style={{ color: "#8f00ff", fontWeight: "600" }}
+                            >
+                              {token["Amount"]}
+                            </td>
+                            <td
+                              className={popup.column3}
+                              style={{ color: "#8f00ff", fontWeight: "600" }}
+                            >
+                              {token["Chain"]}
+                            </td>
+                            <td
+                              className={popup.column3}
+                              style={{ color: "#8f00ff", fontWeight: "600" }}
+                            >
                               {token["Token Name"]}
                             </td>
-                            <td className={popup.column3}>{token["Label"]}</td>
-                            <td className={popup.column3}>{token["Date"]}</td>
-                            <td className={popup.column3}>
+                            <td
+                              className={popup.column3}
+                              style={{ color: "#8f00ff", fontWeight: "600" }}
+                            >
+                              {token["Label"]}
+                            </td>
+                            <td
+                              className={popup.column3}
+                              style={{ color: "#8f00ff", fontWeight: "600" }}
+                            >
+                              {token["Date"]}
+                            </td>
+                            <td
+                              className={popup.column3}
+                              style={{ color: "#8f00ff", fontWeight: "600" }}
+                            >
                               {token["Transaction Hash"]}
                             </td>
                           </tr>
