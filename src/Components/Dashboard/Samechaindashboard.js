@@ -18,6 +18,8 @@ import SameChain from "../DashboardComponents/SameChain/SameChain";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { getEthTransactions } from "@/Helpers/GetSentTransactions";
+import { useAccount } from "wagmi";
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
@@ -32,6 +34,7 @@ function Samechaindashboard() {
   const [selectedToken, setSelectedToken] = useState("all");
   const inputRef1 = useRef();
   const inputRef3 = useRef();
+  const { address } = useAccount(); /*/User's Ethereum Address*/
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -125,9 +128,12 @@ function Samechaindashboard() {
     }
   }, []);
 
+  useEffect(() => {
+    getEthTransactions(address);
+  }, []);
+
   return (
     <div className={samechainStyle.maindivofdashboard}>
-      <Navbar />
       <div style={{ position: "relative" }}>
         <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />

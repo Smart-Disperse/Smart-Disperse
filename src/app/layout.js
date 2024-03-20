@@ -2,6 +2,8 @@ import { Providers } from "@/Providers";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/Components/Themeprovider";
+import Navbar from "@/Components/Navbar/Navbar";
+import React from "react";
 
 const roboto = Roboto({
   subsets: ["latin"],

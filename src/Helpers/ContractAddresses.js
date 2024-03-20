@@ -15,7 +15,7 @@ const contracts = {
     Abi: smartDisperseABI,
   },
   534351: {
-    address: "0xC67241F4c2e62Ef01DAE09404B31470F97390694",
+    address: "0x6840cE9FD1eae47a94cF0d0f8571D048D9281c81",
     description: "SMART_DISPERSE_ADDRESS_TEST_SCROLL",
     "block-explorer": "sepolia.scrollscan.dev",
     Abi: crossSendABI,
