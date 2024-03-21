@@ -35,6 +35,7 @@ function Samechaindashboard() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [selectedToken, setSelectedToken] = useState("all");
+  const [changedata, setEthdata] = useState();
   const inputRef1 = useRef();
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
@@ -131,10 +132,34 @@ function Samechaindashboard() {
     }
   }, []);
 
+
+  // const fetchTransactions = async () => {
+  //   if (address) {
+  //     const ethData = await getEthTransactions(address);
+  //     setEthTransactions(ethData);
+
+  //     const erc20Data = await getERC20Transactions(address, "0x254d06f33bDc5b8ee05b2ea472107E300226659A");
+  //     setErc20Transactions(erc20Data);
+  //   }
+  // };
+
+  const [ethTransactions, setEthTransactions] = useState([]);
+  const [erc20Transactions, setErc20Transactions] = useState([]);
+
   useEffect(() => {
-    getEthTransactions(address);
-    getERC20Transactions(address, "0x254d06f33bDc5b8ee05b2ea472107E300226659A");
-  }, []);
+    const fetchTransactions = async () => {
+      if (address) {
+        const ethData = await getEthTransactions(address);
+        setEthTransactions(ethData);
+        
+        const erc20Data = await getERC20Transactions(address, "0x254d06f33bDc5b8ee05b2ea472107E300226659A");
+        setErc20Transactions(erc20Data);
+        setEthdata(erc20Data);
+      }
+    };
+  
+    fetchTransactions();
+  }, [address,setEthdata]);
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
@@ -470,58 +495,40 @@ function Samechaindashboard() {
                       </thead>
                     </table>
                   </div>
+
+                  {/* Fetching tx data in */}
                   <div className={popup.content}>
                     <table className={popup.table}>
                       <tbody>
-                        {data.map((token, index) => (
+                        {[...ethTransactions, ...erc20Transactions].map((transaction, index) => (
                           <tr className={popup.row} key={index}>
-                            <td
-                              className={popup.column1}
-                              style={{ color: "#8f00ff", fontWeight: "600" }}
-                            >
-                              {token["Recipient Address"]}
+                            <td className={popup.column1} style={{ color: "#8f00ff", fontWeight: "600" }}>
+                              {transaction.recipient}
                             </td>
-                            <td
-                              className={popup.column2}
-                              style={{ color: "#8f00ff", fontWeight: "600" }}
-                            >
-                              {token["Amount"]}
+                            <td className={popup.column2} style={{ color: "#8f00ff", fontWeight: "600" }}>
+                              {transaction.value}
                             </td>
-                            <td
-                              className={popup.column3}
-                              style={{ color: "#8f00ff", fontWeight: "600" }}
-                            >
-                              {token["Chain"]}
+                            <td className={popup.column3} style={{ color: "#8f00ff", fontWeight: "600" }}>
+                              {transaction.chainName || "ETH"}
                             </td>
-                            <td
-                              className={popup.column3}
-                              style={{ color: "#8f00ff", fontWeight: "600" }}
-                            >
-                              {token["Token Name"]}
+                            <td className={popup.column4} style={{ color: "#8f00ff", fontWeight: "600" }}>
+                              {transaction.tokenName || "Token not found"}
                             </td>
-                            <td
-                              className={popup.column3}
-                              style={{ color: "#8f00ff", fontWeight: "600" }}
-                            >
-                              {token["Label"]}
+                            <td className={popup.column5} style={{ color: "#8f00ff", fontWeight: "600" }}>
+                              Pending
+                              {/* Label information */}
                             </td>
-                            <td
-                              className={popup.column3}
-                              style={{ color: "#8f00ff", fontWeight: "600" }}
-                            >
-                              {token["Date"]}
+                            <td className={popup.column6} style={{ color: "#8f00ff", fontWeight: "600" }}>
+                              {transaction.blockTimestamp}
                             </td>
-                            <td
-                              className={popup.column3}
-                              style={{ color: "#8f00ff", fontWeight: "600" }}
-                            >
-                              {token["Transaction Hash"]}
+                            <td className={popup.column7} style={{ color: "#8f00ff", fontWeight: "600" }}>
+                              {transaction.transactionHash}
                             </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
-                  </div>
+                </div>
                 </div>
               </div>
             </div>
