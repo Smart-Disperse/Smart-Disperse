@@ -16,7 +16,6 @@ function Textify({
   const [suggestions, setSuggestions] = useState([]);
   const textareaRef = useRef(null);
   const { address } = useAccount();
-  
 
   const handleInputChange = (e) => {
     const { value } = e.target;
@@ -126,21 +125,7 @@ function Textify({
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
               ></textarea>
               {suggestions.length > 0 && (
-                <div
-                  className={textStyle.dropdown}
-                  style={{
-                    position: "absolute",
-                    // top: "calc(100% + 5px)",
-                    left: "32px",
-                    top:"32px",
-                    background: "#f9f9f9",
-                    borderRadius: "5px",
-                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                    zIndex: "999",
-                    maxHeight: "200px",
-                    overflowY: "auto",
-                  }}
-                >
+                <div className={textStyle.dropdown}>
                   {suggestions.map((suggestion, index) => (
                     <div
                       key={index}

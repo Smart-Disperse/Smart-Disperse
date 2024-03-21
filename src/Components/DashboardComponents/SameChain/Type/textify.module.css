@@ -1,45 +1,50 @@
 .textAccSum {
-  width: fit-content;
+  width: max-content;
+  max-width: 900px;
   font-size: 12px;
   margin: 0 auto;
-  background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
+  background: transparent;
   color: black;
-  border-radius: 10px;
+
   padding: 10px 10px;
   transform: translate(-50%, -50%);
   animation: zoomAnimation 1s infinite alternate;
 }
 
-.dropdownItem{
+.dropdownItem {
   padding: 8px 12px;
   cursor: pointer;
-  background-color: #49058e91;
-  color: white;
-  border-bottom: 1px solid #ddd;
+  background: white;
+  color: #8f00ff;
+  width: 150px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  text-align: left;
+  border-bottom: 1px solid #8f00ff;
 }
 
-.dropdown{
+.dropdown {
   position: absolute;
   left: 32px;
   top: 32px;
-  background-color: #f9f9f9f9;
+  background-color: transparent;
   /* border-radius: 5px; */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   z-index: 999;
   max-height: 200px;
   overflow-y: auto;
 }
 
 .dropdown::-webkit-scrollbar {
-  width: 1px; 
+  width: 1px;
 }
 
 .dropdown::-webkit-scrollbar-thumb {
-  background-color: #5007e3; 
-  border-radius: 1px; 
+  background-color: #5007e3;
+  border-radius: 1px;
 }
 
-.divtocenter{
+.divtocenter {
   display: flex;
 }
 
@@ -374,8 +379,12 @@
   text-align: center;
 }
 .popupforpayment button {
-  background: rgb(0,255,239);
-background: linear-gradient(90deg, rgba(0,255,239,1) 35%, rgba(9,255,0,1) 100%);
+  background: rgb(0, 255, 239);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 239, 1) 35%,
+    rgba(9, 255, 0, 1) 100%
+  );
   border: 1px solid #1bff76;
   border-radius: 5px;
   color: black;
