@@ -1,0 +1,42 @@
+.maindivoffeedbacktile{
+    /* width: 100%; */
+    background-color: blueviolet;
+    color: white;
+    display: flex;
+    font-size: 15px;
+    padding: 3px;
+    align-items: center;
+}
+
+.contentdiv{
+    width: 95%;
+}
+
+.closebuttondiv{
+    font-size: 20px;
+    width: 5%;
+}
+
+.closebuttondiv  button{
+    background-color: transparent;
+    border: none;
+    color: white;
+    /* margin: 2px; */
+    font-size: 20px;
+}
+
+@media (max-width: 760px) {
+.maindivoffeedbacktile{
+    padding: 4px 0px;
+    display: flex;
+    font-size: 15px;
+    align-items: center;
+}}
+
+@media (max-width: 375px) {
+    .maindivoffeedbacktile{
+        padding: 4px 0px;
+        display: flex;
+        font-size: 13px;
+        align-items: center;}
+}

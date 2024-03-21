@@ -2,6 +2,7 @@ import { Providers } from "@/Providers";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/Components/Themeprovider";
+import Feedbacksection from "@/Components/Feedbacktile/Feedbacksection";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -38,7 +39,9 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <Providers>{children}</Providers>
+          <Providers>
+            <Feedbacksection/>
+            {children}</Providers>
         </ThemeProvider>
         <noscript
           dangerouslySetInnerHTML={{
