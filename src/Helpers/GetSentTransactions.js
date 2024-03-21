@@ -1,16 +1,10 @@
 import { ethers } from "ethers";
 import { createClient, cacheExchange, fetchExchange } from "@urql/core";
 import { LoadTokenForAnalysis } from "@/Helpers/LoadToken.js";
+import { useState } from "react";
 
 
 export const getEthTransactions = async (address) => {
-  
-  var provider = new ethers.providers.JsonRpcProvider("https://scroll-testnet.rpc.grove.city/v1/a7a7c8e2");
-  var chainName = await provider.getNetwork().then((network) => network.name).catch((error) => {
-    console.error("Error getting chain ID:", error);
-  });
-
-  console.log("ChainName", chainName);
   const APIURL =
     "https://api.studio.thegraph.com/query/67916/smartdisperse-scroll-sepolia/version/latest";
 
@@ -53,7 +47,7 @@ export const getEthTransactions = async (address) => {
       transformedData.push({
         sender: item.sender,
         recipient: recipient,
-        chainName: chainName,
+        // chainName: chainname,
         value: valueInEth,
         transactionHash: item.transactionHash,
         blockTimestamp: gmtTime,
@@ -62,17 +56,19 @@ export const getEthTransactions = async (address) => {
   });
 
   // also return TotalEth
-  console.log("Eth transfer data:" , transformedData);
+  // console.log("Eth transfer data:" , transformedData);
   return transformedData;
 };
 
 
 export const getERC20Transactions = async (address, tokenAddress) => {
+
   try {
-    var provider = new ethers.providers.JsonRpcProvider("https://scroll-testnet.rpc.grove.city/v1/a7a7c8e2");
-    var chainName = await provider.getNetwork().then((network) => network);
+   
     const tokenDetails = await LoadTokenForAnalysis(tokenAddress);
-    // console.log(tokenDetails.symbol);
+    console.log("tokenaddr  ",tokenAddress);
+
+    // console.log("symbol", tokenDetails.symbol);
     // console.log(address);
     const APIURL =
     "https://api.studio.thegraph.com/query/67916/smartdisperse-scroll-sepolia/version/latest";
@@ -96,7 +92,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
     });
     
     const data = await client.query(tokensQuery).toPromise();
-    // console.log(data);
+    console.log("api data", data);
     const transactions = data.data.erc20TokenDisperseds.map((transaction) => ({
       sender: transaction._sender,
       recipients: transaction._recipients,
@@ -104,7 +100,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
       value: transaction._values,
       blockTimestamp: transaction.blockTimestamp,
     }));
-    // console.log(transactions);
+    console.log("txs", transactions);
     
     const transformedData = [];
     let totalERC20 = 0;
@@ -122,7 +118,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
             recipient: recipient,
             value: valueInERC20,
             transactionHash: item.transactionHash,
-            chainName: chainName,
+            // chainName: chainname,
             blockTimestamp: gmtTime,
             tokenName: tokenDetails.symbol,
           });
@@ -130,7 +126,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
       });
       
       // also return TotalERC20
-      console.log("Eth transfer data:" , transformedData);
+      console.log("ERC20 transfer data:" , transformedData);
       return transformedData;
       
       // return {transformedData};
