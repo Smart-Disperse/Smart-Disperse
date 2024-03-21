@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "type": "module",
   "dependencies": {
     "@covalenthq/client-sdk": "^0.8.7",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
