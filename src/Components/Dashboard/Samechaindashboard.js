@@ -23,6 +23,7 @@ import {
   getEthTransactions,
 } from "@/Helpers/GetSentTransactions";
 import { useAccount } from "wagmi";
+import { ethers} from "ethers";
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
@@ -34,11 +35,55 @@ function Samechaindashboard() {
   const [query, setQuery] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [chainID, setChainid] = useState();
   const [selectedToken, setSelectedToken] = useState("all");
   const [changedata, setEthdata] = useState();
   const inputRef1 = useRef();
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
+  const [chainname, setChainname] = useState();
+  
+  const getchainid = async () => {
+    console.log("Getting chain ID");
+    try {
+      const chain = Number(
+        await window.ethereum.request({ method: "eth_chainId" })
+      );
+      const network = ethers.providers.getNetwork(chain);
+      const chainid = network.chainId.toString();
+      console.log("Chain ID:", chainid);
+      
+      const chains = {
+        919: "Mode Testnet ",
+        534351: "Scroll Sepolia",
+        34443: "Mode Mainnet",
+        534352: "Scroll Mainnet"
+      };
+  
+      // Check if the chain ID matches any of the predefined chains
+      if (chains.hasOwnProperty(chainid)) {
+        const chainName = chains[chainid];
+        console.log("Chain Name:", chainName);
+        setChainname(chainName);
+      } else {
+        console.log("Chain ID not recognized");
+      }
+  
+      // Assuming setChainid is a function to update the state of the chain ID
+      setChainid(chainid);
+  
+      return chainid;
+    } catch (error) {
+      console.error("Error occurred while fetching chain ID:", error);
+      throw error;
+    }
+  };
+  
+  useEffect(() => {
+    console.log("loading")
+    getchainid();
+  })
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -143,16 +188,23 @@ function Samechaindashboard() {
   //   }
   // };
 
+
+  // CHAIN ID OBJECT
+  
+  // Function to get chain name based on chain ID
+  
+
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
 
+  
   useEffect(() => {
     const fetchTransactions = async () => {
       if (address) {
         const ethData = await getEthTransactions(address);
         setEthTransactions(ethData);
         
-        const erc20Data = await getERC20Transactions(address, "0x254d06f33bDc5b8ee05b2ea472107E300226659A");
+        const erc20Data = await getERC20Transactions(address, "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B");
         setErc20Transactions(erc20Data);
         setEthdata(erc20Data);
       }
@@ -500,7 +552,7 @@ function Samechaindashboard() {
                   <div className={popup.content}>
                     <table className={popup.table}>
                       <tbody>
-                        {[...ethTransactions, ...erc20Transactions].map((transaction, index) => (
+                        {[...(ethTransactions || []), ...(erc20Transactions || [])].map((transaction, index) => (
                           <tr className={popup.row} key={index}>
                             <td className={popup.column1} style={{ color: "#8f00ff", fontWeight: "600" }}>
                               {transaction.recipient}
@@ -509,10 +561,11 @@ function Samechaindashboard() {
                               {transaction.value}
                             </td>
                             <td className={popup.column3} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              {transaction.chainName || "ETH"}
+                              {/* {transaction.chainName || "ETH"} */}
+                              {chainname}
                             </td>
                             <td className={popup.column4} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              {transaction.tokenName || "Token not found"}
+                              {transaction.tokenName || "ETH"}
                             </td>
                             <td className={popup.column5} style={{ color: "#8f00ff", fontWeight: "600" }}>
                               Pending
