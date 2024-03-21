@@ -1,25 +1,9 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import textStyle from "./textify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 import { useAccount } from "wagmi";
-
-/*
-Funtion :Storing value for more personalization
-*/
-// const useLocalStorage = (key, initialValue = "") => {
-//   const [value, setValue] = useState(() => {
-//     const storedValue = localStorage.getItem(key);
-//     return storedValue !== null ? storedValue : initialValue;
-//   });
-//   useEffect(() => {
-//     localStorage.setItem(key, value);
-//   }, [key, value]);
-
-//   return [value, setValue];
-// };
 
 function Textify({
   listData,
@@ -28,14 +12,37 @@ function Textify({
   allNames,
   allAddresses,
 }) {
-  // const [textValue, setTextValue] = useLocalStorage("textValue", "");
   const [textValue, setTextValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const textareaRef = useRef(null);
   const { address } = useAccount();
+  
 
-  /*
-  Funtion : for parsing and validation the value received from user Input and store
-  it in our desired format for Showing in Transaction Lineup
-  */
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setTextValue(value);
+    if (value.includes("@")) {
+      const searchTerm = value.split("@").pop().toLowerCase();
+      const filteredSuggestions = allNames.filter((name) =>
+        name.toLowerCase().includes(searchTerm)
+      );
+      setSuggestions(filteredSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+    parseText(value);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    const cursorPosition = textareaRef.current.selectionStart;
+    const textBeforeCursor = textValue.substring(0, cursorPosition);
+    const textAfterCursor = textValue.substring(cursorPosition);
+    const updatedTextValue = "@" + suggestion + textAfterCursor;
+    setTextValue(updatedTextValue);
+    setSuggestions([]);
+    parseText(updatedTextValue);
+  };
+
   const parseText = async (textValue) => {
     let updatedRecipients = [];
     const resolveRegex = /@(\w+)\s/g;
@@ -76,40 +83,6 @@ function Textify({
     await setListData(updatedRecipients);
   };
 
-  // useEffect(() => {
-  //   fetchUserDetails();
-  // }, []);
-
-  // const fetchUserDetails = async () => {
-  //   try {
-  //     const result = await fetch(`http://localhost:3000/api/all-user-data?address=${address}`);
-  //     const response = await result.json();
-  //     console.log("Response from API:", response);
-
-  //     const usersData = response.result;
-  //     const names = usersData.map((user) =>
-  //       user.name ? user.name.toLowerCase() : ""
-  //     );
-  //     const addresses = usersData.map((user) =>
-  //       user.address ? user.address.toLowerCase() : ""
-  //     );
-  //     console.log("Names:", names);
-  //     setAllNames(names);
-  //     console.log("Addresses:", addresses);
-  //     setAllAddresses(addresses);
-  //   } catch (error) {
-  //     console.error("Error fetching user details:", error);
-  //   }
-  // };
-
-  /*
-  UseEffect :For updating user Input in the textbox for adding  Recipient address and value
-  */
-
-  useEffect(() => {
-    parseText(textValue);
-  }, [textValue]);
-
   return (
     <div>
       <div className={textStyle.divtocoversametextdi}>
@@ -129,11 +102,12 @@ function Textify({
                 each line, supports any format)
               </h2>
             </div>
-            <div id="tt">
+            <div id="tt" style={{ position: "relative" }}>
               <textarea
+                ref={textareaRef}
                 spellCheck="false"
                 value={textValue}
-                onChange={(e) => setTextValue(e.target.value)}
+                onChange={handleInputChange}
                 style={{
                   width: "100%",
                   minHeight: "100px",
@@ -151,6 +125,33 @@ function Textify({
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
               ></textarea>
+              {suggestions.length > 0 && (
+                <div
+                  className={textStyle.dropdown}
+                  style={{
+                    position: "absolute",
+                    // top: "calc(100% + 5px)",
+                    left: "32px",
+                    top:"32px",
+                    background: "#f9f9f9",
+                    borderRadius: "5px",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                    zIndex: "999",
+                    maxHeight: "200px",
+                    overflowY: "auto",
+                  }}
+                >
+                  {suggestions.map((suggestion, index) => (
+                    <div
+                      key={index}
+                      className={textStyle.dropdownItem}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div
