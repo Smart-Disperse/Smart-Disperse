@@ -12,6 +12,36 @@
   backdrop-filter: blur(30.5px);
   margin-bottom: 50px;
 }
+
+.listdropdownItem{
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #49058e91;
+  color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.listdropdown{
+  position: absolute;
+  left: 45%;
+  top: 59%;
+  background-color: #f9f9f9f9;
+  /* border-radius: 5px; */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 999;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+
+.listdropdown::-webkit-scrollbar {
+  width: 1px; 
+}
+
+.listdropdown::-webkit-scrollbar-thumb {
+  background-color: #5007e3; 
+  border-radius: 1px; 
+}
 .listAccSum {
   width: fit-content;
   font-size: 12px;

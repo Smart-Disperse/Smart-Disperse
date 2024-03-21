@@ -26,7 +26,7 @@ function Listify({
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); //model switch
   // const [LabelModelIsOpen, setLabelModelIsOpen] = useState(false); //model switch
   // const [label, setLabel] = useState(""); //model switch
-
+  const [nameSuggestions, setNameSuggestions] = useState([]);
   // Function to close the error modal
   const closeErrorModal = () => {
     // console.log("clicked");
@@ -37,7 +37,7 @@ function Listify({
 
   const handleReceiverAddressChange = (event) => {
     const receiverAddress = event.target.value.toLowerCase();
-
+  
     const index = allAddresses.findIndex((n) => n === receiverAddress);
     if (index !== -1) {
       setFormData({
@@ -50,10 +50,10 @@ function Listify({
         ...formData,
         address: receiverAddress,
         label: "",
-      }); // Only reset the address if the name is not found
+      });
     }
   };
-
+  
   const handleValueInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -71,13 +71,18 @@ function Listify({
   const handleNameChange = (e) => {
     const enteredName = e.target.value.toLowerCase();
     console.log(enteredName); // Convert entered name to lowercase
-
+  // Find suggestions based on the entered name
+  const filteredSuggestions = allNames.filter((name) =>
+    name.toLowerCase().includes(enteredName)
+  );
+  setNameSuggestions(filteredSuggestions);
     // Find the index of the entered name in the allNames array (case-insensitive)
     const index = allNames.findIndex((n) => n === enteredName);
     if (index !== -1) {
       setFormData({
         ...formData,
         address: allAddresses[index],
+        // address: enteredName,
         label: enteredName,
       });
     } else {
@@ -87,6 +92,14 @@ function Listify({
         address: "",
       }); // Only reset the address if the name is not found
     }
+  };
+
+  const handleNameSuggestionClick = (suggestion) => {
+    setFormData({
+      ...formData,
+      label: suggestion,
+    });
+    setNameSuggestions([]);
   };
 
   const validateFormData = async () => {
@@ -139,87 +152,22 @@ function Listify({
     }
   };
 
-  // const handleLabelChange = (event) => {
-  //   setLabel(event.target.value.toLowerCase());
-  // };
-
-  // const onAddLabel = async (isAdd) => {
-  //   if (isAdd) {
-  //     formData.label = label;
-
-  //     console.log(address);
-  //     const userData = {
-  //       userid: address,
-  //       name: formData.label,
-  //       address: formData.address.toLowerCase(),
-  //     };
-  //     console.log(userData);
-  //     try {
-  //       console.log("entered into try block");
-  //       let result = await fetch(`http://localhost:3000/api/all-user-data`, {
-  //         method: "POST",
-  //         body: JSON.stringify(userData),
-  //       });
-
-  //       console.log(result);
-  //       result = await result.json();
-  //       console.log("Result after submission:", result);
-  //       const errortext = result.error;
-  //       console.log(errortext);
-  //       setErrorMessage(errortext);
-  //       setErrorModalIsOpen(false);
-  //       if (result.success) {
-  //         alert("Added to MongoDB");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-
-  //     await fetchUserDetails();
-  //   }
-  //   setListData([...listData, formData]);
-  //   setFormData({
-  //     address: "",
-  //     value: "",
-  //     label: "",
-  //   });
-  //   localStorage.removeItem("address");
-  //   localStorage.removeItem("value");
-  //   localStorage.removeItem("label");
-  //   setLabel("");
-
-  //   setLabelModelIsOpen(false);
-  // };
-
-  // const fetchUserDetails = async () => {
-  //   try {
-  //     const result = await fetch(
-  //       `http://localhost:3000/api/all-user-data?address=${address}`
-  //     );
-  //     const response = await result.json();
-  //     console.log("Response from API:", response);
-
-  //     const usersData = response.result;
-  //     const names = usersData.map((user) =>
-  //       user.name ? user.name.toLowerCase() : ""
-  //     );
-  //     const addresses = usersData.map((user) =>
-  //       user.address ? user.address.toLowerCase() : ""
-  //     );
-
-  //     console.log("Names:", names);
-  //     console.log("Addresses:", addresses);
-
-  //     setAllNames(names);
-  //     setAllAddresses(addresses);
-  //   } catch (error) {
-  //     console.error("Error fetching user details:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchUserDetails();
-  // }, []);
+  useEffect(() => {
+    const index = allNames.findIndex((name) => name === formData.label);
+    if (index !== -1) {
+      setFormData({
+        ...formData,
+        address: allAddresses[index],
+      });
+    } else {
+      setFormData({
+        ...formData,
+        address: "",
+      });
+    }
+  }, [formData.label]);
+  
+  
   return (
     <div className={listStyle.divinsamecreatelisttokenload}>
       <div className={listStyle.enteraddressdivtitle}>
@@ -241,15 +189,26 @@ function Listify({
         <div className={listStyle.inputflexlist}>
           <label>Enter Name </label>
           <input
-            // style={{ color: "black" }}
-            // className={`each-input-of-create-list token-input ${themeClass}`}
-            className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
-            type="text"
-            name="value"
-            value={formData.label}
-            placeholder="Enter name"
-            onChange={handleNameChange}
-          />
+  className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
+  type="text"
+  name="value"
+  value={formData.label}
+  placeholder="Enter name"
+  onChange={handleNameChange}
+/>
+{nameSuggestions.length > 0 && (
+  <div className={listStyle.listdropdown}>
+    {nameSuggestions.map((suggestion, index) => (
+      <div
+        key={index}
+        className={listStyle.listdropdownItem}
+        onClick={() => handleNameSuggestionClick(suggestion)}
+      >
+        {suggestion}
+      </div>
+    ))}
+  </div>
+)}
         </div>
 
         <div className={listStyle.inputflexlist}>
@@ -322,31 +281,7 @@ function Listify({
             </div>
           </>
         </Modal>
-
-        {/* <Modal
-          className={textStyle.popupforpayment}
-          isOpen={LabelModelIsOpen}
-          contentLabel="Label Prompt Modal"
-        >
-          <>
-            <h2>Please provide a label for the recipient</h2>
-            <div style={{display:"flex", alignItems:"center"}}>
-            <Image src={dp} alt="none" width={100} height={100}/>
-            <input
-              className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
-              type="text"
-              placeholder="Enter Label"
-              value={label}
-              onChange={handleLabelChange}
-              style={{height:"fit-content"}}
-            />
-            </div>
-            <div style={{ marginTop: "10px", display:"flex" }}>
-              <button style={{margin:"0px 5px"}} onClick={() => onAddLabel(true)}>Add Label</button>
-              <button style={{margin:"0px 5px"}} onClick={() => onAddLabel(false)}>Skip</button>
-            </div>
-          </>
-        </Modal> */}
+       
       </>
     </div>
   );
