@@ -31,19 +31,20 @@ function Textify({
     }
     parseText(value);
   };
-
   const handleSuggestionClick = (suggestion) => {
     const cursorPosition = textareaRef.current.selectionStart;
     const textBeforeCursor = textValue.substring(0, cursorPosition);
     const textAfterCursor = textValue.substring(cursorPosition);
-    const updatedTextValue = "@" + suggestion + textAfterCursor;
+    const updatedTextValue = textBeforeCursor  + suggestion + textAfterCursor;
     setTextValue(updatedTextValue);
     setSuggestions([]);
     parseText(updatedTextValue);
   };
+  
 
   const parseText = async (textValue) => {
     let updatedRecipients = [];
+  
     const resolveRegex = /@(\w+)\s/g;
     let newTextValue = textValue.replace(resolveRegex, (match, name) => {
       const index = allNames.indexOf(name);
@@ -52,35 +53,40 @@ function Textify({
       }
       return match;
     });
-
+  
     console.log(newTextValue);
     setTextValue(newTextValue);
+  
     const lines = newTextValue.split("\n").filter((line) => line.trim() !== "");
-    lines.forEach(async (line) => {
+    for (const line of lines) {
       const [recipientAddress, value] = line.split(/[,= \t]+/);
       const recipientAddressFormatted = recipientAddress.toLowerCase();
       if (value) {
+        let validValue;
         if (tokenDecimal) {
-          var validValue = isValidTokenValue(value, tokenDecimal);
+          validValue = isValidTokenValue(value, tokenDecimal);
           console.log("go", validValue);
         } else {
-          var validValue = isValidValue(value);
+          validValue = isValidValue(value);
+        }
+  
+        const index = allAddresses.indexOf(recipientAddressFormatted);
+        if (isValidAddress(recipientAddressFormatted) && validValue) {
+          updatedRecipients.push({
+            address: recipientAddressFormatted,
+            value: validValue,
+            label: allNames[index] ? allNames[index] : "",
+          });
         }
       }
-
-      const index = allAddresses.indexOf(recipientAddressFormatted);
-      if (isValidAddress(recipientAddressFormatted) && validValue) {
-        updatedRecipients.push({
-          address: recipientAddressFormatted,
-          value: validValue,
-          label: allNames[index] ? allNames[index] : "",
-        });
-      }
-    });
-
+    }
+  
     console.log(updatedRecipients);
     await setListData(updatedRecipients);
   };
+  
+  
+  
 
   return (
     <div>
