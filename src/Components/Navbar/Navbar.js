@@ -34,13 +34,16 @@ function Navbar({ setIsMainnet, isMainnet }) {
           </Link>
         </div>
         <div className={navStyle.connectwalletbuttondiv}>
-        
-        <label className={navStyle.toggle}>
-    <input type="checkbox" onChange={handelMainnet}/>
-    <span className={navStyle.slider}></span>
-    <span className={navStyle.labels} data-on="Mainnet" data-off="Testnet"></span>
-  </label>
-  
+          <label className={navStyle.toggle}>
+            <input type="checkbox" onChange={handelMainnet} />
+            <span className={navStyle.slider}></span>
+            <span
+              className={navStyle.labels}
+              data-on="Mainnet"
+              data-off="Testnet"
+            ></span>
+          </label>
+
           <ConnectButtonCustom />
           {theme === "light" ? (
             <svg

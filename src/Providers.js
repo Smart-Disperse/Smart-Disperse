@@ -3,7 +3,15 @@ import React, { useEffect, useState } from "react";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { polygon, polygonMumbai, scroll, scrollSepolia } from "wagmi/chains";
+import {
+  polygon,
+  polygonMumbai,
+  scroll,
+  scrollSepolia,
+  sepolia,
+  optimismSepolia,
+  baseSepolia,
+} from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import Navbar from "./Components/Navbar/Navbar";
@@ -47,7 +55,9 @@ export function Providers({ children }) {
   const [isMainnet, setIsMainnet] = React.useState(true);
 
   const { chains, publicClient } = configureChains(
-    isMainnet ? [modeMainnet, scroll] : [modeTestnet, scrollSepolia],
+    isMainnet
+      ? [modeMainnet, scroll]
+      : [modeTestnet, scrollSepolia, sepolia, optimismSepolia, baseSepolia],
     [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
   );
 
