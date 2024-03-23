@@ -35,11 +35,13 @@ function Textify({
     const cursorPosition = textareaRef.current.selectionStart;
     const textBeforeCursor = textValue.substring(0, cursorPosition);
     const textAfterCursor = textValue.substring(cursorPosition);
-    const updatedTextValue = textBeforeCursor  + suggestion + textAfterCursor;
+    const updatedTextValue =
+      textBeforeCursor.replace(/@(\w+)$/, '') + `@${suggestion} ` + textAfterCursor;
     setTextValue(updatedTextValue);
     setSuggestions([]);
     parseText(updatedTextValue);
   };
+  
   
 
   const parseText = async (textValue) => {
