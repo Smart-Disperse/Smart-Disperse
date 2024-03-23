@@ -24,6 +24,7 @@ import {
 } from "@/Helpers/GetSentTransactions";
 import { useAccount } from "wagmi";
 import { ethers} from "ethers";
+import notnx from "../../Assets/nodata.png";
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
@@ -39,9 +40,13 @@ function Samechaindashboard() {
   const [selectedToken, setSelectedToken] = useState("all");
   const [changedata, setEthdata] = useState();
   const inputRef1 = useRef();
+  const [totalAmount, setTotalAmount] = useState(0);
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
+  
+  const [ethTransactions, setEthTransactions] = useState([]);
+  const [erc20Transactions, setErc20Transactions] = useState([]);
   
   const getchainid = async () => {
     console.log("Getting chain ID");
@@ -78,13 +83,68 @@ function Samechaindashboard() {
       throw error;
     }
   };
-  
+
+  // const [query, setQuery] = useState("");
+const [filteredTransactions, setFilteredTransactions] = useState([]);
+
+const handleSearchChange = (event) => {
+  const { value } = event.target;
+  setQuery(value);
+};
+
+
+
+// Modify filterTransactions function to include token name filter
+const filterTransactions = (query) => {
+  let filtered = [...ethTransactions, ...erc20Transactions];
+
+  if (query) {
+    filtered = filtered.filter(
+      (transaction) =>
+        transaction.recipient.toLowerCase().includes(query.toLowerCase())
+    );
+  }
+
+  if (selectedToken !== "all") {
+    filtered = filtered.filter(
+      (transaction) =>
+        transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
+    );
+  }
+
+  setFilteredTransactions(filtered);
+};
+
+
+
+const handleTokenChange = (event) => {
+  const selectedToken = event.target.value;
+  setSelectedToken(selectedToken);
+};
+
+// UseEffect to update filtered transactions when selectedToken changes
+useEffect(() => {
+  filterTransactions(query);
+}, [query, ethTransactions, erc20Transactions, selectedToken]);
   useEffect(() => {
     console.log("loading")
     getchainid();
   })
 
-
+  const calculateTotalAmount = () => {
+    let total = 0;
+    filteredTransactions.forEach(transaction => {
+      total += parseFloat(transaction.value);
+    });
+    return total.toFixed(2); // Limiting the total to 2 decimal places
+  };
+  
+  useEffect(() => {
+    // Calculate total amount whenever filteredTransactions changes
+    const total = calculateTotalAmount();
+    console.log("total here:",total);
+    setTotalAmount(total);
+  }, [filteredTransactions]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "query") {
@@ -111,10 +171,6 @@ function Samechaindashboard() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [isOpen]);
-
-  const handleTokenChange = (event) => {
-    setSelectedToken(event.target.value);
-  };
 
   const fadeStyles = {
     entering: { opacity: 1 },
@@ -194,10 +250,10 @@ function Samechaindashboard() {
   // Function to get chain name based on chain ID
   
 
-  const [ethTransactions, setEthTransactions] = useState([]);
-  const [erc20Transactions, setErc20Transactions] = useState([]);
 
-  
+  // Extract unique token names from ethTransactions and erc20Transactions
+const allTransactions = [...ethTransactions, ...erc20Transactions];
+const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => transaction.tokenName)));
   useEffect(() => {
     const fetchTransactions = async () => {
       if (address) {
@@ -282,35 +338,11 @@ function Samechaindashboard() {
               activeTab={activeTab}
               setErrorModalIsOpen={setErrorModalIsOpen}
               errorModalIsOpen={errorModalIsOpen}
-              // closeErrorModal={closeErrorModal}
-              // errorModalIsOpen={errorModalIsOpen}
             />
           </div>
         </div>
       </div>
-      {/* <div className={samechainStyle.HistoryMain}>
-        <div className={samechainStyle.HistorySubDiv1}>
-          <div className={samechainStyle.hsBtnmain}>
-            <h2>History</h2>
-            <button className={samechainStyle.dropdownBtn} onClick={toggleOpen}>
-              <Image src={dropdown} alt="dropdown" />
-            </button>
-            {popupOpen && (
-              <div className={samechainStyle.HistorySubDiv2}>
-                <div className={samechainStyle.hsBtnmain}>
-                  <h2>History</h2>
-                  <button
-                    className={samechainStyle.dropdownBtn}
-                    onClick={toggleOpen}
-                  >
-                    <Image src={dropdown} alt="dropdown" />
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div> */}
+
       <div
         style={{
           display: "flex",
@@ -468,8 +500,8 @@ function Samechaindashboard() {
                   </div>
                   <div className={samechainStyle.popTitle}></div>
                   <div className={popup.total}>
-                    <h4>Total Transfferred</h4>
-                    <p>$7,403,262.61</p>
+                    <h4>Total Transfered</h4>
+                    <p>{totalAmount} ETH</p>
                   </div>
 
                   {/* <div className={popup.right}>
@@ -492,11 +524,13 @@ function Samechaindashboard() {
                   }}
                 ></div>
                 <div className={samechainStyle.searchBar}>
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className={samechainStyle.inputSearch}
-                  />
+                <input
+    type="text"
+    placeholder="Search..."
+    value={query}
+    onChange={handleSearchChange}
+    className={samechainStyle.inputSearch}
+  />
 
                   <div>
                     <input
@@ -521,15 +555,15 @@ function Samechaindashboard() {
                     />
                   </div>
                   <select
-                    value={selectedToken}
-                    onChange={handleTokenChange}
-                    className={samechainStyle.dropdown}
-                  >
-                    <option value="all">Select</option>
-                    <option value="token1">Token 1</option>
-                    <option value="token2">Token 2</option>
-                    <option value="token3">Token 3</option>
-                  </select>
+  value={selectedToken}
+  onChange={handleTokenChange}
+  className={samechainStyle.dropdown}
+>
+  <option value="all">Select</option>
+  {uniqueTokenNames.map(tokenName => (
+    <option key={tokenName} value={tokenName}>{tokenName}</option>
+  ))}
+</select>
                 </div>
                 <div className={popup.tablediv}>
                   <div className={popup.head}>
@@ -550,37 +584,49 @@ function Samechaindashboard() {
 
                   {/* Fetching tx data in */}
                   <div className={popup.content}>
-                    <table className={popup.table}>
-                      <tbody>
-                        {[...(ethTransactions || []), ...(erc20Transactions || [])].map((transaction, index) => (
-                          <tr className={popup.row} key={index}>
-                            <td className={popup.column1} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              {transaction.recipient}
-                            </td>
-                            <td className={popup.column2} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              {transaction.value}
-                            </td>
-                            <td className={popup.column3} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              {/* {transaction.chainName || "ETH"} */}
-                              {chainname}
-                            </td>
-                            <td className={popup.column4} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              {transaction.tokenName || "ETH"}
-                            </td>
-                            <td className={popup.column5} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              Pending
-                              {/* Label information */}
-                            </td>
-                            <td className={popup.column6} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              {transaction.blockTimestamp}
-                            </td>
-                            <td className={popup.column7} style={{ color: "#8f00ff", fontWeight: "600" }}>
-                              {transaction.transactionHash}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  <table className={popup.table}>
+  <tbody>
+    {filteredTransactions.length > 0 ? (
+      filteredTransactions.map((transaction, index) => (
+        <tr className={popup.row} key={index}>
+          <td className={popup.column1} style={{ color: "#8f00ff", fontWeight: "600" }}>
+            {transaction.recipient}
+          </td>
+          <td className={popup.column2} style={{ color: "#8f00ff", fontWeight: "600" }}>
+            {transaction.value}
+          </td>
+          <td className={popup.column3} style={{ color: "#8f00ff", fontWeight: "600" }}>
+            {chainname}
+          </td>
+          <td className={popup.column4} style={{ color: "#8f00ff", fontWeight: "600" }}>
+            {transaction.tokenName || "ETH"}
+          </td>
+          <td className={popup.column5} style={{ color: "#8f00ff", fontWeight: "600" }}>
+            Pending
+          </td>
+          <td className={popup.column6} style={{ color: "#8f00ff", fontWeight: "600" }}>
+            {transaction.blockTimestamp}
+          </td>
+          <td className={popup.column7} style={{ color: "#8f00ff", fontWeight: "600" }}>
+            {transaction.transactionHash}
+          </td>
+        </tr>
+      ))
+    ) : (
+      <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
+        <Image src={notnx} alt="none" width={300} height={200}/>
+      <tr>
+        <td colSpan="7" style={{ textAlign: "center" }}>
+          No transactions found.
+        </td>
+      </tr>
+      </div>
+    )}
+  </tbody>
+
+
+</table>
+
                 </div>
                 </div>
               </div>
