@@ -14,6 +14,8 @@ import { isContractAddress } from "@/Helpers/ValidateInput.js";
 import Modal from "react-modal";
 import warning from "@/Assets/warning.webp";
 import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SendEth({ activeTab, listData, setListData }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
@@ -192,6 +194,7 @@ function SendEth({ activeTab, listData, setListData }) {
       console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
+    toast.success("Label Added successfully");
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
         setErrormsg(result.error);
