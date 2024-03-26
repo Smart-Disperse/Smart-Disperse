@@ -13,7 +13,7 @@
   box-sizing: border-box;
 }
 .upperPart {
-  width: 80%;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,7 +37,7 @@
 
 .total {
   background: #ffffff;
-  width: max-content;
+  width: 20%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   height: max-content;
   padding: 10px 20px;
@@ -83,7 +83,7 @@
 }
 .content .table {
   width: 100%;
-  height: 270px;
+  /* height: 270px; */
   border-collapse: separate;
   border-spacing: 0px 6px;
   /* border-radius: 20px; */
@@ -135,25 +135,25 @@
 .column1 {
   border-radius: 5px 0px 0px 5px;
   align-items: center;
-  width: 270px;
+  width: 700px;
 }
 .column2 {
   width: 300px;
 }
 .column3 {
-  width: 200px;
+  width: 300px;
 }
 .column4 {
-  width: 250px;
+  width: 300px;
 }
 .column5 {
-  width: 250px;
+  width: 300px;
 }
 .column6 {
-  width: 250px;
+  width: 600px;
 }
 .column7 {
-  width: 250px;
+  width: 600px;
   border-radius: 0px 5px 5px 0px;
 }
 .head .row {
@@ -171,6 +171,24 @@
 } */
 
 @media screen and (max-width: 768px) and (min-width: 500px) {
+  .popup.tablediv {
+    overflow-x: auto;
+  }
+
+  .popup.tablediv table {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .popup.content {
+    width: max-content;
+    overflow-x: auto;
+  }
+
+  .popup.content table {
+    width: 100%;
+    min-width: 900px; /* Adjust this value based on your design */
+  }
   .poolList {
     width: 90%;
   }

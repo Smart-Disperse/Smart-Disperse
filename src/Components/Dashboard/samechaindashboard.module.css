@@ -396,6 +396,24 @@ textarea::-webkit-scrollbar {
   }
 }
 @media only screen and (max-width: 768px) {
+  .popup.tablediv {
+    overflow-x: auto;
+  }
+
+  .popup.tablediv table {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .popup.content {
+    width: max-content;
+    overflow-x: auto;
+  }
+
+  .popup.content table {
+    width: 100%;
+    min-width: 900px; /* Adjust this value based on your design */
+  }
   .displayuserlistbtn {
     border: none;
     padding: 15px 18px;
