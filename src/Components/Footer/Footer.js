@@ -16,10 +16,10 @@ function Footer() {
         display: "flex",
         alignItems: "center",
         justifyContent: " space-between",
-        margin: " 0px 50px",
+        margin: "0px 50px",
         textAlign: "center",
         color: "white",
-        padding: "20px 0px",
+        padding: "0px 0px",
         fontSize: " 15px",
         marginTop: "auto",
       }}

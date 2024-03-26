@@ -22,7 +22,7 @@ function Navbar({ setIsMainnet, isMainnet }) {
     cookie.set("isMainnet", !isMainnet);
   };
   return (
-    <div>
+    <div className={navStyle.navbarMain}>
       <div className={navStyle.divtoflexlogoconnectwallet}>
         <div>
           <Link href="/">

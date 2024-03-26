@@ -367,7 +367,7 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
                 overflow: "hidden",
                 position: "relative",
 
-                bottom: "-95px",
+                bottom: "-56px",
                 top: "unset",
               }}
             >
@@ -419,11 +419,11 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
               ref={dropdownRef}
               style={{
                 ...slideStyles[state],
-                width: "100%",
-                height: "675px",
-                maxWidth: "1300px",
-                minWidth: "900px",
-                maxHeight: "100vh",
+                width: "800px",
+                height: "auto",
+                
+          minWidth:"1000px",
+               
                 border: "1px solid",
                 fontSize: "0.875rem",
                 borderColor: "white",
@@ -562,6 +562,7 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
   <option value="all">Select</option>
   {uniqueTokenNames.map(tokenName => (
     <option key={tokenName} value={tokenName}>{tokenName}</option>
+    
   ))}
 </select>
                 </div>
@@ -589,8 +590,8 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
     {filteredTransactions.length > 0 ? (
       filteredTransactions.map((transaction, index) => (
         <tr className={popup.row} key={index}>
-          <td className={popup.column1} style={{ color: "#8f00ff", fontWeight: "600" }}>
-            {transaction.recipient}
+          <td className={popup.column1} style={{ color: "#8f00ff", fontWeight: "600"}}>
+          {transaction.recipient.substring(0, 12)}
           </td>
           <td className={popup.column2} style={{ color: "#8f00ff", fontWeight: "600" }}>
             {transaction.value}
@@ -608,7 +609,7 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
             {transaction.blockTimestamp}
           </td>
           <td className={popup.column7} style={{ color: "#8f00ff", fontWeight: "600" }}>
-            {transaction.transactionHash}
+            {transaction.transactionHash.substring(0, 12)}
           </td>
         </tr>
       ))
