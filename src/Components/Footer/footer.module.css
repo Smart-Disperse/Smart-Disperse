@@ -6,7 +6,17 @@
   width: auto;
   height: 28px;
 }
-
+.footerouterdiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 20px;
+  text-align: "center";
+  color: white;
+  padding: 0px 0px;
+  font-size: 15px;
+  margin-top: auto;
+}
 .footericon {
   margin: 0px 3px;
   transition: transform 0.3s ease;
@@ -15,19 +25,27 @@
   .footerouterdiv {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    margin: 0px;
+  }
+  .footercopyrightText {
+    display: none;
   }
 }
 @media only screen and (max-width: 425px) {
   .footerouterdiv {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     padding: 5px 0px;
+    margin: 0px;
   }
   .footercopyrightText {
-    font-size: 12px;
+    display: none;
+  }
+  .footericon {
+    display: none;
   }
 }

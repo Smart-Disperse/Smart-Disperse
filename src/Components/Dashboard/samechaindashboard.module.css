@@ -200,17 +200,6 @@ textarea::-webkit-scrollbar {
   font-weight: 600;
   line-height: 5vh;
 }
-.MainPopup {
-  /* background: var(--background1);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
-}
 
 .searchBar {
   display: flex;
@@ -252,6 +241,7 @@ textarea::-webkit-scrollbar {
   margin-right: 0.5rem;
   border: 1px solid #8f00ff;
   border-radius: 5px;
+  cursor: pointer;
   font-size: 1rem;
   width: 20%; /* Adjust width as needed */
 }
@@ -348,7 +338,7 @@ textarea::-webkit-scrollbar {
     z-index: 5;
   }
   .samedashmainm {
-    margin: 100px 0px;
+    margin-top: 100px;
   }
   .titledivdashboard {
     margin: 0 150px !important;
@@ -399,7 +389,12 @@ textarea::-webkit-scrollbar {
   .popup.tablediv {
     overflow-x: auto;
   }
-
+  .popTitle {
+    color: #8f00ff !important;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 4vh;
+  }
   .popup.tablediv table {
     width: 100%;
     min-width: auto;
@@ -475,6 +470,10 @@ textarea::-webkit-scrollbar {
 }
 
 @media only screen and (max-width: 425px) {
+  .popTitle {
+    font-size: 15px;
+    line-height: 2vh;
+  }
   .samedashmainm {
     margin: 0px;
   }
