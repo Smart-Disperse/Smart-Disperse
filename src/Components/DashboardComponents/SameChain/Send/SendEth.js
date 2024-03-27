@@ -201,7 +201,7 @@ function SendEth({ activeTab, listData, setListData }) {
       console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
-    toast.success("Label Added successfully");
+      toast.success("Label Added successfully");
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
         setErrormsg(result.error);
@@ -313,7 +313,7 @@ function SendEth({ activeTab, listData, setListData }) {
                             id={textStyle.fontsize10px}
                             style={{ letterSpacing: "1px", padding: "8px" }}
                           >
-                            {data.address}
+                            {data.address.toUpperCase()}
                           </td>
                           <td
                             id={textStyle.fontsize10px}
@@ -460,18 +460,20 @@ function SendEth({ activeTab, listData, setListData }) {
               <tbody className={textStyle.tbodytextifyaccsum}>
                 <tr>
                   <td id={textStyle.fontsize10px}>
-                    <div id="font-size-10px"  className={textStyle.textAccSum}
-                    style={{
-                      width: "fit-content",
-                      margin: "0 auto",
-                      background:
-                        "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                      color: "black",
-                      borderRadius: "10px",
-                      padding: "10px 10px",
-                      fontSize: "12px",
-                      letterSpacing: "1px",
-                    }}
+                    <div
+                      id="font-size-10px"
+                      className={textStyle.textAccSum}
+                      style={{
+                        width: "fit-content",
+                        margin: "0 auto",
+                        background:
+                          "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
+                        color: "black",
+                        borderRadius: "10px",
+                        padding: "10px 10px",
+                        fontSize: "12px",
+                        letterSpacing: "1px",
+                      }}
                     >
                       {totalEth
                         ? `${(+ethers.utils.formatEther(totalEth)).toFixed(
