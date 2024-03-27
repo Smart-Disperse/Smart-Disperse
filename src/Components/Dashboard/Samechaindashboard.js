@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import popup from "../Dashboard/popupTable.module.css";
-import data from "../Dashboard/data.json";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
 import { Transition } from "react-transition-group";
@@ -25,6 +24,7 @@ import {
 import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import notnx from "../../Assets/nodata.png";
+import contracts from "@/Helpers/ContractAddresses";
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
@@ -48,43 +48,31 @@ function Samechaindashboard() {
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
 
-  const getchainid = async () => {
-    console.log("Getting chain ID");
-    try {
-      const chain = Number(
-        await window.ethereum.request({ method: "eth_chainId" })
-      );
-      const network = ethers.providers.getNetwork(chain);
-      const chainid = network.chainId.toString();
-      console.log("Chain ID:", chainid);
+  // const getchainid = async () => {
+  //   console.log("Getting chain ID");
+  //   try {
+  //     const chain = Number(
+  //       await window.ethereum.request({ method: "eth_chainId" })
+  //     );
+  //     const network = ethers.providers.getNetwork(chain);
+  //     const chainid = network.chainId.toString();
+  //     console.log("Chain ID:", chainid);
+  //     if(chainid in contracts){
+  //       const chainname = contracts[chainid].name;
+  //       console.log(chainname);
+  //       setChainname(chainname)
+  //     } else {
+  //       console.log(`Chain ID ${chainid} does not match any contract.`);
+  //       return null;
+  //   }
+  //   } catch (error) {
+  //     console.error("Error occurred while fetching chain ID:", error);
+  //     throw error;
+  //   }
+  // };
 
-      const chains = {
-        919: "Mode Testnet ",
-        534351: "Scroll Sepolia",
-        34443: "Mode Mainnet",
-        534352: "Scroll Mainnet",
-      };
+  
 
-      // Check if the chain ID matches any of the predefined chains
-      if (chains.hasOwnProperty(chainid)) {
-        const chainName = chains[chainid];
-        console.log("Chain Name:", chainName);
-        setChainname(chainName);
-      } else {
-        console.log("Chain ID not recognized");
-      }
-
-      // Assuming setChainid is a function to update the state of the chain ID
-      setChainid(chainid);
-
-      return chainid;
-    } catch (error) {
-      console.error("Error occurred while fetching chain ID:", error);
-      throw error;
-    }
-  };
-
-  // const [query, setQuery] = useState("");
   const [filteredTransactions, setFilteredTransactions] = useState([]);
 
   const handleSearchChange = (event) => {
@@ -121,10 +109,10 @@ function Samechaindashboard() {
   useEffect(() => {
     filterTransactions(query);
   }, [query, ethTransactions, erc20Transactions, selectedToken]);
-  useEffect(() => {
-    console.log("loading");
-    getchainid();
-  });
+  // useEffect(() => {
+  //   console.log("loading");
+  //   getchainid();
+  // });
 
   const calculateTotalAmount = () => {
     let total = 0;
@@ -249,18 +237,19 @@ function Samechaindashboard() {
     new Set(allTransactions.map((transaction) => transaction.tokenName))
   );
   useEffect(() => {
+    console.log("fetching...");
     const fetchTransactions = async () => {
       if (address) {
         const ethData = await getEthTransactions(address);
         console.log("Eth data", ethData);
         setEthTransactions(ethData);
 
-        const erc20Data = await getERC20Transactions(
-          address,
-          "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
-        );
-        setErc20Transactions(erc20Data);
-        setEthdata(erc20Data);
+        // const erc20Data = await getERC20Transactions(
+        //   address,
+        //   "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
+        // );
+        // setErc20Transactions(erc20Data);
+        // setEthdata(erc20Data);
       }
     };
 
@@ -362,8 +351,7 @@ function Samechaindashboard() {
                 color: isOpen ? "dark" : "custom-light",
                 overflow: "hidden",
                 position: "relative",
-
-                bottom: "-56px",
+              
                 top: "unset",
               }}
             >
@@ -552,7 +540,7 @@ function Samechaindashboard() {
                     onChange={handleTokenChange}
                     className={samechainStyle.dropdown}
                   >
-                    <option value="all">Select</option>
+                    <option value="all">All Tokens</option>
                     {uniqueTokenNames.map((tokenName) => (
                       <option key={tokenName} value={tokenName}>
                         {tokenName}
@@ -594,6 +582,7 @@ function Samechaindashboard() {
                                 )}...${transaction.recipient.substring(
                                   transaction.recipient.length - 5
                                 )}`}
+                                {/* {transaction.recipient} */}
                               </td>
                               <td
                                 className={popup.column2}
@@ -605,7 +594,7 @@ function Samechaindashboard() {
                                 className={popup.column3}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                                {chainname}
+                                {transaction.chainName}
                               </td>
                               <td
                                 className={popup.column4}
@@ -623,12 +612,13 @@ function Samechaindashboard() {
                                 className={popup.column6}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                                {/* {transaction.blockTimestamp} */} 27/03/2024
+                                {transaction.blockTimestamp}
                               </td>
                               <td
                                 className={popup.column7}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
+                                {/* {transaction.transactionHash} */}
                                 {`${transaction.transactionHash.substring(
                                   0,
                                   3
