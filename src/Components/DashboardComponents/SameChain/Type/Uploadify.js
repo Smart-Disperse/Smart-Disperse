@@ -6,7 +6,13 @@ import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 
-function Uploadify({ listData, setListData, tokenDecimal }) {
+function Uploadify({
+  listData,
+  setListData,
+  tokenDecimal,
+  allNames,
+  allAddresses,
+}) {
   const [csvData, setCsvData] = useState([]); // Stores the parsed CSV data
   const [isCsvDataEmpty, setIsCsvDataEmpty] =
     useState(true); /*True if csvData array is empty */
@@ -51,9 +57,9 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
           const parsedData = parseCSV(content);
 
           if (parsedData) {
-            setCsvData(parsedData);
-            setIsCsvDataEmpty(parsedData.length === 0);
-            // console.log(parsedData);
+            // setCsvData(parsedData);
+            // setIsCsvDataEmpty(parsedData.length === 0);
+            console.log(parsedData);
             const listData = [];
             for (let i = 0; i < parsedData.length; i++) {
               if (tokenDecimal) {
@@ -69,10 +75,31 @@ function Uploadify({ listData, setListData, tokenDecimal }) {
                 isValidAddress(parsedData[i]["Receiver Address"]) &&
                 validValue
               ) {
+                console.log("going in if");
+                const recipientAddressFormatted =
+                  parsedData[i]["Receiver Address"].toLowerCase();
+                const index = allAddresses.indexOf(recipientAddressFormatted);
                 listData.push({
                   address: parsedData[i]["Receiver Address"],
                   value: validValue,
+                  label: allNames[index] ? allNames[index] : "",
                 });
+              } else if (
+                !isValidAddress(parsedData[i]["Receiver Address"]) &&
+                validValue
+              ) {
+                console.log("going in else if");
+                const index = allNames.indexOf(
+                  parsedData[i]["Receiver Address"]
+                );
+                if (index !== -1) {
+                  let recAddress = allAddresses[index];
+                  listData.push({
+                    address: recAddress,
+                    value: validValue,
+                    label: parsedData[i]["Receiver Address"],
+                  });
+                }
               }
             }
             // console.log(listData);
