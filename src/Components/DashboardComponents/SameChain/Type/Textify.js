@@ -38,12 +38,15 @@ function Textify({
     const textAfterCursor = textValue.substring(cursorPosition);
     const lastAtSymbolIndex = textBeforeCursor.lastIndexOf("@");
     const updatedTextValue =
-      textBeforeCursor.substring(0, lastAtSymbolIndex + 1) + suggestion + " " + textAfterCursor;
+      textBeforeCursor.substring(0, lastAtSymbolIndex + 1) +
+      suggestion +
+      " " +
+      textAfterCursor;
     setTextValue(updatedTextValue);
     setSuggestions([]);
     parseText(updatedTextValue);
   };
-  
+
   useEffect(() => {
     const fetchExchangeRate = async () => {
       try {
@@ -63,7 +66,7 @@ function Textify({
 
   const parseText = async (textValue) => {
     let updatedRecipients = [];
-  
+
     const resolveRegex = /@(\w+)\s/g;
     let newTextValue = textValue.replace(resolveRegex, (match, name) => {
       const index = allNames.indexOf(name);
@@ -72,16 +75,16 @@ function Textify({
       }
       return match;
     });
-  
+
     console.log(newTextValue);
     setTextValue(newTextValue);
-  
+
     const lines = newTextValue.split("\n").filter((line) => line.trim() !== "");
     for (const line of lines) {
       const [recipientAddress, ...valueParts] = line.split(/[,= \t]+/);
       const recipientAddressFormatted = recipientAddress.toLowerCase();
       const value = valueParts.join(" "); // Rejoin value parts in case it contains spaces
-  
+
       if (value) {
         let validValue;
         if (value.endsWith("$")) {
@@ -98,14 +101,14 @@ function Textify({
         } else {
           validValue = isValidValue(value);
         }
-  
+
         // Check if validValue is false or invalid BigNumber string
         if (!validValue || validValue === "false") {
           // Log an error and skip this value
           console.error("Invalid value:", value);
           continue;
         }
-  
+
         const index = allAddresses.indexOf(recipientAddressFormatted);
         if (isValidAddress(recipientAddressFormatted)) {
           updatedRecipients.push({
@@ -116,21 +119,10 @@ function Textify({
         }
       }
     }
-  
+
     console.log("Updated recipients:", updatedRecipients); // Log the updated recipients
     await setListData(updatedRecipients);
   };
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
   return (
     <div>
