@@ -86,6 +86,8 @@ function SendToken({ activeTab, listData, setListData }) {
             listData={listData}
             setListData={setListData}
             tokenDecimal={tokenDetails.decimal}
+            allNames={allNames}
+            allAddresses={allAddresses}
           />
         );
       default:
@@ -206,7 +208,7 @@ function SendToken({ activeTab, listData, setListData }) {
       console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
-    toast.success("Label Added successfully");
+      toast.success("Label Added successfully");
 
       if (typeof result.error === "string") {
         setNameErrorModalIsOpen(true);
