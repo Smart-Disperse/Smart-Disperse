@@ -164,9 +164,181 @@ textarea::-webkit-scrollbar {
   border-top-color: #3498db; /* Tooltip arrow shadow color */
 }
 
+.displayuserlistbtn:hover {
+  box-shadow: rgba(2, 2, 192, 0.1) 0px 8px 24px,
+    rgba(8, 8, 167, 0.1) 0px 16px 56px, rgba(4, 4, 180, 0.1) 0px 24px 80px;
+  cursor: pointer;
+}
+.displayuserlistbtn {
+  border: none;
+  padding: 15px 18px;
+  background: white;
+  border-radius: 30px;
+  color: black;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  margin: 10px;
+  font-size: 25px;
+  z-index: 5;
+  animation: zoomAnimation 1s infinite alternate;
+}
+
+@keyframes zoomAnimation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+/* ...history css */
+.popTitle {
+  color: #8f00ff !important;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 5vh;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 20px auto;
+}
+
+.inputSearch {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 60%; /* Adjust width as needed */
+  border: 1px solid #8f00ff;
+}
+.inputDate1:focus {
+  outline: #8f00ff !important;
+}
+.inputSearch:focus {
+  outline: #8f00ff !important;
+}
+.dropdown:focus {
+  outline: #8f00ff !important;
+}
+.inputDate1 {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  border: 1px solid #8f00ff;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 20%; /* Adjust width as needed */
+}
+
+.dropdown {
+  padding: 0.5rem;
+
+  border: 1px solid #8f00ff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 20%; /* Adjust width as needed */
+}
+/* 
+.HistoryMain {
+  display: flex;
+  justify-content: center;
+  background: transparent;
+}
+.HistorySubDiv1 {
+  top: unset;
+  bottom: -100px;
+  height: calc(3rem + 100px);
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 38 39 / var(--tw-bg-opacity));
+  width: 520px;
+  top: unset;
+  bottom: -100px;
+  position: fixed;
+  border: 1px solid gray;
+  padding-top: 0.5rem;
+  border-radius: 10px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.HistorySubDiv2 {
+  top: 6rem;
+  bottom: unset;
+  height: 675px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 38 39 / var(--tw-bg-opacity));
+  width: 520px;
+  top: unset;
+  overflow: hidden;
+  max-height: 100vh;
+  bottom: -100px;
+  position: fixed;
+  border: 1px solid gray;
+  padding-top: 0.5rem;
+  border-radius: 10px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.HistorySubDiv2 {
+  top: unset;
+  bottom: -100px;
+  height: calc(3rem + 100px);
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 38 39 / var(--tw-bg-opacity));
+  width: 520px;
+  top: unset;
+  bottom: -100px;
+  position: fixed;
+  border: 1px solid gray;
+  padding-top: 0.5rem;
+  border-radius: 10px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.hsBtnmain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 0.5rem;
+  position: relative;
+}
+.hsBtnmain h2 {
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin: 0;
+}
+.dropdownBtn {
+  right: 0;
+  position: absolute;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+} */
+
 @media only screen and (max-width: 1024px) {
+  .displayuserlistbtn {
+    border: none;
+    padding: 19px 25px;
+    background: white;
+    border-radius: 40px;
+    color: black;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    margin: 10px;
+    font-size: 30px;
+    z-index: 5;
+  }
   .samedashmainm {
-    margin: 100px 0px;
+    margin-top: 100px;
   }
   .titledivdashboard {
     margin: 0 150px !important;
@@ -214,6 +386,42 @@ textarea::-webkit-scrollbar {
   }
 }
 @media only screen and (max-width: 768px) {
+  .popup.tablediv {
+    overflow-x: auto;
+  }
+  .popTitle {
+    color: #8f00ff !important;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 4vh;
+  }
+  .popup.tablediv table {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .popup.content {
+    width: max-content;
+    overflow-x: auto;
+  }
+
+  .popup.content table {
+    width: 100%;
+    min-width: 900px; /* Adjust this value based on your design */
+  }
+  .displayuserlistbtn {
+    border: none;
+    padding: 15px 18px;
+    background: white;
+    border-radius: 40px;
+    color: black;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    margin: 10px;
+    font-size: 20px !important;
+    z-index: 5;
+  }
   .maindivforalloptiondashboard {
     margin: 0px 50px !important;
   }
@@ -262,9 +470,32 @@ textarea::-webkit-scrollbar {
 }
 
 @media only screen and (max-width: 425px) {
-  .samedashmainm {
+  .popTitle {
+    font-size: 12px;
+    line-height: 2vh;
+  }
+  .searchBar {
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
     margin: 0px;
   }
+  .inputSearch {
+    width: 90%;
+
+    margin-bottom: 10px;
+  }
+  .inputDate1 {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+  .dropdown {
+    width: 60%;
+  }
+
   .dashpera {
     font-size: 15px !important;
   }
@@ -277,7 +508,7 @@ textarea::-webkit-scrollbar {
     font-size: 15px;
   }
   .samedashmainm {
-    margin-top: 50px !important;
+    margin-top: 70px !important;
   }
   .titledivdashboard h1 {
     letter-spacing: 1.5px;

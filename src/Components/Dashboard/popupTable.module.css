@@ -1,0 +1,423 @@
+.poolList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 45px;
+  color: #8f00ff;
+  width: 100%;
+  height: 530px;
+
+  /* margin-top: 20px; */
+  box-sizing: border-box;
+}
+.MainPopup {
+  width: 520px;
+  height: 520px;
+  min-width: 1200px;
+  border: 1px solid;
+  font-size: 0.875rem;
+  border-color: white;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  background-color: "white";
+  color: white;
+  overflow: hidden;
+  position: fixed;
+  top: 150;
+  left: auto;
+  z-index: 40;
+}
+.HistoryMain1 {
+  width: 520px;
+  height: calc(-4rem + 100px);
+  border: 1px solid;
+  font-size: 0.875rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  bottom: -65px;
+  top: unset;
+}
+.openHistory {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  margin-top: 0.5rem;
+  color: #8f00ff;
+  cursor: pointer;
+}
+.upperPart {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border-bottom: 1px solid #8f00ff; */
+  padding: 20px 0;
+}
+.left {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.text h4 {
+  /* font-size: 30px; */
+  font-size: 25px;
+  font-weight: 600;
+  /* line-height: 20px; */
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+.total {
+  background: #ffffff;
+  width: 20%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: max-content;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.total h4 {
+  color: #9657eb;
+  /* font-size: 10px; */
+  font-size: 0.8vw;
+  margin: 0 0 10px 0;
+}
+.total p {
+  /* font-size: 20px; */
+  font-size: 1.3vw;
+  line-height: 20px;
+  margin: 0;
+}
+.button {
+  color: #221f2a;
+  background-color: #fff;
+  /* border-radius: 45px;
+    padding: 10px 22px; */
+  border-radius: 10vw;
+  padding: 10px 2vw;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+.button:hover {
+  background-color: #e9e002;
+}
+.tablediv {
+  width: 90%;
+}
+.head .table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: separate;
+  /* border-radius: 20px; */
+  border-spacing: 0px 3px;
+  font-weight: 700;
+  font-size: 2vw;
+}
+.content .table {
+  width: 100%;
+  /* height: 270px; */
+  border-collapse: separate;
+  border-spacing: 0px 6px;
+  /* border-radius: 20px; */
+  font-size: 2vw;
+}
+.head {
+  width: 100%;
+  position: sticky;
+}
+.content {
+  height: 275px;
+  overflow-y: scroll;
+}
+.content::-webkit-scrollbar {
+  width: 2px;
+  margin-right: 0;
+}
+.content::-webkit-scrollbar-thumb {
+  background: #9657eb;
+}
+.content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.head .column1,
+.head .column2,
+.head .column3,
+.head .column4,
+.head .column5,
+.head .column6,
+.head .column7 {
+  font-weight: 600;
+  font-size: 13px;
+}
+.column1,
+.column2,
+.column3,
+.column4,
+.column5,
+.column6,
+.column7 {
+  margin: 0;
+  padding: 13px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+}
+.column1 {
+  border-radius: 5px 0px 0px 5px;
+  align-items: center;
+  width: 20%;
+}
+.column2 {
+  width: 10%;
+}
+.column3 {
+  width: 15%;
+}
+.column4 {
+  width: 15%;
+}
+.column5 {
+  width: 10%;
+}
+.column6 {
+  width: 15%;
+}
+.column7 {
+  width: 20%;
+  border-radius: 0px 5px 5px 0px;
+}
+.head .row {
+  background-color: #9657eb;
+  width: 100%;
+}
+.content .row {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 1px solid #9657eb;
+  border-collapse: separate;
+  cursor: pointer;
+}
+/* .content .row:hover * {
+  background-color: #e4ff30;
+  color: #101010;
+} */
+@media only screen and (max-width: 1024px) {
+  .MainPopup {
+    width: 520px;
+    height: 520px;
+    min-width: 900px;
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-color: white;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: "white";
+    color: white;
+    overflow: hidden;
+    position: fixed;
+    top: 150;
+    left: auto;
+    z-index: 40;
+  }
+  .HistoryMain1 {
+    width: 300px;
+    height: calc(-4rem + 100px);
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    bottom: -65px;
+    top: unset;
+    left: 70px;
+  }
+}
+@media screen and (max-width: 768px) and (min-width: 500px) {
+  .HistoryMain1 {
+    width: 350px;
+    height: calc(-4rem + 100px);
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    bottom: -56px;
+    top: unset;
+    left: 30px;
+  }
+  .MainPopup {
+    width: 520px;
+    height: 520px;
+    min-width: 700px;
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-color: white;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: "white";
+    color: white;
+    overflow: hidden;
+    position: fixed;
+    top: 150;
+    left: auto;
+    z-index: 40;
+  }
+  .upperPart {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* border-bottom: 1px solid #8f00ff; */
+    padding: 20px 0;
+  }
+  .poolList {
+    width: 100%;
+  }
+  .popup.tablediv {
+    overflow-x: auto;
+  }
+
+  .popup.tablediv table {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .popup.content {
+    width: max-content;
+    overflow-x: auto;
+  }
+
+  .popup.content table {
+    width: 100%;
+    min-width: 900px; /* Adjust this value based on your design */
+  }
+
+  .text h3 {
+    font-size: 3.2vw;
+  }
+  .text p,
+  .total h4 {
+    font-size: 1.2vw;
+  }
+  .total p {
+    font-size: 2vw;
+  }
+  .button {
+    font-size: 2vw;
+  }
+  .left {
+    width: 60%;
+  }
+  .head .column1,
+  .head .column2,
+  .head .column3 {
+    font-weight: 700;
+    font-size: 1.4vw;
+  }
+  .column1,
+  .column2,
+  .column3 {
+    font-size: 1.4vw;
+  }
+}
+@media screen and (max-width: 500px) {
+  .poolList {
+    width: 100%;
+    border-radius: 30px;
+  }
+  .upperPart,
+  .tablediv {
+    width: 100%;
+  }
+  .text h3 {
+    font-size: 3.5vw;
+  }
+  .text p,
+  .total h4 {
+    font-size: 1.4vw;
+  }
+  .total p {
+    font-size: 2.2vw;
+  }
+  .button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 2.2vw;
+  }
+  .left {
+    width: 70%;
+  }
+  .head .column1,
+  .head .column2,
+  .head .column3 {
+    font-weight: 700;
+    font-size: 2vw;
+  }
+  .column1 {
+    font-size: 2vw;
+    width: 25vw;
+  }
+  .column2 {
+    width: 20vw;
+    font-size: 2vw;
+  }
+  .column3 {
+    font-size: 2vw;
+    width: 25vw;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .upperPart,
+  .tablediv {
+    width: 100%;
+    padding: 10px 0px;
+  }
+  .total {
+    width: 21%;
+    margin: 0;
+  }
+  .head {
+    overflow: auto;
+  }
+  .MainPopup {
+    width: 350px;
+    height: auto;
+    min-width: 300px;
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-color: white;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: "white";
+    color: white;
+    overflow: hidden;
+    position: fixed;
+    top: 150;
+    left: auto;
+    z-index: 40;
+  }
+  .HistoryMain1 {
+    width: 350px;
+    height: calc(-4rem + 100px);
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    bottom: -30px;
+    top: unset;
+    left: 0;
+  }
+}
