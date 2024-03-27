@@ -6,16 +6,25 @@ import smartlogo from "../../Assets/logo.png";
 import ConnectButtonCustom from "../ConnectButton/ConnectButtonCustom";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import Cookies from "universal-cookie";
+import { useAccount } from "wagmi";
 
-function Navbar() {
+function Navbar({ setIsMainnet, isMainnet }) {
   const [toggleSVG, setToggleSVG] = useState(false);
+  const { isConnected } = useAccount();
   const { theme, setTheme } = useTheme();
+  const cookie = new Cookies();
 
   const changeMode = () => {
     toggleDarkMode();
   };
+
+  const handelMainnet = () => {
+    setIsMainnet(!isMainnet);
+    cookie.set("isMainnet", !isMainnet);
+  };
   return (
-    <div>
+    <div className={navStyle.navbarMain}>
       <div className={navStyle.divtoflexlogoconnectwallet}>
         <div>
           <Link href="/">
@@ -27,6 +36,17 @@ function Navbar() {
           </Link>
         </div>
         <div className={navStyle.connectwalletbuttondiv}>
+          {isConnected && (
+            <label className={navStyle.toggle}>
+              <input type="checkbox" onChange={handelMainnet} />
+              <span className={navStyle.slider}></span>
+              <span
+                className={navStyle.labels}
+                data-on="TestNet"
+                data-off="Mainnet"
+              ></span>
+            </label>
+          )}
           <ConnectButtonCustom />
           {theme === "light" ? (
             <svg

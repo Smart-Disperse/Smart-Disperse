@@ -30,3 +30,31 @@ export const LoadToken = async (customTokenAddress, address) => {
     }
   }
 };
+
+export const LoadTokenForAnalysis = async (customTokenAddress) => {
+  const { ethereum } = window;
+
+  if (ethereum && customTokenAddress !== "") {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    try {
+      const erc20 = new ethers.Contract(
+        customTokenAddress,
+        ERC20ABI.abi,
+        signer
+      );
+      const name = await erc20.name();
+      const symbol = await erc20.symbol();
+      const decimals = await erc20.decimals();
+      // console.log(symbol, balance);
+      return {
+        name,
+        symbol,
+        decimal: decimals,
+      };
+    } catch (error) {
+      console.log("loading token error", error.message);
+      return null;
+    }
+  }
+};

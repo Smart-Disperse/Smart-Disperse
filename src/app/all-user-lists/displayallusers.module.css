@@ -1,0 +1,302 @@
+.maindivofdashboard {
+  background: var(--background1);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashbgImg1 {
+  width: 347.141px;
+  height: 321.106px;
+  transform: rotate(-61.16deg);
+  flex-shrink: 0;
+  position: absolute;
+  left: -13%;
+  right: 24%;
+}
+.dashbgImg2 {
+  width: 400px;
+  height: 400px;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: -288px;
+  right: 0;
+}
+.samedashmainm {
+  min-height: 65vh;
+  margin-top: 100px;
+}
+.titledivdashboard {
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.563);
+  border: none;
+  border-radius: 10px;
+  margin: 20px 300px;
+}
+.titledivdashboard h3 {
+  padding-top: -5px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid white;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+}
+.titledivdashboard h1 {
+  letter-spacing: 1.5px;
+  font-size: 2.2rem;
+  margin: 0px;
+}
+.imagesinthis img {
+  border-radius: 5px;
+  width: -webkit-fill-available;
+}
+.maindivforalloptiondashboard {
+  margin: 0px 300px;
+}
+.displaytable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.displayheader {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.displayheader:first-child {
+  border-radius: 25px 0px 0px 25px;
+}
+
+.displayheader:last-child {
+  border-radius: 0px 25px 25px 0px;
+}
+
+.displaycell {
+  font-size: 14px;
+  padding: 8px;
+}
+
+.displayevenrow:hover {
+  background-color: #19030310;
+}
+.displayevenrow {
+  border-bottom: 1px solid white;
+}
+
+.displayoddrow:hover {
+  background-color: #1903030d;
+}
+.displayoddrow {
+  border-bottom: 1px solid white;
+}
+
+.displayupdatebutton,
+.displayeditbutton,
+.displaydeletebutton {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  font-size: 24px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.displayupdatebutton:hover,
+.displayeditbutton:hover {
+  padding: 3px 10px;
+  font-size: 28px;
+}
+
+.displayupdatebutton:active,
+.displayeditbutton:active,
+.displaydeletebutton:active {
+  background-color: #0909094e;
+}
+.deleteicon:hover {
+  color: red;
+}
+
+.editinput {
+  background-color: rgba(0, 0, 0, 0.206);
+  color: white;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.displaydatatablewrapper {
+  z-index: 2;
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.displaydatatablewrapper::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+.displaydatatablewrapper::-webkit-scrollbar-track {
+  background: #f1f1f12f;
+}
+
+.displaydatatablewrapper::-webkit-scrollbar-thumb {
+  background: #6960ef;
+  border-radius: 5px;
+}
+
+.displaydatatablewrapper::-webkit-scrollbar-thumb:hover {
+  background: #6960ef;
+}
+
+@media only screen and (max-width: 435px) {
+  .maindivofdashboard {
+    height: auto;
+    width: 100%;
+    margin-bottom: auto;
+  }
+  .dashbgImg2 {
+    width: 150px !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+    position: absolute !important;
+    bottom: -60px !important;
+    right: 0 !important;
+  }
+  .dashbgImg1 {
+    width: 150px !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+    position: absolute !important;
+    left: -14%;
+    right: 24%;
+  }
+  .titledivdashboard {
+    margin: 0 30px !important;
+    position: relative;
+  }
+  .titledivdashboard h1 {
+    font-size: 1.5rem !important;
+    margin-top: 40px !important;
+  }
+
+  .titledivdashboard h3 {
+    font-size: 12px;
+  }
+  .maindivforalloptiondashboard {
+    margin: 0px 30px !important;
+  }
+  .displayheader {
+    font-size: 10px !important;
+  }
+  .displaycell {
+    font-size: 9px !important;
+    padding: 2px !important;
+  }
+
+  .displaycellbuttons {
+    display: flex !important;
+    padding: 0px !important;
+  }
+
+  .displayupdatebutton,
+  .displayeditbutton,
+  .displaydeletebutton {
+    font-size: 12px !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .samedashmainm {
+    margin: 100px 0px;
+  }
+  .titledivdashboard {
+    margin: 0 150px;
+    position: relative;
+  }
+
+  .dashbgImg2 {
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: -179px;
+    right: 0;
+  }
+  .dashbgImg1 {
+    width: 300px;
+    height: 300px;
+    transform: rotate(-61.16deg);
+    flex-shrink: 0;
+    position: absolute;
+    left: -14%;
+    right: 24%;
+  }
+  .maindivforalloptiondashboard {
+    margin: 0px 150px;
+  }
+}
+
+@media only screen and (max-width: 778px) {
+  .titledivdashboard h1 {
+    letter-spacing: 1.5px;
+    font-size: 2rem;
+    margin: 0px;
+  }
+
+  .titledivdashboard h3 {
+    padding-top: -5px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid white;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+  }
+
+  .displaydatatablewrapper {
+    z-index: 2;
+    position: relative;
+  }
+
+  .titledivdashboard {
+    margin: 0px 100px;
+  }
+  .maindivforalloptiondashboard {
+    margin: 0px 100px;
+  }
+
+  .displayheader {
+    font-size: 14px;
+  }
+
+  .displaycell {
+    font-size: 12px;
+  }
+
+  .displayupdatebutton,
+  .displayeditbutton,
+  .displaydeletebutton {
+    font-size: 17px;
+  }
+}
+
+.custom-toast {
+  background-color: #6960ef !important;
+}
+
+.custom-toast-body {
+  background-color: #6960ef !important;
+  /* Custom styles for the toast body */
+}
+
+.Toastify__toast-body {
+  background-color: #6960ef !important;
+}
