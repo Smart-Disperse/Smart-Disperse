@@ -1,5 +1,5 @@
-"use client";
-import React, { useState, useEffect } from "react";
+"use client"
+import React, { useState, useEffect } from 'react';
 
 function Page() {
   const [csvData, setCsvData] = useState([]);
@@ -34,6 +34,7 @@ function Page() {
       setAllAddresses(addresses);
       console.log("Names:", names);
       console.log("Addresses:", addresses);
+   
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -45,14 +46,13 @@ function Page() {
 
     reader.onload = (e) => {
       const content = e.target.result;
-      const rows = content.split("\n").map((row) => row.split(","));
+      const rows = content.split('\n').map(row => row.split(','));
       setCsvData(rows);
       console.log(rows);
 
       console.log("checking");
       // Check for Ethereum addresses and names in the first column
-      if (rows.length > 1) {
-        // Check if there's at least one row of data
+      if (rows.length > 1) { // Check if there's at least one row of data
         const matchedDataArray = [];
         const addressesInCsv = [];
         for (let i = 1; i < rows.length; i++) {
@@ -66,11 +66,7 @@ function Page() {
             const index = allnames.indexOf(formattedName.toLowerCase());
             if (index !== -1) {
               console.log("Matched Address:", alladdresses[index]);
-              matchedDataArray.push({
-                address: alladdresses[index],
-                value: rows[i][1],
-                name: formattedName,
-              });
+              matchedDataArray.push({ address: alladdresses[index], value: rows[i][1], name: formattedName });
               // Replace "@" prefixed name with its corresponding address in the CSV data
               rows[i][0] = alladdresses[index];
             }
@@ -80,30 +76,24 @@ function Page() {
         }
         setMatchedData(matchedDataArray);
         // Combine the addresses from the CSV file and the matched addresses
-        const allAddresses = [
-          ...new Set([
-            ...addressesInCsv,
-            ...matchedDataArray.map((item) => item.address),
-          ]),
-        ];
-        console.log("All Addresses:", allAddresses);
-        // Update the rows to include address, value, and name
-        rows.forEach((row, rowIndex) => {
-          if (rowIndex > 0) {
-            // Exclude header row
-            if (isValidEthereumAddress(row[0])) {
-              // Include the corresponding name in the second column
-              row.push(allnames[alladdresses.indexOf(row[0])]);
-            } else {
-              // Include the combined addresses in the first column
-              row[0] = allAddresses.join(",");
-              // Include the value in the second column
-              row.push(row[1]);
-              // Include the name in the third column
-              row.push(row[2]);
-            }
-          }
-        });
+const allAddresses = [...new Set([...addressesInCsv, ...matchedDataArray.map(item => item.address)])];
+console.log("All Addresses:", allAddresses);
+// Update the rows to include address, value, and name
+rows.forEach((row, rowIndex) => {
+  if (rowIndex > 0) { // Exclude header row
+    if (isValidEthereumAddress(row[0])) {
+      // Include the corresponding name in the second column
+      row.push(allnames[alladdresses.indexOf(row[0])]);
+    } else {
+      // Include the combined addresses in the first column
+      row[0] = allAddresses.join(',');
+      // Include the value in the second column
+      row.push(row[1]);
+      // Include the name in the third column
+      row.push(row[2]);
+    }
+  }
+});
       }
       // Update the CSV data state with modified rows
       setCsvData(rows);
@@ -115,12 +105,7 @@ function Page() {
 
   return (
     <div className="container mx-auto p-4">
-      <input
-        type="file"
-        accept=".csv"
-        onChange={handleFileUpload}
-        className="mb-4"
-      />
+      <input type="file" accept=".csv" onChange={handleFileUpload} className="mb-4" />
       <table className="table-auto w-full">
         <tbody>
           {csvData.map((row, rowIndex) => (
@@ -131,19 +116,18 @@ function Page() {
                   {cell === "" || cell == undefined ? (
                     // <button onClick={() => handleAddButtonClick(rowIndex, cellIndex)}>Add</button>
                     <input
-                      style={{ border: "1px solid black" }}
-                      type="text"
-                      // value={labels[index] ? labels[index] : ""}
-                      value={labels}
-                      onChange={(e) => {
-                        setLabels(e.target.value);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          console.log("Adding Label:", labels);
-                        }
-                      }}
-                    />
+                    style={{border:"1px solid black"}}
+                    type="text"
+                    // value={labels[index] ? labels[index] : ""}
+                    value={labels}
+                    onChange={(e) => {
+                      setLabels( e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        console.log("Adding Label:",labels);
+                      }
+                    }}/>
                   ) : (
                     cell
                   )}
@@ -151,9 +135,7 @@ function Page() {
               ))}
               {/* Add the "Always Label" header in the last column */}
               {rowIndex === 0 && (
-                <td key="always-label" className="border px-4 py-2">
-                  Always Label
-                </td>
+                <td key="always-label" className="border px-4 py-2">Always Label</td>
               )}
             </tr>
           ))}
@@ -161,6 +143,7 @@ function Page() {
       </table>
     </div>
   );
+  
 }
 
 export default Page;
