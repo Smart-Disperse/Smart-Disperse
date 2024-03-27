@@ -14,6 +14,8 @@ import { isContractAddress } from "@/Helpers/ValidateInput.js";
 import Modal from "react-modal";
 import warning from "@/Assets/warning.webp";
 import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SendEth({ activeTab, listData, setListData }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
@@ -199,6 +201,7 @@ function SendEth({ activeTab, listData, setListData }) {
       console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
+    toast.success("Label Added successfully");
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
         setErrormsg(result.error);
@@ -232,6 +235,7 @@ function SendEth({ activeTab, listData, setListData }) {
   };
 
   useEffect(() => {
+    console.log(listData);
     calculateRemaining();
   });
 
@@ -456,7 +460,19 @@ function SendEth({ activeTab, listData, setListData }) {
               <tbody className={textStyle.tbodytextifyaccsum}>
                 <tr>
                   <td id={textStyle.fontsize10px}>
-                    <div id="font-size-10px" className={textStyle.textAccSum}>
+                    <div id="font-size-10px"  className={textStyle.textAccSum}
+                    style={{
+                      width: "fit-content",
+                      margin: "0 auto",
+                      background:
+                        "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
+                      color: "black",
+                      borderRadius: "10px",
+                      padding: "10px 10px",
+                      fontSize: "12px",
+                      letterSpacing: "1px",
+                    }}
+                    >
                       {totalEth
                         ? `${(+ethers.utils.formatEther(totalEth)).toFixed(
                             9
