@@ -5,6 +5,7 @@ import uploadStyle from "./uploadify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
+import SendEth from "../Send/SendEth";
 
 function Uploadify({
   listData,
@@ -16,7 +17,41 @@ function Uploadify({
   const [csvData, setCsvData] = useState([]); // Stores the parsed CSV data
   const [isCsvDataEmpty, setIsCsvDataEmpty] =
     useState(true); /*True if csvData array is empty */
+  const [allnames, setAllNames] = useState([]);
+  const [alladdresses, setAllAddresses] = useState([]);
+  const [matchedData, setMatchedData] = useState([]);
+  const [labels, setLabels] = useState([]);
 
+  const isValidEthereumAddress = (str) => {
+    return str.startsWith("0x");
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  // Fetching all names and addresses stored in the database
+  const fetchUserDetails = async () => {
+    try {
+      const result = await fetch(`http://localhost:3000/api/all-user-data`);
+      const response = await result.json();
+      console.log("Response from API:", response);
+
+      const usersData = response.result;
+      const names = usersData.map((user) =>
+        user.name ? user.name.toLowerCase() : ""
+      );
+      const addresses = usersData.map((user) =>
+        user.address ? user.address.toLowerCase() : ""
+      );
+      setAllNames(names);
+      setAllAddresses(addresses);
+      console.log("Names:", names);
+      console.log("Addresses:", addresses);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
   /* Parses a given string content into an array of objects and returns it.*/
   const parseCSV = (content) => {
     const rows = content.split("\n");
@@ -43,85 +78,132 @@ function Uploadify({
     return data;
   };
 
-  /* Validates all fields in each object of csvData array. Returns true if all are valid or false otherwise.*/
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
+    const reader = new FileReader();
 
-    if (file) {
-      const reader = new FileReader();
+    reader.onload = async (e) => {
+      const content = e.target.result;
+      // console.log(content);
+      try {
+        const parsedData = parseCSV(content);
 
-      reader.onload = async (e) => {
-        const content = e.target.result;
-        // console.log(content);
-        try {
-          const parsedData = parseCSV(content);
+        if (parsedData) {
+          // setCsvData(parsedData);
+          // setIsCsvDataEmpty(parsedData.length === 0);
+          console.log(parsedData);
+          const listData = [];
+          for (let i = 0; i < parsedData.length; i++) {
+            if (tokenDecimal) {
+              var validValue = isValidTokenValue(
+                parsedData[i]["Token Amount"],
+                tokenDecimal
+              );
+            } else {
+              var validValue = isValidValue(parsedData[i]["Token Amount"]);
+            }
 
-          if (parsedData) {
-            // setCsvData(parsedData);
-            // setIsCsvDataEmpty(parsedData.length === 0);
-            console.log(parsedData);
-            const listData = [];
-            for (let i = 0; i < parsedData.length; i++) {
-              if (tokenDecimal) {
-                var validValue = isValidTokenValue(
-                  parsedData[i]["Token Amount"],
-                  tokenDecimal
-                );
-              } else {
-                var validValue = isValidValue(parsedData[i]["Token Amount"]);
-              }
-
-              if (
-                isValidAddress(parsedData[i]["Receiver Address"]) &&
-                validValue
-              ) {
-                console.log("going in if");
-                const recipientAddressFormatted =
-                  parsedData[i]["Receiver Address"].toLowerCase();
-                const index = allAddresses.indexOf(recipientAddressFormatted);
+            if (
+              isValidAddress(parsedData[i]["Receiver Address"]) &&
+              validValue
+            ) {
+              console.log("going in if");
+              const recipientAddressFormatted =
+                parsedData[i]["Receiver Address"].toLowerCase();
+              const index = allAddresses.indexOf(recipientAddressFormatted);
+              listData.push({
+                address: parsedData[i]["Receiver Address"],
+                value: validValue,
+                label: allNames[index] ? allNames[index] : "",
+              });
+            } else if (
+              !isValidAddress(parsedData[i]["Receiver Address"]) &&
+              validValue
+            ) {
+              console.log("going in else if");
+              const index = allNames.indexOf(parsedData[i]["Receiver Address"]);
+              if (index !== -1) {
+                let recAddress = allAddresses[index];
                 listData.push({
-                  address: parsedData[i]["Receiver Address"],
+                  address: recAddress,
                   value: validValue,
-                  label: allNames[index] ? allNames[index] : "",
+                  label: parsedData[i]["Receiver Address"],
                 });
-              } else if (
-                !isValidAddress(parsedData[i]["Receiver Address"]) &&
-                validValue
-              ) {
-                console.log("going in else if");
-                const index = allNames.indexOf(
-                  parsedData[i]["Receiver Address"]
-                );
-                if (index !== -1) {
-                  let recAddress = allAddresses[index];
-                  listData.push({
-                    address: recAddress,
-                    value: validValue,
-                    label: parsedData[i]["Receiver Address"],
-                  });
-                }
               }
             }
-            // console.log(listData);
-            setListData(listData);
-            // console.log("list data is set");
-          } else {
-            console.error("Parsed data is empty.");
           }
-        } catch (error) {
-          console.error("Error parsing CSV data:", error);
+          // console.log(listData);
+          setListData(listData);
+          // console.log("list data is set");
+        } else {
+          console.error("Parsed data is empty.");
         }
-      };
+      } catch (error) {
+        console.error("Error parsing CSV data:", error);
+      }
+    };
 
-      reader.readAsText(file);
-    }
+    reader.readAsText(file);
   };
+
+  /* Validates all fields in each object of csvData array. Returns true if all are valid or false otherwise.*/
+  // const handleFileUpload = (event) => {
+  //   const file = event.target.files[0];
+
+  //   if (file) {
+  //     const reader = new FileReader();
+
+  //     reader.onload = async (e) => {
+  //       const content = e.target.result;
+  //       // console.log(content);
+  //       try {
+  //         const parsedData = parseCSV(content);
+
+  //         if (parsedData) {
+  //           setCsvData(parsedData);
+  //           setIsCsvDataEmpty(parsedData.length === 0);
+  //           // console.log(parsedData);
+  //           const listData = [];
+  //           for (let i = 0; i < parsedData.length; i++) {
+  //             if (tokenDecimal) {
+  //               var validValue = isValidTokenValue(
+  //                 parsedData[i]["Token Amount"],
+  //                 tokenDecimal
+  //               );
+  //             } else {
+  //               var validValue = isValidValue(parsedData[i]["Token Amount"]);
+  //             }
+
+  //             if (
+  //               isValidAddress(parsedData[i]["Receiver Address"]) &&
+  //               validValue
+  //             ) {
+  //               listData.push({
+  //                 address: parsedData[i]["Receiver Address"],
+  //                 value: validValue,
+  //               });
+  //             }
+  //           }
+  //           // console.log(listData);
+  //           setListData(listData);
+  //           // console.log("list data is set");
+  //         } else {
+  //           console.error("Parsed data is empty.");
+  //         }
+  //       } catch (error) {
+  //         console.error("Error parsing CSV data:", error);
+  //       }
+  //     };
+
+  //     reader.readAsText(file);
+  //   }
+  // };
 
   // Function to handle form submission after validation checks
   const handleInputChange = (index, field, value) => {
     const updatedCsvData = [...csvData];
     updatedCsvData[index][field] = value;
-    setCsvData(updatedCsvData);
+    setListData(updatedCsvData);
   };
 
   // Add a new row to the csvData array and reset the input fields
@@ -213,7 +295,6 @@ function Uploadify({
             onChange={handleFileUpload}
           />
         </div>
-
         <div>
           <div>
             <a
@@ -227,6 +308,7 @@ function Uploadify({
             </a>
           </div>
         </div>
+        <SendEth listData={listData} setListData={setListData} />;
       </div>
     </div>
   );

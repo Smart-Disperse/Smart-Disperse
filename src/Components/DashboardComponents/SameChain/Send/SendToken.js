@@ -20,6 +20,8 @@ import Modal from "react-modal";
 import warning from "@/Assets/warning.webp";
 import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SendToken({ activeTab, listData, setListData }) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
@@ -204,6 +206,8 @@ function SendToken({ activeTab, listData, setListData }) {
       console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
+    toast.success("Label Added successfully");
+
       if (typeof result.error === "string") {
         setNameErrorModalIsOpen(true);
         setErrormsg(result.error);
