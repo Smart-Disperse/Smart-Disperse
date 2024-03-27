@@ -13,7 +13,11 @@ import completegif from "@/Assets/complete.gif";
 import confetti from "canvas-confetti";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight,faPaperPlane,faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faPaperPlane,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ConfettiScript = () => (
   <Head>
@@ -31,11 +35,13 @@ function ExecuteEth(props) {
 
   const sendTweet = () => {
     console.log("tweeting");
-    const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz/ and simplify your crypto transfers today!`;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
+    const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz?utm_source=twitter_tweet&utm_medium=social&utm_campaign=smart_disperse&utm_id=002 and simplify your crypto transfers today!`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      tweetContent
+    )}`;
     window.open(twitterUrl, "_blank");
   };
-  
+
   const execute = async () => {
     setPaymentmodal(true);
     props.setLoading(true);
@@ -175,7 +181,11 @@ function ExecuteEth(props) {
       >
         {message ? (
           <>
-            <h2>{success ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀" : "Something went Wrong..."}</h2>
+            <h2>
+              {success
+                ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
+                : "Something went Wrong..."}
+            </h2>
             <div>
               {success ? (
                 <div>
@@ -185,9 +195,14 @@ function ExecuteEth(props) {
                     width={150}
                     height={150}
                   />
-            <p>{message}</p>
+                  <p>{message}</p>
 
-                  <div>Why not extend the excitement? Invite your friends and followers on Twitter to join in the joy. Broadcast your seamless experience to the world. Click the tweet button below and spread the cheer instantly! 🌐✨</div>
+                  <div>
+                    Why not extend the excitement? Invite your friends and
+                    followers on Twitter to join in the joy. Broadcast your
+                    seamless experience to the world. Click the tweet button
+                    below and spread the cheer instantly! 🌐✨
+                  </div>
                 </div>
               ) : (
                 <div>
@@ -203,9 +218,15 @@ function ExecuteEth(props) {
             <p>{success ? "" : "Please Try again"}</p>
             <p className={textStyle.errormessagep}>{limitexceed}</p>
             <div className={textStyle.divtocenter}>
-           {success?  <button style={{margin:"0px 5px"}}
-                   onClick={sendTweet}>Tweet Now &nbsp;  <FontAwesomeIcon icon={faPaperPlane} /></button>: ""}
-              <button style={{margin:"0px 5px"}}
+              {success ? (
+                <button style={{ margin: "0px 5px" }} onClick={sendTweet}>
+                  Tweet Now &nbsp; <FontAwesomeIcon icon={faPaperPlane} />
+                </button>
+              ) : (
+                ""
+              )}
+              <button
+                style={{ margin: "0px 5px" }}
                 onClick={() => {
                   setModalIsOpen(false);
                   props.setListData([]);
