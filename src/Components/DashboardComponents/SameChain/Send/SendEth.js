@@ -49,7 +49,14 @@ function SendEth({ activeTab, listData, setListData }) {
           />
         );
       case "csv":
-        return <Uploadify listData={listData} setListData={setListData} />;
+        return (
+          <Uploadify
+            listData={listData}
+            setListData={setListData}
+            allNames={allNames}
+            allAddresses={allAddresses}
+          />
+        );
       default:
         return (
           <Textify
@@ -213,7 +220,7 @@ function SendEth({ activeTab, listData, setListData }) {
         (item.label === undefined || item.label === "") &&
         addresses.includes(item.address.toLowerCase())
       ) {
-        const index = addresses.indexOf(item.address);
+        const index = addresses.indexOf(item.address.toLowerCase());
         console.log(index);
         item.label = names[index];
       }
