@@ -308,7 +308,6 @@ function Uploadify({
             </a>
           </div>
         </div>
-        <SendEth listData={listData} setListData={setListData} />;
       </div>
     </div>
   );
