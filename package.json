@@ -27,12 +27,9 @@
     "react-dom": "^18",
     "react-modal": "^3.16.1",
     "react-toastify": "^10.0.5",
-<<<<<<< HEAD
-=======
     "react-transition-group": "^4.4.5",
     "universal-cookie": "^7.1.0",
     "urql": "^4.0.6",
->>>>>>> user-analysis
     "viem": "^1.21.4",
     "wagmi": "^1.4.13"
   }
