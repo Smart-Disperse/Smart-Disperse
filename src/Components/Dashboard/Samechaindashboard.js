@@ -525,28 +525,26 @@ function Samechaindashboard() {
                     className={samechainStyle.inputSearch}
                   />
 
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Start Date"
-                      ref={inputRef1}
-                      onChange={(e) => console.log(e.target.value)}
-                      onFocus={() => (inputRef1.current.type = "date")}
-                      onBlur={() => (inputRef1.current.type = "text")}
-                      className={samechainStyle.inputDate1}
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="End Date"
-                      ref={inputRef3}
-                      onChange={(e) => console.log(e.target.value)}
-                      onFocus={() => (inputRef3.current.type = "date")}
-                      onBlur={() => (inputRef3.current.type = "text")}
-                      className={samechainStyle.inputDate1}
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    placeholder="Start Date"
+                    ref={inputRef1}
+                    onChange={(e) => console.log(e.target.value)}
+                    onFocus={() => (inputRef1.current.type = "date")}
+                    onBlur={() => (inputRef1.current.type = "text")}
+                    className={samechainStyle.inputDate1}
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="End Date"
+                    ref={inputRef3}
+                    onChange={(e) => console.log(e.target.value)}
+                    onFocus={() => (inputRef3.current.type = "date")}
+                    onBlur={() => (inputRef3.current.type = "text")}
+                    className={samechainStyle.inputDate1}
+                  />
+
                   <select
                     value={selectedToken}
                     onChange={handleTokenChange}

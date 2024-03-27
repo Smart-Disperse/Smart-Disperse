@@ -233,12 +233,12 @@ textarea::-webkit-scrollbar {
   border: 1px solid #8f00ff;
   border-radius: 5px;
   font-size: 1rem;
-  width: 80%; /* Adjust width as needed */
+  width: 20%; /* Adjust width as needed */
 }
 
 .dropdown {
   padding: 0.5rem;
-  margin-right: 0.5rem;
+
   border: 1px solid #8f00ff;
   border-radius: 5px;
   cursor: pointer;
@@ -471,12 +471,31 @@ textarea::-webkit-scrollbar {
 
 @media only screen and (max-width: 425px) {
   .popTitle {
-    font-size: 15px;
+    font-size: 12px;
     line-height: 2vh;
   }
-  .samedashmainm {
+  .searchBar {
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
     margin: 0px;
   }
+  .inputSearch {
+    width: 90%;
+
+    margin-bottom: 10px;
+  }
+  .inputDate1 {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+  .dropdown {
+    width: 60%;
+  }
+
   .dashpera {
     font-size: 15px !important;
   }
@@ -489,7 +508,7 @@ textarea::-webkit-scrollbar {
     font-size: 15px;
   }
   .samedashmainm {
-    margin-top: 50px !important;
+    margin-top: 70px !important;
   }
   .titledivdashboard h1 {
     letter-spacing: 1.5px;
