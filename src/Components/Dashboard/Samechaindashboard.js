@@ -71,8 +71,6 @@ function Samechaindashboard() {
   //   }
   // };
 
-  
-
   const [filteredTransactions, setFilteredTransactions] = useState([]);
 
   const handleSearchChange = (event) => {
@@ -256,6 +254,26 @@ function Samechaindashboard() {
     fetchTransactions();
   }, [address, setEthdata]);
 
+  const fetchUserDetails = async () => {
+    console.log(address);
+    try {
+      console.log("entered into try block");
+      const result = await fetch(
+        `http://localhost:3000/api/all-user-data?address=${address}`
+      );
+      const response = await result.json();
+      response.forEach((user) => {
+        console.log("Name:", user.name);
+      });
+      console.log("Response from API:", response);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
   return (
     <div className={samechainStyle.maindivofdashboard}>
       <div style={{ position: "relative" }}>
@@ -351,7 +369,7 @@ function Samechaindashboard() {
                 color: isOpen ? "dark" : "custom-light",
                 overflow: "hidden",
                 position: "relative",
-              
+
                 top: "unset",
               }}
             >

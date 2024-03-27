@@ -30,7 +30,7 @@
   z-index: 40;
 }
 .HistoryMain1 {
-  width: 520px;
+  width: 400px;
   height: calc(-4rem + 100px);
   border: 1px solid;
   font-size: 0.875rem;
@@ -38,8 +38,9 @@
   border-top-right-radius: 1rem;
   overflow: hidden;
   position: relative;
-  bottom: -65px;
+  bottom: -56px;
   top: unset;
+  left: 50px;
 }
 .openHistory {
   display: flex;
