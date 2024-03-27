@@ -201,17 +201,18 @@ function SendEth({ activeTab, listData, setListData }) {
       console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
-      toast.success("Label Added successfully");
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
+        toast.warn("Name Already Exist! Please Enter Unique Name.");
         setErrormsg(result.error);
       } else {
         if (result.success) {
           alert("Added to MongoDB");
+          toast.success("Label Added successfully");
         }
       }
     } catch (error) {
-      setNameErrorModalIsOpen(true);
+      // setNameErrorModalIsOpen(true);
       setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
