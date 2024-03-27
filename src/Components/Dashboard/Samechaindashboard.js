@@ -23,7 +23,7 @@ import {
   getEthTransactions,
 } from "@/Helpers/GetSentTransactions";
 import { useAccount } from "wagmi";
-import { ethers} from "ethers";
+import { ethers } from "ethers";
 import notnx from "../../Assets/nodata.png";
 
 function Samechaindashboard() {
@@ -44,10 +44,10 @@ function Samechaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-  
+
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
-  
+
   const getchainid = async () => {
     console.log("Getting chain ID");
     try {
@@ -57,14 +57,14 @@ function Samechaindashboard() {
       const network = ethers.providers.getNetwork(chain);
       const chainid = network.chainId.toString();
       console.log("Chain ID:", chainid);
-      
+
       const chains = {
         919: "Mode Testnet ",
         534351: "Scroll Sepolia",
         34443: "Mode Mainnet",
-        534352: "Scroll Mainnet"
+        534352: "Scroll Mainnet",
       };
-  
+
       // Check if the chain ID matches any of the predefined chains
       if (chains.hasOwnProperty(chainid)) {
         const chainName = chains[chainid];
@@ -73,10 +73,10 @@ function Samechaindashboard() {
       } else {
         console.log("Chain ID not recognized");
       }
-  
+
       // Assuming setChainid is a function to update the state of the chain ID
       setChainid(chainid);
-  
+
       return chainid;
     } catch (error) {
       console.error("Error occurred while fetching chain ID:", error);
@@ -85,64 +85,59 @@ function Samechaindashboard() {
   };
 
   // const [query, setQuery] = useState("");
-const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
 
-const handleSearchChange = (event) => {
-  const { value } = event.target;
-  setQuery(value);
-};
+  const handleSearchChange = (event) => {
+    const { value } = event.target;
+    setQuery(value);
+  };
 
+  // Modify filterTransactions function to include token name filter
+  const filterTransactions = (query) => {
+    let filtered = [...ethTransactions, ...erc20Transactions];
 
-
-// Modify filterTransactions function to include token name filter
-const filterTransactions = (query) => {
-  let filtered = [...ethTransactions, ...erc20Transactions];
-
-  if (query) {
-    filtered = filtered.filter(
-      (transaction) =>
+    if (query) {
+      filtered = filtered.filter((transaction) =>
         transaction.recipient.toLowerCase().includes(query.toLowerCase())
-    );
-  }
+      );
+    }
 
-  if (selectedToken !== "all") {
-    filtered = filtered.filter(
-      (transaction) =>
-        transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
-    );
-  }
+    if (selectedToken !== "all") {
+      filtered = filtered.filter(
+        (transaction) =>
+          transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
+      );
+    }
 
-  setFilteredTransactions(filtered);
-};
+    setFilteredTransactions(filtered);
+  };
 
+  const handleTokenChange = (event) => {
+    const selectedToken = event.target.value;
+    setSelectedToken(selectedToken);
+  };
 
-
-const handleTokenChange = (event) => {
-  const selectedToken = event.target.value;
-  setSelectedToken(selectedToken);
-};
-
-// UseEffect to update filtered transactions when selectedToken changes
-useEffect(() => {
-  filterTransactions(query);
-}, [query, ethTransactions, erc20Transactions, selectedToken]);
+  // UseEffect to update filtered transactions when selectedToken changes
   useEffect(() => {
-    console.log("loading")
+    filterTransactions(query);
+  }, [query, ethTransactions, erc20Transactions, selectedToken]);
+  useEffect(() => {
+    console.log("loading");
     getchainid();
-  })
+  });
 
   const calculateTotalAmount = () => {
     let total = 0;
-    filteredTransactions.forEach(transaction => {
+    filteredTransactions.forEach((transaction) => {
       total += parseFloat(transaction.value);
     });
     return total.toFixed(2); // Limiting the total to 2 decimal places
   };
-  
+
   useEffect(() => {
     // Calculate total amount whenever filteredTransactions changes
     const total = calculateTotalAmount();
-    console.log("total here:",total);
+    console.log("total here:", total);
     setTotalAmount(total);
   }, [filteredTransactions]);
   const handleChange = (event) => {
@@ -186,6 +181,7 @@ useEffect(() => {
       transform: "translateY(1000px)",
     },
   };
+
   /******************************Driver.JS Code Starts Here******************************* */
   //Function to start the tour
   useEffect(() => {
@@ -233,7 +229,6 @@ useEffect(() => {
     }
   }, []);
 
-
   // const fetchTransactions = async () => {
   //   if (address) {
   //     const ethData = await getEthTransactions(address);
@@ -244,30 +239,33 @@ useEffect(() => {
   //   }
   // };
 
-
   // CHAIN ID OBJECT
-  
-  // Function to get chain name based on chain ID
-  
 
+  // Function to get chain name based on chain ID
 
   // Extract unique token names from ethTransactions and erc20Transactions
-const allTransactions = [...ethTransactions, ...erc20Transactions];
-const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => transaction.tokenName)));
+  const allTransactions = [...ethTransactions, ...erc20Transactions];
+  const uniqueTokenNames = Array.from(
+    new Set(allTransactions.map((transaction) => transaction.tokenName))
+  );
   useEffect(() => {
     const fetchTransactions = async () => {
       if (address) {
         const ethData = await getEthTransactions(address);
+        console.log("Eth data", ethData);
         setEthTransactions(ethData);
-        
-        const erc20Data = await getERC20Transactions(address, "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B");
+
+        const erc20Data = await getERC20Transactions(
+          address,
+          "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
+        );
         setErc20Transactions(erc20Data);
         setEthdata(erc20Data);
       }
     };
-  
+
     fetchTransactions();
-  }, [address,setEthdata]);
+  }, [address, setEthdata]);
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
@@ -352,12 +350,10 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
         <Transition in={!isOpen} timeout={1500}>
           {(state) => (
             <div
+              className={popup.HistoryMain1}
               style={{
                 ...fadeStyles[state],
-                width: "520px",
-                height: "calc(-4rem + 100px)",
-                border: "1px solid",
-                fontSize: "0.875rem",
+
                 borderColor: isOpen ? "white" : "white",
                 borderTopLeftRadius: "1rem",
                 borderTopRightRadius: "1rem",
@@ -372,6 +368,7 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
               }}
             >
               <div
+                className={popup.openHistory}
                 style={{
                   display: "flex",
                   flexDirection: "row",
@@ -419,11 +416,7 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
               ref={dropdownRef}
               style={{
                 ...slideStyles[state],
-                width: "800px",
-                height: "auto",
-                
-          minWidth:"1000px",
-               
+
                 border: "1px solid",
                 fontSize: "0.875rem",
                 borderColor: "white",
@@ -437,7 +430,7 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
                 left: "auto",
                 zIndex: 40,
               }}
-              className={samechainStyle.MainPopup}
+              className={popup.MainPopup}
             >
               <div
                 style={{
@@ -524,13 +517,13 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
                   }}
                 ></div>
                 <div className={samechainStyle.searchBar}>
-                <input
-    type="text"
-    placeholder="Search..."
-    value={query}
-    onChange={handleSearchChange}
-    className={samechainStyle.inputSearch}
-  />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={query}
+                    onChange={handleSearchChange}
+                    className={samechainStyle.inputSearch}
+                  />
 
                   <div>
                     <input
@@ -555,16 +548,17 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
                     />
                   </div>
                   <select
-  value={selectedToken}
-  onChange={handleTokenChange}
-  className={samechainStyle.dropdown}
->
-  <option value="all">Select</option>
-  {uniqueTokenNames.map(tokenName => (
-    <option key={tokenName} value={tokenName}>{tokenName}</option>
-    
-  ))}
-</select>
+                    value={selectedToken}
+                    onChange={handleTokenChange}
+                    className={samechainStyle.dropdown}
+                  >
+                    <option value="all">Select</option>
+                    {uniqueTokenNames.map((tokenName) => (
+                      <option key={tokenName} value={tokenName}>
+                        {tokenName}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className={popup.tablediv}>
                   <div className={popup.head}>
@@ -574,7 +568,7 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
                           <th className={popup.column1}>Recipient Address</th>
                           <th className={popup.column2}>Amount</th>
                           <th className={popup.column3}>Chain</th>
-                          <th className={popup.column4}>Token Name</th>
+                          <th className={popup.column4}>Token</th>
                           <th className={popup.column5}>Label</th>
                           <th className={popup.column6}>Date</th>
                           <th className={popup.column7}>Transaction Hash</th>
@@ -585,50 +579,95 @@ const uniqueTokenNames = Array.from(new Set(allTransactions.map(transaction => t
 
                   {/* Fetching tx data in */}
                   <div className={popup.content}>
-                  <table className={popup.table}>
-  <tbody>
-    {filteredTransactions.length > 0 ? (
-      filteredTransactions.map((transaction, index) => (
-        <tr className={popup.row} key={index}>
-          <td className={popup.column1} style={{ color: "#8f00ff", fontWeight: "600"}}>
-          {transaction.recipient.substring(0, 12)}
-          </td>
-          <td className={popup.column2} style={{ color: "#8f00ff", fontWeight: "600" }}>
-            {transaction.value}
-          </td>
-          <td className={popup.column3} style={{ color: "#8f00ff", fontWeight: "600" }}>
-            {chainname}
-          </td>
-          <td className={popup.column4} style={{ color: "#8f00ff", fontWeight: "600" }}>
-            {transaction.tokenName || "ETH"}
-          </td>
-          <td className={popup.column5} style={{ color: "#8f00ff", fontWeight: "600" }}>
-            Pending
-          </td>
-          <td className={popup.column6} style={{ color: "#8f00ff", fontWeight: "600" }}>
-            {transaction.blockTimestamp}
-          </td>
-          <td className={popup.column7} style={{ color: "#8f00ff", fontWeight: "600" }}>
-            {transaction.transactionHash.substring(0, 12)}
-          </td>
-        </tr>
-      ))
-    ) : (
-      <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
-        <Image src={notnx} alt="none" width={300} height={200}/>
-      <tr>
-        <td colSpan="7" style={{ textAlign: "center" }}>
-          No transactions found.
-        </td>
-      </tr>
-      </div>
-    )}
-  </tbody>
-
-
-</table>
-
-                </div>
+                    <table className={popup.table}>
+                      <tbody>
+                        {filteredTransactions.length > 0 ? (
+                          filteredTransactions.map((transaction, index) => (
+                            <tr className={popup.row} key={index}>
+                              <td
+                                className={popup.column1}
+                                style={{ color: "#8f00ff", fontWeight: "600" }}
+                              >
+                                {`${transaction.recipient.substring(
+                                  0,
+                                  3
+                                )}...${transaction.recipient.substring(
+                                  transaction.recipient.length - 5
+                                )}`}
+                              </td>
+                              <td
+                                className={popup.column2}
+                                style={{ color: "#8f00ff", fontWeight: "600" }}
+                              >
+                                {transaction.value}
+                              </td>
+                              <td
+                                className={popup.column3}
+                                style={{ color: "#8f00ff", fontWeight: "600" }}
+                              >
+                                {chainname}
+                              </td>
+                              <td
+                                className={popup.column4}
+                                style={{ color: "#8f00ff", fontWeight: "600" }}
+                              >
+                                {transaction.tokenName || "ETH"}
+                              </td>
+                              <td
+                                className={popup.column5}
+                                style={{ color: "#8f00ff", fontWeight: "600" }}
+                              >
+                                Pending
+                              </td>
+                              <td
+                                className={popup.column6}
+                                style={{ color: "#8f00ff", fontWeight: "600" }}
+                              >
+                                {/* {transaction.blockTimestamp} */} 27/03/2024
+                              </td>
+                              <td
+                                className={popup.column7}
+                                style={{ color: "#8f00ff", fontWeight: "600" }}
+                              >
+                                {`${transaction.transactionHash.substring(
+                                  0,
+                                  3
+                                )}...${transaction.transactionHash.substring(
+                                  transaction.transactionHash.length - 5
+                                )}`}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Image
+                              src={notnx}
+                              alt="none"
+                              width={200}
+                              height={100}
+                            />
+                            <tr>
+                              <td
+                                colSpan="7"
+                                style={{
+                                  textAlign: "center",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                No transactions found.
+                              </td>
+                            </tr>
+                          </div>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>

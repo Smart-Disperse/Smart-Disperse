@@ -10,20 +10,7 @@ import Image from "next/image";
 function Footer() {
   const currentYear = new Date().getFullYear(); // Get the Current Year
   return (
-    <div
-      className={footerStyle.footerouterdiv}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: " space-between",
-        margin: "0px 50px",
-        textAlign: "center",
-        color: "white",
-        padding: "0px 0px",
-        fontSize: " 15px",
-        marginTop: "auto",
-      }}
-    >
+    <div className={footerStyle.footerouterdiv}>
       <p className={footerStyle.footercopyrightText} style={{ margin: "0px" }}>
         Copyright © {currentYear} Smart-Disperse | All rights reserved
       </p>

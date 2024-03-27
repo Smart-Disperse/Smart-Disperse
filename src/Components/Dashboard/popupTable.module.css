@@ -12,6 +12,45 @@
   /* margin-top: 20px; */
   box-sizing: border-box;
 }
+.MainPopup {
+  width: 520px;
+  height: 520px;
+  min-width: 1200px;
+  border: 1px solid;
+  font-size: 0.875rem;
+  border-color: white;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  background-color: "white";
+  color: white;
+  overflow: hidden;
+  position: fixed;
+  top: 150;
+  left: auto;
+  z-index: 40;
+}
+.HistoryMain1 {
+  width: 520px;
+  height: calc(-4rem + 100px);
+  border: 1px solid;
+  font-size: 0.875rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  bottom: -65px;
+  top: unset;
+}
+.openHistory {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  margin-top: 0.5rem;
+  color: #8f00ff;
+  cursor: pointer;
+}
 .upperPart {
   width: 90%;
   display: flex;
@@ -115,7 +154,7 @@
 .head .column6,
 .head .column7 {
   font-weight: 600;
-  font-size: 1vw;
+  font-size: 13px;
 }
 .column1,
 .column2,
@@ -126,38 +165,39 @@
 .column7 {
   margin: 0;
   padding: 13px;
-  text-align: left;
+  text-align: center;
   vertical-align: middle;
   font-weight: 300;
-  font-size: 1vw;
+  font-size: 12px;
   color: #fff;
 }
 .column1 {
   border-radius: 5px 0px 0px 5px;
   align-items: center;
-  width: 700px;
+  width: 20%;
 }
 .column2 {
-  width: 300px;
+  width: 10%;
 }
 .column3 {
-  width: 300px;
+  width: 15%;
 }
 .column4 {
-  width: 300px;
+  width: 15%;
 }
 .column5 {
-  width: 300px;
+  width: 10%;
 }
 .column6 {
-  width: 600px;
+  width: 15%;
 }
 .column7 {
-  width: 600px;
+  width: 20%;
   border-radius: 0px 5px 5px 0px;
 }
 .head .row {
   background-color: #9657eb;
+  width: 100%;
 }
 .content .row {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -169,8 +209,80 @@
   background-color: #e4ff30;
   color: #101010;
 } */
-
+@media only screen and (max-width: 1024px) {
+  .MainPopup {
+    width: 520px;
+    height: 520px;
+    min-width: 900px;
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-color: white;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: "white";
+    color: white;
+    overflow: hidden;
+    position: fixed;
+    top: 150;
+    left: auto;
+    z-index: 40;
+  }
+  .HistoryMain1 {
+    width: 300px;
+    height: calc(-4rem + 100px);
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    bottom: -65px;
+    top: unset;
+    left: 70px;
+  }
+}
 @media screen and (max-width: 768px) and (min-width: 500px) {
+  .HistoryMain1 {
+    width: 350px;
+    height: calc(-4rem + 100px);
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    bottom: -56px;
+    top: unset;
+    left: 30px;
+  }
+  .MainPopup {
+    width: 520px;
+    height: 520px;
+    min-width: 700px;
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-color: white;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: "white";
+    color: white;
+    overflow: hidden;
+    position: fixed;
+    top: 150;
+    left: auto;
+    z-index: 40;
+  }
+  .upperPart {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* border-bottom: 1px solid #8f00ff; */
+    padding: 20px 0;
+  }
+  .poolList {
+    width: 100%;
+  }
   .popup.tablediv {
     overflow-x: auto;
   }
@@ -189,9 +301,7 @@
     width: 100%;
     min-width: 900px; /* Adjust this value based on your design */
   }
-  .poolList {
-    width: 90%;
-  }
+
   .text h3 {
     font-size: 3.2vw;
   }
@@ -264,5 +374,37 @@
   .column3 {
     font-size: 2vw;
     width: 25vw;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .MainPopup {
+    width: 350px;
+    height: auto;
+    min-width: 300px;
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-color: white;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: "white";
+    color: white;
+    overflow: hidden;
+    position: fixed;
+    top: 150;
+    left: auto;
+    z-index: 40;
+  }
+  .HistoryMain1 {
+    width: 350px;
+    height: calc(-4rem + 100px);
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    bottom: -65px;
+    top: unset;
+    left: 0;
   }
 }

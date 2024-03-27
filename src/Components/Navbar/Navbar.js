@@ -7,9 +7,11 @@ import ConnectButtonCustom from "../ConnectButton/ConnectButtonCustom";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import Cookies from "universal-cookie";
+import { useAccount } from "wagmi";
 
 function Navbar({ setIsMainnet, isMainnet }) {
   const [toggleSVG, setToggleSVG] = useState(false);
+  const { isConnected } = useAccount();
   const { theme, setTheme } = useTheme();
   const cookie = new Cookies();
 
@@ -34,16 +36,17 @@ function Navbar({ setIsMainnet, isMainnet }) {
           </Link>
         </div>
         <div className={navStyle.connectwalletbuttondiv}>
-          <label className={navStyle.toggle}>
-            <input type="checkbox" onChange={handelMainnet} />
-            <span className={navStyle.slider}></span>
-            <span
-              className={navStyle.labels}
-              data-on="Mainnet"
-              data-off="Testnet"
-            ></span>
-          </label>
-
+          {isConnected && (
+            <label className={navStyle.toggle}>
+              <input type="checkbox" onChange={handelMainnet} />
+              <span className={navStyle.slider}></span>
+              <span
+                className={navStyle.labels}
+                data-on="TestNet"
+                data-off="Mainnet"
+              ></span>
+            </label>
+          )}
           <ConnectButtonCustom />
           {theme === "light" ? (
             <svg
