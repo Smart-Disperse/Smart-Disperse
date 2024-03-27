@@ -614,6 +614,29 @@
     font-size: 15px !important;
   } */
 /* } */
+
+@media only screen and (max-width: 770px) {
+  .listdropdown{
+    position: absolute;
+    left: 8% ;
+    top: 52% ;
+  }
+  }
+@media only screen and (max-width: 385px) {
+  .listdropdown{
+    position: absolute;
+    left: 18% !important;
+    top: 58% !important;
+  }
+  }
+
+@media only screen and (max-width: 435px) {
+.listdropdown{
+  position: absolute;
+  left: 18%;
+  top: 54%;
+}
+}
 @media only screen and (max-width: 425px) {
   .tableheadertextlist {
     font-size: 15px !important;
