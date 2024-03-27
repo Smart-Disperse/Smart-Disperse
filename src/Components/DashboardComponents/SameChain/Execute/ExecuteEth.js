@@ -31,12 +31,7 @@ function ExecuteEth(props) {
 
   const sendTweet = () => {
     console.log("tweeting");
-    const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! 
-
-    Transferring to multiple accounts simultaneously has never been easier. 
-    
-    Check out Smart Disperse at https://smartdisperse.xyz/ and simplify your crypto transfers today!
-    `;
+    const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz/ and simplify your crypto transfers today!`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
     window.open(twitterUrl, "_blank");
   };
@@ -208,8 +203,8 @@ function ExecuteEth(props) {
             <p>{success ? "" : "Please Try again"}</p>
             <p className={textStyle.errormessagep}>{limitexceed}</p>
             <div className={textStyle.divtocenter}>
-            <button style={{margin:"0px 5px"}}
-                   onClick={sendTweet}>Tweet Now &nbsp;  <FontAwesomeIcon icon={faPaperPlane} /></button>
+           {success?  <button style={{margin:"0px 5px"}}
+                   onClick={sendTweet}>Tweet Now &nbsp;  <FontAwesomeIcon icon={faPaperPlane} /></button>: ""}
               <button style={{margin:"0px 5px"}}
                 onClick={() => {
                   setModalIsOpen(false);
