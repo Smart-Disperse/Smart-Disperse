@@ -26,18 +26,11 @@ export async function GET(req) {
       "mongodb+srv://princi:abcdefghijk@dispersesmart.4duwewu.mongodb.net/Smartdisperse?retryWrites=true&w=majority"
     );
     console.log("Connected to MongoDB!!");
-<<<<<<< HEAD
 
     data = await smartdisperse_data.find({
       userid: address,
     });
     console.log("smart disperse data:", data);
-=======
-    data = await smartdisperse_data.find();
-    // const filteredData = data.result.filter((user) => user.userid === address);
-    // console.log("Filtered data:", filteredData);
-    console.log("API Data:", data);
->>>>>>> user-analysis
   } catch (err) {
     return new Response("Error connecting to the database", { status: 503 });
   }
@@ -56,7 +49,6 @@ export async function POST(request) {
     const payload = await request.json();
     console.log("payload:", payload);
 
-<<<<<<< HEAD
     //check if name is already mapped to another address
     let existingName = await smartdisperse_data.findOne({
       name: payload.name,
@@ -72,16 +64,6 @@ export async function POST(request) {
 
     // Check if the address already exists in the database
     let existingData = await smartdisperse_data.findOne({
-=======
-    let existingName = await smartdisperse_data.findOne({
-      name: payload.name,
-    });
-    if (existingName) {
-      return new Response("Name already exists", { status: 400 });
-    }
-
-    let existingAddress = await smartdisperse_data.findOne({
->>>>>>> user-analysis
       address: payload.address,
       userid: payload.userid,
     });
