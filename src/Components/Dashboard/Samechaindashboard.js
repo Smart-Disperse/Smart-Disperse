@@ -44,10 +44,11 @@ function Samechaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
- const [gotname, setGotname] = useState("none");
+
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
+  const [allAddress, setAllAddress] = useState([]);
 
   // const getchainid = async () => {
   //   console.log("Getting chain ID");
@@ -244,7 +245,19 @@ function Samechaindashboard() {
         const toaddress = ethData.map((useraddress) => useraddress.recipient);
         console.log("get to address", toaddress);
 
+        for (let i = 0; i < ethData.length; i++) {
+          const recipientAddress = ethData[i].recipient;
+          const index = allAddress.findIndex(
+            (addr) => addr === recipientAddress
+          );
+          console.log(index, recipientAddress, allAddress);
+
+          if (index !== -1) {
+            ethData[i].label = allnames[index];
+          }
+        }
         setEthTransactions(ethData);
+        console.log(ethData);
         fetchUserDetails(toaddress);
         return ethData;
         // const erc20Data = await getERC20Transactions(
@@ -274,14 +287,14 @@ function Samechaindashboard() {
       console.log("allnames", names);
       setAllNames(names);
       const alladdress = alldata.map((user) => user.address);
+      setAllAddress(alladdress);
       console.log("alladdress", alladdress);
-      for (let i = 0; i < toaddress.length; i++) {
-        const index = alladdress.findIndex((addr) => addr === toaddress[i]);
-        if (index !== -1) {
-          console.log("Matching index:", names[index]);
-          setGotname(names[index]);
-        }
-      }
+      // for (let i = 0; i < toaddress.length; i++) {
+      //   const index = alladdress.findIndex((addr) => addr === toaddress[i]);
+      //   if (index !== -1) {
+      //     console.log("Matching index:", names[index]);
+      //   }
+      // }
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -638,7 +651,7 @@ function Samechaindashboard() {
                                 className={popup.column5}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                              {gotname}
+                                {transaction.label ? transaction.label : null}
                               </td>
                               <td
                                 className={popup.column6}

@@ -153,6 +153,10 @@
     font-size: 12px;
     /* padding: 7px 23px; */
   }
+  .CMain {
+    position: relative;
+    left: -7px;
+  }
   .connectaccount span {
     width: 100px;
     font-size: 10px;
