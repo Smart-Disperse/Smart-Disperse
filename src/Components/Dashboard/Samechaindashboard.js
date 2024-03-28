@@ -47,6 +47,7 @@ function Samechaindashboard() {
 
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
+  const [allnames, setAllNames] = useState([]);
 
   // const getchainid = async () => {
   //   console.log("Getting chain ID");
@@ -240,8 +241,12 @@ function Samechaindashboard() {
       if (address) {
         const ethData = await getEthTransactions(address);
         console.log("Eth data", ethData);
-        setEthTransactions(ethData);
+        const toaddress = ethData.map((useraddress) => useraddress.recipient);
+        console.log("get to address", toaddress);
 
+        setEthTransactions(ethData);
+        fetchUserDetails(toaddress);
+        return ethData;
         // const erc20Data = await getERC20Transactions(
         //   address,
         //   "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
@@ -254,7 +259,7 @@ function Samechaindashboard() {
     fetchTransactions();
   }, [address, setEthdata]);
 
-  const fetchUserDetails = async () => {
+  const fetchUserDetails = async (toaddress) => {
     console.log(address);
     try {
       console.log("entered into try block");
@@ -262,10 +267,20 @@ function Samechaindashboard() {
         `http://localhost:3000/api/all-user-data?address=${address}`
       );
       const response = await result.json();
-      response.forEach((user) => {
-        console.log("Name:", user.name);
-      });
+
       console.log("Response from API:", response);
+      const alldata = response.result;
+      const names = alldata.map((user) => user.name);
+      console.log("allnames", names);
+      setAllNames(names);
+      const alladdress = alldata.map((user) => user.address);
+      console.log("alladdress", alladdress);
+      for (let i = 0; i < toaddress.length; i++) {
+        const index = alladdress.findIndex((addr) => addr === toaddress[i]);
+        if (index !== -1) {
+          console.log("Matching index:", names[index]);
+        }
+      }
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -622,13 +637,19 @@ function Samechaindashboard() {
                                 className={popup.column5}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                                Pending
+                                {allnames[index]}
                               </td>
                               <td
                                 className={popup.column6}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                                {transaction.blockTimestamp}
+                                {new Date(
+                                  transaction.blockTimestamp
+                                ).toLocaleDateString("en-US", {
+                                  day: "numeric",
+                                  month: "short",
+                                  year: "numeric",
+                                })}
                               </td>
                               <td
                                 className={popup.column7}

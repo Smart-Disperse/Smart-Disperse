@@ -62,6 +62,11 @@ export async function POST(request) {
       });
     }
 
+    let existingAddress = await smartdisperse_data.findOne({
+      address: payload.address,
+      userid: payload.userid,
+    });
+    console.log("exist address", existingAddress);
     // Check if the address already exists in the database
     let existingData = await smartdisperse_data.findOne({
       address: payload.address,
