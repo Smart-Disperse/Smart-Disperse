@@ -44,7 +44,7 @@ function Samechaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-
+ const [gotname, setGotname] = useState("none");
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
@@ -279,6 +279,7 @@ function Samechaindashboard() {
         const index = alladdress.findIndex((addr) => addr === toaddress[i]);
         if (index !== -1) {
           console.log("Matching index:", names[index]);
+          setGotname(names[index]);
         }
       }
     } catch (error) {
@@ -637,7 +638,7 @@ function Samechaindashboard() {
                                 className={popup.column5}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                                {allnames[index]}
+                              {gotname}
                               </td>
                               <td
                                 className={popup.column6}
