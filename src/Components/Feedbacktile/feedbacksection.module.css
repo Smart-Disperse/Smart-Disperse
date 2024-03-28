@@ -8,6 +8,10 @@
     align-items: center;
 }
 
+.feedbacklinks{
+    color: white;
+}
+
 .contentdiv{
     width: 95%;
 }
