@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import listStyle from "./listify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
@@ -27,6 +27,8 @@ function Listify({
   // const [LabelModelIsOpen, setLabelModelIsOpen] = useState(false); //model switch
   // const [label, setLabel] = useState(""); //model switch
   const [nameSuggestions, setNameSuggestions] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(-1); 
+  const dropdownRef = useRef(null)
   // Function to close the error modal
   const closeErrorModal = () => {
     // console.log("clicked");
@@ -135,6 +137,69 @@ function Listify({
     return true;
   };
 
+    // Function to close the suggestion dropdown
+    const closeSuggestions = () => {
+      setNameSuggestions([]);
+    };
+  
+    // Event listener to handle Escape key press
+    useEffect(() => {
+      const handleEscapeKeyPress = (e) => {
+        if (e.key === "Escape") {
+          closeSuggestions();
+        }
+      };
+  
+      document.addEventListener("keydown", handleEscapeKeyPress);
+  
+      return () => {
+        document.removeEventListener("keydown", handleEscapeKeyPress);
+      };
+    }, []);
+  
+    // Event listener to handle click outside the suggestion dropdown
+    useEffect(() => {
+      const handleClickOutside = (e) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+          closeSuggestions();
+        }
+      };
+  
+      document.addEventListener("mousedown", handleClickOutside);
+  
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
+ 
+  useEffect(() => {
+    // Scroll the dropdown container to keep the selected suggestion in view
+    if (dropdownRef.current && selectedIndex !== -1) {
+      const selectedElement = dropdownRef.current.children[selectedIndex];
+      if (selectedElement) {
+        selectedElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+  }, [selectedIndex]);
+
+  const handleKeyDown = (e) => {
+    if (nameSuggestions.length > 0) {
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setSelectedIndex((prevIndex) =>
+          prevIndex > 0 ? prevIndex - 1 : nameSuggestions.length - 1
+        );
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setSelectedIndex((prevIndex) =>
+          prevIndex < nameSuggestions.length - 1 ? prevIndex + 1 : 0
+        );
+      } else if (e.key === "Enter" && selectedIndex !== -1) {
+        handleNameSuggestionClick(nameSuggestions[selectedIndex]);
+      }
+    }
+  };
   const handleAddClick = async () => {
     // console.log("checking");
     const isvalid = await validateFormData();
@@ -195,18 +260,24 @@ function Listify({
   value={formData.label}
   placeholder="Enter name"
   onChange={handleNameChange}
+  onKeyDown={handleKeyDown}
 />
 {nameSuggestions.length > 0 && (
-  <div className={listStyle.listdropdown}>
-    {nameSuggestions.map((suggestion, index) => (
-      <div
-        key={index}
-        className={listStyle.listdropdownItem}
-        onClick={() => handleNameSuggestionClick(suggestion)}
-      >
-        {suggestion}
-      </div>
-    ))}
+    <div ref={dropdownRef} className={listStyle.listdropdown}>
+      {nameSuggestions.map((suggestion, index) => (
+        <div
+          key={index}
+          style={{
+            backgroundColor: index === selectedIndex ? "#49058eed" : "#49058e91" 
+          }}
+          className={`${listStyle.listdropdownItem} ${
+            index === selectedIndex ? listStyle.selected : ""
+          }`} // Apply selected class if index matches selectedIndex
+          onClick={() => handleNameSuggestionClick(suggestion)}
+        >
+          {suggestion}
+        </div>
+      ))}
   </div>
 )}
         </div>
