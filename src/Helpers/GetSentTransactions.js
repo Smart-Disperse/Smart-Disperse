@@ -5,21 +5,17 @@ import { useEffect, useState } from "react";
 import { getChain } from "./GetChain";
 import contracts from "./ContractAddresses";
 
-
-
-
-
 export const getEthTransactions = async (address) => {
   console.log("calling getEthTransactions with address ");
-  const Chain = await getChain(address)
+  const Chain = await getChain(address);
   console.log(Chain);
   if (Chain in contracts) {
-    console.log(contracts[Chain]);
+    console.log(contracts[Chain].address);
     const chainAPIurl = contracts[Chain].APIURL;
-    const chainname =  contracts[Chain].name;
+    const chainname = contracts[Chain].name;
     console.log(chainname);
     console.log(chainAPIurl);
-    
+
     const APIURL = chainAPIurl;
     console.log("ethq");
     const EthQuery = `
@@ -79,26 +75,23 @@ export const getEthTransactions = async (address) => {
   }
 };
 
-
-
 export const getERC20Transactions = async (address, tokenAddress) => {
   console.log("calling  getEthTransactions with address ");
-  const Chain = await getChain(address)
-  console.log( Chain);
-  if(Chain in contracts){
+  const Chain = await getChain(address);
+  console.log(Chain);
+  if (Chain in contracts) {
     console.log(contracts[Chain]);
     const chainAPIurl = contracts[Chain].APIURL;
     console.log(chainAPIurl);
     return chainAPIurl;
   }
   try {
-   
     const tokenDetails = await LoadTokenForAnalysis(tokenAddress);
-    console.log("tokenaddr  ",tokenAddress);
+    console.log("tokenaddr  ", tokenAddress);
 
     // console.log("symbol", tokenDetails.symbol);
     // console.log(address);
-    const APIURL = chainAPIurl
+    const APIURL = chainAPIurl;
     const tokensQuery = `
     query MyQuery {
       erc20TokenDisperseds(where: {_sender: "${address}", _token: "${tokenAddress}"}) {
@@ -111,12 +104,12 @@ export const getERC20Transactions = async (address, tokenAddress) => {
       }
     }
     `;
-    
+
     const client = createClient({
       url: APIURL,
       exchanges: [cacheExchange, fetchExchange],
     });
-    
+
     const data = await client.query(tokensQuery).toPromise();
     console.log("api data", data);
     const transactions = data.data.erc20TokenDisperseds.map((transaction) => ({
@@ -127,7 +120,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
       blockTimestamp: transaction.blockTimestamp,
     }));
     console.log("txs", transactions);
-    
+
     const transformedData = [];
     let totalERC20 = 0;
     transactions.forEach((item) => {
@@ -135,28 +128,28 @@ export const getERC20Transactions = async (address, tokenAddress) => {
         const valueInERC20 = ethers.utils.formatUnits(
           item.value[index],
           tokenDetails.decimal
-          );
-          totalERC20 += parseFloat(valueInERC20);
-          const timestamp = new Date(item.blockTimestamp * 1000); // Convert to milliseconds
-          const gmtTime = timestamp.toGMTString();
-          transformedData.push({
-            sender: item.sender,
-            recipient: recipient,
-            value: valueInERC20,
-            transactionHash: item.transactionHash,
-            // chainName: chainname,
-            blockTimestamp: gmtTime,
-            tokenName: tokenDetails.symbol,
-          });
+        );
+        totalERC20 += parseFloat(valueInERC20);
+        const timestamp = new Date(item.blockTimestamp * 1000); // Convert to milliseconds
+        const gmtTime = timestamp.toGMTString();
+        transformedData.push({
+          sender: item.sender,
+          recipient: recipient,
+          value: valueInERC20,
+          transactionHash: item.transactionHash,
+          // chainName: chainname,
+          blockTimestamp: gmtTime,
+          tokenName: tokenDetails.symbol,
         });
       });
-      
-      // also return TotalERC20
-      console.log("ERC20 transfer data:" , transformedData);
-      return transformedData;
-      
-      // return {transformedData};
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    });
+
+    // also return TotalERC20
+    console.log("ERC20 transfer data:", transformedData);
+    return transformedData;
+
+    // return {transformedData};
+  } catch (error) {
+    console.log(error);
+  }
+};
