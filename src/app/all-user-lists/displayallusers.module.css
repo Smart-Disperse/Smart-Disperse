@@ -11,7 +11,7 @@
 }
 
 .samedashmainm {
-  min-height: 80vh;
+  min-height: 65vh;
 }
 .dashbgImg1 {
   width: 347.141px;
@@ -160,6 +160,91 @@
   background: #6960ef;
 }
 
+@media only screen and (max-width: 1024px) {
+  .samedashmainm {
+    min-height: 45vh;
+  }
+  .titledivdashboard {
+    margin: 0 150px;
+    position: relative;
+  }
+
+  .dashbgImg2 {
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: -179px;
+    right: 0;
+  }
+  .dashbgImg1 {
+    width: 300px;
+    height: 300px;
+    transform: rotate(-61.16deg);
+    flex-shrink: 0;
+    position: absolute;
+    left: -14%;
+    right: 24%;
+  }
+  .maindivforalloptiondashboard {
+    max-width: 700px;
+  }
+}
+@media only screen and (max-width: 778px) {
+  .titledivdashboard h1 {
+    letter-spacing: 1.5px;
+    font-size: 2rem;
+    margin: 0px;
+  }
+
+  .titledivdashboard h3 {
+    padding-top: -5px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid white;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+  }
+
+  .displaydatatablewrapper {
+    z-index: 2;
+    position: relative;
+  }
+
+  .titledivdashboard {
+    margin: 0px 100px;
+  }
+  .maindivforalloptiondashboard {
+    max-width: 600px;
+  }
+
+  .displayheader {
+    font-size: 14px;
+  }
+
+  .displaycell {
+    font-size: 12px;
+  }
+
+  .displayupdatebutton,
+  .displayeditbutton,
+  .displaydeletebutton {
+    font-size: 17px;
+  }
+}
+
+.custom-toast {
+  background-color: #6960ef !important;
+}
+
+.custom-toast-body {
+  background-color: #6960ef !important;
+  /* Custom styles for the toast body */
+}
+
+.Toastify__toast-body {
+  background-color: #6960ef !important;
+}
+
 @media only screen and (max-width: 435px) {
   .maindivofdashboard {
     height: auto;
@@ -195,7 +280,7 @@
     font-size: 12px;
   }
   .maindivforalloptiondashboard {
-    margin: 0px 30px !important;
+    max-width: 350px;
   }
   .displayheader {
     font-size: 10px !important;
@@ -215,90 +300,4 @@
   .displaydeletebutton {
     font-size: 12px !important;
   }
-}
-
-@media only screen and (max-width: 1024px) {
-  .samedashmainm {
-    margin: 100px 0px;
-  }
-  .titledivdashboard {
-    margin: 0 150px;
-    position: relative;
-  }
-
-  .dashbgImg2 {
-    width: 300px;
-    height: 300px;
-    flex-shrink: 0;
-    position: absolute;
-    bottom: -179px;
-    right: 0;
-  }
-  .dashbgImg1 {
-    width: 300px;
-    height: 300px;
-    transform: rotate(-61.16deg);
-    flex-shrink: 0;
-    position: absolute;
-    left: -14%;
-    right: 24%;
-  }
-  .maindivforalloptiondashboard {
-    margin: 0px 150px;
-  }
-}
-
-@media only screen and (max-width: 778px) {
-  .titledivdashboard h1 {
-    letter-spacing: 1.5px;
-    font-size: 2rem;
-    margin: 0px;
-  }
-
-  .titledivdashboard h3 {
-    padding-top: -5px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid white;
-    letter-spacing: 1.5px;
-    font-size: 12px;
-  }
-
-  .displaydatatablewrapper {
-    z-index: 2;
-    position: relative;
-  }
-
-  .titledivdashboard {
-    margin: 0px 100px;
-  }
-  .maindivforalloptiondashboard {
-    margin: 0px 100px;
-  }
-
-  .displayheader {
-    font-size: 14px;
-  }
-
-  .displaycell {
-    font-size: 12px;
-  }
-
-  .displayupdatebutton,
-  .displayeditbutton,
-  .displaydeletebutton {
-    font-size: 17px;
-  }
-}
-
-.custom-toast {
-  background-color: #6960ef !important;
-}
-
-.custom-toast-body {
-  background-color: #6960ef !important;
-  /* Custom styles for the toast body */
-}
-
-.Toastify__toast-body {
-  background-color: #6960ef !important;
 }

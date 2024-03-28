@@ -104,33 +104,96 @@ const ConnectButtonCustom = () => {
               }
               console.log(account ? account : null);
               return (
-                <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
+                <div
+                  style={{ display: "flex", gap: 5, alignItems: "center" }}
+                  className={connectStyle.CMain}
+                >
                   <div>
                     <SwitchChain />
                   </div>
-                  <div>
-                    <button
-                      onClick={modelOpen}
-                      type="button"
-                      className={connectStyle.connectaccount}
-                    >
-                      <span>
-                        {account.displayName}
-                        <br />
-                        {account.displayBalance
-                          ? account.displayBalance
-                          : "Loading..."}
-                      </span>
-                    </button>
 
-                    {isAccountModalOpen && (
-                      <div
-                        className={connectStyle.disconnectmain}
-                        ref={modalRef}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <div className={connectStyle.disconnect}>
+                  <button
+                    onClick={modelOpen}
+                    type="button"
+                    className={connectStyle.connectaccount}
+                  >
+                    <span>
+                      {account.displayName}
+                      <br />
+                      {account.displayBalance
+                        ? account.displayBalance
+                        : "Loading..."}
+                    </span>
+                  </button>
+
+                  {isAccountModalOpen && (
+                    <div
+                      className={connectStyle.disconnectmain}
+                      ref={modalRef}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className={connectStyle.disconnect}>
+                        <button
+                          style={{
+                            borderRadius: "26px",
+                            border: "none",
+                            background:
+                              " linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%)",
+                            color: "white",
+                            padding: "12px",
+                            width: "90%",
+                            margin: "5px auto",
+                          }}
+                          onClick={() => copyToClipboard(account.address)}
+                        >
+                          <span
+                            style={{
+                              content: "",
+                              top: "-4px",
+                              left: " 0",
+                              fontSize: "15px",
+                              transform: "translate(-50%, -50%)",
+                              background:
+                                "linear-gradient(90deg, #9f53ff 27.06%, #3b7dff 74.14%)",
+                              backgroundClip: "text",
+                              webkitBackgroundClip: "text",
+                              webkitTextFillColor: "transparent",
+                              zIndex: "0",
+                              position: "relative",
+                            }}
+                          >{`${account.address.slice(
+                            0,
+                            7
+                          )}...${account.address.slice(-4)}`}</span>
+
+                          {isCopied ? (
+                            <Image
+                              src={check}
+                              alt="Check Icon"
+                              style={{
+                                width: "20px",
+                                margin: "0px 10px",
+                                cursor: "pointer",
+                              }}
+                            />
+                          ) : (
+                            <Image
+                              src={copy}
+                              alt="Copy Icon"
+                              onClick={() => copyToClipboard(account.address)}
+                              style={{
+                                width: "20px",
+                                margin: "0px 10px",
+                                cursor: "pointer",
+                                height: "auto",
+                              }}
+                            />
+                          )}
+                        </button>
+
+                        <div>
                           <button
+                            onClick={handleDisConnect}
                             style={{
                               borderRadius: "26px",
                               border: "none",
@@ -141,7 +204,6 @@ const ConnectButtonCustom = () => {
                               width: "90%",
                               margin: "5px auto",
                             }}
-                            onClick={() => copyToClipboard(account.address)}
                           >
                             <span
                               style={{
@@ -158,82 +220,22 @@ const ConnectButtonCustom = () => {
                                 zIndex: "0",
                                 position: "relative",
                               }}
-                            >{`${account.address.slice(
-                              0,
-                              7
-                            )}...${account.address.slice(-4)}`}</span>
-
-                            {isCopied ? (
-                              <Image
-                                src={check}
-                                alt="Check Icon"
-                                style={{
-                                  width: "20px",
-                                  margin: "0px 10px",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            ) : (
-                              <Image
-                                src={copy}
-                                alt="Copy Icon"
-                                onClick={() => copyToClipboard(account.address)}
-                                style={{
-                                  width: "20px",
-                                  margin: "0px 10px",
-                                  cursor: "pointer",
-                                  height: "auto",
-                                }}
-                              />
-                            )}
-                          </button>
-
-                          <div>
-                            <button
-                              onClick={handleDisConnect}
-                              style={{
-                                borderRadius: "26px",
-                                border: "none",
-                                background:
-                                  " linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%)",
-                                color: "white",
-                                padding: "12px",
-                                width: "90%",
-                                margin: "5px auto",
-                              }}
                             >
-                              <span
-                                style={{
-                                  content: "",
-                                  top: "-4px",
-                                  left: " 0",
-                                  fontSize: "15px",
-                                  transform: "translate(-50%, -50%)",
-                                  background:
-                                    "linear-gradient(90deg, #9f53ff 27.06%, #3b7dff 74.14%)",
-                                  backgroundClip: "text",
-                                  webkitBackgroundClip: "text",
-                                  webkitTextFillColor: "transparent",
-                                  zIndex: "0",
-                                  position: "relative",
-                                }}
-                              >
-                                Disconnect
-                              </span>
-                              <Image
-                                src={power}
-                                style={{
-                                  width: "20px",
-                                  margin: "0px 10px",
-                                  height: "auto",
-                                }}
-                              ></Image>
-                            </button>
-                          </div>
+                              Disconnect
+                            </span>
+                            <Image
+                              src={power}
+                              style={{
+                                width: "20px",
+                                margin: "0px 10px",
+                                height: "auto",
+                              }}
+                            ></Image>
+                          </button>
                         </div>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               );
             })()}

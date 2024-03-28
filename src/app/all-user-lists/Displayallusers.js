@@ -58,7 +58,7 @@ function Displayallusers() {
   const handleUpdate = async (index) => {
     try {
       console.log("entered into try block");
-      const result = await fetch(`http://localhost:3001/api/all-user-data`, {
+      const result = await fetch(`http://localhost:3000/api/all-user-data`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -223,6 +223,7 @@ function Displayallusers() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
