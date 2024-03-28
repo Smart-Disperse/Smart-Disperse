@@ -48,7 +48,7 @@ function ExecuteEth(props) {
 
     if (!props.ethBalance.gt(props.totalEth)) {
       props.setLoading(false);
-      setLimitexceed("ETH Limit Exceed");
+      setLimitexceed("Insufficient ETH balance");
       setMessage(
         `Current ETH Balance is ${(+ethers.utils.formatEther(
           props.ethBalance
@@ -166,7 +166,7 @@ function ExecuteEth(props) {
             >
               <h2>Please wait...</h2>
               <Image src={bggif.src} alt="not found" width={150} height={150} />
-              <p>We securely processing your payment.</p>
+              <p>We are securely processing your payment.</p>
             </Modal>
           </div>
         ) : (
