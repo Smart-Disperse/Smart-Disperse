@@ -47,7 +47,7 @@ function ExecuteToken(props) {
     if (!props.ERC20Balance.gt(props.totalERC20)) {
       props.setLoading(false);
       setMessage(
-        `Eth Limit Exceeded. Your Token Balance is ${(+ethers.utils.formatUnits(
+        `Insufficient Token balance. Your Token Balance is ${(+ethers.utils.formatUnits(
           props.ERC20Balance,
           props.tokenDetails.decimal
         )).toFixed(4)} ${
@@ -186,7 +186,7 @@ function ExecuteToken(props) {
             >
               <h2>Please wait...</h2>
               <Image src={bggif.src} alt="not found" width={150} height={150} />
-              <p>We securely processing your payment.</p>
+              <p>We are securely processing your payment.</p>
             </Modal>
           </div>
         ) : (
