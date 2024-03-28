@@ -15,6 +15,7 @@ function Textify({
   const [textValue, setTextValue] = useState("");
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
   const [suggestions, setSuggestions] = useState([]);
+  const [focusedSuggestionIndex, setFocusedSuggestionIndex] = useState(-1); // Define focusedSuggestionIndex state variable
   const textareaRef = useRef(null);
   const { address } = useAccount();
 
@@ -42,10 +43,23 @@ function Textify({
       suggestion +
       " " +
       textAfterCursor;
+  
+    // Find the index of the first non-whitespace character after the inserted address
+    const nextNonWhitespaceIndex = updatedTextValue.indexOf(/\S/, lastAtSymbolIndex + suggestion.length + 2);
+  
+    // Calculate the new cursor position
+    const updatedCursorPosition = nextNonWhitespaceIndex !== -1 ? nextNonWhitespaceIndex : updatedTextValue.length;
+  
     setTextValue(updatedTextValue);
     setSuggestions([]);
+  
+    // Set the cursor position after the inserted address
+    textareaRef.current.focus(); // Ensure the textarea is focused before setting the cursor position
+    textareaRef.current.setSelectionRange(updatedCursorPosition, updatedCursorPosition);
+  
     parseText(updatedTextValue);
   };
+  
 
   useEffect(() => {
     const fetchExchangeRate = async () => {
@@ -124,6 +138,35 @@ function Textify({
     await setListData(updatedRecipients);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+      e.preventDefault(); // Prevent default scrolling behavior
+      const newIndex =
+        focusedSuggestionIndex +
+        (e.key === "ArrowUp" ? -1 : 1);
+  
+      if (newIndex >= 0 && newIndex < suggestions.length) {
+        setFocusedSuggestionIndex(newIndex);
+      }
+    } else if (e.key === "Enter" && focusedSuggestionIndex !== -1) {
+      handleSuggestionClick(suggestions[focusedSuggestionIndex]);
+    }
+  };
+  
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [focusedSuggestionIndex, suggestions]);
+  
+  const handleSuggestionMouseEnter = (index) => {
+    setFocusedSuggestionIndex(index);
+  };
+  
+  const handleSuggestionMouseLeave = () => {
+    setFocusedSuggestionIndex(-1);
+  };
   return (
     <div>
       <div className={textStyle.divtocoversametextdi}>
@@ -166,17 +209,25 @@ function Textify({
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
               ></textarea>
-              {suggestions.length > 0 && (
-                <div className={textStyle.dropdown}>
-                  {suggestions.map((suggestion, index) => (
-                    <div
-                      key={index}
-                      className={textStyle.dropdownItem}
-                      onClick={() => handleSuggestionClick(suggestion)}
-                    >
-                      {suggestion}
-                    </div>
-                  ))}
+             {suggestions.length > 0 && (
+        <div className={textStyle.dropdown}>
+          {suggestions.map((suggestion, index) => (
+            <div
+              key={index}
+              className={`${textStyle.dropdownItem} ${
+                index === focusedSuggestionIndex
+                  ? textStyle.dropdownItemActive
+                  : ""
+              }`}
+              onClick={() => handleSuggestionClick(suggestion)}
+              onMouseEnter={() => handleSuggestionMouseEnter(index)}
+              onMouseLeave={handleSuggestionMouseLeave}
+              style={{ background: index === focusedSuggestionIndex ? "#8f00ff" : "white" ,
+              color: index === focusedSuggestionIndex ? "white" : "#8f00ff" }}
+            >
+              {suggestion}
+            </div>
+          ))}
                 </div>
               )}
             </div>
