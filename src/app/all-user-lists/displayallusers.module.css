@@ -10,6 +10,9 @@
   justify-content: space-between;
 }
 
+.samedashmainm {
+  min-height: 80vh;
+}
 .dashbgImg1 {
   width: 347.141px;
   height: 321.106px;
@@ -27,10 +30,7 @@
   bottom: -288px;
   right: 0;
 }
-.samedashmainm {
-  min-height: 65vh;
-  margin-top: 100px;
-}
+
 .titledivdashboard {
   padding: 5px;
   border: 1px solid rgba(255, 255, 255, 0.563);
@@ -55,7 +55,9 @@
   width: -webkit-fill-available;
 }
 .maindivforalloptiondashboard {
-  margin: 0px 300px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 .displaytable {
   border-collapse: collapse;

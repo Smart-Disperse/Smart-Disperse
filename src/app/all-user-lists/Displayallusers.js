@@ -15,8 +15,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import loader from "../../Assets/dataloading.webp";
 import notfound from "../../Assets/oops.webp";
-
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Displayallusers() {
   const [usersData, setUsersData] = useState([]);
@@ -123,105 +123,106 @@ function Displayallusers() {
 
   return (
     <div className={displayuser.maindivofdashboard}>
-      <Navbar />
       <div style={{ position: "relative" }}>
         <Image className={displayuser.dashbgImg1} src={img3} alt="none" />
         <Image className={displayuser.dashbgImg2} src={img4} alt="none" />
       </div>
-
-      <div className={displayuser.titledivdashboard}>
-        <div className={displayuser.imagesinthis}></div>
-        <h1>Customize Your Connections</h1>
-        <h3 className={displayuser.dashpera}>
-          Edit and Delete Entries in a Snap for Effortless Data Management!"
-        </h3>
-      </div>
-      <div className={displayuser.maindivforalloptiondashboard}>
-        {isLoading ? (
-          <div>
-            <Image src={loader.src} alt="none" width={100} height={100} />
-          </div>
-        ) : usersData.length === 0 ? (
-          <div>
-            <Image src={notfound} alt="none" width={400} height={300} />
-            <h2>No Data Found!!</h2>
-            <h3>Please try again or Refresh the page.</h3>
-          </div>
-        ) : (
-          <div className={displayuser.displaydatatablewrapper}>
-            <table className={displayuser.displaytable}>
-              <thead>
-                <tr>
-                  <th className={displayuser.displayheader}>Name</th>
-                  <th className={displayuser.displayheader}>Address</th>
-                  <th className={displayuser.displayheader}>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usersData.map((user, index) => (
-                  <tr
-                    key={index}
-                    className={
-                      index % 2 === 0
-                        ? `${displayuser.displayevenrow}`
-                        : `${displayuser.displayoddrow}`
-                    }
-                  >
-                    <td className={displayuser.displaycell}>
-                      {editUserIndex === index ? (
-                        <input
-                          className={displayuser.editinput}
-                          type="text"
-                          value={editName}
-                          onChange={(e) => setEditName(e.target.value)}
-                        />
-                      ) : (
-                        user.name
-                      )}
-                    </td>
-                    <td className={displayuser.displaycell}>{user.address}</td>
-                    <td className={displayuser.displaycellbuttons}>
-                      {editUserIndex === index ? (
-                        <button
-                          className={displayuser.displayupdatebutton}
-                          onClick={handleUpdate}
-                        >
-                          <FontAwesomeIcon
-                            icon={faCheck}
-                            style={{ color: "#f5f9ff" }}
-                          />
-                        </button>
-                      ) : (
-                        <button
-                          className={displayuser.displayeditbutton}
-                          onClick={() => handleEdit(index)}
-                        >
-                          <FontAwesomeIcon
-                            className={displayuser.editicon}
-                            icon={faPenToSquare}
-                            // style={{ color: "#ffffff" }}
-                          />
-                        </button>
-                      )}
-                      <button
-                        className={displayuser.displaydeletebutton}
-                        onClick={() => handleDelete(index)}
-                      >
-                        <FontAwesomeIcon
-                          className={displayuser.deleteicon}
-                          icon={faTrash}
-                        />
-                      </button>
-                    </td>
+      <div className={displayuser.samedashmainm}>
+        <div className={displayuser.titledivdashboard}>
+          <div className={displayuser.imagesinthis}></div>
+          <h1>Customize Your Connections</h1>
+          <h3 className={displayuser.dashpera}>
+            Edit and Delete Entries in a Snap for Effortless Data Management!"
+          </h3>
+        </div>
+        <div className={displayuser.maindivforalloptiondashboard}>
+          {isLoading ? (
+            <div>
+              <Image src={loader.src} alt="none" width={100} height={100} />
+            </div>
+          ) : usersData.length === 0 ? (
+            <div>
+              <Image src={notfound} alt="none" width={400} height={300} />
+              <h2>No Data Found!!</h2>
+              <h3>Please try again or Refresh the page.</h3>
+            </div>
+          ) : (
+            <div className={displayuser.displaydatatablewrapper}>
+              <table className={displayuser.displaytable}>
+                <thead>
+                  <tr>
+                    <th className={displayuser.displayheader}>Name</th>
+                    <th className={displayuser.displayheader}>Address</th>
+                    <th className={displayuser.displayheader}>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <ToastContainer />
-          </div>
-        )}
+                </thead>
+                <tbody>
+                  {usersData.map((user, index) => (
+                    <tr
+                      key={index}
+                      className={
+                        index % 2 === 0
+                          ? `${displayuser.displayevenrow}`
+                          : `${displayuser.displayoddrow}`
+                      }
+                    >
+                      <td className={displayuser.displaycell}>
+                        {editUserIndex === index ? (
+                          <input
+                            className={displayuser.editinput}
+                            type="text"
+                            value={editName}
+                            onChange={(e) => setEditName(e.target.value)}
+                          />
+                        ) : (
+                          user.name
+                        )}
+                      </td>
+                      <td className={displayuser.displaycell}>
+                        {user.address}
+                      </td>
+                      <td className={displayuser.displaycellbuttons}>
+                        {editUserIndex === index ? (
+                          <button
+                            className={displayuser.displayupdatebutton}
+                            onClick={handleUpdate}
+                          >
+                            <FontAwesomeIcon
+                              icon={faCheck}
+                              style={{ color: "#f5f9ff" }}
+                            />
+                          </button>
+                        ) : (
+                          <button
+                            className={displayuser.displayeditbutton}
+                            onClick={() => handleEdit(index)}
+                          >
+                            <FontAwesomeIcon
+                              className={displayuser.editicon}
+                              icon={faPenToSquare}
+                              // style={{ color: "#ffffff" }}
+                            />
+                          </button>
+                        )}
+                        <button
+                          className={displayuser.displaydeletebutton}
+                          onClick={() => handleDelete(index)}
+                        >
+                          <FontAwesomeIcon
+                            className={displayuser.deleteicon}
+                            icon={faTrash}
+                          />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <ToastContainer />
+            </div>
+          )}
+        </div>
       </div>
-      <Footer />
     </div>
   );
 }
