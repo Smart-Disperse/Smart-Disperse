@@ -17,17 +17,16 @@ import contracts from "./ContractAddresses";
 
 export const getEthTransactions = async (address) => {
   // ApiServices();
-  console.log("calling getEthTransactions with address ");
+  // console.log("calling getEthTransactions with address ");
   const Chain = await getChain(address)
-  console.log(Chain,"chainnnnn");
   if (Chain in contracts) {
     const chainAPIurl = contracts[Chain].APIURL;
     const chainname =  contracts[Chain].name;
-    console.log(chainname);
-    console.log(chainAPIurl);
+    // console.log(chainname);
+    // console.log(chainAPIurl);
     
     const APIURL = chainAPIurl;
-    console.log("ethq");
+    // console.log("ethq");
     const EthQuery = `
       query MyQuery {
         etherDisperseds(where: {_sender: "${address}"}) {
@@ -46,16 +45,17 @@ export const getEthTransactions = async (address) => {
     });
 
     const data = await client.query(EthQuery).toPromise();
-    console.log("1");
-    console.log(data.data);
+    
+    if(data.data!==undefined)
+    {
     const transactions = data.data.etherDisperseds.map((transaction) => ({
       sender: transaction._sender,
       recipients: transaction._recipients,
       transactionHash: transaction.transactionHash,
       value: transaction._values,
       blockTimestamp: transaction.blockTimestamp,
-    }));
-console.log(transactions.blockTimestamp,"bbbbbbbbbb");
+    }));  
+  
     const transformedData = [];
     let totalEth = 0;
     transactions.forEach((item) => {
@@ -74,10 +74,12 @@ console.log(transactions.blockTimestamp,"bbbbbbbbbb");
         });
       });
     });
+  
 
     // also return TotalEth
-    console.log("Eth transfer data:", transformedData);
+    // console.log("Eth transfer data:", transformedData);
     return transformedData;
+  }
   } else {
     console.log("Chain not found in contracts");
     // Handle this case, maybe return an error or some default value
@@ -88,22 +90,22 @@ console.log(transactions.blockTimestamp,"bbbbbbbbbb");
 
 
 export const getERC20Transactions = async (address, tokenAddress) => {
-  console.log("calling  getERC20Transactions with address ");
+  // console.log("calling  getERC20Transactions with address ");
   const Chain = await getChain(address)
-  console.log( Chain);
+  // console.log( Chain);
   var chainAPIurl;
   try {
   if(Chain in contracts){
-    console.log(contracts[Chain]);
+    // console.log(contracts[Chain]);
     const chainname =  contracts[Chain].name;
-    console.log(chainname);
+    // console.log(chainname);
     chainAPIurl = contracts[Chain].APIURL;
-    console.log(chainAPIurl);
+    // console.log(chainAPIurl);
     // return chainAPIurl;
   }
    
     const tokenDetails = await LoadTokenForAnalysis(tokenAddress);
-    console.log("tokenaddr  ",tokenAddress);
+    // console.log("tokenaddr  ",tokenAddress);
 
     // console.log("symbol", tokenDetails.symbol);
     // console.log(address);
@@ -127,7 +129,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
     });
     
     const data = await client.query(tokensQuery).toPromise();
-    console.log("api data", data);
+    // console.log("api data", data);
     const transactions = data.data.erc20TokenDisperseds.map((transaction) => ({
       sender: transaction._sender,
       recipients: transaction._recipients,
@@ -135,7 +137,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
       value: transaction._values,
       blockTimestamp: transaction.blockTimestamp,
     }));
-    console.log("txs", transactions);
+    // console.log("txs", transactions);
     
     const transformedData = [];
     let totalERC20 = 0;
@@ -153,7 +155,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
             recipient: recipient,
             value: valueInERC20,
             transactionHash: item.transactionHash,
-            chainName: chainname,
+            // chainName: chainname,
             blockTimestamp: gmtTime,
             tokenName: tokenDetails.symbol,
           });
@@ -161,7 +163,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
       });
       
       // also return TotalERC20
-      console.log("ERC20 transfer data:" , transformedData);
+      // console.log("ERC20 transfer data:" , transformedData);
       return transformedData;
       
       // return {transformedData};
