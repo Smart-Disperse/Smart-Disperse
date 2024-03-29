@@ -52,43 +52,42 @@ function Samechaindashboard() {
   const [allnames, setAllNames] = useState([]);
   const [allAddress, setAllAddress] = useState([]);
   const [getusertokenaddress, setGetusertokenaddress] = useState([]);
-  const [labelQuery, setLabelQuery] = useState("");
-  const [addressQuery, setAddressQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredTransactions, setFilteredTransactions] = useState([]);
 
  // Function to handle changes in both address and label search inputs
-const handleSearchChange = (event) => {
-  const { name, value } = event.target;
-  if (name === "addressQuery") {
-    setAddressQuery(value); // Update the address search query state
-  } else if (name === "labelQuery") {
-    setLabelQuery(value); // Update the label search query state
-}
-};
+ const handleSearchChange = (event) => {
+  const { value } = event.target;
+  setSearchQuery(value); // Update the combined search query state
+};;
 
 // Modify filterTransactions function to include address and label filtering
-const filterTransactions = (addressQuery, labelQuery) => {
+const filterTransactions = (searchQuery) => {
   let filtered = [...ethTransactions, ...erc20Transactions];
 
-  if (addressQuery) {
-    filtered = filtered.filter((transaction) =>
-      transaction.recipient.toLowerCase().includes(addressQuery.toLowerCase())
-    );
+  if (searchQuery) {
+    filtered = filtered.filter((transaction) => {
+      const recipient = transaction.recipient ? transaction.recipient.toLowerCase() : '';
+      const label = allAddress.includes(transaction.recipient)
+        ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
+        : '';
+      return recipient.includes(searchQuery.toLowerCase()) || label.includes(searchQuery.toLowerCase());
+    });
   }
-  if (labelQuery) {
-    filtered = filtered.filter((transaction) =>
-      transaction.label.toLowerCase().includes(labelQuery.toLowerCase())
+
+  if (selectedToken !== "all") {
+    filtered = filtered.filter(
+      (transaction) =>
+        transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
     );
   }
 
-  // Set the filtered transactions state
   setFilteredTransactions(filtered);
 };
-  const handleTokenChange = (event) => {
-    const selectedToken = event.target.value;
-    setSelectedToken(selectedToken);
-  };
-
+const handleTokenChange = (event) => {
+  const selectedToken = event.target.value;
+  setSelectedToken(selectedToken);
+};
    // UseEffect to fetch all tokens owned by Address
    useEffect(() => {
     console.log("entering in useffect");
@@ -174,9 +173,9 @@ const filterTransactions = (addressQuery, labelQuery) => {
 
 
  // Call filterTransactions whenever either search query changes
-useEffect(() => {
-  filterTransactions(addressQuery, labelQuery);
-}, [addressQuery, labelQuery, ethTransactions, erc20Transactions]);
+ useEffect(() => {
+  filterTransactions(searchQuery);
+}, [searchQuery, ethTransactions, erc20Transactions,selectedToken]);
   
   // useEffect(() => {
   //   console.log("loading");
@@ -188,7 +187,7 @@ useEffect(() => {
     filteredTransactions.forEach((transaction) => {
       total += parseFloat(transaction.value);
     });
-    return total.toFixed(2); // Limiting the total to 2 decimal places
+    return total.toFixed(8); // Limiting the total to 2 decimal places
   };
 
   useEffect(() => {
@@ -629,7 +628,7 @@ useEffect(() => {
                   <input
                     type="text"
                     placeholder="Search..."
-                    value={query}
+                    value={searchQuery}
                     onChange={handleSearchChange}
                     className={samechainStyle.inputSearch}
                   />
@@ -666,13 +665,6 @@ useEffect(() => {
                         {token.symbol}: {token.balance}
                       </option>
                     ))}
-
-                    {/* <option value="all">All Tokens</option>
-                    {uniqueTokenNames.map((tokenName) => (
-                      <option key={tokenName} value={tokenName}>
-                        {tokenName}
-                      </option>
-                    ))} */}
                   </select>
                 </div>
                 <div className={popup.tablediv}>
