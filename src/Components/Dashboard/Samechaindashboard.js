@@ -355,21 +355,22 @@ function Samechaindashboard() {
         console.log("ethdata",ethData);
         fetchUserDetails(toaddress);
         console.log("entering erccccc")
-        // for (const tokenAddress of getusertokenaddress) {
+        for (const tokenAddress of getusertokenaddress) {
           // Fetch ERC20 transactions for the current contract address
-          const erc20Data = await getERC20Transactions(address, "0xac4926089be8b37ff774f25a907015fb65ad61b2");
+          const erc20Data = await getERC20Transactions(address, tokenAddress);
+          // return erc20Data;
           console.log(erc20Data,"getttttttttt");
           // Update the state with the fetched data
           setErc20Transactions(prevData => [...prevData, ...erc20Data]);
-        // }
-        // const erc20Data = await getERC20Transactions(
-        //   address,
-        //   "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
-        //   );
-          setErc20Transactions(erc20Data);
-          console.log("ercdataa",erc20Data);
-          setEthdata(erc20Data);
-        return ethData;
+        }
+          // const erc20Data = await getERC20Transactions(
+            //   address,
+            //   "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
+            //   );
+            // setErc20Transactions(erc20Data);
+            // console.log("ercdataa",erc20Data);
+            setEthdata(erc20Data);
+            return ethData;
       }
     };
 

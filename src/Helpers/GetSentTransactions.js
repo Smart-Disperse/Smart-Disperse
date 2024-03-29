@@ -91,12 +91,15 @@ export const getERC20Transactions = async (address, tokenAddress) => {
   console.log("calling  getERC20Transactions with address ");
   const Chain = await getChain(address)
   console.log( Chain);
+  var chainAPIurl;
   try {
   if(Chain in contracts){
     console.log(contracts[Chain]);
-    const chainAPIurl = contracts[Chain].APIURL;
+    const chainname =  contracts[Chain].name;
+    console.log(chainname);
+    chainAPIurl = contracts[Chain].APIURL;
     console.log(chainAPIurl);
-    return chainAPIurl;
+    // return chainAPIurl;
   }
    
     const tokenDetails = await LoadTokenForAnalysis(tokenAddress);
@@ -150,7 +153,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
             recipient: recipient,
             value: valueInERC20,
             transactionHash: item.transactionHash,
-            // chainName: chainname,
+            chainName: chainname,
             blockTimestamp: gmtTime,
             tokenName: tokenDetails.symbol,
           });
