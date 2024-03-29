@@ -89,87 +89,88 @@ const filterTransactions = (addressQuery, labelQuery) => {
     setSelectedToken(selectedToken);
   };
 
-   // UseEffect to fetch all tokens owned by Address
-   useEffect(() => {
-    console.log("entering in useffect");
-    // ***** COVALENT API ******
-    const ApiServices = async () => {
-      // console.log("entered into api function");
-      try{
-          const Chain = await getChain(address);
-          // console.log("get chain", Chain);    
-        const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
-        var token;
-        if(Chain == 11155420){ // OP SEPOLIA
-          const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
-          token = response.data;  
-        }
-        else if(Chain == 919){  // MODE TESTNET
-          const response = await client.BalanceService.getTokenBalancesForWalletAddress("mode-testnet", address);
-          token = response.data;
-          console.log("response dataaaaa",response.data);
-        }
-        else if(Chain == 84532){ // BASE SEPOLIA
-          const response = await client.BalanceService.getTokenBalancesForWalletAddress("base-sepolia-testnet", address);
-          token = response.data;
-        }
-        // else if(Chain == 534351){ // SCROLL SEPOLIA
-        //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-sepolia-testnet", address);
-        //   token = response.data;
-        // }
-        else if(Chain == 11155111){ // ETHEREUM SEPOLIA
-          const response = await client.BalanceService.getTokenBalancesForWalletAddress("eth-sepolia", address);
-          token = response.data;
-        }
-        // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
-        //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
-        // }
-        else if(Chain == 534352){ // SCROLL MAINNET
-          const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-mainnet", address);
-          token = response.data;
-        }
+// UseEffect to fetch all tokens owned by Address
 
-        // console.log("TOKENS", token);
-        const tokenAddr = token.items.map(entry => entry.contract_address);
-        console.log("Token Addresses", tokenAddr);
-        setGetusertokenaddress(tokenAddr);
-        const balances = token.items.map(entry => ({
-          symbol: entry.contract_ticker_symbol,
-          balance: ethers.utils.formatEther(entry.balance)
-        }));
-        setTokenBalances(balances);
-        // console.log("BALANCES", balances);
-      }
-      catch(error){
-        console.log("Error fetching chain Info", error);
-      }
+ 
+// ***** COVALENT API ******
+const ApiServices = async () => {
+  // console.log("entered into api function");
+  try{
+      const Chain = await getChain(address);
+      // console.log("get chain", Chain);    
+    const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
+    var token;
+    if(Chain == 11155420){ // OP SEPOLIA
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
+      token = response.data;  
     }
-      ApiServices();
-  
-
-
-    // // ***** FOR MODE TESTNET EXPLORER API*****
-    // const fetchTokens = async () => {
-    //   try{
-    //     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
-    //     const data = await response.json();
-
-    //     const balances = data.map(entry => ({
-    //       symbol: entry.token.symbol,
-    //       value: ethers.utils.formatEther(entry.value)
-    //     }));
-
-    //     setTokenBalances(balances);
-    //     // console.log(data);
-    //     // setTokenBalances(data);
-    //   }
-    //   catch(error){
-    //     console.error('Error fetching tokens:', error);
-    //   }
+    else if(Chain == 919){  // MODE TESTNET
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("mode-testnet", address);
+      token = response.data;
+      // console.log("response data",response.data);
+    }
+    else if(Chain == 84532){ // BASE SEPOLIA
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("base-sepolia-testnet", address);
+      token = response.data;
+    }
+    else if(Chain == 534351){ // SCROLL SEPOLIA
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-sepolia-testnet", address);
+      token = response.data;
+    }
+    else if(Chain == 11155111){ // ETHEREUM SEPOLIA
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("eth-sepolia", address);
+      token = response.data;
+    }
+    // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
+    //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
     // }
-    // fetchTokens();
+    else if(Chain == 534352){ // SCROLL MAINNET
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-mainnet", address);
+      token = response.data;
+    }
 
-  }, [address, setTokenBalances]);
+    // console.log("TOKENS", token);
+    const tokenAddr = token.items.map(entry => entry.contract_address);
+    // console.log("Token addresses", tokenAddr);
+    setGetusertokenaddress(tokenAddr);
+    const balances = token.items.map(entry => ({
+      symbol: entry.contract_ticker_symbol,
+      balance: ethers.utils.formatEther(entry.balance)
+    }));
+    setTokenBalances(balances);
+    return tokenAddr;
+    // console.log("BALANCES", balances);
+  }
+  catch(error){
+    console.log("Error fetching chain Info", error);
+  }
+}
+
+
+
+
+// // ***** FOR MODE TESTNET EXPLORER API*****
+// const fetchTokens = async () => {
+//   try{
+//     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
+//     const data = await response.json();
+
+//     const balances = data.map(entry => ({
+//       symbol: entry.token.symbol,
+//       value: ethers.utils.formatEther(entry.value)
+//     }));
+
+//     setTokenBalances(balances);
+//     // console.log(data);
+//     // setTokenBalances(data);
+//   }
+//   catch(error){
+//     console.error('Error fetching tokens:', error);
+//   }
+// }
+// fetchTokens();
+
+
 
 
 
@@ -194,7 +195,7 @@ useEffect(() => {
   useEffect(() => {
     // Calculate total amount whenever filteredTransactions changes
     const total = calculateTotalAmount();
-    console.log("total here:", total);
+    // console.log("total here:", total);
     setTotalAmount(total);
   }, [filteredTransactions]);
   const handleChange = (event) => {
@@ -306,36 +307,40 @@ useEffect(() => {
     new Set(allTransactions.map((transaction) => transaction.tokenName))
   );
   useEffect(() => {
-    console.log("fetching...");
+    // console.log("fetching...");
     const fetchTransactions = async () => {
       if (address) {
-        console.log(address,"addresssssssssss");
+        // console.log(address,"addresssssssssss");
         const ethData = await getEthTransactions(address);
-        console.log("Eth data", ethData);
+        // console.log("Eth data", ethData);
         const toaddress = ethData.map((useraddress) => useraddress.recipient);
-        console.log("get to address", toaddress);
+        // console.log("get to address", toaddress);
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient;
           const index = allAddress.findIndex(
             (addr) => addr === recipientAddress
           );
-          console.log(index, recipientAddress, allAddress);
+          // console.log(index, recipientAddress, allAddress);
 
           if (index !== -1) {
             ethData[i].label = allnames[index];
           }
         }
         setEthTransactions(ethData);
-        console.log("ethdata",ethData);
-        fetchUserDetails(toaddress);
-        console.log("entering erccccc")
-        for (const tokenAddress of getusertokenaddress) {
-          // Fetch ERC20 transactions for the current contract address
+        // console.log("ethdata",ethData);
+        // fetchUserDetails(toaddress);
+        const userTokens = await ApiServices();
+        // console.log("entering erc", userTokens);
+        for (const tokenAddress of userTokens) {
+          // console.log(getusertokenaddress);
           const erc20Data = await getERC20Transactions(address, tokenAddress);
-          // return erc20Data;
-          console.log(erc20Data,"getttttttttt");
-          // Update the state with the fetched data
+          // console.log(erc20Data,"erc20data in for loop");
+          if(erc20Data!==undefined)
+          {
           setErc20Transactions(prevData => [...prevData, ...erc20Data]);
+          // console.log("erc20Data type:", typeof erc20Data);
+          // setEthdata(erc20Data);
+          }
         }
           // const erc20Data = await getERC20Transactions(
             //   address,
@@ -343,13 +348,12 @@ useEffect(() => {
             //   );
             // setErc20Transactions(erc20Data);
             // console.log("ercdataa",erc20Data);
-            setEthdata(erc20Data);
             return ethData;
       }
     };
-
+    
     fetchTransactions();
-  }, [address, setEthdata]);
+  }, []);
 
   const fetchUserDetails = async (toaddress) => {
     try {
