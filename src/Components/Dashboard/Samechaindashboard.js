@@ -17,6 +17,7 @@ import SameChain from "../DashboardComponents/SameChain/SameChain";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { getChain } from "@/Helpers/GetChain";
 import {
   getERC20Transactions,
   getEthTransactions,
@@ -25,6 +26,7 @@ import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import notnx from "../../Assets/nodata.png";
 import contracts from "@/Helpers/ContractAddresses";
+import { CovalentClient } from "@covalenthq/client-sdk";
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
@@ -44,11 +46,12 @@ function Samechaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-
+  const [tokenBalances, setTokenBalances] = useState([])
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
   const [allAddress, setAllAddress] = useState([]);
+  const [getusertokenaddress, setGetusertokenaddress] = useState([]);
 
   // const getchainid = async () => {
   //   console.log("Getting chain ID");
@@ -104,6 +107,97 @@ function Samechaindashboard() {
     const selectedToken = event.target.value;
     setSelectedToken(selectedToken);
   };
+
+   // UseEffect to fetch all tokens owned by Address
+   useEffect(() => {
+
+    console.log("entering in useffect");
+    // ***** COVALENT API ******
+    const ApiServices = async () => {
+      // console.log("entered into api function");
+  
+      try{
+          const Chain = await getChain(address);
+          // console.log("get chain", Chain);
+    
+        
+        const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
+        var token;
+
+        if(Chain == 11155420){ // OP SEPOLIA
+          const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
+          token = response.data;
+
+          
+        }
+        else if(Chain == 919){  // MODE TESTNET
+          const response = await client.BalanceService.getTokenBalancesForWalletAddress("mode-testnet", address);
+          token = response.data;
+          console.log("response dataaaaa",response.data);
+        }
+        else if(Chain == 84532){ // BASE SEPOLIA
+          const response = await client.BalanceService.getTokenBalancesForWalletAddress("base-sepolia-testnet", address);
+          token = response.data;
+        }
+        else if(Chain == 534351){ // SCROLL SEPOLIA
+          const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-sepolia-testnet", address);
+          token = response.data;
+        }
+        else if(Chain == 11155111){ // ETHEREUM SEPOLIA
+          const response = await client.BalanceService.getTokenBalancesForWalletAddress("eth-sepolia", address);
+          token = response.data;
+        }
+        // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
+        //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
+        // }
+        else if(Chain == 534352){ // SCROLL MAINNET
+          const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-mainnet", address);
+          token = response.data;
+        }
+
+        // console.log("TOKENS", token);
+        const tokenAddr = token.items.map(entry => entry.contract_address);
+        console.log("Token Addresses", tokenAddr);
+        setGetusertokenaddress(tokenAddr);
+        const balances = token.items.map(entry => ({
+          symbol: entry.contract_ticker_symbol,
+          balance: ethers.utils.formatEther(entry.balance)
+        }));
+        setTokenBalances(balances);
+        // console.log("BALANCES", balances);
+      }
+      catch(error){
+        console.log("Error fetching chain Info", error);
+      }
+    }
+      ApiServices();
+  
+
+
+    // // ***** FOR MODE TESTNET EXPLORER API*****
+    // const fetchTokens = async () => {
+    //   try{
+    //     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
+    //     const data = await response.json();
+
+    //     const balances = data.map(entry => ({
+    //       symbol: entry.token.symbol,
+    //       value: ethers.utils.formatEther(entry.value)
+    //     }));
+
+    //     setTokenBalances(balances);
+    //     // console.log(data);
+    //     // setTokenBalances(data);
+    //   }
+    //   catch(error){
+    //     console.error('Error fetching tokens:', error);
+    //   }
+    // }
+    // fetchTokens();
+
+  }, [address, setTokenBalances]);
+
+
 
   // UseEffect to update filtered transactions when selectedToken changes
   useEffect(() => {
@@ -240,6 +334,7 @@ function Samechaindashboard() {
     console.log("fetching...");
     const fetchTransactions = async () => {
       if (address) {
+        console.log(address,"addresssssssssss");
         const ethData = await getEthTransactions(address);
         console.log("Eth data", ethData);
         const toaddress = ethData.map((useraddress) => useraddress.recipient);
@@ -257,15 +352,24 @@ function Samechaindashboard() {
           }
         }
         setEthTransactions(ethData);
-        console.log(ethData);
+        console.log("ethdata",ethData);
         fetchUserDetails(toaddress);
-        return ethData;
+        console.log("entering erccccc")
+        // for (const tokenAddress of getusertokenaddress) {
+          // Fetch ERC20 transactions for the current contract address
+          const erc20Data = await getERC20Transactions(address, "0xac4926089be8b37ff774f25a907015fb65ad61b2");
+          console.log(erc20Data,"getttttttttt");
+          // Update the state with the fetched data
+          setErc20Transactions(prevData => [...prevData, ...erc20Data]);
+        // }
         // const erc20Data = await getERC20Transactions(
         //   address,
         //   "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
-        // );
-        // setErc20Transactions(erc20Data);
-        // setEthdata(erc20Data);
+        //   );
+          setErc20Transactions(erc20Data);
+          console.log("ercdataa",erc20Data);
+          setEthdata(erc20Data);
+        return ethData;
       }
     };
 
@@ -585,12 +689,20 @@ function Samechaindashboard() {
                     onChange={handleTokenChange}
                     className={samechainStyle.dropdown}
                   >
-                    <option value="all">All Tokens</option>
+                    {/* DROP DOWN FOR SHOWING TOKENS */}
+                  <option value="all">All Tokens</option>
+                    {tokenBalances.map((token, index) => (
+                      <option key={index} value={token.symbol}>
+                        {token.symbol}: {token.balance}
+                      </option>
+                    ))}
+
+                    {/* <option value="all">All Tokens</option>
                     {uniqueTokenNames.map((tokenName) => (
                       <option key={tokenName} value={tokenName}>
                         {tokenName}
                       </option>
-                    ))}
+                    ))} */}
                   </select>
                 </div>
                 <div className={popup.tablediv}>

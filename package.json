@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@covalenthq/client-sdk": "^0.8.7",
+    "@covalenthq/client-sdk": "^0.8.9",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
