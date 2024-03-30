@@ -54,15 +54,7 @@ function SwitchChain() {
             : "Wrong Network"}
         </span>
       </button>
-      <div
-        style={{
-          position: "absolute",
-          top: "55px",
-
-          padding: "30px 0px",
-          width: "200px",
-        }}
-      >
+      <div className={connectStyle.ChainDropdownMain}>
         {dropdownVisible && (
           <div
             className="dropdown"

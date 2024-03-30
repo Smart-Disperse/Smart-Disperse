@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import copy from "../../Assets/copy.png";
-import check from "../../Assets/check.png";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import popup from "../Dashboard/popupTable.module.css";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
@@ -14,13 +13,9 @@ import samechainStyle from "./samechaindashboard.module.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import SameChain from "../DashboardComponents/SameChain/SameChain";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { getChain } from "@/Helpers/GetChain";
 import {
   getERC20Transactions,
   getEthTransactions,
@@ -29,9 +24,9 @@ import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import notnx from "../../Assets/nodata.png";
 import contracts from "@/Helpers/ContractAddresses";
-import { CovalentClient } from "@covalenthq/client-sdk";
+import CrossChain from "../DashboardComponents/CrossChain/CrossChain";
 
-function Samechaindashboard() {
+function Crosschaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
   const router = useRouter();
@@ -39,8 +34,8 @@ function Samechaindashboard() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef();
   const [query, setQuery] = useState("");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [chainID, setChainid] = useState();
   const [selectedToken, setSelectedToken] = useState("all");
   const [changedata, setEthdata] = useState();
@@ -49,249 +44,71 @@ function Samechaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-  const [tokenBalances, setTokenBalances] = useState([]);
+
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
   const [allAddress, setAllAddress] = useState([]);
-  const [getusertokenaddress, setGetusertokenaddress] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [isCopied, setIsCopied] = useState(false);
-  const [isCopiedAddressIndex, setIsCopiedAddressIndex] = useState(false);
-  const [isCopiedHash, setIsCopiedHash] = useState(false);
-  const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
-    useState(false);
 
-  const copyToClipboard = (text, index) => {
-    setIsCopiedAddressIndex(index);
-    navigator.clipboard.writeText(text).then(
-      () => {
-        setIsCopied(true);
-        setTimeout(() => {
-          setIsCopied(false);
-        }, 2000); // Reset the copy status after 2 seconds
-      },
-      (err) => {
-        console.error("Unable to copy to clipboard:", err);
-      }
-    );
-  };
-  const copyToClipboardHash = (text, index) => {
-    setIsCopiedAddressIndexHash(index);
-    navigator.clipboard.writeText(text).then(
-      () => {
-        setIsCopiedHash(true);
-        setTimeout(() => {
-          setIsCopiedHash(false);
-        }, 2000); // Reset the copy status after 2 seconds
-      },
-      (err) => {
-        console.error("Unable to copy to clipboard:", err);
-      }
-    );
-  };
-  // Function to handle changes in both address and label search inputs
+  // const getchainid = async () => {
+  //   console.log("Getting chain ID");
+  //   try {
+  //     const chain = Number(
+  //       await window.ethereum.request({ method: "eth_chainId" })
+  //     );
+  //     const network = ethers.providers.getNetwork(chain);
+  //     const chainid = network.chainId.toString();
+  //     console.log("Chain ID:", chainid);
+  //     if(chainid in contracts){
+  //       const chainname = contracts[chainid].name;
+  //       console.log(chainname);
+  //       setChainname(chainname)
+  //     } else {
+  //       console.log(`Chain ID ${chainid} does not match any contract.`);
+  //       return null;
+  //   }
+  //   } catch (error) {
+  //     console.error("Error occurred while fetching chain ID:", error);
+  //     throw error;
+  //   }
+  // };
+
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+
   const handleSearchChange = (event) => {
     const { value } = event.target;
-    setSearchQuery(value); // Update the combined search query state
+    setQuery(value);
   };
 
-  // Modify filterTransactions function to include address and label filtering
-  const filterTransactions = (searchQuery) => {
+  // Modify filterTransactions function to include token name filter
+  const filterTransactions = (query) => {
     let filtered = [...ethTransactions, ...erc20Transactions];
 
-    if (searchQuery.query) {
-      const query = searchQuery.query.toLowerCase(); // Extract the query from searchQuery
-      filtered = filtered.filter((transaction) => {
-        const recipient = transaction.recipient
-          ? transaction.recipient.toLowerCase()
-          : "";
-        const label = allAddress.includes(transaction.recipient)
-          ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
-          : "";
-        const hash = transaction.transactionHash
-          ? transaction.transactionHash.toLowerCase()
-          : "";
-        return (
-          recipient.includes(query) ||
-          label.includes(query) ||
-          hash.includes(query)
-        );
-      });
+    if (query) {
+      filtered = filtered.filter((transaction) =>
+        transaction.recipient.toLowerCase().includes(query.toLowerCase())
+      );
     }
+
     if (selectedToken !== "all") {
-      // Filter by selected token
       filtered = filtered.filter(
         (transaction) =>
           transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
       );
     }
-    console.log(startDate, endDate);
-    if (startDate && endDate) {
-      // Filter by date range
-      filtered = filtered.filter((transaction) => {
-        const transactionDate = new Date(transaction.blockTimestamp);
-        const nextDayEndDate = new Date(endDate);
-        nextDayEndDate.setDate(nextDayEndDate.getDate() + 1); // Increment endDate by 1 day
-        return (
-          transactionDate >= new Date(startDate) &&
-          transactionDate < nextDayEndDate // Adjusted comparison to include endDate
-        );
-      });
-    }
 
-    // if (startDate && endDate) {
-    //   // Filter by date range
-    //   filtered = filtered.filter((transaction) => {
-    //     const transactionDate = new Date(transaction.blockTimestamp);
-    //     return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
-    //   });
-    // }
     setFilteredTransactions(filtered);
   };
-
-  // Event handler for changing start date
-  const handleStartDateChange = (event) => {
-    const newStartDate = event.target.value;
-    setStartDate(newStartDate);
-  };
-
-  // Event handler for changing end date
-  const handleEndDateChange = (event) => {
-    const newEndDate = event.target.value;
-    setEndDate(newEndDate);
-  };
-
-  // // useEffect to log the updated start date after state update
-  // useEffect(() => {
-  //   console.log(startDate);
-  // }, [startDate]);
-
-  // // useEffect to log the updated end date after state update
-  // useEffect(() => {
-  //   console.log(endDate);
-  // }, [endDate]);
 
   const handleTokenChange = (event) => {
     const selectedToken = event.target.value;
     setSelectedToken(selectedToken);
   };
 
-  // UseEffect to fetch all tokens owned by Address
-
-  // ***** COVALENT API ******
-  const ApiServices = async () => {
-    // console.log("entered into api function");
-    try {
-      const Chain = await getChain(address);
-      // console.log("get chain", Chain);
-      const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
-      var token;
-      if (Chain == 11155420) {
-        // OP SEPOLIA
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "optimism-sepolia",
-            address
-          );
-        token = response.data;
-      } else if (Chain == 919) {
-        // MODE TESTNET
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "mode-testnet",
-            address
-          );
-        token = response.data;
-        // console.log("response data",response.data);
-      } else if (Chain == 84532) {
-        // BASE SEPOLIA
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "base-sepolia-testnet",
-            address
-          );
-        token = response.data;
-      } else if (Chain == 534351) {
-        // SCROLL SEPOLIA
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "scroll-sepolia-testnet",
-            address
-          );
-        token = response.data;
-      } else if (Chain == 11155111) {
-        // ETHEREUM SEPOLIA
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "eth-sepolia",
-            address
-          );
-        token = response.data;
-      }
-      // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
-      //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
-      // }
-      else if (Chain == 534352) {
-        // SCROLL MAINNET
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "scroll-mainnet",
-            address
-          );
-        token = response.data;
-      }
-
-      // console.log("TOKENS", token);
-      const tokenAddr = token.items.map((entry) => entry.contract_address);
-      // console.log("Token addresses", tokenAddr);
-      setGetusertokenaddress(tokenAddr);
-      const balances = token.items.map((entry) => ({
-        symbol: entry.contract_ticker_symbol,
-        balance: ethers.utils.formatEther(entry.balance),
-      }));
-      setTokenBalances(balances);
-      return tokenAddr;
-      // console.log("BALANCES", balances);
-    } catch (error) {
-      console.log("Error fetching chain Info", error);
-    }
-  };
-
-  // // ***** FOR MODE TESTNET EXPLORER API*****
-  // const fetchTokens = async () => {
-  //   try{
-  //     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
-  //     const data = await response.json();
-
-  //     const balances = data.map(entry => ({
-  //       symbol: entry.token.symbol,
-  //       value: ethers.utils.formatEther(entry.value)
-  //     }));
-
-  //     setTokenBalances(balances);
-  //     // console.log(data);
-  //     // setTokenBalances(data);
-  //   }
-  //   catch(error){
-  //     console.error('Error fetching tokens:', error);
-  //   }
-  // }
-  // fetchTokens();
-
-  // Call filterTransactions whenever either search query changes
+  // UseEffect to update filtered transactions when selectedToken changes
   useEffect(() => {
-    filterTransactions(searchQuery);
-  }, [
-    searchQuery,
-    ethTransactions,
-    erc20Transactions,
-    selectedToken,
-    startDate,
-    endDate,
-  ]);
-
+    filterTransactions(query);
+  }, [query, ethTransactions, erc20Transactions, selectedToken]);
   // useEffect(() => {
   //   console.log("loading");
   //   getchainid();
@@ -302,16 +119,15 @@ function Samechaindashboard() {
     filteredTransactions.forEach((transaction) => {
       total += parseFloat(transaction.value);
     });
-    return total.toFixed(8); // Limiting the total to 2 decimal places
+    return total.toFixed(2); // Limiting the total to 2 decimal places
   };
 
   useEffect(() => {
     // Calculate total amount whenever filteredTransactions changes
     const total = calculateTotalAmount();
-    // console.log("total here:", total);
+    console.log("total here:", total);
     setTotalAmount(total);
   }, [filteredTransactions]);
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "query") {
@@ -421,67 +237,71 @@ function Samechaindashboard() {
     new Set(allTransactions.map((transaction) => transaction.tokenName))
   );
   useEffect(() => {
+    console.log("fetching...");
     const fetchTransactions = async () => {
       if (address) {
         const ethData = await getEthTransactions(address);
+        console.log("Eth data", ethData);
         const toaddress = ethData.map((useraddress) => useraddress.recipient);
+        console.log("get to address", toaddress);
+
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient;
           const index = allAddress.findIndex(
             (addr) => addr === recipientAddress
           );
+          console.log(index, recipientAddress, allAddress);
+
           if (index !== -1) {
             ethData[i].label = allnames[index];
           }
         }
         setEthTransactions(ethData);
         console.log(ethData);
-        // Fetch ERC20 transactions only once per token address
-        const userTokens = await ApiServices();
-        const fetchedTokens = new Set(); // To keep track of fetched tokens
-        for (const tokenAddress of userTokens) {
-          if (!fetchedTokens.has(tokenAddress)) {
-            const erc20Data = await getERC20Transactions(address, tokenAddress);
-            console.log("erc20data... ", erc20Data);
-            if (erc20Data !== undefined) {
-              setErc20Transactions((prevData) => [...prevData, ...erc20Data]);
-              fetchedTokens.add(tokenAddress);
-            }
-          }
-        }
-
+        fetchUserDetails(toaddress);
         return ethData;
+        // const erc20Data = await getERC20Transactions(
+        //   address,
+        //   "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
+        // );
+        // setErc20Transactions(erc20Data);
+        // setEthdata(erc20Data);
       }
     };
 
     fetchTransactions();
-  }, []);
+  }, [address, setEthdata]);
 
   const fetchUserDetails = async (toaddress) => {
+    console.log(address);
     try {
+      console.log("entered into try block");
       const result = await fetch(
         `http://localhost:3000/api/all-user-data?address=${address}`
       );
       const response = await result.json();
+
+      console.log("Response from API:", response);
       const alldata = response.result;
       const names = alldata.map((user) => user.name);
+      console.log("allnames", names);
       setAllNames(names);
       const alladdress = alldata.map((user) => user.address);
       setAllAddress(alladdress);
-      // filteredTransactions.forEach((transaction) => {
-      //   const recipientIndex = allAddress.findIndex(addr => addr === transaction.recipient);
-      //   if (recipientIndex !== -1) {
-      //     console.log(`Recipient Address: ${transaction.recipient}, Corresponding Name: ${names[recipientIndex]}`);
+      console.log("alladdress", alladdress);
+      // for (let i = 0; i < toaddress.length; i++) {
+      //   const index = alladdress.findIndex((addr) => addr === toaddress[i]);
+      //   if (index !== -1) {
+      //     console.log("Matching index:", names[index]);
       //   }
-      // });
+      // }
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
-
   useEffect(() => {
     fetchUserDetails();
-  }, [filteredTransactions]);
+  }, []);
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
@@ -508,8 +328,8 @@ function Samechaindashboard() {
           <div className={samechainStyle.imagesinthis}></div>
           <h1>Effortless Token Distribution</h1>
           <h3 className={samechainStyle.dashpera}>
-            Instant Multi-Account Dispersement – Seamlessly Send Tokens to
-            Multiple Accounts in One Click
+            Disperse Your Tokens to CHAINs and Other Networks, Embracing
+            Multi-Network Distribution
           </h3>
         </div>
         <div className={samechainStyle.maindivforalloptiondashboard}>
@@ -548,7 +368,7 @@ function Samechaindashboard() {
         </div>
         <div className={samechainStyle.divtocenterthecomponentrender}>
           <div className={samechainStyle.componentcontainerdashboard}>
-            <SameChain
+            <CrossChain
               activeTab={activeTab}
               setErrorModalIsOpen={setErrorModalIsOpen}
               errorModalIsOpen={errorModalIsOpen}
@@ -734,9 +554,8 @@ function Samechaindashboard() {
                 <div className={samechainStyle.searchBar}>
                   <input
                     type="text"
-                    name="query"
                     placeholder="Search..."
-                    value={searchQuery.query}
+                    value={query}
                     onChange={handleSearchChange}
                     className={samechainStyle.inputSearch}
                   />
@@ -745,27 +564,20 @@ function Samechaindashboard() {
                     type="text"
                     placeholder="Start Date"
                     ref={inputRef1}
-                    onChange={handleStartDateChange}
+                    onChange={(e) => console.log(e.target.value)}
                     onFocus={() => (inputRef1.current.type = "date")}
                     onBlur={() => (inputRef1.current.type = "text")}
                     className={samechainStyle.inputDate1}
-                    max={new Date().toISOString().split("T")[0]}
                   />
 
                   <input
                     type="text"
                     placeholder="End Date"
                     ref={inputRef3}
-                    onChange={handleEndDateChange}
+                    onChange={(e) => console.log(e.target.value)}
                     onFocus={() => (inputRef3.current.type = "date")}
                     onBlur={() => (inputRef3.current.type = "text")}
                     className={samechainStyle.inputDate1}
-                    min={
-                      startDate
-                        ? startDate
-                        : new Date().toISOString().split("T")[0]
-                    } // Set min attribute to the selected start date if available, otherwise set it to today's date
-                    max={new Date().toISOString().split("T")[0]}
                   />
 
                   <select
@@ -773,11 +585,10 @@ function Samechaindashboard() {
                     onChange={handleTokenChange}
                     className={samechainStyle.dropdown}
                   >
-                    {/* DROP DOWN FOR SHOWING TOKENS */}
                     <option value="all">All Tokens</option>
-                    {tokenBalances.map((token, index) => (
-                      <option key={index} value={token.symbol}>
-                        {token.symbol}: {token.balance}
+                    {uniqueTokenNames.map((tokenName) => (
+                      <option key={tokenName} value={tokenName}>
+                        {tokenName}
                       </option>
                     ))}
                   </select>
@@ -816,37 +627,7 @@ function Samechaindashboard() {
                                 )}...${transaction.recipient.substring(
                                   transaction.recipient.length - 5
                                 )}`}
-                                {isCopied && isCopiedAddressIndex === index ? (
-                                  <FontAwesomeIcon
-                                    icon={faCircleCheck}
-                                    size="sm"
-                                    alt="Check Icon"
-                                    style={{
-                                      margin: "0px 10px",
-                                      cursor: "pointer",
-
-                                      color: "#9657eb",
-                                    }}
-                                  />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    icon={faCopy}
-                                    size="2xs"
-                                    alt="Copy Icon"
-                                    onClick={() =>
-                                      copyToClipboard(
-                                        transaction.recipient,
-                                        index
-                                      )
-                                    }
-                                    style={{
-                                      width: "20px",
-                                      margin: "0px 10px",
-                                      cursor: "pointer",
-                                      height: "auto",
-                                    }}
-                                  />
-                                )}
+                                {/* {transaction.recipient} */}
                               </td>
                               <td
                                 className={popup.column2}
@@ -870,11 +651,7 @@ function Samechaindashboard() {
                                 className={popup.column5}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                                {allAddress.includes(transaction.recipient)
-                                  ? allnames[
-                                      allAddress.indexOf(transaction.recipient)
-                                    ]
-                                  : "Name  not found"}
+                                {transaction.label ? transaction.label : null}
                               </td>
                               <td
                                 className={popup.column6}
@@ -899,38 +676,6 @@ function Samechaindashboard() {
                                 )}...${transaction.transactionHash.substring(
                                   transaction.transactionHash.length - 5
                                 )}`}
-                                {isCopiedHash &&
-                                isCopiedAddressIndexHash === index ? (
-                                  <FontAwesomeIcon
-                                    icon={faCircleCheck}
-                                    size="sm"
-                                    alt="Check Icon"
-                                    style={{
-                                      margin: "0px 10px",
-                                      cursor: "pointer",
-
-                                      color: "#9657eb",
-                                    }}
-                                  />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    icon={faCopy}
-                                    size="2xs"
-                                    alt="Copy Icon"
-                                    onClick={() =>
-                                      copyToClipboardHash(
-                                        transaction.transactionHash,
-                                        index
-                                      )
-                                    }
-                                    style={{
-                                      width: "20px",
-                                      margin: "0px 10px",
-                                      cursor: "pointer",
-                                      height: "auto",
-                                    }}
-                                  />
-                                )}
                               </td>
                             </tr>
                           ))
@@ -975,4 +720,4 @@ function Samechaindashboard() {
   );
 }
 
-export default Samechaindashboard;
+export default Crosschaindashboard;
