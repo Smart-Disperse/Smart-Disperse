@@ -51,7 +51,7 @@ function SwitchChain() {
         <span>
           {chain && chains.some((network) => network.id === chain.id)
             ? ` ${chain.name}`
-            : "Wrong Network"}
+            : "Select Network"}
         </span>
       </button>
       <div
