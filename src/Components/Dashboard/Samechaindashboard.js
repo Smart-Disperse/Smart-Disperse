@@ -57,24 +57,29 @@ function Samechaindashboard() {
 
  // Function to handle changes in both address and label search inputs
  const handleSearchChange = (event) => {
-  const { value } = event.target;
-  setSearchQuery(value); // Update the combined search query state
-};;
+  const { name, value } = event.target;
+  setSearchQuery({ ...searchQuery, [name]: value }); // Update the search query state
+};
 
 // Modify filterTransactions function to include address and label filtering
 const filterTransactions = (searchQuery) => {
   let filtered = [...ethTransactions, ...erc20Transactions];
 
-  if (searchQuery) {
+  if (searchQuery.query) {
+    const query = searchQuery.query.toLowerCase(); // Extract the query from searchQuery
     filtered = filtered.filter((transaction) => {
       const recipient = transaction.recipient ? transaction.recipient.toLowerCase() : '';
       const label = allAddress.includes(transaction.recipient)
         ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
         : '';
-      return recipient.includes(searchQuery.toLowerCase()) || label.includes(searchQuery.toLowerCase());
+      const hash = transaction.transactionHash ? transaction.transactionHash.toLowerCase() : '';
+      return (
+        recipient.includes(query) ||
+        label.includes(query) ||
+        hash.includes(query)
+      );
     });
   }
-
   if (selectedToken !== "all") {
     filtered = filtered.filter(
       (transaction) =>
@@ -614,13 +619,14 @@ const ApiServices = async () => {
                   }}
                 ></div>
                 <div className={samechainStyle.searchBar}>
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    className={samechainStyle.inputSearch}
-                  />
+                <input
+                  type="text"
+                  name="query"
+                  placeholder="Search..."
+                  value={searchQuery.query}
+                  onChange={handleSearchChange}
+                  className={samechainStyle.inputSearch}
+                />
 
                   <input
                     type="text"
