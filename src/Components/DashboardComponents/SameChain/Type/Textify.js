@@ -17,6 +17,8 @@ function Textify({
   const [suggestions, setSuggestions] = useState([]);
   const [focusedSuggestionIndex, setFocusedSuggestionIndex] = useState(-1); // Define focusedSuggestionIndex state variable
   const textareaRef = useRef(null);
+  const [suggestionItemHeight, setSuggestionItemHeight] = useState(0);
+  const dropdownRef = useRef(null);
   const { address } = useAccount();
 
   const handleInputChange = (e) => {
@@ -140,18 +142,28 @@ function Textify({
 
   const handleKeyDown = (e) => {
     if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-      e.preventDefault(); // Prevent default scrolling behavior
-      const newIndex =
-        focusedSuggestionIndex +
-        (e.key === "ArrowUp" ? -1 : 1);
+      e.preventDefault();
+      const newIndex = focusedSuggestionIndex + (e.key === "ArrowUp" ? -1 : 1);
   
       if (newIndex >= 0 && newIndex < suggestions.length) {
         setFocusedSuggestionIndex(newIndex);
+  
+        // Calculate the scroll position
+        const dropdownElement = dropdownRef.current;
+        const scrollTop = newIndex * suggestionItemHeight;
+        dropdownElement.scrollTop = scrollTop;
       }
     } else if (e.key === "Enter" && focusedSuggestionIndex !== -1) {
       handleSuggestionClick(suggestions[focusedSuggestionIndex]);
     }
   };
+  useEffect(() => {
+    // Calculate suggestion item height when suggestions change
+    const suggestionElement = dropdownRef.current?.firstChild;
+    if (suggestionElement) {
+      setSuggestionItemHeight(suggestionElement.offsetHeight);
+    }
+  }, [suggestions]);
   
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
@@ -210,7 +222,7 @@ function Textify({
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
               ></textarea>
              {suggestions.length > 0 && (
-        <div className={textStyle.dropdown}>
+        <div ref={dropdownRef} className={textStyle.dropdown}  style={{ maxHeight: "200px", overflowY: "auto" }} >
           {suggestions.map((suggestion, index) => (
             <div
               key={index}
