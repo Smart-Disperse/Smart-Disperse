@@ -147,8 +147,6 @@ const ApiServices = async () => {
 }
 
 
-
-
 // // ***** FOR MODE TESTNET EXPLORER API*****
 // const fetchTokens = async () => {
 //   try{
@@ -319,7 +317,7 @@ const ApiServices = async () => {
           }
         }
         setEthTransactions(ethData);
-        
+        console.log(ethData);
         // Fetch ERC20 transactions only once per token address
         const userTokens = await ApiServices();
         const fetchedTokens = new Set(); // To keep track of fetched tokens
