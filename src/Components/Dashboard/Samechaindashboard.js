@@ -39,8 +39,8 @@ function Samechaindashboard() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef();
   const [query, setQuery] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [chainID, setChainid] = useState();
   const [selectedToken, setSelectedToken] = useState("all");
   const [changedata, setEthdata] = useState();
@@ -101,34 +101,81 @@ function Samechaindashboard() {
   const filterTransactions = (searchQuery) => {
     let filtered = [...ethTransactions, ...erc20Transactions];
 
-    if (searchQuery) {
-      filtered = filtered.filter((transaction) => {
-        const recipient = transaction.recipient
-          ? transaction.recipient.toLowerCase()
-          : "";
-        const label = allAddress.includes(transaction.recipient)
-          ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
-          : "";
-        return (
-          recipient.includes(searchQuery.toLowerCase()) ||
-          label.includes(searchQuery.toLowerCase())
-        );
-      });
-    }
-
-    if (selectedToken !== "all") {
-      filtered = filtered.filter(
-        (transaction) =>
-          transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
+  if (searchQuery.query) {
+    const query = searchQuery.query.toLowerCase(); // Extract the query from searchQuery
+    filtered = filtered.filter((transaction) => {
+      const recipient = transaction.recipient ? transaction.recipient.toLowerCase() : '';
+      const label = allAddress.includes(transaction.recipient)
+        ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
+        : '';
+      const hash = transaction.transactionHash ? transaction.transactionHash.toLowerCase() : '';
+      return (
+        recipient.includes(query) ||
+        label.includes(query) ||
+        hash.includes(query)
       );
-    }
+    });
+  }
+  if (selectedToken !== "all") {
+    // Filter by selected token
+    filtered = filtered.filter(
+      (transaction) =>
+        transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
+    );
+  }
+  console.log(startDate, endDate);
+  if (startDate && endDate) {
+    // Filter by date range
+    filtered = filtered.filter((transaction) => {
+      const transactionDate = new Date(transaction.blockTimestamp);
+      const nextDayEndDate = new Date(endDate);
+      nextDayEndDate.setDate(nextDayEndDate.getDate() + 1); // Increment endDate by 1 day
+      return (
+        transactionDate >= new Date(startDate) &&
+        transactionDate < nextDayEndDate // Adjusted comparison to include endDate
+      );
+    });
+  }
+  
+  // if (startDate && endDate) {
+  //   // Filter by date range
+  //   filtered = filtered.filter((transaction) => {
+  //     const transactionDate = new Date(transaction.blockTimestamp);
+  //     return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
+  //   });
+  // }
+  setFilteredTransactions(filtered);
+};
 
-    setFilteredTransactions(filtered);
-  };
-  const handleTokenChange = (event) => {
-    const selectedToken = event.target.value;
-    setSelectedToken(selectedToken);
-  };
+// Event handler for changing start date
+const handleStartDateChange = (event) => {
+  const newStartDate = event.target.value;
+  setStartDate(newStartDate);
+};
+
+// Event handler for changing end date
+const handleEndDateChange = (event) => {
+  const newEndDate = event.target.value;
+  setEndDate(newEndDate);
+};
+
+// // useEffect to log the updated start date after state update
+// useEffect(() => {
+//   console.log(startDate);
+// }, [startDate]);
+
+// // useEffect to log the updated end date after state update
+// useEffect(() => {
+//   console.log(endDate);
+// }, [endDate]);
+
+
+
+
+const handleTokenChange = (event) => {
+  const selectedToken = event.target.value;
+  setSelectedToken(selectedToken);
+};
 
   // UseEffect to fetch all tokens owned by Address
 
@@ -232,11 +279,11 @@ function Samechaindashboard() {
   // }
   // fetchTokens();
 
-  // Call filterTransactions whenever either search query changes
-  useEffect(() => {
-    filterTransactions(searchQuery);
-  }, [searchQuery, ethTransactions, erc20Transactions, selectedToken]);
-
+ // Call filterTransactions whenever either search query changes
+ useEffect(() => {
+  filterTransactions(searchQuery);
+}, [searchQuery, ethTransactions, erc20Transactions,selectedToken, startDate, endDate]);
+  
   // useEffect(() => {
   //   console.log("loading");
   //   getchainid();
@@ -256,6 +303,7 @@ function Samechaindashboard() {
     // console.log("total here:", total);
     setTotalAmount(total);
   }, [filteredTransactions]);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "query") {
@@ -676,32 +724,36 @@ function Samechaindashboard() {
                   }}
                 ></div>
                 <div className={samechainStyle.searchBar}>
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    className={samechainStyle.inputSearch}
-                  />
+                <input
+                  type="text"
+                  name="query"
+                  placeholder="Search..."
+                  value={searchQuery.query}
+                  onChange={handleSearchChange}
+                  className={samechainStyle.inputSearch}
+                />
 
                   <input
                     type="text"
                     placeholder="Start Date"
                     ref={inputRef1}
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange= {handleStartDateChange}
                     onFocus={() => (inputRef1.current.type = "date")}
                     onBlur={() => (inputRef1.current.type = "text")}
                     className={samechainStyle.inputDate1}
+                    max={new Date().toISOString().split("T")[0]}
                   />
 
                   <input
                     type="text"
                     placeholder="End Date"
                     ref={inputRef3}
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange= {handleEndDateChange}
                     onFocus={() => (inputRef3.current.type = "date")}
                     onBlur={() => (inputRef3.current.type = "text")}
                     className={samechainStyle.inputDate1}
+                    min={startDate ? startDate : new Date().toISOString().split("T")[0]} // Set min attribute to the selected start date if available, otherwise set it to today's date
+                    max={new Date().toISOString().split("T")[0]}
                   />
 
                   <select
