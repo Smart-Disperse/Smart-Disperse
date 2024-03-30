@@ -307,54 +307,40 @@ const ApiServices = async () => {
     new Set(allTransactions.map((transaction) => transaction.tokenName))
   );
   useEffect(() => {
-    // console.log("fetching...");
     const fetchTransactions = async () => {
       if (address) {
-        // console.log(address,"addresssssssssss");
         const ethData = await getEthTransactions(address);
-        // console.log("Eth data", ethData);
         const toaddress = ethData.map((useraddress) => useraddress.recipient);
-        // console.log("get to address", toaddress);
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient;
-          const index = allAddress.findIndex(
-            (addr) => addr === recipientAddress
-          );
-          // console.log(index, recipientAddress, allAddress);
-
+          const index = allAddress.findIndex((addr) => addr === recipientAddress);
           if (index !== -1) {
             ethData[i].label = allnames[index];
           }
         }
         setEthTransactions(ethData);
-        // console.log("ethdata",ethData);
-        // fetchUserDetails(toaddress);
+        
+        // Fetch ERC20 transactions only once per token address
         const userTokens = await ApiServices();
-        // console.log("entering erc", userTokens);
+        const fetchedTokens = new Set(); // To keep track of fetched tokens
         for (const tokenAddress of userTokens) {
-          // console.log(getusertokenaddress);
-          const erc20Data = await getERC20Transactions(address, tokenAddress);
-          // console.log(erc20Data,"erc20data in for loop");
-          if(erc20Data!==undefined)
-          {
-          setErc20Transactions(prevData => [...prevData, ...erc20Data]);
-          // console.log("erc20Data type:", typeof erc20Data);
-          // setEthdata(erc20Data);
+          if (!fetchedTokens.has(tokenAddress)) {
+            const erc20Data = await getERC20Transactions(address, tokenAddress);
+            console.log("erc20data... ", erc20Data);
+            if (erc20Data !== undefined) {
+              setErc20Transactions(prevData => [...prevData, ...erc20Data]);
+              fetchedTokens.add(tokenAddress);
+            }
           }
         }
-          // const erc20Data = await getERC20Transactions(
-            //   address,
-            //   "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
-            //   );
-            // setErc20Transactions(erc20Data);
-            // console.log("ercdataa",erc20Data);
-            return ethData;
+        
+        return ethData;
       }
     };
-    
+  
     fetchTransactions();
   }, []);
-
+  
   const fetchUserDetails = async (toaddress) => {
     try {
       const result = await fetch(
