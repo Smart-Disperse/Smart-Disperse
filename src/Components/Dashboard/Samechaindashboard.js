@@ -17,6 +17,7 @@ import SameChain from "../DashboardComponents/SameChain/SameChain";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { getChain } from "@/Helpers/GetChain";
 import {
   getERC20Transactions,
   getEthTransactions,
@@ -25,6 +26,7 @@ import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 import notnx from "../../Assets/nodata.png";
 import contracts from "@/Helpers/ContractAddresses";
+import { CovalentClient } from "@covalenthq/client-sdk";
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
@@ -44,71 +46,137 @@ function Samechaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-
+  const [tokenBalances, setTokenBalances] = useState([])
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
   const [allAddress, setAllAddress] = useState([]);
-
-  // const getchainid = async () => {
-  //   console.log("Getting chain ID");
-  //   try {
-  //     const chain = Number(
-  //       await window.ethereum.request({ method: "eth_chainId" })
-  //     );
-  //     const network = ethers.providers.getNetwork(chain);
-  //     const chainid = network.chainId.toString();
-  //     console.log("Chain ID:", chainid);
-  //     if(chainid in contracts){
-  //       const chainname = contracts[chainid].name;
-  //       console.log(chainname);
-  //       setChainname(chainname)
-  //     } else {
-  //       console.log(`Chain ID ${chainid} does not match any contract.`);
-  //       return null;
-  //   }
-  //   } catch (error) {
-  //     console.error("Error occurred while fetching chain ID:", error);
-  //     throw error;
-  //   }
-  // };
-
+  const [getusertokenaddress, setGetusertokenaddress] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredTransactions, setFilteredTransactions] = useState([]);
 
-  const handleSearchChange = (event) => {
-    const { value } = event.target;
-    setQuery(value);
-  };
+ // Function to handle changes in both address and label search inputs
+ const handleSearchChange = (event) => {
+  const { value } = event.target;
+  setSearchQuery(value); // Update the combined search query state
+};;
 
-  // Modify filterTransactions function to include token name filter
-  const filterTransactions = (query) => {
-    let filtered = [...ethTransactions, ...erc20Transactions];
+// Modify filterTransactions function to include address and label filtering
+const filterTransactions = (searchQuery) => {
+  let filtered = [...ethTransactions, ...erc20Transactions];
 
-    if (query) {
-      filtered = filtered.filter((transaction) =>
-        transaction.recipient.toLowerCase().includes(query.toLowerCase())
-      );
-    }
+  if (searchQuery) {
+    filtered = filtered.filter((transaction) => {
+      const recipient = transaction.recipient ? transaction.recipient.toLowerCase() : '';
+      const label = allAddress.includes(transaction.recipient)
+        ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
+        : '';
+      return recipient.includes(searchQuery.toLowerCase()) || label.includes(searchQuery.toLowerCase());
+    });
+  }
 
-    if (selectedToken !== "all") {
-      filtered = filtered.filter(
-        (transaction) =>
-          transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
-      );
-    }
+  if (selectedToken !== "all") {
+    filtered = filtered.filter(
+      (transaction) =>
+        transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
+    );
+  }
 
-    setFilteredTransactions(filtered);
-  };
-
+  setFilteredTransactions(filtered);
+};
   const handleTokenChange = (event) => {
     const selectedToken = event.target.value;
     setSelectedToken(selectedToken);
   };
 
-  // UseEffect to update filtered transactions when selectedToken changes
-  useEffect(() => {
-    filterTransactions(query);
-  }, [query, ethTransactions, erc20Transactions, selectedToken]);
+// UseEffect to fetch all tokens owned by Address
+
+ 
+// ***** COVALENT API ******
+const ApiServices = async () => {
+  // console.log("entered into api function");
+  try{
+      const Chain = await getChain(address);
+      // console.log("get chain", Chain);    
+    const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
+    var token;
+    if(Chain == 11155420){ // OP SEPOLIA
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
+      token = response.data;  
+    }
+    else if(Chain == 919){  // MODE TESTNET
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("mode-testnet", address);
+      token = response.data;
+      // console.log("response data",response.data);
+    }
+    else if(Chain == 84532){ // BASE SEPOLIA
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("base-sepolia-testnet", address);
+      token = response.data;
+    }
+    else if(Chain == 534351){ // SCROLL SEPOLIA
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-sepolia-testnet", address);
+      token = response.data;
+    }
+    else if(Chain == 11155111){ // ETHEREUM SEPOLIA
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("eth-sepolia", address);
+      token = response.data;
+    }
+    // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
+    //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
+    // }
+    else if(Chain == 534352){ // SCROLL MAINNET
+      const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-mainnet", address);
+      token = response.data;
+    }
+
+    // console.log("TOKENS", token);
+    const tokenAddr = token.items.map(entry => entry.contract_address);
+    // console.log("Token addresses", tokenAddr);
+    setGetusertokenaddress(tokenAddr);
+    const balances = token.items.map(entry => ({
+      symbol: entry.contract_ticker_symbol,
+      balance: ethers.utils.formatEther(entry.balance)
+    }));
+    setTokenBalances(balances);
+    return tokenAddr;
+    // console.log("BALANCES", balances);
+  }
+  catch(error){
+    console.log("Error fetching chain Info", error);
+  }
+}
+
+
+// // ***** FOR MODE TESTNET EXPLORER API*****
+// const fetchTokens = async () => {
+//   try{
+//     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
+//     const data = await response.json();
+
+//     const balances = data.map(entry => ({
+//       symbol: entry.token.symbol,
+//       value: ethers.utils.formatEther(entry.value)
+//     }));
+
+//     setTokenBalances(balances);
+//     // console.log(data);
+//     // setTokenBalances(data);
+//   }
+//   catch(error){
+//     console.error('Error fetching tokens:', error);
+//   }
+// }
+// fetchTokens();
+
+
+
+
+
+ // Call filterTransactions whenever either search query changes
+ useEffect(() => {
+  filterTransactions(searchQuery);
+}, [searchQuery, ethTransactions, erc20Transactions,selectedToken]);
+  
   // useEffect(() => {
   //   console.log("loading");
   //   getchainid();
@@ -119,13 +187,13 @@ function Samechaindashboard() {
     filteredTransactions.forEach((transaction) => {
       total += parseFloat(transaction.value);
     });
-    return total.toFixed(2); // Limiting the total to 2 decimal places
+    return total.toFixed(8); // Limiting the total to 2 decimal places
   };
 
   useEffect(() => {
     // Calculate total amount whenever filteredTransactions changes
     const total = calculateTotalAmount();
-    console.log("total here:", total);
+    // console.log("total here:", total);
     setTotalAmount(total);
   }, [filteredTransactions]);
   const handleChange = (event) => {
@@ -237,71 +305,65 @@ function Samechaindashboard() {
     new Set(allTransactions.map((transaction) => transaction.tokenName))
   );
   useEffect(() => {
-    console.log("fetching...");
     const fetchTransactions = async () => {
       if (address) {
         const ethData = await getEthTransactions(address);
-        console.log("Eth data", ethData);
         const toaddress = ethData.map((useraddress) => useraddress.recipient);
-        console.log("get to address", toaddress);
-
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient;
-          const index = allAddress.findIndex(
-            (addr) => addr === recipientAddress
-          );
-          console.log(index, recipientAddress, allAddress);
-
+          const index = allAddress.findIndex((addr) => addr === recipientAddress);
           if (index !== -1) {
             ethData[i].label = allnames[index];
           }
         }
         setEthTransactions(ethData);
         console.log(ethData);
-        fetchUserDetails(toaddress);
+        // Fetch ERC20 transactions only once per token address
+        const userTokens = await ApiServices();
+        const fetchedTokens = new Set(); // To keep track of fetched tokens
+        for (const tokenAddress of userTokens) {
+          if (!fetchedTokens.has(tokenAddress)) {
+            const erc20Data = await getERC20Transactions(address, tokenAddress);
+            console.log("erc20data... ", erc20Data);
+            if (erc20Data !== undefined) {
+              setErc20Transactions(prevData => [...prevData, ...erc20Data]);
+              fetchedTokens.add(tokenAddress);
+            }
+          }
+        }
+        
         return ethData;
-        // const erc20Data = await getERC20Transactions(
-        //   address,
-        //   "0x17E086dE19524E29a6d286C3b1dF52FA47c90b5B"
-        // );
-        // setErc20Transactions(erc20Data);
-        // setEthdata(erc20Data);
       }
     };
-
+  
     fetchTransactions();
-  }, [address, setEthdata]);
-
+  }, []);
+  
   const fetchUserDetails = async (toaddress) => {
-    console.log(address);
     try {
-      console.log("entered into try block");
       const result = await fetch(
         `http://localhost:3000/api/all-user-data?address=${address}`
       );
       const response = await result.json();
-
-      console.log("Response from API:", response);
       const alldata = response.result;
       const names = alldata.map((user) => user.name);
-      console.log("allnames", names);
       setAllNames(names);
       const alladdress = alldata.map((user) => user.address);
       setAllAddress(alladdress);
-      console.log("alladdress", alladdress);
-      // for (let i = 0; i < toaddress.length; i++) {
-      //   const index = alladdress.findIndex((addr) => addr === toaddress[i]);
-      //   if (index !== -1) {
-      //     console.log("Matching index:", names[index]);
+      // filteredTransactions.forEach((transaction) => {
+      //   const recipientIndex = allAddress.findIndex(addr => addr === transaction.recipient);
+      //   if (recipientIndex !== -1) {
+      //     console.log(`Recipient Address: ${transaction.recipient}, Corresponding Name: ${names[recipientIndex]}`);
       //   }
-      // }
+      // });
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
+  
   useEffect(() => {
     fetchUserDetails();
-  }, []);
+  }, [filteredTransactions]);
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
@@ -555,7 +617,7 @@ function Samechaindashboard() {
                   <input
                     type="text"
                     placeholder="Search..."
-                    value={query}
+                    value={searchQuery}
                     onChange={handleSearchChange}
                     className={samechainStyle.inputSearch}
                   />
@@ -585,10 +647,11 @@ function Samechaindashboard() {
                     onChange={handleTokenChange}
                     className={samechainStyle.dropdown}
                   >
-                    <option value="all">All Tokens</option>
-                    {uniqueTokenNames.map((tokenName) => (
-                      <option key={tokenName} value={tokenName}>
-                        {tokenName}
+                    {/* DROP DOWN FOR SHOWING TOKENS */}
+                  <option value="all">All Tokens</option>
+                    {tokenBalances.map((token, index) => (
+                      <option key={index} value={token.symbol}>
+                        {token.symbol}: {token.balance}
                       </option>
                     ))}
                   </select>
@@ -616,6 +679,7 @@ function Samechaindashboard() {
                       <tbody>
                         {filteredTransactions.length > 0 ? (
                           filteredTransactions.map((transaction, index) => (
+                            
                             <tr className={popup.row} key={index}>
                               <td
                                 className={popup.column1}
@@ -651,7 +715,9 @@ function Samechaindashboard() {
                                 className={popup.column5}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                                {transaction.label ? transaction.label : null}
+                               {allAddress.includes(transaction.recipient)
+                                 ? allnames[allAddress.indexOf(transaction.recipient)]
+                                  : "Name  not found"}
                               </td>
                               <td
                                 className={popup.column6}
