@@ -63,7 +63,7 @@ export function Providers({ children }) {
 
   const { connectors } = getDefaultWallets({
     appName: "My RainbowKit App",
-    projectId: "YOUR_PROJECT_ID",
+    projectId: "f8a6524307e28135845a9fe5811fcaa2",
     chains,
   });
 
