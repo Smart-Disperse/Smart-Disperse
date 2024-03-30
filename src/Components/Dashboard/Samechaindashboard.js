@@ -46,7 +46,7 @@ function Samechaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-  const [tokenBalances, setTokenBalances] = useState([])
+  const [tokenBalances, setTokenBalances] = useState([]);
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
@@ -54,182 +54,208 @@ function Samechaindashboard() {
   const [getusertokenaddress, setGetusertokenaddress] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  
 
- // Function to handle changes in both address and label search inputs
- const handleSearchChange = (event) => {
-  const { name, value } = event.target;
-  setSearchQuery({ ...searchQuery, [name]: value }); // Update the search query state
-};
+  // Function to handle changes in both address and label search inputs
+  const handleSearchChange = (event) => {
+    const { name, value } = event.target;
+    setSearchQuery({ ...searchQuery, [name]: value }); // Update the search query state
+  };
 
-// Modify filterTransactions function to include address and label filtering
-const filterTransactions = (searchQuery) => {
-  let filtered = [...ethTransactions, ...erc20Transactions];
+  // Modify filterTransactions function to include address and label filtering
+  const filterTransactions = (searchQuery) => {
+    let filtered = [...ethTransactions, ...erc20Transactions];
 
-  if (searchQuery.query) {
-    const query = searchQuery.query.toLowerCase(); // Extract the query from searchQuery
-    filtered = filtered.filter((transaction) => {
-      const recipient = transaction.recipient ? transaction.recipient.toLowerCase() : '';
-      const label = allAddress.includes(transaction.recipient)
-        ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
-        : '';
-      const hash = transaction.transactionHash ? transaction.transactionHash.toLowerCase() : '';
-      return (
-        recipient.includes(query) ||
-        label.includes(query) ||
-        hash.includes(query)
+    if (searchQuery.query) {
+      const query = searchQuery.query.toLowerCase(); // Extract the query from searchQuery
+      filtered = filtered.filter((transaction) => {
+        const recipient = transaction.recipient
+          ? transaction.recipient.toLowerCase()
+          : "";
+        const label = allAddress.includes(transaction.recipient)
+          ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
+          : "";
+        const hash = transaction.transactionHash
+          ? transaction.transactionHash.toLowerCase()
+          : "";
+        return (
+          recipient.includes(query) ||
+          label.includes(query) ||
+          hash.includes(query)
+        );
+      });
+    }
+    if (selectedToken !== "all") {
+      // Filter by selected token
+      filtered = filtered.filter(
+        (transaction) =>
+          transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
       );
-    });
-  }
-  if (selectedToken !== "all") {
-    // Filter by selected token
-    filtered = filtered.filter(
-      (transaction) =>
-        transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
-    );
-  }
-  console.log(startDate, endDate);
-  if (startDate && endDate) {
-    // Filter by date range
-    filtered = filtered.filter((transaction) => {
-      const transactionDate = new Date(transaction.blockTimestamp);
-      const nextDayEndDate = new Date(endDate);
-      nextDayEndDate.setDate(nextDayEndDate.getDate() + 1); // Increment endDate by 1 day
-      return (
-        transactionDate >= new Date(startDate) &&
-        transactionDate < nextDayEndDate // Adjusted comparison to include endDate
-      );
-    });
-  }
-  
-  // if (startDate && endDate) {
-  //   // Filter by date range
-  //   filtered = filtered.filter((transaction) => {
-  //     const transactionDate = new Date(transaction.blockTimestamp);
-  //     return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
-  //   });
-  // }
-  setFilteredTransactions(filtered);
-};
-
-// Event handler for changing start date
-const handleStartDateChange = (event) => {
-  const newStartDate = event.target.value;
-  setStartDate(newStartDate);
-};
-
-// Event handler for changing end date
-const handleEndDateChange = (event) => {
-  const newEndDate = event.target.value;
-  setEndDate(newEndDate);
-};
-
-// // useEffect to log the updated start date after state update
-// useEffect(() => {
-//   console.log(startDate);
-// }, [startDate]);
-
-// // useEffect to log the updated end date after state update
-// useEffect(() => {
-//   console.log(endDate);
-// }, [endDate]);
-
-
-
-
-const handleTokenChange = (event) => {
-  const selectedToken = event.target.value;
-  setSelectedToken(selectedToken);
-};
-
-// UseEffect to fetch all tokens owned by Address
-
- 
-// ***** COVALENT API ******
-const ApiServices = async () => {
-  // console.log("entered into api function");
-  try{
-      const Chain = await getChain(address);
-      // console.log("get chain", Chain);    
-    const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
-    var token;
-    if(Chain == 11155420){ // OP SEPOLIA
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
-      token = response.data;  
     }
-    else if(Chain == 919){  // MODE TESTNET
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("mode-testnet", address);
-      token = response.data;
-      // console.log("response data",response.data);
+    console.log(startDate, endDate);
+    if (startDate && endDate) {
+      // Filter by date range
+      filtered = filtered.filter((transaction) => {
+        const transactionDate = new Date(transaction.blockTimestamp);
+        const nextDayEndDate = new Date(endDate);
+        nextDayEndDate.setDate(nextDayEndDate.getDate() + 1); // Increment endDate by 1 day
+        return (
+          transactionDate >= new Date(startDate) &&
+          transactionDate < nextDayEndDate // Adjusted comparison to include endDate
+        );
+      });
     }
-    else if(Chain == 84532){ // BASE SEPOLIA
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("base-sepolia-testnet", address);
-      token = response.data;
-    }
-    else if(Chain == 534351){ // SCROLL SEPOLIA
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-sepolia-testnet", address);
-      token = response.data;
-    }
-    else if(Chain == 11155111){ // ETHEREUM SEPOLIA
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("eth-sepolia", address);
-      token = response.data;
-    }
-    // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
-    //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
+
+    // if (startDate && endDate) {
+    //   // Filter by date range
+    //   filtered = filtered.filter((transaction) => {
+    //     const transactionDate = new Date(transaction.blockTimestamp);
+    //     return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
+    //   });
     // }
-    else if(Chain == 534352){ // SCROLL MAINNET
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-mainnet", address);
-      token = response.data;
+    setFilteredTransactions(filtered);
+  };
+
+  // Event handler for changing start date
+  const handleStartDateChange = (event) => {
+    const newStartDate = event.target.value;
+    setStartDate(newStartDate);
+  };
+
+  // Event handler for changing end date
+  const handleEndDateChange = (event) => {
+    const newEndDate = event.target.value;
+    setEndDate(newEndDate);
+  };
+
+  // // useEffect to log the updated start date after state update
+  // useEffect(() => {
+  //   console.log(startDate);
+  // }, [startDate]);
+
+  // // useEffect to log the updated end date after state update
+  // useEffect(() => {
+  //   console.log(endDate);
+  // }, [endDate]);
+
+  const handleTokenChange = (event) => {
+    const selectedToken = event.target.value;
+    setSelectedToken(selectedToken);
+  };
+
+  // UseEffect to fetch all tokens owned by Address
+
+  // ***** COVALENT API ******
+  const ApiServices = async () => {
+    // console.log("entered into api function");
+    try {
+      const Chain = await getChain(address);
+      // console.log("get chain", Chain);
+      const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
+      var token;
+      if (Chain == 11155420) {
+        // OP SEPOLIA
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "optimism-sepolia",
+            address
+          );
+        token = response.data;
+      } else if (Chain == 919) {
+        // MODE TESTNET
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "mode-testnet",
+            address
+          );
+        token = response.data;
+        // console.log("response data",response.data);
+      } else if (Chain == 84532) {
+        // BASE SEPOLIA
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "base-sepolia-testnet",
+            address
+          );
+        token = response.data;
+      } else if (Chain == 534351) {
+        // SCROLL SEPOLIA
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "scroll-sepolia-testnet",
+            address
+          );
+        token = response.data;
+      } else if (Chain == 11155111) {
+        // ETHEREUM SEPOLIA
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "eth-sepolia",
+            address
+          );
+        token = response.data;
+      }
+      // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
+      //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
+      // }
+      else if (Chain == 534352) {
+        // SCROLL MAINNET
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "scroll-mainnet",
+            address
+          );
+        token = response.data;
+      }
+
+      // console.log("TOKENS", token);
+      const tokenAddr = token.items.map((entry) => entry.contract_address);
+      // console.log("Token addresses", tokenAddr);
+      setGetusertokenaddress(tokenAddr);
+      const balances = token.items.map((entry) => ({
+        symbol: entry.contract_ticker_symbol,
+        balance: ethers.utils.formatEther(entry.balance),
+      }));
+      setTokenBalances(balances);
+      return tokenAddr;
+      // console.log("BALANCES", balances);
+    } catch (error) {
+      console.log("Error fetching chain Info", error);
     }
+  };
 
-    // console.log("TOKENS", token);
-    const tokenAddr = token.items.map(entry => entry.contract_address);
-    // console.log("Token addresses", tokenAddr);
-    setGetusertokenaddress(tokenAddr);
-    const balances = token.items.map(entry => ({
-      symbol: entry.contract_ticker_symbol,
-      balance: ethers.utils.formatEther(entry.balance)
-    }));
-    setTokenBalances(balances);
-    return tokenAddr;
-    // console.log("BALANCES", balances);
-  }
-  catch(error){
-    console.log("Error fetching chain Info", error);
-  }
-}
+  // // ***** FOR MODE TESTNET EXPLORER API*****
+  // const fetchTokens = async () => {
+  //   try{
+  //     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
+  //     const data = await response.json();
 
+  //     const balances = data.map(entry => ({
+  //       symbol: entry.token.symbol,
+  //       value: ethers.utils.formatEther(entry.value)
+  //     }));
 
-// // ***** FOR MODE TESTNET EXPLORER API*****
-// const fetchTokens = async () => {
-//   try{
-//     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
-//     const data = await response.json();
+  //     setTokenBalances(balances);
+  //     // console.log(data);
+  //     // setTokenBalances(data);
+  //   }
+  //   catch(error){
+  //     console.error('Error fetching tokens:', error);
+  //   }
+  // }
+  // fetchTokens();
 
-//     const balances = data.map(entry => ({
-//       symbol: entry.token.symbol,
-//       value: ethers.utils.formatEther(entry.value)
-//     }));
+  // Call filterTransactions whenever either search query changes
+  useEffect(() => {
+    filterTransactions(searchQuery);
+  }, [
+    searchQuery,
+    ethTransactions,
+    erc20Transactions,
+    selectedToken,
+    startDate,
+    endDate,
+  ]);
 
-//     setTokenBalances(balances);
-//     // console.log(data);
-//     // setTokenBalances(data);
-//   }
-//   catch(error){
-//     console.error('Error fetching tokens:', error);
-//   }
-// }
-// fetchTokens();
-
-
-
-
-
- // Call filterTransactions whenever either search query changes
- useEffect(() => {
-  filterTransactions(searchQuery);
-}, [searchQuery, ethTransactions, erc20Transactions,selectedToken, startDate, endDate]);
-  
   // useEffect(() => {
   //   console.log("loading");
   //   getchainid();
@@ -365,7 +391,9 @@ const ApiServices = async () => {
         const toaddress = ethData.map((useraddress) => useraddress.recipient);
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient;
-          const index = allAddress.findIndex((addr) => addr === recipientAddress);
+          const index = allAddress.findIndex(
+            (addr) => addr === recipientAddress
+          );
           if (index !== -1) {
             ethData[i].label = allnames[index];
           }
@@ -380,19 +408,19 @@ const ApiServices = async () => {
             const erc20Data = await getERC20Transactions(address, tokenAddress);
             console.log("erc20data... ", erc20Data);
             if (erc20Data !== undefined) {
-              setErc20Transactions(prevData => [...prevData, ...erc20Data]);
+              setErc20Transactions((prevData) => [...prevData, ...erc20Data]);
               fetchedTokens.add(tokenAddress);
             }
           }
         }
-        
+
         return ethData;
       }
     };
-  
+
     fetchTransactions();
   }, []);
-  
+
   const fetchUserDetails = async (toaddress) => {
     try {
       const result = await fetch(
@@ -414,7 +442,7 @@ const ApiServices = async () => {
       console.error("Error fetching user details:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchUserDetails();
   }, [filteredTransactions]);
@@ -668,20 +696,20 @@ const ApiServices = async () => {
                   }}
                 ></div>
                 <div className={samechainStyle.searchBar}>
-                <input
-                  type="text"
-                  name="query"
-                  placeholder="Search..."
-                  value={searchQuery.query}
-                  onChange={handleSearchChange}
-                  className={samechainStyle.inputSearch}
-                />
+                  <input
+                    type="text"
+                    name="query"
+                    placeholder="Search..."
+                    value={searchQuery.query}
+                    onChange={handleSearchChange}
+                    className={samechainStyle.inputSearch}
+                  />
 
                   <input
                     type="text"
                     placeholder="Start Date"
                     ref={inputRef1}
-                    onChange= {handleStartDateChange}
+                    onChange={handleStartDateChange}
                     onFocus={() => (inputRef1.current.type = "date")}
                     onBlur={() => (inputRef1.current.type = "text")}
                     className={samechainStyle.inputDate1}
@@ -692,11 +720,15 @@ const ApiServices = async () => {
                     type="text"
                     placeholder="End Date"
                     ref={inputRef3}
-                    onChange= {handleEndDateChange}
+                    onChange={handleEndDateChange}
                     onFocus={() => (inputRef3.current.type = "date")}
                     onBlur={() => (inputRef3.current.type = "text")}
                     className={samechainStyle.inputDate1}
-                    min={startDate ? startDate : new Date().toISOString().split("T")[0]} // Set min attribute to the selected start date if available, otherwise set it to today's date
+                    min={
+                      startDate
+                        ? startDate
+                        : new Date().toISOString().split("T")[0]
+                    } // Set min attribute to the selected start date if available, otherwise set it to today's date
                     max={new Date().toISOString().split("T")[0]}
                   />
 
@@ -706,7 +738,7 @@ const ApiServices = async () => {
                     className={samechainStyle.dropdown}
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
-                  <option value="all">All Tokens</option>
+                    <option value="all">All Tokens</option>
                     {tokenBalances.map((token, index) => (
                       <option key={index} value={token.symbol}>
                         {token.symbol}: {token.balance}
@@ -737,7 +769,6 @@ const ApiServices = async () => {
                       <tbody>
                         {filteredTransactions.length > 0 ? (
                           filteredTransactions.map((transaction, index) => (
-                            
                             <tr className={popup.row} key={index}>
                               <td
                                 className={popup.column1}
@@ -773,8 +804,10 @@ const ApiServices = async () => {
                                 className={popup.column5}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                               {allAddress.includes(transaction.recipient)
-                                 ? allnames[allAddress.indexOf(transaction.recipient)]
+                                {allAddress.includes(transaction.recipient)
+                                  ? allnames[
+                                      allAddress.indexOf(transaction.recipient)
+                                    ]
                                   : "Name  not found"}
                               </td>
                               <td
