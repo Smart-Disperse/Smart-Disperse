@@ -96,13 +96,12 @@ export const getERC20Transactions = async (address, tokenAddress) => {
   var chainAPIurl;
   try {
   if(Chain in contracts){
-    // console.log(contracts[Chain]);
     const chainname =  contracts[Chain].name;
-    // console.log(chainname);
+    console.log(chainname);
     chainAPIurl = contracts[Chain].APIURL;
     // console.log(chainAPIurl);
     // return chainAPIurl;
-  }
+  
    
     const tokenDetails = await LoadTokenForAnalysis(tokenAddress);
     // console.log("tokenaddr  ",tokenAddress);
@@ -137,7 +136,7 @@ export const getERC20Transactions = async (address, tokenAddress) => {
       value: transaction._values,
       blockTimestamp: transaction.blockTimestamp,
     }));
-    // console.log("txs", transactions);
+    console.log("txs", transactions);
     
     const transformedData = [];
     let totalERC20 = 0;
@@ -155,17 +154,17 @@ export const getERC20Transactions = async (address, tokenAddress) => {
             recipient: recipient,
             value: valueInERC20,
             transactionHash: item.transactionHash,
-            // chainName: chainname,
+            chainName: chainname,
             blockTimestamp: gmtTime,
             tokenName: tokenDetails.symbol,
           });
+          console.log("ERC20 transfer data:" , transformedData);
         });
       });
       
       // also return TotalERC20
-      // console.log("ERC20 transfer data:" , transformedData);
       return transformedData;
-      
+    }
       // return {transformedData};
     } catch (error) {
       console.log(error);
