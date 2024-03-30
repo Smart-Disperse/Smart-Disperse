@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import copy from "../../Assets/copy.png";
+import check from "../../Assets/check.png";
 import popup from "../Dashboard/popupTable.module.css";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
@@ -13,7 +14,9 @@ import samechainStyle from "./samechaindashboard.module.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import SameChain from "../DashboardComponents/SameChain/SameChain";
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
@@ -46,7 +49,7 @@ function Samechaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-  const [tokenBalances, setTokenBalances] = useState([])
+  const [tokenBalances, setTokenBalances] = useState([]);
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
@@ -54,129 +57,186 @@ function Samechaindashboard() {
   const [getusertokenaddress, setGetusertokenaddress] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
+  const [isCopiedAddressIndex, setIsCopiedAddressIndex] = useState(false);
+  const [isCopiedHash, setIsCopiedHash] = useState(false);
+  const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
+    useState(false);
 
- // Function to handle changes in both address and label search inputs
- const handleSearchChange = (event) => {
-  const { value } = event.target;
-  setSearchQuery(value); // Update the combined search query state
-};;
-
-// Modify filterTransactions function to include address and label filtering
-const filterTransactions = (searchQuery) => {
-  let filtered = [...ethTransactions, ...erc20Transactions];
-
-  if (searchQuery) {
-    filtered = filtered.filter((transaction) => {
-      const recipient = transaction.recipient ? transaction.recipient.toLowerCase() : '';
-      const label = allAddress.includes(transaction.recipient)
-        ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
-        : '';
-      return recipient.includes(searchQuery.toLowerCase()) || label.includes(searchQuery.toLowerCase());
-    });
-  }
-
-  if (selectedToken !== "all") {
-    filtered = filtered.filter(
-      (transaction) =>
-        transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
+  const copyToClipboard = (text, index) => {
+    setIsCopiedAddressIndex(index);
+    navigator.clipboard.writeText(text).then(
+      () => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 2000); // Reset the copy status after 2 seconds
+      },
+      (err) => {
+        console.error("Unable to copy to clipboard:", err);
+      }
     );
-  }
+  };
+  const copyToClipboardHash = (text, index) => {
+    setIsCopiedAddressIndexHash(index);
+    navigator.clipboard.writeText(text).then(
+      () => {
+        setIsCopiedHash(true);
+        setTimeout(() => {
+          setIsCopiedHash(false);
+        }, 2000); // Reset the copy status after 2 seconds
+      },
+      (err) => {
+        console.error("Unable to copy to clipboard:", err);
+      }
+    );
+  };
+  // Function to handle changes in both address and label search inputs
+  const handleSearchChange = (event) => {
+    const { value } = event.target;
+    setSearchQuery(value); // Update the combined search query state
+  };
 
-  setFilteredTransactions(filtered);
-};
+  // Modify filterTransactions function to include address and label filtering
+  const filterTransactions = (searchQuery) => {
+    let filtered = [...ethTransactions, ...erc20Transactions];
+
+    if (searchQuery) {
+      filtered = filtered.filter((transaction) => {
+        const recipient = transaction.recipient
+          ? transaction.recipient.toLowerCase()
+          : "";
+        const label = allAddress.includes(transaction.recipient)
+          ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
+          : "";
+        return (
+          recipient.includes(searchQuery.toLowerCase()) ||
+          label.includes(searchQuery.toLowerCase())
+        );
+      });
+    }
+
+    if (selectedToken !== "all") {
+      filtered = filtered.filter(
+        (transaction) =>
+          transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
+      );
+    }
+
+    setFilteredTransactions(filtered);
+  };
   const handleTokenChange = (event) => {
     const selectedToken = event.target.value;
     setSelectedToken(selectedToken);
   };
 
-// UseEffect to fetch all tokens owned by Address
+  // UseEffect to fetch all tokens owned by Address
 
- 
-// ***** COVALENT API ******
-const ApiServices = async () => {
-  // console.log("entered into api function");
-  try{
+  // ***** COVALENT API ******
+  const ApiServices = async () => {
+    // console.log("entered into api function");
+    try {
       const Chain = await getChain(address);
-      // console.log("get chain", Chain);    
-    const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
-    var token;
-    if(Chain == 11155420){ // OP SEPOLIA
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
-      token = response.data;  
+      // console.log("get chain", Chain);
+      const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
+      var token;
+      if (Chain == 11155420) {
+        // OP SEPOLIA
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "optimism-sepolia",
+            address
+          );
+        token = response.data;
+      } else if (Chain == 919) {
+        // MODE TESTNET
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "mode-testnet",
+            address
+          );
+        token = response.data;
+        // console.log("response data",response.data);
+      } else if (Chain == 84532) {
+        // BASE SEPOLIA
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "base-sepolia-testnet",
+            address
+          );
+        token = response.data;
+      } else if (Chain == 534351) {
+        // SCROLL SEPOLIA
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "scroll-sepolia-testnet",
+            address
+          );
+        token = response.data;
+      } else if (Chain == 11155111) {
+        // ETHEREUM SEPOLIA
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "eth-sepolia",
+            address
+          );
+        token = response.data;
+      }
+      // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
+      //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
+      // }
+      else if (Chain == 534352) {
+        // SCROLL MAINNET
+        const response =
+          await client.BalanceService.getTokenBalancesForWalletAddress(
+            "scroll-mainnet",
+            address
+          );
+        token = response.data;
+      }
+
+      // console.log("TOKENS", token);
+      const tokenAddr = token.items.map((entry) => entry.contract_address);
+      // console.log("Token addresses", tokenAddr);
+      setGetusertokenaddress(tokenAddr);
+      const balances = token.items.map((entry) => ({
+        symbol: entry.contract_ticker_symbol,
+        balance: ethers.utils.formatEther(entry.balance),
+      }));
+      setTokenBalances(balances);
+      return tokenAddr;
+      // console.log("BALANCES", balances);
+    } catch (error) {
+      console.log("Error fetching chain Info", error);
     }
-    else if(Chain == 919){  // MODE TESTNET
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("mode-testnet", address);
-      token = response.data;
-      // console.log("response data",response.data);
-    }
-    else if(Chain == 84532){ // BASE SEPOLIA
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("base-sepolia-testnet", address);
-      token = response.data;
-    }
-    else if(Chain == 534351){ // SCROLL SEPOLIA
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-sepolia-testnet", address);
-      token = response.data;
-    }
-    else if(Chain == 11155111){ // ETHEREUM SEPOLIA
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("eth-sepolia", address);
-      token = response.data;
-    }
-    // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
-    //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
-    // }
-    else if(Chain == 534352){ // SCROLL MAINNET
-      const response = await client.BalanceService.getTokenBalancesForWalletAddress("scroll-mainnet", address);
-      token = response.data;
-    }
+  };
 
-    // console.log("TOKENS", token);
-    const tokenAddr = token.items.map(entry => entry.contract_address);
-    // console.log("Token addresses", tokenAddr);
-    setGetusertokenaddress(tokenAddr);
-    const balances = token.items.map(entry => ({
-      symbol: entry.contract_ticker_symbol,
-      balance: ethers.utils.formatEther(entry.balance)
-    }));
-    setTokenBalances(balances);
-    return tokenAddr;
-    // console.log("BALANCES", balances);
-  }
-  catch(error){
-    console.log("Error fetching chain Info", error);
-  }
-}
+  // // ***** FOR MODE TESTNET EXPLORER API*****
+  // const fetchTokens = async () => {
+  //   try{
+  //     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
+  //     const data = await response.json();
 
+  //     const balances = data.map(entry => ({
+  //       symbol: entry.token.symbol,
+  //       value: ethers.utils.formatEther(entry.value)
+  //     }));
 
-// // ***** FOR MODE TESTNET EXPLORER API*****
-// const fetchTokens = async () => {
-//   try{
-//     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
-//     const data = await response.json();
+  //     setTokenBalances(balances);
+  //     // console.log(data);
+  //     // setTokenBalances(data);
+  //   }
+  //   catch(error){
+  //     console.error('Error fetching tokens:', error);
+  //   }
+  // }
+  // fetchTokens();
 
-//     const balances = data.map(entry => ({
-//       symbol: entry.token.symbol,
-//       value: ethers.utils.formatEther(entry.value)
-//     }));
+  // Call filterTransactions whenever either search query changes
+  useEffect(() => {
+    filterTransactions(searchQuery);
+  }, [searchQuery, ethTransactions, erc20Transactions, selectedToken]);
 
-//     setTokenBalances(balances);
-//     // console.log(data);
-//     // setTokenBalances(data);
-//   }
-//   catch(error){
-//     console.error('Error fetching tokens:', error);
-//   }
-// }
-// fetchTokens();
-
-
-
-
-
- // Call filterTransactions whenever either search query changes
- useEffect(() => {
-  filterTransactions(searchQuery);
-}, [searchQuery, ethTransactions, erc20Transactions,selectedToken]);
-  
   // useEffect(() => {
   //   console.log("loading");
   //   getchainid();
@@ -311,7 +371,9 @@ const ApiServices = async () => {
         const toaddress = ethData.map((useraddress) => useraddress.recipient);
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient;
-          const index = allAddress.findIndex((addr) => addr === recipientAddress);
+          const index = allAddress.findIndex(
+            (addr) => addr === recipientAddress
+          );
           if (index !== -1) {
             ethData[i].label = allnames[index];
           }
@@ -326,19 +388,19 @@ const ApiServices = async () => {
             const erc20Data = await getERC20Transactions(address, tokenAddress);
             console.log("erc20data... ", erc20Data);
             if (erc20Data !== undefined) {
-              setErc20Transactions(prevData => [...prevData, ...erc20Data]);
+              setErc20Transactions((prevData) => [...prevData, ...erc20Data]);
               fetchedTokens.add(tokenAddress);
             }
           }
         }
-        
+
         return ethData;
       }
     };
-  
+
     fetchTransactions();
   }, []);
-  
+
   const fetchUserDetails = async (toaddress) => {
     try {
       const result = await fetch(
@@ -360,7 +422,7 @@ const ApiServices = async () => {
       console.error("Error fetching user details:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchUserDetails();
   }, [filteredTransactions]);
@@ -648,7 +710,7 @@ const ApiServices = async () => {
                     className={samechainStyle.dropdown}
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
-                  <option value="all">All Tokens</option>
+                    <option value="all">All Tokens</option>
                     {tokenBalances.map((token, index) => (
                       <option key={index} value={token.symbol}>
                         {token.symbol}: {token.balance}
@@ -679,7 +741,6 @@ const ApiServices = async () => {
                       <tbody>
                         {filteredTransactions.length > 0 ? (
                           filteredTransactions.map((transaction, index) => (
-                            
                             <tr className={popup.row} key={index}>
                               <td
                                 className={popup.column1}
@@ -691,7 +752,37 @@ const ApiServices = async () => {
                                 )}...${transaction.recipient.substring(
                                   transaction.recipient.length - 5
                                 )}`}
-                                {/* {transaction.recipient} */}
+                                {isCopied && isCopiedAddressIndex === index ? (
+                                  <FontAwesomeIcon
+                                    icon={faCircleCheck}
+                                    size="sm"
+                                    alt="Check Icon"
+                                    style={{
+                                      margin: "0px 10px",
+                                      cursor: "pointer",
+
+                                      color: "#9657eb",
+                                    }}
+                                  />
+                                ) : (
+                                  <FontAwesomeIcon
+                                    icon={faCopy}
+                                    size="2xs"
+                                    alt="Copy Icon"
+                                    onClick={() =>
+                                      copyToClipboard(
+                                        transaction.recipient,
+                                        index
+                                      )
+                                    }
+                                    style={{
+                                      width: "20px",
+                                      margin: "0px 10px",
+                                      cursor: "pointer",
+                                      height: "auto",
+                                    }}
+                                  />
+                                )}
                               </td>
                               <td
                                 className={popup.column2}
@@ -715,8 +806,10 @@ const ApiServices = async () => {
                                 className={popup.column5}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                               {allAddress.includes(transaction.recipient)
-                                 ? allnames[allAddress.indexOf(transaction.recipient)]
+                                {allAddress.includes(transaction.recipient)
+                                  ? allnames[
+                                      allAddress.indexOf(transaction.recipient)
+                                    ]
                                   : "Name  not found"}
                               </td>
                               <td
@@ -742,6 +835,38 @@ const ApiServices = async () => {
                                 )}...${transaction.transactionHash.substring(
                                   transaction.transactionHash.length - 5
                                 )}`}
+                                {isCopiedHash &&
+                                isCopiedAddressIndexHash === index ? (
+                                  <FontAwesomeIcon
+                                    icon={faCircleCheck}
+                                    size="sm"
+                                    alt="Check Icon"
+                                    style={{
+                                      margin: "0px 10px",
+                                      cursor: "pointer",
+
+                                      color: "#9657eb",
+                                    }}
+                                  />
+                                ) : (
+                                  <FontAwesomeIcon
+                                    icon={faCopy}
+                                    size="2xs"
+                                    alt="Copy Icon"
+                                    onClick={() =>
+                                      copyToClipboardHash(
+                                        transaction.transactionHash,
+                                        index
+                                      )
+                                    }
+                                    style={{
+                                      width: "20px",
+                                      margin: "0px 10px",
+                                      cursor: "pointer",
+                                      height: "auto",
+                                    }}
+                                  />
+                                )}
                               </td>
                             </tr>
                           ))

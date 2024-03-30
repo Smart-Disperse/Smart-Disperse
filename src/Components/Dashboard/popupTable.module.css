@@ -176,7 +176,9 @@
 .column1 {
   border-radius: 5px 0px 0px 5px;
   align-items: center;
-  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .column2 {
   width: 10%;
@@ -194,7 +196,9 @@
   width: 15%;
 }
 .column7 {
-  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 0px 5px 5px 0px;
 }
 .head .row {
