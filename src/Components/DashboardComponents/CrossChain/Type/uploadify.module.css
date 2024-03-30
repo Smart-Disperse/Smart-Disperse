@@ -1,0 +1,627 @@
+.sendbutton {
+  background: #0000;
+  border: 1px solid #fff;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 37px;
+  margin: 50px 0;
+  padding: 5px 35px;
+  text-align: center;
+}
+
+.maindivforuploadcsvfile {
+  margin-top: 10px;
+  border-radius: 47px;
+  border: 1px solid #fff;
+  /* background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%); */
+  background: black;
+  -webkit-backdrop-filter: blur(30.5px);
+  backdrop-filter: blur(30.5px);
+  margin: 50px 0px;
+}
+
+.maindivforuploadcsvfile {
+  margin-top: 10px;
+  border-radius: 47px;
+  border: 1px solid #fff;
+  /* background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%); */
+  background: linear-gradient(
+    101deg,
+    rgba(255, 255, 255, 0.31) 1.58%,
+    rgba(255, 255, 255, 0.03) 98.15%
+  );
+  -webkit-backdrop-filter: blur(30.5px);
+  backdrop-filter: blur(30.5px);
+  margin: 50px 0px;
+}
+
+.buttontoaddformdata:hover {
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+.sendbutton:hover {
+  background-color: white;
+  color: #8f00ff;
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+.eachinputofcreatelist {
+  border-radius: 5px;
+  border: 1px solid rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(97, 38, 193, 0.58) 0.06%,
+    rgba(63, 47, 110, 0.58) 98.57%
+  );
+  color: white;
+  padding: 10px 20px;
+  margin: 0px 20px;
+}
+.eachinputofcreatelist::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+.tabletextlist {
+  border-collapse: collapse;
+  width: 100%;
+}
+.buttontoaddformdata {
+  cursor: pointer;
+  padding: 10px 25px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 63px;
+  margin: 0px 20px;
+  font-size: 17px;
+}
+.importtokendiv {
+  align-items: center;
+  display: flex;
+}
+.sametextmain {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.eachinputofcreatelist {
+  border-radius: 5px;
+  border: 1px solid rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(97, 38, 193, 0.58) 0.06%,
+    rgba(63, 47, 110, 0.58) 98.57%
+  );
+  color: white;
+  padding: 10px 20px;
+  margin: 0px 20px;
+}
+
+.deletebutton {
+  background-color: initial;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 20px;
+  margin-left: 20px;
+}
+.eachinputofcreatelist {
+  border-radius: 5px;
+  border: 1px solid rgb(255, 255, 255);
+  color: white;
+  background: linear-gradient(90deg, #6126c194 0.06%, #3f2f6e94 98.57%);
+  padding: 10px 20px;
+  margin: 0px 20px;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.tableUpload {
+  border-collapse: collapse;
+  width: 100%;
+}
+.buttontoaddformdataunload:hover {
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+.buttontoaddformdataunload {
+  cursor: pointer;
+  padding: 10px 25px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 63px;
+  margin: 0px 20px;
+  font-size: 17px;
+}
+.inputdivforcsv {
+  border-radius: 10px;
+  margin: 20px 0px;
+  text-align: center;
+}
+.inputdivforcsv label {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 154.1%;
+  letter-spacing: 1.1px;
+}
+
+.displaycsvfilehere {
+  border-radius: 20px 20px 10px 10px;
+  text-align: center;
+}
+
+.inputcsvfeild {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 154.1%;
+  letter-spacing: 1.1px;
+  font-size: 20px;
+  margin-right: -10px;
+}
+
+.inputerror {
+  background-color: red;
+  color: white;
+}
+
+.tablewrapper {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.oror {
+  margin-left: -95px;
+  margin-right: 10px;
+}
+
+.downloadbtn button {
+  border-radius: 63px;
+  background-color: transparent;
+  border: 1px solid white !important;
+  color: white;
+  font-weight: 700;
+  line-height: 37px;
+  letter-spacing: 1px;
+  text-align: center;
+  width: max-content;
+  padding: 5px 20px;
+  border: none;
+  margin-right: 20px;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.accoutsummarytablewrappercsv {
+  overflow: scroll;
+}
+
+.buttontosubmitcsv {
+  padding: 5px 15px;
+  background-color: transparent;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 37px;
+  letter-spacing: 0.085em;
+  text-align: center;
+  width: max-content;
+  margin: 20px 0px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 25px;
+}
+
+.buttontosubmitcsv:hover {
+  box-shadow: rgba(233, 236, 238, 0.492) 0px 8px 24px;
+  transform: scale(1.01);
+  cursor: grab;
+  border: 1px solid white;
+  background-color: transparent;
+}
+.titleloadtokensamecsv {
+  border-radius: 47px 47px 0px 0px;
+  padding: 5px 0px;
+  background-color: white;
+  color: #8f00ff;
+}
+.uploadordownload {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0px;
+}
+
+.titleforaccountsummarycssvame {
+  background-color: white;
+  color: #8f00ff;
+  margin-top: 40px;
+}
+.tablewrapper {
+  max-height: 400px;
+  overflow-y: auto;
+}
+.showtokentablecsvsame thead {
+  font-size: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.187);
+}
+.showtokentablecsvsame td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.187);
+}
+.showtokentablecsvsame {
+  margin-top: -15px;
+}
+
+.normal {
+  border: 1px solid green; /* Normal border color */
+  background-color: green; /* Normal background color */
+  /* Any other styles for normal input */
+}
+
+.red {
+  border: 1px solid red; /* Red border color for invalid input */
+  background-color: red; /* Red background color for invalid input */
+  /* Any other styles for invalid input */
+}
+
+#borderpurple {
+  border: 1px solid #09112c !important;
+}
+
+.tableheadertextlist {
+  background-color: #fff0;
+  border-bottom: 1px solid #fff;
+}
+.titleforuploadfilecsvsame {
+  background-color: white;
+  color: #8f00ff;
+  padding: 5px 0px;
+}
+
+.tablewrapper table {
+  font-size: 15px;
+}
+
+.titletnxlinesamecsv {
+  background-color: white;
+  color: #8f00ff;
+  padding: 5px 0px;
+}
+
+#tableheadercsvsame {
+  font-size: 16px;
+}
+.accountsummarycreatetitle,
+.selectloadtokentitle,
+.viewaddressdivtitle {
+  background-color: #fff;
+  color: #8f00ff;
+  font-size: 12px;
+  padding: 5px 0;
+}
+.showtokentable {
+  border-collapse: collapse;
+  margin: 5px 0;
+  width: 100%;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.UploadAccSum {
+  width: fit-content;
+  font-size: 12px;
+  margin: 0 auto;
+  background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
+  color: black;
+  border-radius: 10px;
+  padding: 10px 10px;
+  transform: translate(-50%, -50%);
+  animation: zoomAnimation 1s infinite alternate;
+}
+@keyframes zoomAnimation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+.uploadFile[type="file"] {
+  outline: none;
+  padding: 4px;
+  margin: -4px;
+}
+
+.uploadFile[type="file"]:focus-within::file-selector-button,
+.uploadFile[type="file"]:focus::file-selector-button {
+  outline: none;
+  outline-offset: 2px;
+}
+
+.uploadFile[type="file"]::before {
+  top: 16px;
+}
+
+.uploadFile[type="file"]::after {
+  top: 14px;
+}
+.eachinputouploadFilefcreatelist[type="file"]:focus {
+  outline: none;
+  border: none;
+}
+/* ------- From Step 2 ------- */
+
+.uploadFile[type="file"] {
+  position: relative;
+  font-size: 15px;
+}
+
+.uploadFile[type="file"]::file-selector-button {
+  width: 150px;
+  color: transparent;
+}
+
+/* Faked label styles and icon */
+.uploadFile[type="file"]::before {
+  position: absolute;
+  pointer-events: none;
+  top: 15px;
+  left: 44px;
+  color: white;
+  content: "Upload .CSV ";
+}
+
+.uploadFile[type="file"]::after {
+  position: absolute;
+  color: white;
+  pointer-events: none;
+  top: 13px;
+  left: 16px;
+  padding: "5px";
+  height: 20px;
+  width: 22px;
+  content: "";
+  background-image: url("../../../../Assets/upload.png");
+}
+
+/* ------- From Step 1 ------- */
+
+/* file upload button */
+.uploadFile[type="file"]::file-selector-button {
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  cursor: pointer;
+  background: linear-gradient(
+    90deg,
+    rgba(97, 38, 193, 0.58) 0.06%,
+    rgba(63, 47, 110, 0.58) 98.57%
+  );
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  margin-right: 16px;
+  transition: background-color 200ms;
+}
+/* file upload button hover state */
+.uploadFile[type="file"]::file-selector-button:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(97, 38, 193, 0.58) 0.06%,
+    rgba(63, 47, 110, 0.58) 98.57%
+  );
+}
+/* file upload button active state */
+.uploadFile[type="file"]::file-selector-button:active {
+  background: linear-gradient(
+    90deg,
+    rgba(97, 38, 193, 0.58) 0.06%,
+    rgba(63, 47, 110, 0.58) 98.57%
+  );
+}
+.popupforpayment {
+  background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
+  border-radius: 30px;
+  box-shadow: 0 0 10px #0000001a;
+  color: #fff;
+  left: 50%;
+  padding: 30px 150px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+.popupforpayment h2 {
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.popupforpayment p {
+  letter-spacing: 1px;
+  text-align: center;
+}
+.popupforpayment button {
+  background: #0000;
+  border: 1px solid #1bff76;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 15px 20px;
+  width: 100%;
+  cursor: pointer;
+}
+.popupforpayment button:hover {
+  border: none;
+  color: #070707;
+  background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
+}
+
+@media (max-width: 768px) {
+  #tableresponsive {
+    overflow: scroll !important;
+  }
+  .uploadordownload {
+    display: flex;
+    flex-direction: column;
+  }
+  .titleloadtokensamecsv h2 {
+    font-size: 15px !important;
+  }
+  .titletnxlinesamecsv h2 {
+    font-size: 15px !important;
+  }
+
+  .titleforuploadfilecsvsame h2 {
+    font-size: 15px !important;
+  }
+  .inputdivforcsv {
+    padding: 10px 0px;
+  }
+
+  .inputdivforcsv label {
+    font-size: 16px;
+  }
+
+  .displaycsvfilehere {
+    margin-top: 10px;
+  }
+
+  .inputcsvfeild {
+    font-size: 16px;
+  }
+
+  .tablewrapper {
+    max-height: 300px;
+  }
+
+  /* table {
+    font-size: 10px;
+  } */
+
+  .buttontosubmitcsv {
+    font-size: 18px;
+    margin: 0;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .orrrr {
+    margin: 10px 0px;
+  }
+  .buttontoaddformdata {
+    font-size: 15px !important;
+    padding: 10px 35px;
+  }
+  .buttontoaddformdataunload {
+    font-size: 15px !important;
+  }
+
+  .fontsize12px {
+    font-size: 12px !important;
+  }
+  #tableresponsive {
+    overflow: scroll !important;
+  }
+  .sendbutton {
+    background: #0000;
+    border: 1px solid #fff;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 37px;
+    margin-bottom: 35px;
+    padding: 5px 35px;
+    text-align: center;
+  }
+
+  .inputdivforcsv {
+    padding: 10px 0px;
+    margin-top: 10px !important;
+  }
+  .downloadbtn button {
+    border-radius: 63px;
+    background-color: transparent;
+    border: 1px solid white !important;
+    color: white;
+    font-weight: 500;
+    line-height: 37px;
+    letter-spacing: 1px;
+    font-size: 12px;
+    text-align: center;
+    width: max-content;
+    padding: 5px 20px;
+    border: none;
+    margin-right: 20px;
+    margin-left: 10px;
+  }
+  .uploadordownload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0px;
+  }
+  #tableheadercsvsame {
+    font-size: 13px;
+  }
+  #backgroundgreen {
+    cursor: pointer;
+    padding: 10px 25px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 63px;
+    margin: 10px 20px;
+    font-size: 15px;
+    width: 70%;
+    letter-spacing: 1px;
+  }
+  .sametextmain {
+    font-size: 15px !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .importtokendiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .maindivforuploadcsvfile {
+    margin: 5px;
+  }
+
+  .eachinputofcreatelist {
+    margin: 10px 20px !important;
+  }
+  .accountsummarycreatetitle h2 {
+    font-size: 15px !important;
+  }
+  .tableheadertextlist {
+    font-size: 15px !important;
+  }
+
+  .UploadAccSum {
+    font-size: 10px !important;
+  }
+  .tableTd {
+    font-size: 12px !important;
+  }
+  .fontsize12px {
+    font-size: 10px !important;
+  }
+}

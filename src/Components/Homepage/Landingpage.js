@@ -22,8 +22,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import Link from "next/link";
 
-function Modal({ closeModal, handleContinue, handleSameChain }) {
+function Modal({ closeModal }) {
   const modalRef = useRef(); // to access the DOM node for focus management
 
   // Focus on the modal when it first opens
@@ -63,22 +64,22 @@ function Modal({ closeModal, handleContinue, handleSameChain }) {
       </div>
 
       <div className={homeStyle.popupbuttonflex}>
-        <button
-          className={homeStyle.samechainbutton}
-          onClick={handleSameChain}
-          style={{ width: "70%", margin: "10px auto" }}
-        >
-          Continue on the Same Chain
-        </button>
-        <button
-          className={homeStyle.continuebutton}
-          onClick={handleContinue}
-          disabled
-          style={{ width: "70%", margin: "10px auto", padding: "10px" }}
-        >
-          Start Cross-Chain Transaction <br />
-          (Coming Soon...)
-        </button>
+        <Link href={"/same-chain"}>
+          <button
+            className={homeStyle.samechainbutton}
+            style={{ width: "70%", margin: "10px auto" }}
+          >
+            Continue on the Same-Chain
+          </button>
+        </Link>
+        <Link href={"/cross-chain"}>
+          <button
+            className={homeStyle.continuebutton}
+            style={{ width: "70%", margin: "10px auto", padding: "10px" }}
+          >
+            Continue on the Cross-Chain
+          </button>
+        </Link>
       </div>
     </div>
   );
@@ -104,8 +105,8 @@ export default function Landingpage() {
     setShowModal(false);
   };
 
-  const handleContinue = () => {
-    navigate("/cross-transfers");
+  const handleCrossChain = () => {
+    navigate("/cross-chain");
     closeModal();
   };
 
@@ -248,11 +249,7 @@ export default function Landingpage() {
         {showModal && (
           <div className={homeStyle.modaloverlay}>
             <div className={homeStyle.modalcontainer}>
-              <Modal
-                closeModal={closeModal}
-                handleContinue={handleContinue}
-                handleSameChain={handleSameChain}
-              />
+              <Modal closeModal={closeModal} />
             </div>
           </div>
         )}

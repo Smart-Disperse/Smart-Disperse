@@ -47,7 +47,13 @@
   -webkit-text-fill-color: transparent;
   z-index: 0;
 }
+.ChainDropdownMain {
+  position: absolute;
+  top: 55px;
 
+  padding: 30px 0px;
+  width: 200px;
+}
 .connectchain {
   position: relative;
   overflow: hidden;
@@ -118,14 +124,6 @@
   }
 }
 
-@media only screen and (max-width: 325px) {
-  .connectchain {
-    width: 80px !important;
-    font-size: 10px !important;
-    padding: 10px !important;
-  }
-}
-
 @media only screen and (max-width: 500px) {
   .connectchain {
     width: 105px !important ;
@@ -153,6 +151,9 @@
     font-size: 12px;
     /* padding: 7px 23px; */
   }
+  .ChainDropdownMain {
+    right: 30px;
+  }
   .CMain {
     position: relative;
     left: -7px;
@@ -167,18 +168,23 @@
     font-size: 10px;
   }
   .connectchain {
-    width: 90px !important;
-    padding: 7px !important;
-    /* padding: 13px; */
-    font-size: 8px !important;
-    line-height: 10px !important;
-    border-radius: 15px;
+    display: none;
   }
   .connectaccount {
-    width: 90px !important;
+    width: 150px !important;
     font-size: 8px;
     line-height: 10px !important;
     border-radius: 15px;
     padding: 5px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .connectaccount {
+    width: 120px !important;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .connectaccount {
+    width: 90px !important;
   }
 }

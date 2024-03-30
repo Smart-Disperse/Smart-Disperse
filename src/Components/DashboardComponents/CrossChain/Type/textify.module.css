@@ -1,0 +1,703 @@
+.textAccSum {
+  width: max-content;
+  max-width: 900px;
+  font-size: 12px;
+  margin: 0 auto;
+  background: transparent;
+  color: black;
+
+  padding: 10px 10px;
+  transform: translate(-50%, -50%);
+  animation: zoomAnimation 1s infinite alternate;
+}
+
+.dropdownItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  background: white;
+  color: #8f00ff;
+  width: 150px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  text-align: left;
+  border-bottom: 1px solid #8f00ff;
+}
+
+.dropdown {
+  position: absolute;
+  left: 32px;
+  top: 32px;
+  background-color: transparent;
+  /* border-radius: 5px; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  z-index: 999;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown::-webkit-scrollbar {
+  width: 1px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background-color: #5007e3;
+  border-radius: 1px;
+}
+
+.divtocenter {
+  display: flex;
+}
+
+.errormessagep {
+  font-weight: 900;
+  transform: translate(-50%, -50%);
+  animation: zoomAnimation 1.5s infinite alternate;
+}
+
+.deletebutton:hover {
+  cursor: pointer;
+  /* border-color: red; */
+  /* background-color: rgba(0, 213, 255, 0.019); */
+}
+
+.deletebutton {
+  color: white;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  border-radius: 15px;
+  margin-left: 20px;
+}
+
+#truee {
+  background: white !important;
+  color: #924afc;
+}
+
+.driverpopover01 {
+  color: white !important;
+  background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%) !important;
+}
+@keyframes zoomAnimation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.eachinputofcreatelist {
+  border-radius: 5px;
+  border: 1px solid #fff;
+  background: linear-gradient(
+    90deg,
+    rgba(97, 38, 193, 0.58) 0.06%,
+    rgba(63, 47, 110, 0.58) 98.57%
+  );
+  padding: 10px 20px;
+  margin: 0px 20px;
+}
+.loadtokens {
+  border-radius: 63px;
+  border: 3px solid #fff;
+  padding: 5px 0px;
+}
+.textlistdiv label {
+  font-size: 30px;
+}
+#greenborder {
+  margin-top: -5px;
+  border: 1px solid #173bc5;
+}
+.textlistdiv {
+  border-radius: 5px;
+}
+#fontsize10px {
+  letter-spacing: 1px;
+  padding: 8px;
+}
+.textlistdiv textarea {
+  color: aliceblue !important;
+  background-color: transparent !important;
+  border: "none";
+}
+.textlistdiv textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 15px;
+}
+.sendbutton {
+  background: #0000;
+  border: 1px solid #fff;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 37px;
+  margin-bottom: 50px;
+  padding: 5px 35px;
+  text-align: center;
+}
+.sendbutton:hover {
+  border: none;
+  color: #643bdc;
+  background: #fff !important;
+  box-shadow: 0px 0px 14px 0px #fff;
+}
+.buttontoaddformdataunload:hover {
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+.textareatextlist {
+  margin: 10px 0px;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  border-radius: 5px;
+}
+
+.tableheadertextlist {
+  background-color: rgba(255, 255, 255, 0);
+  border-bottom: 1px solid white;
+}
+.tableheadertextlist .tableTr {
+  font-size: 15px;
+}
+.tabletextlist {
+  border-collapse: collapse;
+  width: 100%;
+}
+.tabletextlist .tableTr {
+  font-size: 16px;
+  margin: 5px 0px;
+  /* border-bottom: 1px solid #dfe9e44e; */
+}
+.tabletextlist .tableTh {
+  font-size: 15px;
+  letter-spacing: 1px;
+  padding: 8px;
+}
+
+.tabletextlist .tableTh,
+.tableTd {
+  text-align: center;
+  letter-spacing: 1px;
+  padding: 8px;
+}
+
+.showtokentablesametext {
+  width: 100%;
+  margin: 5px 0px;
+  border-collapse: collapse;
+}
+
+.tablecontainer table {
+  width: 100%;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+.tablecontainer .tableTh,
+.tablecontainer .tableTd {
+  /* border: 1px solid #ddd; */
+  padding: 8px;
+  text-align: center;
+}
+
+#sametextbtnpay:hover {
+  background-color: #173bc5;
+}
+
+#sametextbtnpay {
+  margin: 15px 0px;
+  border-color: greenyellow;
+}
+
+.divtocoversametextdiv {
+  border-radius: 47px;
+  background: black;
+  backdrop-filter: blur(30.5px);
+  margin: 50px 0px;
+  border: 1px solid #fff;
+}
+.divtocoversametextdiv {
+  border-radius: 47px;
+  border: 1px solid #fff;
+  background: linear-gradient(
+    101deg,
+    rgba(255, 255, 255, 0.31) 1.58%,
+    rgba(255, 255, 255, 0.03) 98.15%
+  );
+  backdrop-filter: blur(30.5px);
+  margin: 50px 0px;
+}
+
+.titleforlinupsametext h2 {
+  background: #fff;
+  color: #8f00ff;
+  font-weight: 700;
+  letter-spacing: 1.04px;
+  font-size: 15px;
+  margin: 0px;
+}
+.sametextmain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleloadtokensametext {
+  border-radius: 47px 47px 0px 0px;
+  background: #fff;
+  padding: 5px 0px;
+  font-size: 12px;
+}
+.titleloadtokensametext h2 {
+  color: #8f00ff;
+  font-weight: 700;
+  letter-spacing: 1.04px;
+  margin: 0px;
+  font-size: 15px;
+}
+#backgroundgreen:hover {
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+#backgroundgreen {
+  cursor: pointer;
+  padding: 10px 25px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 63px;
+  margin: 0px 20px;
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+.titlesametexttextarea {
+  background: #fff;
+  font-size: 12px;
+}
+.tokeninput::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+.tokeninput:hover {
+  box-shadow: 0px 0px 29px 0px rgba(255, 255, 255, 0.25);
+}
+.titlesametexttextarea {
+  color: #8f00ff;
+  font-weight: 700;
+  line-height: 154.1%;
+  letter-spacing: 1.04px;
+  padding: 5px 0px;
+}
+.accountsummarycrosschain {
+  margin-top: 80px;
+}
+.titleforaccountsummarytextsame {
+  background: #fff;
+  font-size: 12px;
+}
+.titleforaccountsummarytextsame h2 {
+  color: #8f00ff;
+  font-weight: 700;
+  letter-spacing: 1.04px;
+  margin: 0px;
+  font-size: 15px;
+}
+#greenbackground:hover {
+  background-color: transparent;
+}
+
+.importtokendiv {
+  display: flex;
+  align-items: center;
+}
+.accountsummaryth {
+  letter-spacing: 1px;
+  padding: 8px;
+}
+.buttontoaddformdata {
+  background-color: initial;
+  border: 1px solid #fff;
+  border-radius: 63px;
+  color: #fff;
+  font-size: 17px;
+  cursor: pointer;
+  margin: 0 20px;
+  padding: 10px 25px;
+}
+.buttontoaddformdata:hover {
+  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+}
+.buttontoaddformdataunload {
+  background-color: initial;
+  border: 1px solid #fff;
+  border-radius: 63px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  margin: 0 20px;
+  padding: 10px 25px;
+}
+.textareaInput {
+  outline: none;
+}
+.scrollabletablecontainer {
+  margin: 25px 0;
+  max-height: 280px;
+  overflow: auto;
+}
+#tableresponsive {
+  margin: 25px 0px;
+}
+.accountsummarycreatetitle,
+.selectloadtoke-title,
+.viewaddressdivtitle {
+  background-color: #fff;
+  color: #8f00ff;
+  font-size: 12px;
+  padding: 5px 0;
+}
+.popupforpayment {
+  background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
+  border-radius: 30px;
+  box-shadow: 0 0 10px #0000001a;
+  color: #fff;
+  left: 50%;
+  padding: 30px 50px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+.popupforpayment h2 {
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.popupforpayment p {
+  letter-spacing: 1px;
+  text-align: center;
+}
+.popupforpayment button {
+  background: rgb(0, 255, 239);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 239, 1) 35%,
+    rgba(9, 255, 0, 1) 100%
+  );
+  border: 1px solid #1bff76;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 15px 20px;
+  width: 100%;
+  cursor: pointer;
+}
+.popupforpayment button:hover {
+  border: none;
+  color: #070707;
+  /* font-weight: 750; */
+  /* padding: 13px 18px; */
+  background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
+}
+
+/* ....cross chain */
+#blockchainChains {
+  width: 200px; /* Adjust width as needed */
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style for select options */
+#blockchainChains option {
+  font-size: 16px;
+}
+
+/* Style for when the select input is focused */
+#blockchainChains:focus {
+  outline: none;
+  border-color: #007bff; /* Example color, adjust as needed */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Example shadow, adjust as needed */
+}
+#blockchainChains option:hover {
+  background-color: #f0f0f0; /* Adjust the color as needed */
+}
+@media only screen and (max-width: 768px) {
+  .sendethdiv {
+    display: flex;
+    justify-content: center;
+  }
+  #tableresponsive {
+    overflow: scroll;
+  }
+  .titleforaccountsummarytextsame h2 {
+    font-size: 15px !important;
+  }
+  #backgroundgreen {
+    cursor: pointer;
+    padding: 10px 25px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 63px;
+    margin: 10px 15px;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+  .textlistdiv textarea {
+    font-size: 15px !important;
+  }
+  .componentcontainerdashboard {
+    margin: 20px 50px !important;
+  }
+  .eachinputofcreatelist {
+    margin: 10px 20px !important;
+  }
+  .titleloadtokensametext h2 {
+    font-size: 15px !important;
+  }
+  .sametextmain {
+    display: flex !important;
+    font-size: 12px;
+    flex-direction: row;
+  }
+
+  .importtokendiv button {
+    /* margin: 5px; */
+    font-size: 15px;
+    /* width: 100%; */
+  }
+  .importtokendiv {
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+  }
+  .buttontoaddformdata {
+    font-size: 15px;
+    width: 100%;
+    margin: 5px;
+    cursor: pointer;
+    padding: 10px 25px;
+    background-color: transparent !important;
+    color: white;
+    border: 1px solid white !important;
+    border-radius: 63px;
+    margin: 0px 20px;
+  }
+  .accountsummarycreatetitle h2 {
+    font-size: 15px !important;
+  }
+
+  .titlesametexttextarea h2 {
+    font-size: 15px !important;
+  }
+
+  .titleforlinupsametext h2 {
+    font-size: 15px !important;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .divtocoversametextdiv {
+    margin: 0px 10px;
+    margin-bottom: 0px !important;
+  }
+  .tableTd {
+    font-size: 12px;
+  }
+  .importtokendiv {
+    display: flex;
+    flex-direction: column;
+  }
+  .textAccSum,
+  .fontsize10px {
+    font-size: 10px !important;
+  }
+  .buttontoaddformdata {
+    font-size: 15px;
+    width: 100%;
+    margin: 5px;
+    cursor: pointer;
+    padding: 10px 35px;
+    background-color: transparent !important;
+    color: white;
+    border: 1px solid white !important;
+    border-radius: 63px;
+    margin: 0px 20px;
+  }
+  #fontsize10px {
+    font-size: 10px !important;
+  }
+
+  .tbodytextifyaccsum,
+  .fontsize12px {
+    font-size: 10px !important;
+  }
+  .sametextmain {
+    display: flex !important;
+    font-size: 12px;
+    flex-direction: column !important;
+    align-items: stretch;
+  }
+  .sendethdiv {
+    display: flex;
+    justify-content: center;
+  }
+  .accountsummaryth {
+    font-size: 12px;
+  }
+  .fontsize12px {
+    font-size: 12px !important;
+  }
+
+  #tableresponsive {
+    overflow: scroll;
+    margin: 5px 0px;
+  }
+  .divtocoversametextdiv {
+    margin: 0px 10px;
+    margin-bottom: 150px;
+  }
+  .componentcontainerdashboard {
+    margin: 20px 20px !important;
+  }
+  .titleloadtokensametext h2 {
+    color: #8f00ff;
+    font-weight: 700;
+    letter-spacing: 1.04px;
+    margin: 0px;
+    font-size: 13px;
+  }
+  .textlistdiv textarea {
+    font-size: 12px;
+    height: 200px;
+  }
+  .tablecontainer {
+    max-height: none;
+  }
+  .tablecontainer th,
+  .tablecontainer td {
+    padding: 6px;
+    font-size: 14px;
+  }
+  .titleforlinupsametext {
+    width: 100%;
+  }
+  #backgroundgreen {
+    cursor: pointer;
+    padding: 10px 25px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 63px;
+    margin: 10px 20px;
+    font-size: 15px;
+    width: 70%;
+    letter-spacing: 1px;
+  }
+  .textlistdiv textarea::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 12px;
+  }
+  .textlistdiv textarea {
+    font-size: 13px !important;
+    height: 100px;
+  }
+  .titleinline {
+    font-size: 13px;
+  }
+  .titleforlinupsame-text h2 {
+    font-size: 13px;
+  }
+  .tabletextlist tr {
+    font-size: 15px;
+  }
+  .tabletextlist th {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  .titledivdashboard h3 {
+    padding-top: -5px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid white;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+  }
+  .menubardashboard button {
+    padding: 10px 7px;
+    font-size: 15px;
+  }
+  .scrollabletablecontainer {
+    margin: 5px 0px;
+    max-height: 280px;
+    overflow: auto;
+  }
+  .sendbutton {
+    background: #0000;
+    border: 1px solid #fff;
+    border-radius: 40px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 37px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+    padding: 5px 35px;
+    text-align: center;
+  }
+  .popupforpayment {
+    background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
+    border-radius: 30px;
+    box-shadow: 0 0 10px #0000001a;
+    color: #fff;
+    left: 50%;
+    width: 80%;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+
+  .popupforpayment button {
+    background: #0000;
+    border: 1px solid #1bff76;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 15px;
+    width: 65%;
+    cursor: pointer;
+    margin: 10px 0px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .sendethdiv {
+    display: flex;
+    justify-content: center;
+  }
+
+  .divtocoversametextdiv {
+    margin: 10px;
+  }
+  #backgroundgreen {
+    cursor: pointer;
+    padding: 10px 25px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 63px;
+    margin: 10px 20px;
+    font-size: 15px;
+    width: 85%;
+    letter-spacing: 1px;
+  }
+  .eachinputofcreatelist {
+    width: auto;
+    margin: 10px 20px !important;
+  }
+}
