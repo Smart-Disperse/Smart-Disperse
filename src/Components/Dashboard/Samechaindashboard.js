@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import copy from "../../Assets/copy.png";
-import check from "../../Assets/check.png";
 import popup from "../Dashboard/popupTable.module.css";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
@@ -11,7 +9,6 @@ import img4 from "../../Assets/img4-bg.webp";
 import { driver } from "driver.js"; //driver .js is a javascript library used for guiding
 import "driver.js/dist/driver.css";
 import samechainStyle from "./samechaindashboard.module.css";
-import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
@@ -21,15 +18,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import { getChain } from "@/Helpers/GetChain";
+import contracts from "@/Helpers/ContractAddresses.js";
+
 import {
   getERC20Transactions,
   getEthTransactions,
+  getERC20Tokens,
 } from "@/Helpers/GetSentTransactions";
 import { useAccount } from "wagmi";
-import { ethers } from "ethers";
 import notnx from "../../Assets/nodata.png";
-import contracts from "@/Helpers/ContractAddresses";
-import { CovalentClient } from "@covalenthq/client-sdk";
 
 function Samechaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
@@ -38,23 +35,16 @@ function Samechaindashboard() {
   // ...user-analysis
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef();
-  const [query, setQuery] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [chainID, setChainid] = useState();
-  const [selectedToken, setSelectedToken] = useState("all");
-  const [changedata, setEthdata] = useState();
+  const [selectedToken, setSelectedToken] = useState("Eth");
+  const [explorerUrl, setExplorerUrl] = useState("Eth");
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
-  const [chainname, setChainname] = useState();
-  const [tokenBalances, setTokenBalances] = useState([]);
-  const [ethTransactions, setEthTransactions] = useState([]);
-  const [erc20Transactions, setErc20Transactions] = useState([]);
-  const [allnames, setAllNames] = useState([]);
-  const [allAddress, setAllAddress] = useState([]);
-  const [getusertokenaddress, setGetusertokenaddress] = useState([]);
+  const [tokenListOfUser, setTokenListOfUser] = useState([]);
+  const [transactionData, setTransactionData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [isCopied, setIsCopied] = useState(false);
@@ -91,253 +81,6 @@ function Samechaindashboard() {
       }
     );
   };
-  // Function to handle changes in both address and label search inputs
-  const handleSearchChange = (event) => {
-    const { value } = event.target;
-    setSearchQuery(value); // Update the combined search query state
-  };
-
-  // Modify filterTransactions function to include address and label filtering
-  const filterTransactions = (searchQuery) => {
-    let filtered = [...ethTransactions, ...erc20Transactions];
-
-    if (searchQuery.query) {
-      const query = searchQuery.query.toLowerCase(); // Extract the query from searchQuery
-      filtered = filtered.filter((transaction) => {
-        const recipient = transaction.recipient
-          ? transaction.recipient.toLowerCase()
-          : "";
-        const label = allAddress.includes(transaction.recipient)
-          ? allnames[allAddress.indexOf(transaction.recipient)].toLowerCase()
-          : "";
-        const hash = transaction.transactionHash
-          ? transaction.transactionHash.toLowerCase()
-          : "";
-        return (
-          recipient.includes(query) ||
-          label.includes(query) ||
-          hash.includes(query)
-        );
-      });
-    }
-    if (selectedToken !== "all") {
-      // Filter by selected token
-      filtered = filtered.filter(
-        (transaction) =>
-          transaction.tokenName?.toLowerCase() === selectedToken.toLowerCase()
-      );
-    }
-    console.log(startDate, endDate);
-    if (startDate && endDate) {
-      // Filter by date range
-      filtered = filtered.filter((transaction) => {
-        const transactionDate = new Date(transaction.blockTimestamp);
-        const nextDayEndDate = new Date(endDate);
-        nextDayEndDate.setDate(nextDayEndDate.getDate() + 1); // Increment endDate by 1 day
-        return (
-          transactionDate >= new Date(startDate) &&
-          transactionDate < nextDayEndDate // Adjusted comparison to include endDate
-        );
-      });
-    }
-
-    // if (startDate && endDate) {
-    //   // Filter by date range
-    //   filtered = filtered.filter((transaction) => {
-    //     const transactionDate = new Date(transaction.blockTimestamp);
-    //     return transactionDate >= new Date(startDate) && transactionDate <= new Date(endDate);
-    //   });
-    // }
-    setFilteredTransactions(filtered);
-  };
-
-  // Event handler for changing start date
-  const handleStartDateChange = (event) => {
-    const newStartDate = event.target.value;
-    setStartDate(newStartDate);
-  };
-
-  // Event handler for changing end date
-  const handleEndDateChange = (event) => {
-    const newEndDate = event.target.value;
-    setEndDate(newEndDate);
-  };
-
-  // // useEffect to log the updated start date after state update
-  // useEffect(() => {
-  //   console.log(startDate);
-  // }, [startDate]);
-
-  // // useEffect to log the updated end date after state update
-  // useEffect(() => {
-  //   console.log(endDate);
-  // }, [endDate]);
-
-  const handleTokenChange = (event) => {
-    const selectedToken = event.target.value;
-    setSelectedToken(selectedToken);
-  };
-
-  // UseEffect to fetch all tokens owned by Address
-
-  // ***** COVALENT API ******
-  const ApiServices = async () => {
-    // console.log("entered into api function");
-    try {
-      const Chain = await getChain(address);
-      // console.log("get chain", Chain);
-      const client = new CovalentClient("cqt_rQrQ3jX3Q8QqkPMMDJhWWbyRXB6R"); // API KEY
-      var token;
-      if (Chain == 11155420) {
-        // OP SEPOLIA
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "optimism-sepolia",
-            address
-          );
-        token = response.data;
-      } else if (Chain == 919) {
-        // MODE TESTNET
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "mode-testnet",
-            address
-          );
-        token = response.data;
-        // console.log("response data",response.data);
-      } else if (Chain == 84532) {
-        // BASE SEPOLIA
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "base-sepolia-testnet",
-            address
-          );
-        token = response.data;
-      } else if (Chain == 534351) {
-        // SCROLL SEPOLIA
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "scroll-sepolia-testnet",
-            address
-          );
-        token = response.data;
-      } else if (Chain == 11155111) {
-        // ETHEREUM SEPOLIA
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "eth-sepolia",
-            address
-          );
-        token = response.data;
-      }
-      // else if(Chain == 34443){ // MODE MAINNET NOT ON COVALENT
-      //   const response = await client.BalanceService.getTokenBalancesForWalletAddress("optimism-sepolia", address);
-      // }
-      else if (Chain == 534352) {
-        // SCROLL MAINNET
-        const response =
-          await client.BalanceService.getTokenBalancesForWalletAddress(
-            "scroll-mainnet",
-            address
-          );
-        token = response.data;
-      }
-
-      // console.log("TOKENS", token);
-      const tokenAddr = token.items.map((entry) => entry.contract_address);
-      // console.log("Token addresses", tokenAddr);
-      setGetusertokenaddress(tokenAddr);
-      const balances = token.items.map((entry) => ({
-        symbol: entry.contract_ticker_symbol,
-        balance: ethers.utils.formatEther(entry.balance),
-      }));
-      setTokenBalances(balances);
-      return tokenAddr;
-      // console.log("BALANCES", balances);
-    } catch (error) {
-      console.log("Error fetching chain Info", error);
-    }
-  };
-
-  // // ***** FOR MODE TESTNET EXPLORER API*****
-  // const fetchTokens = async () => {
-  //   try{
-  //     const response = await fetch("https://sepolia.explorer.mode.network/api/v2/addresses/" + address+ "/token-balances");
-  //     const data = await response.json();
-
-  //     const balances = data.map(entry => ({
-  //       symbol: entry.token.symbol,
-  //       value: ethers.utils.formatEther(entry.value)
-  //     }));
-
-  //     setTokenBalances(balances);
-  //     // console.log(data);
-  //     // setTokenBalances(data);
-  //   }
-  //   catch(error){
-  //     console.error('Error fetching tokens:', error);
-  //   }
-  // }
-  // fetchTokens();
-
-  // Call filterTransactions whenever either search query changes
-  useEffect(() => {
-    filterTransactions(searchQuery);
-  }, [
-    searchQuery,
-    ethTransactions,
-    erc20Transactions,
-    selectedToken,
-    startDate,
-    endDate,
-  ]);
-
-  // useEffect(() => {
-  //   console.log("loading");
-  //   getchainid();
-  // });
-
-  const calculateTotalAmount = () => {
-    let total = 0;
-    filteredTransactions.forEach((transaction) => {
-      total += parseFloat(transaction.value);
-    });
-    return total.toFixed(8); // Limiting the total to 2 decimal places
-  };
-
-  useEffect(() => {
-    // Calculate total amount whenever filteredTransactions changes
-    const total = calculateTotalAmount();
-    // console.log("total here:", total);
-    setTotalAmount(total);
-  }, [filteredTransactions]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "query") {
-      setQuery(value);
-    } else if (name === "startDate") {
-      setStartDate(value);
-    } else if (name === "endDate") {
-      setEndDate(value);
-    }
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("click", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [isOpen]);
 
   const fadeStyles = {
     entering: { opacity: 1 },
@@ -399,89 +142,127 @@ function Samechaindashboard() {
       });
       driverObj.drive();
     }
-  }, []);
 
-  // const fetchTransactions = async () => {
-  //   if (address) {
-  //     const ethData = await getEthTransactions(address);
-  //     setEthTransactions(ethData);
-
-  //     const erc20Data = await getERC20Transactions(address, "0x254d06f33bDc5b8ee05b2ea472107E300226659A");
-  //     setErc20Transactions(erc20Data);
-  //   }
-  // };
-
-  // CHAIN ID OBJECT
-
-  // Function to get chain name based on chain ID
-
-  // Extract unique token names from ethTransactions and erc20Transactions
-  const allTransactions = [...ethTransactions, ...erc20Transactions];
-  const uniqueTokenNames = Array.from(
-    new Set(allTransactions.map((transaction) => transaction.tokenName))
-  );
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      if (address) {
-        const ethData = await getEthTransactions(address);
-        const toaddress = ethData.map((useraddress) => useraddress.recipient);
-        for (let i = 0; i < ethData.length; i++) {
-          const recipientAddress = ethData[i].recipient;
-          const index = allAddress.findIndex(
-            (addr) => addr === recipientAddress
-          );
-          if (index !== -1) {
-            ethData[i].label = allnames[index];
-          }
-        }
-        setEthTransactions(ethData);
-        console.log(ethData);
-        // Fetch ERC20 transactions only once per token address
-        const userTokens = await ApiServices();
-        const fetchedTokens = new Set(); // To keep track of fetched tokens
-        for (const tokenAddress of userTokens) {
-          if (!fetchedTokens.has(tokenAddress)) {
-            const erc20Data = await getERC20Transactions(address, tokenAddress);
-            console.log("erc20data... ", erc20Data);
-            if (erc20Data !== undefined) {
-              setErc20Transactions((prevData) => [...prevData, ...erc20Data]);
-              fetchedTokens.add(tokenAddress);
-            }
-          }
-        }
-
-        return ethData;
-      }
+    const getExplorer = async () => {
+      const chainId = await getChain();
+      return contracts[chainId]["block-explorer"];
     };
-
-    fetchTransactions();
+    getExplorer();
   }, []);
 
-  const fetchUserDetails = async (toaddress) => {
+  /******************************User Analysis code Starts Here******************************* */
+
+  // Function to handle changes in both address and label search inputs
+  const handleSearchChange = (event) => {
+    const { value } = event.target;
+
+    handleSearch(value);
+  };
+
+  // Event handler for changing start date
+  const handleStartDateChange = (event) => {
+    const newStartDate = event.target.value;
+    setStartDate(newStartDate);
+  };
+
+  // Event handler for changing end date
+  const handleEndDateChange = (event) => {
+    const newEndDate = event.target.value;
+    setEndDate(newEndDate);
+  };
+
+  const handleTokenChange = (event) => {
+    const selectedToken = event.target.value;
+    console.log(selectedToken);
+    setSelectedToken(selectedToken);
+  };
+
+  const handleSearch = (searchQuery) => {
+    const filtered = transactionData.filter(
+      (transaction) =>
+        transaction.recipient
+          .toLowerCase()
+          .indexOf(searchQuery.toLowerCase()) !== -1 ||
+        (transaction.label &&
+          transaction.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !==
+            -1)
+    );
+    setFilteredTransactions(filtered);
+  };
+
+  const fetchUserDetails = async () => {
     try {
       const result = await fetch(
         `http://localhost:3000/api/all-user-data?address=${address}`
       );
       const response = await result.json();
       const alldata = response.result;
-      const names = alldata.map((user) => user.name);
-      setAllNames(names);
-      const alladdress = alldata.map((user) => user.address);
-      setAllAddress(alladdress);
-      // filteredTransactions.forEach((transaction) => {
-      //   const recipientIndex = allAddress.findIndex(addr => addr === transaction.recipient);
-      //   if (recipientIndex !== -1) {
-      //     console.log(`Recipient Address: ${transaction.recipient}, Corresponding Name: ${names[recipientIndex]}`);
-      //   }
-      // });
+      const allNames = alldata.map((user) => user.name);
+      const allAddress = alldata.map((user) => user.address);
+      return { allNames, allAddress };
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
 
+  const calculateTotalAmount = async () => {
+    let total = 0;
+    console.log(transactionData);
+    transactionData.forEach((transaction) => {
+      total += parseFloat(transaction.value);
+    });
+    console.log(total);
+    return total.toFixed(8); // Limiting the total to 2 decimal places
+  };
+
   useEffect(() => {
-    fetchUserDetails();
-  }, [filteredTransactions]);
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (isOpen) {
+        const { allNames, allAddress } = await fetchUserDetails();
+        var ethData = [];
+        if (selectedToken === "Eth") {
+          ethData = await getEthTransactions(address);
+        } else {
+          ethData = await getERC20Transactions(address, selectedToken);
+        }
+        for (let i = 0; i < ethData.length; i++) {
+          const recipientAddress = ethData[i].recipient.toLowerCase();
+          console.log(allNames, allAddress);
+          const index = allAddress.findIndex(
+            (addr) => addr === recipientAddress
+          );
+          if (index !== -1) {
+            ethData[i].label = allNames[index];
+          }
+        }
+        setTransactionData(ethData);
+        setFilteredTransactions(ethData);
+        const userTokens = await getERC20Tokens(address);
+        setTokenListOfUser(userTokens);
+        const total = await calculateTotalAmount();
+
+        setTotalAmount(total);
+      }
+    };
+
+    fetchData(address);
+  }, [isOpen, selectedToken]);
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
@@ -774,10 +555,10 @@ function Samechaindashboard() {
                     className={samechainStyle.dropdown}
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
-                    <option value="all">All Tokens</option>
-                    {tokenBalances.map((token, index) => (
-                      <option key={index} value={token.symbol}>
-                        {token.symbol}: {token.balance}
+                    <option value="Eth">Eth</option>
+                    {tokenListOfUser.map((token, index) => (
+                      <option key={index} value={token.tokenAddress}>
+                        {token.symbol}
                       </option>
                     ))}
                   </select>
@@ -870,11 +651,7 @@ function Samechaindashboard() {
                                 className={popup.column5}
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
-                                {allAddress.includes(transaction.recipient)
-                                  ? allnames[
-                                      allAddress.indexOf(transaction.recipient)
-                                    ]
-                                  : "Name  not found"}
+                                {transaction.label ? transaction.label : "---"}
                               </td>
                               <td
                                 className={popup.column6}

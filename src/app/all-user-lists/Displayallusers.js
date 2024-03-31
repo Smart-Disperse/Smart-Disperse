@@ -98,7 +98,7 @@ function Displayallusers() {
   const handleDelete = async (index) => {
     try {
       const addressToDelete = usersData[index].address;
-      const result = await fetch(`http://localhost:3001/api/all-user-data`, {
+      const result = await fetch(`http://localhost:3000/api/all-user-data`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

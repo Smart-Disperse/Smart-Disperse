@@ -12,5 +12,4 @@ export const getChain = async () => {
     console.error("Error occurred while fetching chainId:", error);
     throw error;
   }
-  
 };
