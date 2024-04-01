@@ -16,6 +16,7 @@ import warning from "@/Assets/warning.webp";
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNetwork, useSwitchNetwork } from "wagmi";
 
 function SendEth({ activeTab, listData, setListData }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
@@ -29,7 +30,7 @@ function SendEth({ activeTab, listData, setListData }) {
   const [allAddresses, setAllAddresses] = useState([]);
   const [errormsg, setErrormsg] = useState("");
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
-
+  const { chains } = useSwitchNetwork();
   const renderComponent = (tab) => {
     switch (tab) {
       case "text":
@@ -410,7 +411,14 @@ function SendEth({ activeTab, listData, setListData }) {
                             </span>
                           </td> */}
                           <td style={{ letterSpacing: "1px", padding: "8px" }}>
-                            Polygon
+                            <select id={textStyle.blockchainChains}>
+                              <option value="">Select Chain</option>
+                              {chains.map((network) => (
+                                <option key={network.id} value={network.id}>
+                                  {network.name}
+                                </option>
+                              ))}
+                            </select>
                           </td>
 
                           <td style={{ letterSpacing: "1px", padding: "8px" }}>

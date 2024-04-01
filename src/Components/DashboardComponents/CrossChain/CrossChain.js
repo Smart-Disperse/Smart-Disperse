@@ -4,7 +4,7 @@ import "driver.js/dist/driver.css";
 import textStyle from "./Type/textify.module.css";
 import SendEth from "./Send/SendEth";
 import SendToken from "./Send/SendToken";
-
+import { useNetwork, useSwitchNetwork } from "wagmi";
 /*
 Main Component : the prop is use to get which of the three from textify, listify or uplaodify should ne loaded
 It will be handled further by sendEth or sendToken component
@@ -13,7 +13,7 @@ function CrossChain({ activeTab }) {
   const [isSendingEth, setIsSendingEth] = useState(true);
   const [isSendingToken, setIsSendingToken] = useState(false);
   const [listData, setListData] = useState([]);
-
+  const { chains } = useSwitchNetwork();
   /*
   Funtion : To load SendEth component
   */
@@ -80,17 +80,12 @@ function CrossChain({ activeTab }) {
               <div style={{ margin: "10px 10px" }}>⇨</div>
 
               <select id={textStyle.blockchainChains}>
-                <option value="bitcoin">Select Chain</option>
-                <option value="bitcoin">Bitcoin</option>
-                <option value="ethereum">Ethereum</option>
-                <option value="binance-smart-chain">Binance Smart Chain</option>
-                <option value="solana">Solana</option>
-                <option value="cardano">Cardano</option>
-                <option value="ripple">Ripple</option>
-                <option value="polkadot">Polkadot</option>
-                <option value="tezos">Tezos</option>
-                <option value="tron">Tron</option>
-                <option value="eos">EOS</option>
+                <option value="">Select Chain</option>
+                {chains.map((network) => (
+                  <option key={network.id} value={network.id}>
+                    {network.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

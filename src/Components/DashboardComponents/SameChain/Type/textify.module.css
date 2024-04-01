@@ -402,8 +402,6 @@
   background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
 }
 
-.pmessage {
-}
 @media only screen and (max-width: 768px) {
   .sendethdiv {
     display: flex;
