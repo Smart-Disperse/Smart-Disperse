@@ -255,7 +255,14 @@ function Samechaindashboard() {
           ethData = await getEthTransactions(address);
         } else {
           ethData = await getERC20Transactions(address, selectedToken);
+          console.log(ethData);
         }
+        if(selectedToken === "Eth") {
+            ethData = ethData.filter(transaction => transaction.tokenName == null);
+            console.log(ethData);
+            
+          }
+          console.log(ethData);
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient.toLowerCase();
           console.log(allNames, allAddress);
@@ -281,6 +288,7 @@ function Samechaindashboard() {
         setTransactionData(ethData);
         setFilteredTransactions(ethData);
         const userTokens = await getERC20Tokens(address);
+        console.log(userTokens);
         setTokenListOfUser(userTokens);
         const total = await calculateTotalAmount();
 
@@ -582,11 +590,12 @@ function Samechaindashboard() {
                     className={samechainStyle.dropdown}
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
+                    <option value="Eth"> ETH </option>
                     {tokenListOfUser && tokenListOfUser.map((token, index) => (
-  <option key={index} value={token.tokenAddress}>
-    {token.symbol}
-  </option>
-))}
+                      <option key={index} value={token.tokenAddress}>
+                        {token.symbol}
+                      </option>
+                  ))}
 
                     {/* ))} */}
                   </select>
