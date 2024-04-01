@@ -50,8 +50,8 @@ function Samechaindashboard() {
   const [isCopied, setIsCopied] = useState(false);
   const [isCopiedAddressIndex, setIsCopiedAddressIndex] = useState(false);
   const [isCopiedHash, setIsCopiedHash] = useState(false);
-  const [explorelink, serexplorelink] = useState()
-  const [transactionhash, settransactionhash] = useState("")
+  const [explorelink, serexplorelink] = useState();
+  const [transactionhash, settransactionhash] = useState("");
   const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
     useState(false);
 
@@ -144,8 +144,7 @@ function Samechaindashboard() {
       });
       driverObj.drive();
     }
-    
-    }, []);
+  }, []);
 
   /******************************User Analysis code Starts Here******************************* */
 
@@ -174,19 +173,23 @@ function Samechaindashboard() {
   };
 
   const handleSearch = (searchQuery) => {
-    var filtered = filteredTransactions
-    ;
+    var filtered = filteredTransactions;
     filtered = filteredTransactions.filter(
       (transaction) =>
-        transaction.recipient.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
-        (transaction.label && transaction.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1) ||
-        transaction.transactionHash.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+        transaction.recipient
+          .toLowerCase()
+          .indexOf(searchQuery.toLowerCase()) !== -1 ||
+        (transaction.label &&
+          transaction.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !==
+            -1) ||
+        transaction.transactionHash
+          .toLowerCase()
+          .indexOf(searchQuery.toLowerCase()) !== -1
     );
 
-    
     setFilteredTransactions(filtered);
   };
-  
+
   useEffect(() => {
     let filtered = transactionData;
     if (startDate && endDate) {
@@ -198,11 +201,10 @@ function Samechaindashboard() {
         return (
           transactionDate >= new Date(startDate) &&
           transactionDate < nextDayEndDate // Adjusted comparison to include endDate
-          );
-        });
-      }
-      setFilteredTransactions(filtered);
-
+        );
+      });
+    }
+    setFilteredTransactions(filtered);
   }, [startDate, endDate]);
 
   const fetchUserDetails = async () => {
@@ -227,7 +229,7 @@ function Samechaindashboard() {
       total += parseFloat(transaction.value);
     });
     console.log(total);
-    return total.toFixed(8); 
+    return total.toFixed(8);
   };
 
   useEffect(() => {
@@ -257,12 +259,13 @@ function Samechaindashboard() {
           ethData = await getERC20Transactions(address, selectedToken);
           console.log(ethData);
         }
-        if(selectedToken === "Eth") {
-            ethData = ethData.filter(transaction => transaction.tokenName == null);
-            console.log(ethData);
-            
-          }
+        if (selectedToken === "Eth") {
+          ethData = ethData.filter(
+            (transaction) => transaction.tokenName == null
+          );
           console.log(ethData);
+        }
+        console.log(ethData);
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient.toLowerCase();
           console.log(allNames, allAddress);
@@ -283,8 +286,8 @@ function Samechaindashboard() {
         const getlink = async () => {
           let blockExplorerURL = await getExplorer();
           setExplorerUrl(blockExplorerURL);
-        }
-         getlink();
+        };
+        getlink();
         setTransactionData(ethData);
         setFilteredTransactions(ethData);
         const userTokens = await getERC20Tokens(address);
@@ -306,13 +309,11 @@ function Samechaindashboard() {
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
       </div>
       <div>
-        <button
-          onClick={() => router.push("/all-user-lists")}
-          title="View your contact"
-          className={samechainStyle.displayuserlistbtn}
-        >
-          <FontAwesomeIcon icon={faUser} />
-        </button>
+        <div className={samechainStyle.stickyIcon}>
+          <a href="/all-user-lists" className={samechainStyle.Instagram}>
+            <FontAwesomeIcon icon={faUser} /> <div>User Profile</div>
+          </a>
+        </div>
       </div>
       {/* <div className={samechainStyle.samedashmainm}> */}
       <div
@@ -591,11 +592,12 @@ function Samechaindashboard() {
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
                     <option value="Eth"> ETH </option>
-                    {tokenListOfUser && tokenListOfUser.map((token, index) => (
-                      <option key={index} value={token.tokenAddress}>
-                        {token.symbol}
-                      </option>
-                  ))}
+                    {tokenListOfUser &&
+                      tokenListOfUser.map((token, index) => (
+                        <option key={index} value={token.tokenAddress}>
+                          {token.symbol}
+                        </option>
+                      ))}
 
                     {/* ))} */}
                   </select>
@@ -707,18 +709,26 @@ function Samechaindashboard() {
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
                                 {/* {transaction.transactionHash} */}
- 
-                                  {transaction.transactionHash && (
-                                    <a
-                                      href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      style={{ color: "#8f00ff", textDecoration: "none" }}
-                                    >
-                                      {`${transaction.transactionHash.substring(0, 3)}...${transaction.transactionHash.substring(transaction.transactionHash.length - 5)}`}
-                                    </a>
-                                  )}
- 
+
+                                {transaction.transactionHash && (
+                                  <a
+                                    href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                      color: "#8f00ff",
+                                      textDecoration: "none",
+                                    }}
+                                  >
+                                    {`${transaction.transactionHash.substring(
+                                      0,
+                                      3
+                                    )}...${transaction.transactionHash.substring(
+                                      transaction.transactionHash.length - 5
+                                    )}`}
+                                  </a>
+                                )}
+
                                 {isCopiedHash &&
                                 isCopiedAddressIndexHash === index ? (
                                   <FontAwesomeIcon
