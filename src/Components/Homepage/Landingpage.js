@@ -129,8 +129,20 @@ export default function Landingpage() {
             <h1 className={homeStyle.ihometitleii}>All Chains, One Solution</h1>
           </div>
           <div className={homeStyle.ihomepagetitlei}>
-            <h1 className={homeStyle.ihometitleii}>
-              Smart-Disperse Your Crypto Transactions!
+            <h1
+              className={homeStyle.ihometitleii}
+              style={{ marginRight: "80px" }}
+            >
+              Smart-Disperse Your Crypto Transactions on
+              <div className={homeStyle.slidingVertical}>
+                <span>Mode Mainnet !</span>
+                <span>Mode Testnet !</span>
+                <span>Sroll Sepolia !</span>
+                <span>Optimism Sepolia !</span>
+                <span>Base Sepolia !</span>
+                <span>Sroll Mainnet !</span>
+                <span>Sepolia Mainnet !</span>
+              </div>
             </h1>
           </div>
           <div className={homeStyle.homebuttonsdiv}>

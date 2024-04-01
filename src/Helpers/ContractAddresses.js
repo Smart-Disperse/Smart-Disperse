@@ -65,6 +65,22 @@ const contracts = {
     chainDisplayName: "Scroll Mainnet",
     chainName: "scroll-mainnet",
   },
+  8453: {
+    address: "0x8142e9CeACD37Bfa1B87E524D034e80D26CA8409",
+    description: "SMART_DISPERSE_ADDRESS_MAIN_BASE",
+    "block-explorer": "basescan.org",
+    Abi: smartDisperseNew,
+    chainDisplayName: "Base Mainnet",
+    chainName: "base-mainnet",
+  },
+  10 : {
+    address: "0x8142e9CeACD37Bfa1B87E524D034e80D26CA8409",
+    description: "SMART_DISPERSE_ADDRESS_MAIN_OPTIMISM",
+    "block-explorer": "optimistic.etherscan.io",
+    Abi: smartDisperseNew,
+    chainDisplayName: "Optimism Mainnet",
+    chainName: "optimism-mainnet",
+  }
 };
 
 export default contracts;
