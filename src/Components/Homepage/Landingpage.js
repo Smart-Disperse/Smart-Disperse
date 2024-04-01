@@ -76,8 +76,9 @@ function Modal({ closeModal }) {
           <button
             className={homeStyle.continuebutton}
             style={{ width: "70%", margin: "10px auto", padding: "10px" }}
+            disabled
           >
-            Continue on the Cross-Chain
+            Continue on the Cross-Chain Coming Soon.....
           </button>
         </Link>
       </div>
@@ -135,13 +136,11 @@ export default function Landingpage() {
             >
               Smart-Disperse Your Crypto Transactions on
               <div className={homeStyle.slidingVertical}>
-                <span>Mode Mainnet !</span>
-                <span>Mode Testnet !</span>
-                <span>Sroll Sepolia !</span>
-                <span>Optimism Sepolia !</span>
-                <span>Base Sepolia !</span>
-                <span>Sroll Mainnet !</span>
-                <span>Sepolia Mainnet !</span>
+                <span>Mode !</span>
+                <span>Sroll !</span>
+                <span>Optimism !</span>
+                <span>Base !</span>
+                <span>Ethereum !</span>
               </div>
             </h1>
           </div>

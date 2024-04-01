@@ -15,6 +15,8 @@ import {
   sepolia,
   optimismSepolia,
   baseSepolia,
+  base,
+  optimism,
 } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
@@ -70,6 +72,8 @@ export function Providers({ children }) {
     sepolia,
     optimismSepolia,
     baseSepolia,
+    base,
+    optimism,
   ];
   const config = getDefaultConfig({
     appName: "RainbowKit demo",
