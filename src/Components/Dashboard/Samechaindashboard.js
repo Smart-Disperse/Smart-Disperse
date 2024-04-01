@@ -50,6 +50,8 @@ function Samechaindashboard() {
   const [isCopied, setIsCopied] = useState(false);
   const [isCopiedAddressIndex, setIsCopiedAddressIndex] = useState(false);
   const [isCopiedHash, setIsCopiedHash] = useState(false);
+  const [explorelink, serexplorelink] = useState()
+  const [transactionhash, settransactionhash] = useState("")
   const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
     useState(false);
 
@@ -142,20 +144,14 @@ function Samechaindashboard() {
       });
       driverObj.drive();
     }
-
-    const getExplorer = async () => {
-      const chainId = await getChain();
-      return contracts[chainId]["block-explorer"];
-    };
-    getExplorer();
-  }, []);
+    
+    }, []);
 
   /******************************User Analysis code Starts Here******************************* */
 
   // Function to handle changes in both address and label search inputs
   const handleSearchChange = (event) => {
     const { value } = event.target;
-
     handleSearch(value);
   };
 
@@ -180,12 +176,9 @@ function Samechaindashboard() {
   const handleSearch = (searchQuery) => {
     const filtered = transactionData.filter(
       (transaction) =>
-        transaction.recipient
-          .toLowerCase()
-          .indexOf(searchQuery.toLowerCase()) !== -1 ||
-        (transaction.label &&
-          transaction.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !==
-            -1)
+        transaction.recipient.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
+        (transaction.label && transaction.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1) ||
+        transaction.transactionHash.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
     );
     setFilteredTransactions(filtered);
   };
@@ -212,7 +205,7 @@ function Samechaindashboard() {
       total += parseFloat(transaction.value);
     });
     console.log(total);
-    return total.toFixed(8); // Limiting the total to 2 decimal places
+    return total.toFixed(8); 
   };
 
   useEffect(() => {
@@ -251,6 +244,18 @@ function Samechaindashboard() {
             ethData[i].label = allNames[index];
           }
         }
+
+        const getExplorer = async () => {
+          const chainId = await getChain();
+          return contracts[chainId]["block-explorer"];
+        };
+        getExplorer();
+
+        const getlink = async () => {
+          let blockExplorerURL = await getExplorer();
+          setExplorerUrl(blockExplorerURL);
+        }
+         getlink();
         setTransactionData(ethData);
         setFilteredTransactions(ethData);
         const userTokens = await getERC20Tokens(address);
@@ -262,7 +267,7 @@ function Samechaindashboard() {
     };
 
     fetchData(address);
-  }, [isOpen, selectedToken]);
+  }, [isOpen, selectedToken ,startDate, endDate]);
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
@@ -555,12 +560,13 @@ function Samechaindashboard() {
                     className={samechainStyle.dropdown}
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
-                    <option value="Eth">Eth</option>
-                    {tokenListOfUser.map((token, index) => (
-                      <option key={index} value={token.tokenAddress}>
-                        {token.symbol}
-                      </option>
-                    ))}
+                    {tokenListOfUser && tokenListOfUser.map((token, index) => (
+  <option key={index} value={token.tokenAddress}>
+    {token.symbol}
+  </option>
+))}
+
+                    {/* ))} */}
                   </select>
                 </div>
                 <div className={popup.tablediv}>
@@ -670,12 +676,18 @@ function Samechaindashboard() {
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
                                 {/* {transaction.transactionHash} */}
-                                {`${transaction.transactionHash.substring(
-                                  0,
-                                  3
-                                )}...${transaction.transactionHash.substring(
-                                  transaction.transactionHash.length - 5
-                                )}`}
+ 
+                                  {transaction.transactionHash && (
+                                    <a
+                                      href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{ color: "#8f00ff", textDecoration: "none" }}
+                                    >
+                                      {`${transaction.transactionHash.substring(0, 3)}...${transaction.transactionHash.substring(transaction.transactionHash.length - 5)}`}
+                                    </a>
+                                  )}
+ 
                                 {isCopiedHash &&
                                 isCopiedAddressIndexHash === index ? (
                                   <FontAwesomeIcon
