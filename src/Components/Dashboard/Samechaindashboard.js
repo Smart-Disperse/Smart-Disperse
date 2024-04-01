@@ -174,14 +174,36 @@ function Samechaindashboard() {
   };
 
   const handleSearch = (searchQuery) => {
-    const filtered = transactionData.filter(
+    var filtered = filteredTransactions
+    ;
+    filtered = filteredTransactions.filter(
       (transaction) =>
         transaction.recipient.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
         (transaction.label && transaction.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1) ||
         transaction.transactionHash.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
     );
+
+    
     setFilteredTransactions(filtered);
   };
+  
+  useEffect(() => {
+    let filtered = transactionData;
+    if (startDate && endDate) {
+      // Filter by date range
+      filtered = filtered.filter((transaction) => {
+        const transactionDate = new Date(transaction.blockTimestamp);
+        const nextDayEndDate = new Date(endDate);
+        nextDayEndDate.setDate(nextDayEndDate.getDate() + 1); // Increment endDate by 1 day
+        return (
+          transactionDate >= new Date(startDate) &&
+          transactionDate < nextDayEndDate // Adjusted comparison to include endDate
+          );
+        });
+      }
+      setFilteredTransactions(filtered);
+
+  }, [startDate, endDate]);
 
   const fetchUserDetails = async () => {
     try {
@@ -267,7 +289,7 @@ function Samechaindashboard() {
     };
 
     fetchData(address);
-  }, [isOpen, selectedToken ,startDate, endDate]);
+  }, [isOpen, selectedToken]);
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
