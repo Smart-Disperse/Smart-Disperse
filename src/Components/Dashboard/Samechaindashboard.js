@@ -17,7 +17,6 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { getChain } from "@/Helpers/GetChain";
 import contracts from "@/Helpers/ContractAddresses.js";
 
 import {
@@ -25,7 +24,7 @@ import {
   getEthTransactions,
   getERC20Tokens,
 } from "@/Helpers/GetSentTransactions";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId, useNetwork } from "wagmi";
 import notnx from "../../Assets/nodata.png";
 
 function Samechaindashboard() {
@@ -52,6 +51,7 @@ function Samechaindashboard() {
   const [isCopiedHash, setIsCopiedHash] = useState(false);
   const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
     useState(false);
+  const chainId = useChainId();
 
   const copyToClipboard = (text, index) => {
     setIsCopiedAddressIndex(index);
@@ -144,7 +144,6 @@ function Samechaindashboard() {
     }
 
     const getExplorer = async () => {
-      const chainId = await getChain();
       return contracts[chainId]["block-explorer"];
     };
     getExplorer();
@@ -237,9 +236,9 @@ function Samechaindashboard() {
         const { allNames, allAddress } = await fetchUserDetails();
         var ethData = [];
         if (selectedToken === "Eth") {
-          ethData = await getEthTransactions(address);
+          ethData = await getEthTransactions(address, chainId);
         } else {
-          ethData = await getERC20Transactions(address, selectedToken);
+          ethData = await getERC20Transactions(address, selectedToken, chainId);
         }
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient.toLowerCase();
@@ -253,7 +252,7 @@ function Samechaindashboard() {
         }
         setTransactionData(ethData);
         setFilteredTransactions(ethData);
-        const userTokens = await getERC20Tokens(address);
+        const userTokens = await getERC20Tokens(address, chainId);
         setTokenListOfUser(userTokens);
         const total = await calculateTotalAmount();
 
@@ -556,11 +555,13 @@ function Samechaindashboard() {
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
                     <option value="Eth">Eth</option>
-                    {tokenListOfUser.map((token, index) => (
-                      <option key={index} value={token.tokenAddress}>
-                        {token.symbol}
-                      </option>
-                    ))}
+                    {tokenListOfUser.length > 0
+                      ? tokenListOfUser.map((token, index) => (
+                          <option key={index} value={token.tokenAddress}>
+                            {token.symbol}
+                          </option>
+                        ))
+                      : null}
                   </select>
                 </div>
                 <div className={popup.tablediv}>

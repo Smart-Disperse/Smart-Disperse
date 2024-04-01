@@ -35,7 +35,6 @@ function Uploadify({
     try {
       const result = await fetch(`http://localhost:3000/api/all-user-data`);
       const response = await result.json();
-      console.log("Response from API:", response);
 
       const usersData = response.result;
       const names = usersData.map((user) =>
@@ -46,8 +45,6 @@ function Uploadify({
       );
       setAllNames(names);
       setAllAddresses(addresses);
-      console.log("Names:", names);
-      console.log("Addresses:", addresses);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -91,7 +88,7 @@ function Uploadify({
         if (parsedData) {
           // setCsvData(parsedData);
           // setIsCsvDataEmpty(parsedData.length === 0);
-          console.log(parsedData);
+
           const listData = [];
           for (let i = 0; i < parsedData.length; i++) {
             if (tokenDecimal) {
@@ -107,7 +104,6 @@ function Uploadify({
               isValidAddress(parsedData[i]["Receiver Address"]) &&
               validValue
             ) {
-              console.log("going in if");
               const recipientAddressFormatted =
                 parsedData[i]["Receiver Address"].toLowerCase();
               const index = allAddresses.indexOf(recipientAddressFormatted);
@@ -120,7 +116,6 @@ function Uploadify({
               !isValidAddress(parsedData[i]["Receiver Address"]) &&
               validValue
             ) {
-              console.log("going in else if");
               const index = allNames.indexOf(parsedData[i]["Receiver Address"]);
               if (index !== -1) {
                 let recAddress = allAddresses[index];
@@ -132,9 +127,8 @@ function Uploadify({
               }
             }
           }
-          // console.log(listData);
+
           setListData(listData);
-          // console.log("list data is set");
         } else {
           console.error("Parsed data is empty.");
         }

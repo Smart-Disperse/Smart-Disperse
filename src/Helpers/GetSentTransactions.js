@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { createClient, cacheExchange, fetchExchange } from "@urql/core";
 import { LoadTokenForAnalysis } from "@/Helpers/LoadToken.js";
 import { useEffect, useState } from "react";
-import { getChain } from "./GetChain";
+
 import contracts from "./ContractAddresses";
 
 // import { CovalentClient } from "@covalenthq/client-sdk";
@@ -13,8 +13,7 @@ import contracts from "./ContractAddresses";
 //     console.log("COVALENT API DATA:" , resp.data);
 // }
 
-export const getEthTransactions = async (address) => {
-  const chainId = await getChain(address);
+export const getEthTransactions = async (address, chainId) => {
   if (chainId in contracts) {
     const chainAPIurl = contracts[chainId].APIURL;
     const chainname = contracts[chainId].chainDisplayName;
@@ -33,44 +32,49 @@ export const getEthTransactions = async (address) => {
       }
     `;
 
-    const client = createClient({
-      url: APIURL,
-      exchanges: [cacheExchange, fetchExchange],
-    });
-
-    const data = await client.query(EthQuery).toPromise();
-
-    if (data.data !== undefined) {
-      const transactions = data.data.etherDisperseds.map((transaction) => ({
-        sender: transaction._sender,
-        recipients: transaction._recipients,
-        transactionHash: transaction.transactionHash,
-        value: transaction._values,
-        blockTimestamp: transaction.blockTimestamp,
-      }));
-
-      const transformedData = [];
-
-      transactions.forEach((item) => {
-        item.recipients.forEach((recipient, index) => {
-          const valueInEth = ethers.utils.formatEther(item.value[index]);
-
-          const timestamp = new Date(item.blockTimestamp * 1000); // Convert to milliseconds
-          const gmtTime = timestamp.toGMTString();
-          transformedData.push({
-            sender: item.sender,
-            recipient: recipient,
-            chainName: chainname,
-            value: valueInEth,
-            transactionHash: item.transactionHash,
-            blockTimestamp: gmtTime,
-          });
-        });
+    if (APIURL) {
+      const client = createClient({
+        url: APIURL,
+        exchanges: [cacheExchange, fetchExchange],
       });
 
-      // also return TotalEth
-      // console.log("Eth transfer data:", transformedData);
-      return transformedData;
+      const data = await client.query(EthQuery).toPromise();
+
+      if (data.data !== undefined) {
+        const transactions = data.data.etherDisperseds.map((transaction) => ({
+          sender: transaction._sender,
+          recipients: transaction._recipients,
+          transactionHash: transaction.transactionHash,
+          value: transaction._values,
+          blockTimestamp: transaction.blockTimestamp,
+        }));
+
+        const transformedData = [];
+
+        transactions.forEach((item) => {
+          item.recipients.forEach((recipient, index) => {
+            const valueInEth = ethers.utils.formatEther(item.value[index]);
+
+            const timestamp = new Date(item.blockTimestamp * 1000); // Convert to milliseconds
+            const gmtTime = timestamp.toGMTString();
+            transformedData.push({
+              sender: item.sender,
+              recipient: recipient,
+              chainName: chainname,
+              value: valueInEth,
+              transactionHash: item.transactionHash,
+              blockTimestamp: gmtTime,
+            });
+          });
+        });
+
+        // also return TotalEth
+        // console.log("Eth transfer data:", transformedData);
+        console.log(transformedData);
+        return transformedData;
+      }
+    } else {
+      console.log("Api URL not found");
     }
   } else {
     console.log("chainId not found in contracts");
@@ -79,10 +83,7 @@ export const getEthTransactions = async (address) => {
   }
 };
 
-export const getERC20Transactions = async (address, tokenAddress) => {
-  // console.log("calling  getERC20Transactions with address ");
-  const chainId = await getChain();
-  // console.log( chainId);
+export const getERC20Transactions = async (address, tokenAddress, chainId) => {
   var chainAPIurl;
   try {
     if (chainId in contracts) {
@@ -162,9 +163,8 @@ export const getERC20Transactions = async (address, tokenAddress) => {
   }
 };
 
-export const getERC20Tokens = async (address) => {
+export const getERC20Tokens = async (address, chainId) => {
   try {
-    const chainId = await getChain();
     const APIURL = contracts[chainId].APIURL;
     const tokensQuery = `
     query MyQuery {

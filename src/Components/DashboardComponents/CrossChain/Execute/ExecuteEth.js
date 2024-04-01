@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { smartDisperseInstance } from "@/Helpers/ContractInstance";
-import { getChain } from "@/Helpers/GetChain";
 import textStyle from "../Type/textify.module.css";
 import contracts from "@/Helpers/ContractAddresses.js";
 import { ethers } from "ethers";
@@ -18,6 +17,7 @@ import {
   faPaperPlane,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
+import { useChainId, useNetwork } from "wagmi";
 
 const ConfettiScript = () => (
   <Head>
@@ -32,6 +32,7 @@ function ExecuteEth(props) {
   const [paymentmodal, setPaymentmodal] = useState(false);
   const [limitexceed, setLimitexceed] = useState(null);
   const [tweetModalIsOpen, setTweetModalIsOpen] = useState(false); // New state for tweet modal
+  const chainId = useChainId();
 
   const sendTweet = () => {
     console.log("tweeting");
@@ -69,7 +70,7 @@ function ExecuteEth(props) {
       }
 
       try {
-        const con = await smartDisperseInstance();
+        const con = await smartDisperseInstance(chainId);
         const txsendPayment = await con.disperseEther(recipients, values, {
           value: props.totalEth,
         });
@@ -141,7 +142,6 @@ function ExecuteEth(props) {
   }, [success]);
 
   const getExplorer = async () => {
-    const chainId = await getChain();
     return contracts[chainId]["block-explorer"];
   };
 

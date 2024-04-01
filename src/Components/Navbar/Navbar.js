@@ -9,20 +9,41 @@ import { useTheme } from "next-themes";
 import Cookies from "universal-cookie";
 import { useAccount } from "wagmi";
 
-function Navbar({ setIsMainnet, isMainnet }) {
+function Navbar() {
   const [toggleSVG, setToggleSVG] = useState(false);
   const { isConnected } = useAccount();
   const { theme, setTheme } = useTheme();
   const cookie = new Cookies();
+  const [isMainnet, setIsMainnet] = useState(true);
 
   const changeMode = () => {
     toggleDarkMode();
   };
 
   const handelMainnet = () => {
+    console.log(isMainnet);
+
     setIsMainnet(!isMainnet);
     cookie.set("isMainnet", !isMainnet);
   };
+
+  useEffect(() => {
+    // Function to retrieve the value of isMainnet from cookies when the component mounts
+    const getIsMainnetFromCookies = () => {
+      const isMainnetCookie = cookie.get("isMainnet");
+      console.log(isMainnetCookie);
+      if (isMainnetCookie !== undefined) {
+        // If the cookie exists, set the value of isMainnet accordingly
+        setIsMainnet(isMainnetCookie === "true");
+      }
+    };
+
+    // Call the function when the component mounts
+    getIsMainnetFromCookies();
+
+    // Clean up function to avoid memory leaks
+    return () => {};
+  }, []);
   return (
     <div className={navStyle.navbarMain}>
       <div className={navStyle.divtoflexlogoconnectwallet}>
@@ -47,7 +68,7 @@ function Navbar({ setIsMainnet, isMainnet }) {
               ></span>
             </label>
           )}
-          <ConnectButtonCustom />
+          <ConnectButtonCustom isMainnet={isMainnet} />
           {theme === "light" ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"

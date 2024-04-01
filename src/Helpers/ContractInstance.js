@@ -1,14 +1,8 @@
 import { ethers } from "ethers";
 import contracts from "@/Helpers/ContractAddresses.js";
-import { getChain } from "@/Helpers/GetChain";
 
-export const smartDisperseInstance = async () => {
+export const smartDisperseInstance = async (chainId) => {
   try {
-    const chainId = await getChain();
-
-    // console.log(chainId);
-    // console.log(contracts[chainId]["Abi"]);
-
     const { ethereum } = window;
     if (!ethereum) {
       throw new Error("Metamask is not installed, please install!");
