@@ -14,7 +14,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faGlobe, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import {
   getERC20Transactions,
@@ -310,14 +310,25 @@ function Crosschaindashboard() {
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
       </div>
       <div>
-        <button
-          onClick={() => router.push("/all-user-lists")}
-          title="View your contact"
-          className={samechainStyle.displayuserlistbtn}
-        >
-          <FontAwesomeIcon icon={faUser} />
-        </button>
+        <div className={samechainStyle.stickyIcon}>
+          <a href="/all-user-lists" className={samechainStyle.Instagram}>
+            <FontAwesomeIcon icon={faUser} /> <div>User Profile</div>
+          </a>
+        </div>
+        <div className={samechainStyle.stickyIcon1}>
+          <a className={samechainStyle.Instagram1}>
+            <FontAwesomeIcon icon={faGlobe} />
+            <select id="cars" name="cars">
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+              <option value="fiat">Fiat</option>
+              <option value="audi">Audi</option>
+            </select>
+            <button>submit</button>
+          </a>
+        </div>
       </div>
+
       {/* <div className={samechainStyle.samedashmainm}> */}
       <div
         className={`${samechainStyle["samedashmainm"]} ${
