@@ -37,6 +37,7 @@ function Samechaindashboard() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [selectedToken, setSelectedToken] = useState("Eth");
+  const [selectedTokenSymbol, setSelectedTokenSymbol] = useState("Eth");
   const [explorerUrl, setExplorerUrl] = useState("Eth");
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -144,14 +145,11 @@ function Samechaindashboard() {
       });
       driverObj.drive();
     }
-<<<<<<< HEAD
 
     const getExplorer = async () => {
-      return contracts[chainId]["block-explorer"];
+      setExplorerUrl(contracts[chainId]["block-explorer"]);
     };
     getExplorer();
-=======
->>>>>>> 353fc81f6a45e7d381c3afff0162a142414fef80
   }, []);
 
   /******************************User Analysis code Starts Here******************************* */
@@ -176,8 +174,13 @@ function Samechaindashboard() {
 
   const handleTokenChange = (event) => {
     const selectedToken = event.target.value;
-    console.log(selectedToken);
+    const selectedTokenObject = tokenListOfUser.find(
+      (token) => token.tokenAddress === selectedToken
+    );
     setSelectedToken(selectedToken);
+    setSelectedTokenSymbol(
+      selectedTokenObject ? selectedTokenObject.symbol : ""
+    );
   };
 
   const handleSearch = (searchQuery) => {
@@ -257,6 +260,16 @@ function Samechaindashboard() {
   }, [isOpen]);
 
   useEffect(() => {
+    const calculateAmount = async () => {
+      if (transactionData) {
+        const total = await calculateTotalAmount();
+        setTotalAmount(total);
+      }
+    };
+    calculateAmount();
+  }, [transactionData]);
+
+  useEffect(() => {
     const fetchData = async () => {
       if (isOpen) {
         const { allNames, allAddress } = await fetchUserDetails();
@@ -264,54 +277,34 @@ function Samechaindashboard() {
         if (selectedToken === "Eth") {
           ethData = await getEthTransactions(address, chainId);
         } else {
-<<<<<<< HEAD
           ethData = await getERC20Transactions(address, selectedToken, chainId);
-=======
-          ethData = await getERC20Transactions(address, selectedToken);
-          console.log(ethData);
->>>>>>> 353fc81f6a45e7d381c3afff0162a142414fef80
         }
-        if (selectedToken === "Eth") {
-          ethData = ethData.filter(
-            (transaction) => transaction.tokenName == null
-          );
-          console.log(ethData);
-        }
-        console.log(ethData);
-        for (let i = 0; i < ethData.length; i++) {
-          const recipientAddress = ethData[i].recipient.toLowerCase();
-          console.log(allNames, allAddress);
-          const index = allAddress.findIndex(
-            (addr) => addr === recipientAddress
-          );
-          if (index !== -1) {
-            ethData[i].label = allNames[index];
+        if (ethData) {
+          if (selectedToken === "Eth") {
+            ethData = ethData.filter(
+              (transaction) => transaction.tokenName == null
+            );
+            console.log(ethData);
           }
+          console.log(ethData);
+          for (let i = 0; i < ethData.length; i++) {
+            const recipientAddress = ethData[i].recipient.toLowerCase();
+            console.log(allNames, allAddress);
+            const index = allAddress.findIndex(
+              (addr) => addr === recipientAddress
+            );
+            if (index !== -1) {
+              ethData[i].label = allNames[index];
+            }
+          }
+
+          setTransactionData(ethData);
+          setFilteredTransactions(ethData);
+          const userTokens = await getERC20Tokens(address, chainId);
+          setTokenListOfUser(userTokens);
+        } else {
+          console.log("Eth data is empty");
         }
-
-        const getExplorer = async () => {
-          const chainId = await getChain();
-          return contracts[chainId]["block-explorer"];
-        };
-        getExplorer();
-
-        const getlink = async () => {
-          let blockExplorerURL = await getExplorer();
-          setExplorerUrl(blockExplorerURL);
-        };
-        getlink();
-        setTransactionData(ethData);
-        setFilteredTransactions(ethData);
-<<<<<<< HEAD
-        const userTokens = await getERC20Tokens(address, chainId);
-=======
-        const userTokens = await getERC20Tokens(address);
-        console.log(userTokens);
->>>>>>> 353fc81f6a45e7d381c3afff0162a142414fef80
-        setTokenListOfUser(userTokens);
-        const total = await calculateTotalAmount();
-
-        setTotalAmount(total);
       }
     };
 
@@ -327,7 +320,7 @@ function Samechaindashboard() {
       <div>
         <div className={samechainStyle.stickyIcon}>
           <a href="/all-user-lists" className={samechainStyle.Instagram}>
-            <FontAwesomeIcon icon={faUser} /> <div>User Profile</div>
+            <FontAwesomeIcon icon={faUser} /> <div>Manage Labels</div>
           </a>
         </div>
       </div>
@@ -432,7 +425,7 @@ function Samechaindashboard() {
                 <h2
                   style={{ fontSize: "1.25rem", fontWeight: "600", margin: 0 }}
                 >
-                  History
+                  Analyse Spents
                 </h2>
                 <button
                   aria-label="toggle history"
@@ -536,13 +529,14 @@ function Samechaindashboard() {
               <div className={popup.poolList}>
                 <div className={popup.upperPart}>
                   <div className={samechainStyle.popTitle}>
-                    Track Your Transfers Where Every Token's journey is
-                    Accounted For !
+                    Track your Native and ERC-20 token transfers with precision!
                   </div>
                   <div className={samechainStyle.popTitle}></div>
                   <div className={popup.total}>
                     <h4>Total Transfered</h4>
-                    <p>{totalAmount} ETH</p>
+                    <p>
+                      {totalAmount} {selectedTokenSymbol}
+                    </p>
                   </div>
 
                   {/* <div className={popup.right}>
@@ -607,7 +601,6 @@ function Samechaindashboard() {
                     className={samechainStyle.dropdown}
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
-<<<<<<< HEAD
                     <option value="Eth">Eth</option>
                     {tokenListOfUser.length > 0
                       ? tokenListOfUser.map((token, index) => (
@@ -616,17 +609,6 @@ function Samechaindashboard() {
                           </option>
                         ))
                       : null}
-=======
-                    <option value="Eth"> ETH </option>
-                    {tokenListOfUser &&
-                      tokenListOfUser.map((token, index) => (
-                        <option key={index} value={token.tokenAddress}>
-                          {token.symbol}
-                        </option>
-                      ))}
-
-                    {/* ))} */}
->>>>>>> 353fc81f6a45e7d381c3afff0162a142414fef80
                   </select>
                 </div>
                 <div className={popup.tablediv}>

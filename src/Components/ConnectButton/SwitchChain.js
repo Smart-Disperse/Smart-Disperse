@@ -17,13 +17,12 @@ function SwitchChain({ isMainnet }) {
   const { chains, error, isLoading, pendingChainId, switchChain } =
     useSwitchChain();
 
-  const mainnetChains = [34443, 534352];
-  console.log(chains);
+  const mainnetChains = [34443, 534352, 8453, 10];
+
   const displayChains = isMainnet
     ? chains.filter((chain) => mainnetChains.includes(chain.id))
     : chains.filter((chain) => !mainnetChains.includes(chain.id));
 
-  console.log(displayChains);
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const buttonRef = useRef(null);
