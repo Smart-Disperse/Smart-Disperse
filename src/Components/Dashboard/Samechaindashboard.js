@@ -49,6 +49,8 @@ function Samechaindashboard() {
   const [isCopied, setIsCopied] = useState(false);
   const [isCopiedAddressIndex, setIsCopiedAddressIndex] = useState(false);
   const [isCopiedHash, setIsCopiedHash] = useState(false);
+  const [explorelink, serexplorelink] = useState();
+  const [transactionhash, settransactionhash] = useState("");
   const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
     useState(false);
   const chainId = useChainId();
@@ -142,11 +144,14 @@ function Samechaindashboard() {
       });
       driverObj.drive();
     }
+<<<<<<< HEAD
 
     const getExplorer = async () => {
       return contracts[chainId]["block-explorer"];
     };
     getExplorer();
+=======
+>>>>>>> 353fc81f6a45e7d381c3afff0162a142414fef80
   }, []);
 
   /******************************User Analysis code Starts Here******************************* */
@@ -154,7 +159,6 @@ function Samechaindashboard() {
   // Function to handle changes in both address and label search inputs
   const handleSearchChange = (event) => {
     const { value } = event.target;
-
     handleSearch(value);
   };
 
@@ -177,17 +181,39 @@ function Samechaindashboard() {
   };
 
   const handleSearch = (searchQuery) => {
-    const filtered = transactionData.filter(
+    var filtered = filteredTransactions;
+    filtered = filteredTransactions.filter(
       (transaction) =>
         transaction.recipient
           .toLowerCase()
           .indexOf(searchQuery.toLowerCase()) !== -1 ||
         (transaction.label &&
           transaction.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !==
-            -1)
+            -1) ||
+        transaction.transactionHash
+          .toLowerCase()
+          .indexOf(searchQuery.toLowerCase()) !== -1
     );
+
     setFilteredTransactions(filtered);
   };
+
+  useEffect(() => {
+    let filtered = transactionData;
+    if (startDate && endDate) {
+      // Filter by date range
+      filtered = filtered.filter((transaction) => {
+        const transactionDate = new Date(transaction.blockTimestamp);
+        const nextDayEndDate = new Date(endDate);
+        nextDayEndDate.setDate(nextDayEndDate.getDate() + 1); // Increment endDate by 1 day
+        return (
+          transactionDate >= new Date(startDate) &&
+          transactionDate < nextDayEndDate // Adjusted comparison to include endDate
+        );
+      });
+    }
+    setFilteredTransactions(filtered);
+  }, [startDate, endDate]);
 
   const fetchUserDetails = async () => {
     try {
@@ -211,7 +237,7 @@ function Samechaindashboard() {
       total += parseFloat(transaction.value);
     });
     console.log(total);
-    return total.toFixed(8); // Limiting the total to 2 decimal places
+    return total.toFixed(8);
   };
 
   useEffect(() => {
@@ -238,8 +264,20 @@ function Samechaindashboard() {
         if (selectedToken === "Eth") {
           ethData = await getEthTransactions(address, chainId);
         } else {
+<<<<<<< HEAD
           ethData = await getERC20Transactions(address, selectedToken, chainId);
+=======
+          ethData = await getERC20Transactions(address, selectedToken);
+          console.log(ethData);
+>>>>>>> 353fc81f6a45e7d381c3afff0162a142414fef80
         }
+        if (selectedToken === "Eth") {
+          ethData = ethData.filter(
+            (transaction) => transaction.tokenName == null
+          );
+          console.log(ethData);
+        }
+        console.log(ethData);
         for (let i = 0; i < ethData.length; i++) {
           const recipientAddress = ethData[i].recipient.toLowerCase();
           console.log(allNames, allAddress);
@@ -250,9 +288,26 @@ function Samechaindashboard() {
             ethData[i].label = allNames[index];
           }
         }
+
+        const getExplorer = async () => {
+          const chainId = await getChain();
+          return contracts[chainId]["block-explorer"];
+        };
+        getExplorer();
+
+        const getlink = async () => {
+          let blockExplorerURL = await getExplorer();
+          setExplorerUrl(blockExplorerURL);
+        };
+        getlink();
         setTransactionData(ethData);
         setFilteredTransactions(ethData);
+<<<<<<< HEAD
         const userTokens = await getERC20Tokens(address, chainId);
+=======
+        const userTokens = await getERC20Tokens(address);
+        console.log(userTokens);
+>>>>>>> 353fc81f6a45e7d381c3afff0162a142414fef80
         setTokenListOfUser(userTokens);
         const total = await calculateTotalAmount();
 
@@ -270,13 +325,11 @@ function Samechaindashboard() {
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
       </div>
       <div>
-        <button
-          onClick={() => router.push("/all-user-lists")}
-          title="View your contact"
-          className={samechainStyle.displayuserlistbtn}
-        >
-          <FontAwesomeIcon icon={faUser} />
-        </button>
+        <div className={samechainStyle.stickyIcon}>
+          <a href="/all-user-lists" className={samechainStyle.Instagram}>
+            <FontAwesomeIcon icon={faUser} /> <div>User Profile</div>
+          </a>
+        </div>
       </div>
       {/* <div className={samechainStyle.samedashmainm}> */}
       <div
@@ -554,6 +607,7 @@ function Samechaindashboard() {
                     className={samechainStyle.dropdown}
                   >
                     {/* DROP DOWN FOR SHOWING TOKENS */}
+<<<<<<< HEAD
                     <option value="Eth">Eth</option>
                     {tokenListOfUser.length > 0
                       ? tokenListOfUser.map((token, index) => (
@@ -562,6 +616,17 @@ function Samechaindashboard() {
                           </option>
                         ))
                       : null}
+=======
+                    <option value="Eth"> ETH </option>
+                    {tokenListOfUser &&
+                      tokenListOfUser.map((token, index) => (
+                        <option key={index} value={token.tokenAddress}>
+                          {token.symbol}
+                        </option>
+                      ))}
+
+                    {/* ))} */}
+>>>>>>> 353fc81f6a45e7d381c3afff0162a142414fef80
                   </select>
                 </div>
                 <div className={popup.tablediv}>
@@ -671,12 +736,26 @@ function Samechaindashboard() {
                                 style={{ color: "#8f00ff", fontWeight: "600" }}
                               >
                                 {/* {transaction.transactionHash} */}
-                                {`${transaction.transactionHash.substring(
-                                  0,
-                                  3
-                                )}...${transaction.transactionHash.substring(
-                                  transaction.transactionHash.length - 5
-                                )}`}
+
+                                {transaction.transactionHash && (
+                                  <a
+                                    href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                      color: "#8f00ff",
+                                      textDecoration: "none",
+                                    }}
+                                  >
+                                    {`${transaction.transactionHash.substring(
+                                      0,
+                                      3
+                                    )}...${transaction.transactionHash.substring(
+                                      transaction.transactionHash.length - 5
+                                    )}`}
+                                  </a>
+                                )}
+
                                 {isCopiedHash &&
                                 isCopiedAddressIndexHash === index ? (
                                   <FontAwesomeIcon
