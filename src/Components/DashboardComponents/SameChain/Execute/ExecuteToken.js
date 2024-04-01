@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { smartDisperseInstance } from "@/Helpers/ContractInstance";
-import { getChain } from "@/Helpers/GetChain";
 import textStyle from "../Type/textify.module.css";
 import contracts from "@/Helpers/ContractAddresses.js";
 import { ethers } from "ethers";
@@ -13,8 +12,12 @@ import completegif from "@/Assets/complete.gif";
 import confetti from "canvas-confetti";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight,faPaperPlane,faX } from "@fortawesome/free-solid-svg-icons";
-
+import {
+  faArrowRight,
+  faPaperPlane,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
+import { useAccount, useChainId, useNetwork } from "wagmi";
 
 const ConfettiScript = () => (
   <Head>
@@ -28,11 +31,14 @@ function ExecuteToken(props) {
   const [success, setSuccess] = useState(false); //If transaction was successful or not
   const [paymentmodal, setPaymentmodal] = useState(false);
   const [limitexceed, setLimitexceed] = useState(null);
+  const chainId = useChainId();
 
   const sendTweet = () => {
     console.log("tweeting");
     const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz/ and simplify your crypto transfers today!`;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      tweetContent
+    )}`;
     window.open(twitterUrl, "_blank");
   };
   // Function to execute token transfer
@@ -68,14 +74,16 @@ function ExecuteToken(props) {
         values.push(props.listData[i]["value"]);
       }
       // Check if token is approved
+
       const isTokenApproved = await approveToken(
         props.totalERC20,
-        props.customTokenAddress
+        props.customTokenAddress,
+        chainId
       );
 
       if (isTokenApproved) {
         try {
-          const con = await smartDisperseInstance();
+          const con = await smartDisperseInstance(chainId);
           // Execute token transfer
           const txsendPayment = await con.disperseToken(
             props.customTokenAddress,
@@ -117,10 +125,8 @@ function ExecuteToken(props) {
 
   // Function to get explorer URL based on chain
   const getExplorer = async () => {
-    const chainId = await getChain();
     return contracts[chainId]["block-explorer"];
   };
-
   useEffect(() => {
     if (success) {
       const count = 500,
@@ -202,7 +208,11 @@ function ExecuteToken(props) {
       >
         {message ? (
           <>
-            <h2>{success ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀" : "Something went Wrong..."}</h2>
+            <h2>
+              {success
+                ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
+                : "Something went Wrong..."}
+            </h2>
             <div>
               {success ? (
                 <div>
@@ -212,9 +222,14 @@ function ExecuteToken(props) {
                     width={150}
                     height={150}
                   />
-                <p>{message}</p>
-<div>Why not extend the excitement? Invite your friends and followers on Twitter to join in the joy. Broadcast your seamless experience to the world. Click the tweet button below and spread the cheer instantly! 🌐✨</div>
-</div>
+                  <p>{message}</p>
+                  <div>
+                    Why not extend the excitement? Invite your friends and
+                    followers on Twitter to join in the joy. Broadcast your
+                    seamless experience to the world. Click the tweet button
+                    below and spread the cheer instantly! 🌐✨
+                  </div>
+                </div>
               ) : (
                 <div>
                   <Image
@@ -229,9 +244,11 @@ function ExecuteToken(props) {
             <p>{success ? "" : "Please Try again"}</p>
             <p className={textStyle.errormessagep}>{limitexceed}</p>
             <div className={textStyle.divtocenter}>
-            <button style={{margin:"0px 5px"}}
-                   onClick={sendTweet}>Tweet Now &nbsp;  <FontAwesomeIcon icon={faPaperPlane} /></button>
-              <button style={{margin:"0px 5px"}}
+              <button style={{ margin: "0px 5px" }} onClick={sendTweet}>
+                Tweet Now &nbsp; <FontAwesomeIcon icon={faPaperPlane} />
+              </button>
+              <button
+                style={{ margin: "0px 5px" }}
                 onClick={() => {
                   setModalIsOpen(false);
                   props.setListData([]);

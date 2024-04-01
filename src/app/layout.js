@@ -1,27 +1,24 @@
-"use client"
+"use client";
 import { Providers } from "@/Providers";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/Components/Themeprovider";
 import Navbar from "@/Components/Navbar/Navbar";
 import React from "react";
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["100", "300", "400", "500", "700", "900"],
 });
 
-
-
 // RootLayout component
 export default function RootLayout({ children }) {
   const router = useRouter();
 
-
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

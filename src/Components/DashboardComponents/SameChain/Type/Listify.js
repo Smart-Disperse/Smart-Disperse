@@ -27,8 +27,8 @@ function Listify({
   // const [LabelModelIsOpen, setLabelModelIsOpen] = useState(false); //model switch
   // const [label, setLabel] = useState(""); //model switch
   const [nameSuggestions, setNameSuggestions] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(-1); 
-  const dropdownRef = useRef(null)
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const dropdownRef = useRef(null);
   // Function to close the error modal
   const closeErrorModal = () => {
     // console.log("clicked");
@@ -39,7 +39,7 @@ function Listify({
 
   const handleReceiverAddressChange = (event) => {
     const receiverAddress = event.target.value.toLowerCase();
-  
+
     const index = allAddresses.findIndex((n) => n === receiverAddress);
     if (index !== -1) {
       setFormData({
@@ -55,7 +55,7 @@ function Listify({
       });
     }
   };
-  
+
   const handleValueInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -72,12 +72,12 @@ function Listify({
 
   const handleNameChange = (e) => {
     const enteredName = e.target.value.toLowerCase();
-    console.log(enteredName); // Convert entered name to lowercase
-  // Find suggestions based on the entered name
-  const filteredSuggestions = allNames.filter((name) =>
-    name.toLowerCase().includes(enteredName)
-  );
-  setNameSuggestions(filteredSuggestions);
+
+    // Find suggestions based on the entered name
+    const filteredSuggestions = allNames.filter((name) =>
+      name.toLowerCase().includes(enteredName)
+    );
+    setNameSuggestions(filteredSuggestions);
     // Find the index of the entered name in the allNames array (case-insensitive)
     const index = allNames.findIndex((n) => n === enteredName);
     if (index !== -1) {
@@ -137,48 +137,50 @@ function Listify({
     return true;
   };
 
-    // Function to close the suggestion dropdown
-    const closeSuggestions = () => {
-      setNameSuggestions([]);
-    };
-  
-    // Event listener to handle Escape key press
-    useEffect(() => {
-      const handleEscapeKeyPress = (e) => {
-        if (e.key === "Escape") {
-          closeSuggestions();
-        }
-      };
-  
-      document.addEventListener("keydown", handleEscapeKeyPress);
-  
-      return () => {
-        document.removeEventListener("keydown", handleEscapeKeyPress);
-      };
-    }, []);
-  
-    // Event listener to handle click outside the suggestion dropdown
-    useEffect(() => {
-      const handleClickOutside = (e) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-          closeSuggestions();
-        }
-      };
-  
-      document.addEventListener("mousedown", handleClickOutside);
-  
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, []);
+  // Function to close the suggestion dropdown
+  const closeSuggestions = () => {
+    setNameSuggestions([]);
+  };
 
- 
+  // Event listener to handle Escape key press
+  useEffect(() => {
+    const handleEscapeKeyPress = (e) => {
+      if (e.key === "Escape") {
+        closeSuggestions();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscapeKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscapeKeyPress);
+    };
+  }, []);
+
+  // Event listener to handle click outside the suggestion dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        closeSuggestions();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     // Scroll the dropdown container to keep the selected suggestion in view
     if (dropdownRef.current && selectedIndex !== -1) {
       const selectedElement = dropdownRef.current.children[selectedIndex];
       if (selectedElement) {
-        selectedElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        selectedElement.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }
     }
   }, [selectedIndex]);
@@ -203,7 +205,7 @@ function Listify({
   const handleAddClick = async () => {
     // console.log("checking");
     const isvalid = await validateFormData();
-    console.log(formData);
+
     if (isvalid) {
       setListData([...listData, formData]);
       setFormData({
@@ -231,8 +233,7 @@ function Listify({
       });
     }
   }, [formData.label]);
-  
-  
+
   return (
     <div className={listStyle.divinsamecreatelisttokenload}>
       <div className={listStyle.enteraddressdivtitle}>
@@ -254,32 +255,33 @@ function Listify({
         <div className={listStyle.inputflexlist}>
           <label>Enter Name </label>
           <input
-  className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
-  type="text"
-  name="value"
-  value={formData.label}
-  placeholder="Enter name"
-  onChange={handleNameChange}
-  onKeyDown={handleKeyDown}
-/>
-{nameSuggestions.length > 0 && (
-    <div ref={dropdownRef} className={listStyle.listdropdown}>
-      {nameSuggestions.map((suggestion, index) => (
-        <div
-          key={index}
-          style={{
-            backgroundColor: index === selectedIndex ? "#49058eed" : "#49058e91" 
-          }}
-          className={`${listStyle.listdropdownItem} ${
-            index === selectedIndex ? listStyle.selected : ""
-          }`} // Apply selected class if index matches selectedIndex
-          onClick={() => handleNameSuggestionClick(suggestion)}
-        >
-          {suggestion}
-        </div>
-      ))}
-  </div>
-)}
+            className={`${listStyle["eachinputofcreatelist"]} ${listStyle["tokeninput"]}`}
+            type="text"
+            name="value"
+            value={formData.label}
+            placeholder="Enter name"
+            onChange={handleNameChange}
+            onKeyDown={handleKeyDown}
+          />
+          {nameSuggestions.length > 0 && (
+            <div ref={dropdownRef} className={listStyle.listdropdown}>
+              {nameSuggestions.map((suggestion, index) => (
+                <div
+                  key={index}
+                  style={{
+                    backgroundColor:
+                      index === selectedIndex ? "#49058eed" : "#49058e91",
+                  }}
+                  className={`${listStyle.listdropdownItem} ${
+                    index === selectedIndex ? listStyle.selected : ""
+                  }`} // Apply selected class if index matches selectedIndex
+                  onClick={() => handleNameSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className={listStyle.inputflexlist}>
@@ -352,7 +354,6 @@ function Listify({
             </div>
           </>
         </Modal>
-       
       </>
     </div>
   );

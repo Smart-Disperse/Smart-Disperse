@@ -118,7 +118,7 @@ export default function Page() {
         {userData.length > 0 && (
           <div className="mt-10">
             <h2 className="text-xl font-bold">User Data:</h2>
-            <ul>
+            <ul type="orderlist">
               {userData.map((user, index) => (
                 <li key={index}>
                   <div className="flex ">

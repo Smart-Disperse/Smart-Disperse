@@ -9,7 +9,7 @@ import check from "../../Assets/check.png";
 import connectStyle from "../ConnectButton/connect.module.css";
 import Image from "next/image";
 
-const ConnectButtonCustom = () => {
+const ConnectButtonCustom = ({ isMainnet }) => {
   const [isAccountModalOpen, setAccountModalOpen] = useState(false); // Modal for account info
   const [isCopied, setIsCopied] =
     useState(
@@ -109,7 +109,7 @@ const ConnectButtonCustom = () => {
                   className={connectStyle.CMain}
                 >
                   <div>
-                    <SwitchChain />
+                    <SwitchChain isMainnet={isMainnet} />
                   </div>
 
                   <button
@@ -156,8 +156,8 @@ const ConnectButtonCustom = () => {
                               background:
                                 "linear-gradient(90deg, #9f53ff 27.06%, #3b7dff 74.14%)",
                               backgroundClip: "text",
-                              webkitBackgroundClip: "text",
-                              webkitTextFillColor: "transparent",
+                              WebkitBackgroundClip: "text",
+                              WebkitTextFillColor: "transparent",
                               zIndex: "0",
                               position: "relative",
                             }}
@@ -215,8 +215,8 @@ const ConnectButtonCustom = () => {
                                 background:
                                   "linear-gradient(90deg, #9f53ff 27.06%, #3b7dff 74.14%)",
                                 backgroundClip: "text",
-                                webkitBackgroundClip: "text",
-                                webkitTextFillColor: "transparent",
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
                                 zIndex: "0",
                                 position: "relative",
                               }}

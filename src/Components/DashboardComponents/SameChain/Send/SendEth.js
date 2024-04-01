@@ -116,11 +116,9 @@ function SendEth({ activeTab, listData, setListData }) {
       let totalEth = ethers.BigNumber.from(0);
       if (listData.length > 0) {
         listData.forEach((data) => {
-          // console.log(data);
           totalEth = totalEth.add(data.value);
         });
       }
-      // console.log(totalEth);
 
       setTotalEth(totalEth);
     };
@@ -153,8 +151,6 @@ function SendEth({ activeTab, listData, setListData }) {
         `http://localhost:3000/api/all-user-data?address=${address}`
       );
       const response = await result.json();
-      console.log("Response from API:", response);
-
       const usersData = response.result;
       const names = usersData.map((user) =>
         user.name ? user.name.toLowerCase() : ""
@@ -163,9 +159,9 @@ function SendEth({ activeTab, listData, setListData }) {
         user.address ? user.address.toLowerCase() : ""
       );
       setAllNames(names);
-      console.log("Addresses:", addresses);
+
       setAllAddresses(addresses);
-      console.log("Names:", names);
+
       setLabels([]);
       return { names, addresses };
     } catch (error) {
@@ -180,7 +176,7 @@ function SendEth({ activeTab, listData, setListData }) {
   const setLabelValues = (index, name) => {
     const updatedLabels = [...labels]; // Create a copy of the labels array
     updatedLabels[index] = name; // Update the value at the specified index
-    console.log(updatedLabels);
+    // console.log(updatedLabels);
     setLabels(updatedLabels);
   };
 
@@ -190,17 +186,16 @@ function SendEth({ activeTab, listData, setListData }) {
       name: labels[index],
       address: recipientAddress.toLowerCase(),
     };
-    console.log(userData);
+    // console.log(userData);
     try {
-      console.log("entered into try block");
+      // console.log("entered into try block");
       let result = await fetch(`http://localhost:3000/api/all-user-data`, {
         method: "POST",
         body: JSON.stringify(userData),
       });
 
-      console.log(result);
       result = await result.json();
-      console.log("Result after submission:", result);
+
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
         toast.warn("Name Already Exist! Please Enter Unique Name.");
@@ -217,7 +212,7 @@ function SendEth({ activeTab, listData, setListData }) {
       console.error("Error:", error);
     }
     const { names, addresses } = await fetchUserDetails();
-    console.log(names, addresses);
+    // console.log(names, addresses);
 
     const updatedListData = await listData.map((item) => {
       if (
@@ -225,18 +220,16 @@ function SendEth({ activeTab, listData, setListData }) {
         addresses.includes(item.address.toLowerCase())
       ) {
         const index = addresses.indexOf(item.address.toLowerCase());
-        console.log(index);
+        // console.log(index);
         item.label = names[index];
       }
       return item;
     });
 
-    console.log(updatedListData);
     await setListData(updatedListData);
   };
 
   useEffect(() => {
-    console.log(listData);
     calculateRemaining();
   });
 

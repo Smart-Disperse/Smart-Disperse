@@ -1,8 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import "@rainbow-me/rainbowkit/styles.css";
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
+import {
+  RainbowKitProvider,
+  getDefaultWallets,
+  getDefaultConfig,
+} from "@rainbow-me/rainbowkit";
+import { metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
 import {
   polygon,
   polygonMumbai,
@@ -12,9 +16,15 @@ import {
   optimismSepolia,
   baseSepolia,
 } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { WagmiProvider } from "wagmi";
+import { reconnect } from "@wagmi/core";
+import { injected } from "@wagmi/connectors";
+
+// import { alchemyProvider } from "wagmi/providers/alchemy";
+// import { publicProvider } from "wagmi/providers/public";
 import Navbar from "./Components/Navbar/Navbar";
+const { wallets } = getDefaultWallets();
 
 import Cookies from "universal-cookie";
 const modeTestnet = {
@@ -51,56 +61,40 @@ const modeMainnet = {
 
 export function Providers({ children }) {
   const cookie = new Cookies();
-  const [mounted, setMounted] = React.useState(false);
-  const [isMainnet, setIsMainnet] = React.useState(true);
 
-  const { chains, publicClient } = configureChains(
-    isMainnet
-      ? [modeMainnet, scroll]
-      : [modeTestnet, scrollSepolia, sepolia, optimismSepolia, baseSepolia],
-    [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
-  );
-
-  const { connectors } = getDefaultWallets({
-    appName: "My RainbowKit App",
+  const chains = [
+    modeMainnet,
+    scroll,
+    modeTestnet,
+    scrollSepolia,
+    sepolia,
+    optimismSepolia,
+    baseSepolia,
+  ];
+  const config = getDefaultConfig({
+    appName: "RainbowKit demo",
     projectId: "f8a6524307e28135845a9fe5811fcaa2",
-    chains,
+    wallets: [
+      {
+        groupName: "Other",
+        wallets: [metaMaskWallet],
+      },
+    ],
+    chains: chains,
+    ssr: true,
   });
+  const queryClient = new QueryClient();
 
-  const wagmiConfig = createConfig({
-    autoConnect: true,
-    connectors,
-    publicClient,
-  });
-
-  React.useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    // Function to retrieve the value of isMainnet from cookies when the component mounts
-    const getIsMainnetFromCookies = () => {
-      const isMainnetCookie = cookie.get("isMainnet");
-      if (isMainnetCookie !== undefined) {
-        // If the cookie exists, set the value of isMainnet accordingly
-        setIsMainnet(isMainnetCookie === "true");
-      }
-    };
-
-    // Call the function when the component mounts
-    getIsMainnetFromCookies();
-
-    // Clean up function to avoid memory leaks
-    return () => {};
-  }, []);
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
-        {mounted && (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider>
           <>
-            <Navbar setIsMainnet={setIsMainnet} isMainnet={isMainnet} />
+            <Navbar />
             {children}
           </>
-        )}
-      </RainbowKitProvider>
-    </WagmiConfig>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }

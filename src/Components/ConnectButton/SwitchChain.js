@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNetwork, useSwitchNetwork } from "wagmi";
+import { useAccount, useSwitchChain } from "wagmi";
 import connectStyle from "../ConnectButton/connect.module.css";
 import useChainChangeReload from "./useChainChangeReload";
 import Modal from "react-modal";
@@ -9,14 +9,21 @@ import textStyle from "@/Components/DashboardComponents/SameChain/Type/textify.m
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function SwitchChain() {
-  useChainChangeReload(); // Call this hook on every render to ensure the page reloads when chain changes
-  const { chain } = useNetwork();
+function SwitchChain({ isMainnet }) {
+  // useChainChangeReload(); // Call this hook on every render to ensure the page reloads when chain changes
+  const { chain } = useAccount();
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
 
-  const { chains, error, isLoading, pendingChainId, switchNetwork } =
-    useSwitchNetwork();
+  const { chains, error, isLoading, pendingChainId, switchChain } =
+    useSwitchChain();
 
+  const mainnetChains = [34443, 534352];
+  console.log(chains);
+  const displayChains = isMainnet
+    ? chains.filter((chain) => mainnetChains.includes(chain.id))
+    : chains.filter((chain) => !mainnetChains.includes(chain.id));
+
+  console.log(displayChains);
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const buttonRef = useRef(null);
@@ -26,7 +33,7 @@ function SwitchChain() {
   };
 
   const handleOptionClick = (networkId) => {
-    switchNetwork?.(networkId);
+    switchChain({ chainId: networkId });
     setDropdownVisible(false);
   };
 
@@ -49,7 +56,7 @@ function SwitchChain() {
         onClick={handleButtonClick}
       >
         <span>
-          {chain && chains.some((network) => network.id === chain.id)
+          {chain && displayChains?.some((network) => network.id === chain.id)
             ? ` ${chain.name}`
             : "Wrong Network"}
         </span>
@@ -69,7 +76,7 @@ function SwitchChain() {
                 "linear-gradient(90deg, rgb(97 38 193) 0.06%, rgb(63 47 110) 98.57%)",
             }}
           >
-            {chains.map((network) => (
+            {displayChains.map((network) => (
               <button
                 key={network.id}
                 className={connectStyle.networkoption}
@@ -110,8 +117,8 @@ function SwitchChain() {
                     background:
                       "linear-gradient(90deg, #9f53ff 27.06%, #3b7dff 74.14%)",
                     backgroundClip: "text",
-                    webkitBackgroundClip: "text",
-                    webkitTextFillColor: "transparent",
+                    WebkitAlignItemsebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
                     zIndex: "0",
                   }}
                 >
