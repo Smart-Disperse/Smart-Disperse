@@ -426,3 +426,47 @@
     left: 0;
   }
 }
+@media only screen and (max-width: 375px) {
+  .upperPart,
+  .tablediv {
+    width: 100%;
+    padding: 10px 0px;
+  }
+  .total {
+    width: 21%;
+    margin: 0;
+  }
+  .head {
+    overflow: auto;
+  }
+  .MainPopup {
+    width: 300px;
+    height: auto;
+    min-width: 300px;
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-color: white;
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background-color: "white";
+    color: white;
+    overflow: hidden;
+    position: fixed;
+    top: 150;
+    left: auto;
+    z-index: 40;
+  }
+  .HistoryMain1 {
+    width: 300px;
+    height: calc(-4rem + 100px);
+    border: 1px solid;
+    font-size: 0.875rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    bottom: -30px;
+    top: unset;
+    left: 0;
+  }
+}
