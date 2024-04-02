@@ -211,7 +211,7 @@ function Textify({
                 each line, supports any format)
               </h2>
             </div>
-            <div id="tt" style={{ position: "relative" }}>
+            <div id="tt" style={{ position: "relative", height: "150px" }}>
               <textarea
                 ref={textareaRef}
                 spellCheck="false"
@@ -219,7 +219,7 @@ function Textify({
                 onChange={handleInputChange}
                 style={{
                   width: "100%",
-                  minHeight: "100px",
+                  minHeight: "125px",
                   padding: "10px",
                   border: "none",
                   background: "#e6e6fa",
