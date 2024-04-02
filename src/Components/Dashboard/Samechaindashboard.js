@@ -52,6 +52,7 @@ function Samechaindashboard() {
   const [isCopiedHash, setIsCopiedHash] = useState(false);
   const [explorelink, serexplorelink] = useState();
   const [transactionhash, settransactionhash] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
     useState(false);
   const chainId = useChainId();
@@ -172,17 +173,23 @@ function Samechaindashboard() {
     setEndDate(newEndDate);
   };
 
-  const handleTokenChange = (event) => {
+  const handleTokenChange = async (event) => {
     const selectedToken = event.target.value;
-    const selectedTokenObject = tokenListOfUser.find(
-      (token) => token.tokenAddress === selectedToken
-    );
-    setSelectedToken(selectedToken);
-    setSelectedTokenSymbol(
-      selectedTokenObject ? selectedTokenObject.symbol : ""
-    );
+    setIsLoading(true); // Set loading state to true
+    try {
+      const selectedTokenObject = tokenListOfUser.find(
+        (token) => token.tokenAddress === selectedToken
+      );
+      setSelectedToken(selectedToken);
+      setSelectedTokenSymbol(
+        selectedTokenObject ? selectedTokenObject.symbol : ""
+      );
+    } catch (error) {
+      console.error("Error fetching token data:", error);
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
   };
-
   const handleSearch = (searchQuery) => {
     var filtered = filteredTransactions;
     filtered = filteredTransactions.filter(
@@ -594,23 +601,35 @@ function Samechaindashboard() {
                     } // Set min attribute to the selected start date if available, otherwise set it to today's date
                     max={new Date().toISOString().split("T")[0]}
                   />
+                  <div className={samechainStyle.chainSelect}>
+                    <select
+                      value={selectedToken}
+                      onChange={handleTokenChange}
+                      className={samechainStyle.dropdown}
+                    >
+                      {/* DROP DOWN FOR SHOWING TOKENS */}
 
-                  <select
-                    value={selectedToken}
-                    onChange={handleTokenChange}
-                    className={samechainStyle.dropdown}
-                  >
-                    {/* DROP DOWN FOR SHOWING TOKENS */}
-                    <option value="Eth">Eth</option>
-                    {tokenListOfUser.length > 0
-                      ? tokenListOfUser.map((token, index) => (
-                          <option key={index} value={token.tokenAddress}>
-                            {token.symbol}
-                          </option>
-                        ))
-                      : null}
-                  </select>
+                      <option
+                        value="Eth"
+                        className={samechainStyle.chainOptions}
+                      >
+                        Eth
+                      </option>
+                      {tokenListOfUser.length > 0
+                        ? tokenListOfUser.map((token, index) => (
+                            <option
+                              key={index}
+                              value={token.tokenAddress}
+                              className={samechainStyle.chainOptions}
+                            >
+                              {token.symbol}
+                            </option>
+                          ))
+                        : null}
+                    </select>
+                  </div>
                 </div>
+
                 <div className={popup.tablediv}>
                   <div className={popup.head}>
                     <table className={popup.table}>
@@ -629,180 +648,210 @@ function Samechaindashboard() {
                   </div>
 
                   {/* Fetching tx data in */}
-                  <div className={popup.content}>
-                    <table className={popup.table}>
-                      <tbody>
-                        {filteredTransactions.length > 0 ? (
-                          filteredTransactions.map((transaction, index) => (
-                            <tr className={popup.row} key={index}>
-                              <td
-                                className={popup.column1}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {`${transaction.recipient.substring(
-                                  0,
-                                  3
-                                )}...${transaction.recipient.substring(
-                                  transaction.recipient.length - 5
-                                )}`}
-                                {isCopied && isCopiedAddressIndex === index ? (
-                                  <FontAwesomeIcon
-                                    icon={faCircleCheck}
-                                    size="sm"
-                                    alt="Check Icon"
-                                    style={{
-                                      margin: "0px 10px",
-                                      cursor: "pointer",
+                  {isLoading ? (
+                    <div style={{ position: "relative", top: "100px" }}>
+                      Loading...
+                    </div>
+                  ) : (
+                    <div className={popup.content}>
+                      <table className={popup.table}>
+                        <tbody>
+                          {filteredTransactions.length > 0 ? (
+                            filteredTransactions.map((transaction, index) => (
+                              <tr className={popup.row} key={index}>
+                                <td
+                                  className={popup.column1}
+                                  style={{
+                                    color: "#8f00ff",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  {`${transaction.recipient.substring(
+                                    0,
+                                    3
+                                  )}...${transaction.recipient.substring(
+                                    transaction.recipient.length - 5
+                                  )}`}
+                                  {isCopied &&
+                                  isCopiedAddressIndex === index ? (
+                                    <FontAwesomeIcon
+                                      icon={faCircleCheck}
+                                      size="sm"
+                                      alt="Check Icon"
+                                      style={{
+                                        margin: "0px 10px",
+                                        cursor: "pointer",
 
-                                      color: "#9657eb",
-                                    }}
-                                  />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    icon={faCopy}
-                                    size="2xs"
-                                    alt="Copy Icon"
-                                    onClick={() =>
-                                      copyToClipboard(
-                                        transaction.recipient,
-                                        index
-                                      )
-                                    }
-                                    style={{
-                                      width: "20px",
-                                      margin: "0px 10px",
-                                      cursor: "pointer",
-                                      height: "auto",
-                                    }}
-                                  />
-                                )}
-                              </td>
-                              <td
-                                className={popup.column2}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {transaction.value}
-                              </td>
-                              <td
-                                className={popup.column3}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {transaction.chainName}
-                              </td>
-                              <td
-                                className={popup.column4}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {transaction.tokenName || "ETH"}
-                              </td>
-                              <td
-                                className={popup.column5}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {transaction.label ? transaction.label : "---"}
-                              </td>
-                              <td
-                                className={popup.column6}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {new Date(
-                                  transaction.blockTimestamp
-                                ).toLocaleDateString("en-US", {
-                                  day: "numeric",
-                                  month: "short",
-                                  year: "numeric",
-                                })}
-                              </td>
-                              <td
-                                className={popup.column7}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {/* {transaction.transactionHash} */}
+                                        color: "#9657eb",
+                                      }}
+                                    />
+                                  ) : (
+                                    <FontAwesomeIcon
+                                      icon={faCopy}
+                                      size="2xs"
+                                      alt="Copy Icon"
+                                      onClick={() =>
+                                        copyToClipboard(
+                                          transaction.recipient,
+                                          index
+                                        )
+                                      }
+                                      style={{
+                                        width: "20px",
+                                        margin: "0px 10px",
+                                        cursor: "pointer",
+                                        height: "auto",
+                                      }}
+                                    />
+                                  )}
+                                </td>
+                                <td
+                                  className={popup.column2}
+                                  style={{
+                                    color: "#8f00ff",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  {transaction.value}
+                                </td>
+                                <td
+                                  className={popup.column3}
+                                  style={{
+                                    color: "#8f00ff",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  {transaction.chainName}
+                                </td>
+                                <td
+                                  className={popup.column4}
+                                  style={{
+                                    color: "#8f00ff",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  {transaction.tokenName || "ETH"}
+                                </td>
+                                <td
+                                  className={popup.column5}
+                                  style={{
+                                    color: "#8f00ff",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  {transaction.label
+                                    ? transaction.label
+                                    : "---"}
+                                </td>
+                                <td
+                                  className={popup.column6}
+                                  style={{
+                                    color: "#8f00ff",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  {new Date(
+                                    transaction.blockTimestamp
+                                  ).toLocaleDateString("en-US", {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric",
+                                  })}
+                                </td>
+                                <td
+                                  className={popup.column7}
+                                  style={{
+                                    color: "#8f00ff",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  {/* {transaction.transactionHash} */}
 
-                                {transaction.transactionHash && (
-                                  <a
-                                    href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{
-                                      color: "#8f00ff",
-                                      textDecoration: "none",
-                                    }}
-                                  >
-                                    {`${transaction.transactionHash.substring(
-                                      0,
-                                      3
-                                    )}...${transaction.transactionHash.substring(
-                                      transaction.transactionHash.length - 5
-                                    )}`}
-                                  </a>
-                                )}
+                                  {transaction.transactionHash && (
+                                    <a
+                                      href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{
+                                        color: "#8f00ff",
+                                        textDecoration: "none",
+                                      }}
+                                    >
+                                      {`${transaction.transactionHash.substring(
+                                        0,
+                                        3
+                                      )}...${transaction.transactionHash.substring(
+                                        transaction.transactionHash.length - 5
+                                      )}`}
+                                    </a>
+                                  )}
 
-                                {isCopiedHash &&
-                                isCopiedAddressIndexHash === index ? (
-                                  <FontAwesomeIcon
-                                    icon={faCircleCheck}
-                                    size="sm"
-                                    alt="Check Icon"
-                                    style={{
-                                      margin: "0px 10px",
-                                      cursor: "pointer",
+                                  {isCopiedHash &&
+                                  isCopiedAddressIndexHash === index ? (
+                                    <FontAwesomeIcon
+                                      icon={faCircleCheck}
+                                      size="sm"
+                                      alt="Check Icon"
+                                      style={{
+                                        margin: "0px 10px",
+                                        cursor: "pointer",
 
-                                      color: "#9657eb",
-                                    }}
-                                  />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    icon={faCopy}
-                                    size="2xs"
-                                    alt="Copy Icon"
-                                    onClick={() =>
-                                      copyToClipboardHash(
-                                        transaction.transactionHash,
-                                        index
-                                      )
-                                    }
-                                    style={{
-                                      width: "20px",
-                                      margin: "0px 10px",
-                                      cursor: "pointer",
-                                      height: "auto",
-                                    }}
-                                  />
-                                )}
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              flexDirection: "column",
-                            }}
-                          >
-                            <Image
-                              src={notnx}
-                              alt="none"
-                              width={200}
-                              height={100}
-                            />
-                            <tr>
-                              <td
-                                colSpan="7"
-                                style={{
-                                  textAlign: "center",
-                                  fontSize: "12px",
-                                }}
-                              >
-                                No transactions found.
-                              </td>
-                            </tr>
-                          </div>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
+                                        color: "#9657eb",
+                                      }}
+                                    />
+                                  ) : (
+                                    <FontAwesomeIcon
+                                      icon={faCopy}
+                                      size="2xs"
+                                      alt="Copy Icon"
+                                      onClick={() =>
+                                        copyToClipboardHash(
+                                          transaction.transactionHash,
+                                          index
+                                        )
+                                      }
+                                      style={{
+                                        width: "20px",
+                                        margin: "0px 10px",
+                                        cursor: "pointer",
+                                        height: "auto",
+                                      }}
+                                    />
+                                  )}
+                                </td>
+                              </tr>
+                            ))
+                          ) : (
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <Image
+                                src={notnx}
+                                alt="none"
+                                width={200}
+                                height={100}
+                              />
+                              <tr>
+                                <td
+                                  colSpan="7"
+                                  style={{
+                                    textAlign: "center",
+                                    fontSize: "12px",
+                                  }}
+                                >
+                                  No transactions found.
+                                </td>
+                              </tr>
+                            </div>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

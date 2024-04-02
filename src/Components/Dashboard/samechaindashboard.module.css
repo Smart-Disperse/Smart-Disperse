@@ -49,23 +49,6 @@
   transition: all 0.5s;
 }
 
-.stickyIcon a i.fa-instagram {
-  background-color: #fff;
-  color: #fd1d1d;
-}
-
-.stickyIcon a i.fa-youtube {
-  background-color: #fff;
-  color: #fa0910;
-}
-
-.stickyIcon a i.fa-twitter {
-  background-color: #fff;
-  color: #53c5ff;
-}
-.fas fa-shopping-cart {
-  background-color: #fff;
-}
 #myBtn {
   height: 50px;
   display: none;
@@ -336,7 +319,7 @@ textarea::-webkit-scrollbar {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
-  width: 20%; /* Adjust width as needed */
+  width: 100%; /* Adjust width as needed */
 }
 /* 
 .HistoryMain {
@@ -415,7 +398,27 @@ textarea::-webkit-scrollbar {
   border: none;
   background-color: transparent;
 } */
-
+.chainSelect {
+  width: 20%;
+  position: relative;
+}
+.chainSelect select {
+  appearance: none;
+}
+.chainSelect .chainOptions:hover {
+  background-color: #1e88e5;
+}
+.chainSelect::after {
+  content: "";
+  position: absolute;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent;
+  border-top-color: #222;
+  display: inline-block;
+  right: 10px;
+  bottom: 10px;
+}
 @media only screen and (max-width: 1024px) {
   .displayuserlistbtn {
     border: none;
