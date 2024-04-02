@@ -270,7 +270,8 @@ function Listify({
                   key={index}
                   style={{
                     backgroundColor:
-                      index === selectedIndex ? "#49058eed" : "#49058e91",
+                      index === selectedIndex ? "#8f00ff" : "#ffffff",
+                    color: index === selectedIndex ? "#ffffff" : "#8f00ff",
                   }}
                   className={`${listStyle.listdropdownItem} ${
                     index === selectedIndex ? listStyle.selected : ""
