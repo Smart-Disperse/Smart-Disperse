@@ -45,23 +45,31 @@ function Textify({
       suggestion +
       " " +
       textAfterCursor;
-  
+
     // Find the index of the first non-whitespace character after the inserted address
-    const nextNonWhitespaceIndex = updatedTextValue.indexOf(/\S/, lastAtSymbolIndex + suggestion.length + 2);
-  
+    const nextNonWhitespaceIndex = updatedTextValue.indexOf(
+      /\S/,
+      lastAtSymbolIndex + suggestion.length + 2
+    );
+
     // Calculate the new cursor position
-    const updatedCursorPosition = nextNonWhitespaceIndex !== -1 ? nextNonWhitespaceIndex : updatedTextValue.length;
-  
+    const updatedCursorPosition =
+      nextNonWhitespaceIndex !== -1
+        ? nextNonWhitespaceIndex
+        : updatedTextValue.length;
+
     setTextValue(updatedTextValue);
     setSuggestions([]);
-  
+
     // Set the cursor position after the inserted address
     textareaRef.current.focus(); // Ensure the textarea is focused before setting the cursor position
-    textareaRef.current.setSelectionRange(updatedCursorPosition, updatedCursorPosition);
-  
+    textareaRef.current.setSelectionRange(
+      updatedCursorPosition,
+      updatedCursorPosition
+    );
+
     parseText(updatedTextValue);
   };
-  
 
   useEffect(() => {
     const fetchExchangeRate = async () => {
@@ -144,19 +152,21 @@ function Textify({
     if (e.key === "ArrowUp" || e.key === "ArrowDown") {
       e.preventDefault();
       const newIndex = focusedSuggestionIndex + (e.key === "ArrowUp" ? -1 : 1);
-  
+
       if (newIndex >= 0 && newIndex < suggestions.length) {
         setFocusedSuggestionIndex(newIndex);
-  
+
         // Calculate the scroll position
         const dropdownElement = dropdownRef.current;
         const scrollTop = newIndex * suggestionItemHeight;
         dropdownElement.scrollTop = scrollTop;
       }
     } else if (e.key === "Enter" && focusedSuggestionIndex !== -1) {
+      e.preventDefault(); // Prevent the default Enter behavior
       handleSuggestionClick(suggestions[focusedSuggestionIndex]);
     }
   };
+
   useEffect(() => {
     // Calculate suggestion item height when suggestions change
     const suggestionElement = dropdownRef.current?.firstChild;
@@ -164,18 +174,18 @@ function Textify({
       setSuggestionItemHeight(suggestionElement.offsetHeight);
     }
   }, [suggestions]);
-  
+
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [focusedSuggestionIndex, suggestions]);
-  
+
   const handleSuggestionMouseEnter = (index) => {
     setFocusedSuggestionIndex(index);
   };
-  
+
   const handleSuggestionMouseLeave = () => {
     setFocusedSuggestionIndex(-1);
   };
@@ -221,25 +231,37 @@ function Textify({
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421
                   0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
               ></textarea>
-             {suggestions.length > 0 && (
-        <div ref={dropdownRef} className={textStyle.dropdown}  style={{ maxHeight: "200px", overflowY: "auto" }} >
-          {suggestions.map((suggestion, index) => (
-            <div
-              key={index}
-              className={`${textStyle.dropdownItem} ${
-                index === focusedSuggestionIndex
-                  ? textStyle.dropdownItemActive
-                  : ""
-              }`}
-              onClick={() => handleSuggestionClick(suggestion)}
-              onMouseEnter={() => handleSuggestionMouseEnter(index)}
-              onMouseLeave={handleSuggestionMouseLeave}
-              style={{ background: index === focusedSuggestionIndex ? "#8f00ff" : "white" ,
-              color: index === focusedSuggestionIndex ? "white" : "#8f00ff" }}
-            >
-              {suggestion}
-            </div>
-          ))}
+              {suggestions.length > 0 && (
+                <div
+                  ref={dropdownRef}
+                  className={textStyle.dropdown}
+                  style={{ maxHeight: "200px", overflowY: "auto" }}
+                >
+                  {suggestions.map((suggestion, index) => (
+                    <div
+                      key={index}
+                      className={`${textStyle.dropdownItem} ${
+                        index === focusedSuggestionIndex
+                          ? textStyle.dropdownItemActive
+                          : ""
+                      }`}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      onMouseEnter={() => handleSuggestionMouseEnter(index)}
+                      onMouseLeave={handleSuggestionMouseLeave}
+                      style={{
+                        background:
+                          index === focusedSuggestionIndex
+                            ? "#8f00ff"
+                            : "white",
+                        color:
+                          index === focusedSuggestionIndex
+                            ? "white"
+                            : "#8f00ff",
+                      }}
+                    >
+                      {suggestion}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
