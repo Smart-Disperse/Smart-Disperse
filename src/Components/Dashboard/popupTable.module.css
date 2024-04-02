@@ -134,7 +134,7 @@
   position: sticky;
 }
 .content {
-  height: 275px;
+  height: 200px;
   overflow-y: scroll;
 }
 .content::-webkit-scrollbar {
