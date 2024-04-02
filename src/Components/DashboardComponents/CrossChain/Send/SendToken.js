@@ -208,7 +208,7 @@ function SendToken({ activeTab, listData, setListData }) {
       console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
-      
+
       if (typeof result.error === "string") {
         setNameErrorModalIsOpen(true);
         toast.warn("Name Already Exist! Please Enter Unique Name.");
@@ -412,7 +412,6 @@ function SendToken({ activeTab, listData, setListData }) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "10px",
-                border: "1px solid #ddd",
               }}
             >
               <table className={textStyle.tabletextlist}>

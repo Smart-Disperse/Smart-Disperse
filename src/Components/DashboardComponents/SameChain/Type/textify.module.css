@@ -341,10 +341,33 @@
 .textareaInput {
   outline: none;
 }
+.textareaInput::-webkit-scrollbar {
+  width: 2px;
+  margin-right: 0;
+}
+.textareaInput::-webkit-scrollbar-thumb {
+  background: #9657eb;
+}
+.textareaInput::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 .scrollabletablecontainer {
   margin: 25px 0;
   max-height: 280px;
   overflow: auto;
+}
+.scrollabletablecontainer::-webkit-scrollbar {
+  width: 3px;
+  margin-right: 0;
+}
+.scrollabletablecontainer::-webkit-scrollbar {
+  height: 3px; /* Set the height of the horizontal scrollbar */
+}
+.scrollabletablecontainer::-webkit-scrollbar-thumb {
+  background: #ffffff;
+}
+.scrollabletablecontainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 #tableresponsive {
   margin: 25px 0px;
@@ -620,6 +643,7 @@
     color: #fff;
     font-size: 12px;
     font-weight: 700;
+    cursor: pointer;
     letter-spacing: 1px;
     line-height: 37px;
     margin-bottom: 35px;
