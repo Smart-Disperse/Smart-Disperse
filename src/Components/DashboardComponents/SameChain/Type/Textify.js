@@ -162,8 +162,11 @@ function Textify({
         dropdownElement.scrollTop = scrollTop;
       }
     } else if (e.key === "Enter" && focusedSuggestionIndex !== -1) {
-      e.preventDefault(); // Prevent the default Enter behavior
-      handleSuggestionClick(suggestions[focusedSuggestionIndex]);
+      // Check if "@" is present in the input text
+      if (textValue.includes("@")) {
+        e.preventDefault(); // Prevent the default Enter behavior
+        handleSuggestionClick(suggestions[focusedSuggestionIndex]);
+      }
     }
   };
 
