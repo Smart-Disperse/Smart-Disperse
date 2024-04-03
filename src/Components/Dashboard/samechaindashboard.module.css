@@ -570,6 +570,10 @@ textarea::-webkit-scrollbar {
     font-size: 12px;
     line-height: 2vh;
   }
+  .chainSelect {
+    width: 90%;
+    position: relative;
+  }
   .searchBar {
     display: flex;
     justify-content: center;
@@ -578,6 +582,17 @@ textarea::-webkit-scrollbar {
     flex-direction: column;
     width: 90%;
     margin: 0px;
+  }
+  .chainSelect::after {
+    content: "";
+    position: absolute;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #222;
+    display: inline-block;
+    right: 40px;
+    bottom: 10px;
   }
   .inputSearch {
     width: 90%;
@@ -589,7 +604,7 @@ textarea::-webkit-scrollbar {
     margin-bottom: 10px;
   }
   .dropdown {
-    width: 60%;
+    width: 80%;
   }
 
   .dashpera {

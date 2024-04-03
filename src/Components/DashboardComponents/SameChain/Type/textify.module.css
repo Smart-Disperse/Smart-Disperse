@@ -1,3 +1,8 @@
+.Link a:-webkit-any-link {
+  color: red;
+  cursor: pointer;
+  text-decoration: underline;
+}
 .textAccSum {
   width: max-content;
   max-width: 900px;
