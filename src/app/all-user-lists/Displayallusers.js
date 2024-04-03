@@ -188,7 +188,16 @@ function Displayallusers() {
                             className={displayuser.editinput}
                             type="text"
                             value={editName}
-                            onChange={(e) => setEditName(e.target.value)}
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              // Regular expression to allow only alphanumeric characters without spaces
+                              const regex = /^[a-zA-Z0-9]*$/;
+                          
+                              if (regex.test(inputValue)) {
+                                  setEditName(inputValue);
+                              }
+                          }}                          
+                            
                           />
                         ) : (
                           user.name
