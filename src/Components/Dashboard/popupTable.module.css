@@ -12,6 +12,9 @@
   /* margin-top: 20px; */
   box-sizing: border-box;
 }
+.btnhoverpointer:hover{
+  cursor: pointer;
+}
 .MainPopup {
   width: 520px;
   height: 520px;
