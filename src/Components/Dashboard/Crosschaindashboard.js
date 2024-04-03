@@ -44,36 +44,46 @@ function Crosschaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-
+  const [selectedOption, setSelectedOption] = useState("");
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
   const [allAddress, setAllAddress] = useState([]);
-
-  // const getchainid = async () => {
-  //   console.log("Getting chain ID");
-  //   try {
-  //     const chain = Number(
-  //       await window.ethereum.request({ method: "eth_chainId" })
-  //     );
-  //     const network = ethers.providers.getNetwork(chain);
-  //     const chainid = network.chainId.toString();
-  //     console.log("Chain ID:", chainid);
-  //     if(chainid in contracts){
-  //       const chainname = contracts[chainid].name;
-  //       console.log(chainname);
-  //       setChainname(chainname)
-  //     } else {
-  //       console.log(`Chain ID ${chainid} does not match any contract.`);
-  //       return null;
-  //   }
-  //   } catch (error) {
-  //     console.error("Error occurred while fetching chain ID:", error);
-  //     throw error;
-  //   }
-  // };
-
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value); 
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("Selected option:", selectedOption);
+    const preferdata = {
+      userid: address,
+      chain: selectedOption,
+    }
+    console.log(preferdata);
+    console.log(JSON.stringify(preferdata));
+    try {
+      let result = await fetch(`http://localhost:3000/api/globaldata`, {
+        method: "POST",
+        body: JSON.stringify(preferdata),
+      });
+      console.log("posting....")
+      result = await result.json();
+      console.log("Result after submission:", result);
+      if (result.result) {
+        console.log("Added to MongoDB");
+      } else {
+        alert("Failed to add to MongoDB");
+      }
+    } catch (error) {
+      console.error("Error:", error.toString());
+    }
+    console.log("done")
+    setSelectedOption("");
+  };
 
   const handleSearchChange = (event) => {
     const { value } = event.target;
@@ -217,21 +227,6 @@ function Crosschaindashboard() {
     }
   }, []);
 
-  // const fetchTransactions = async () => {
-  //   if (address) {
-  //     const ethData = await getEthTransactions(address);
-  //     setEthTransactions(ethData);
-
-  //     const erc20Data = await getERC20Transactions(address, "0x254d06f33bDc5b8ee05b2ea472107E300226659A");
-  //     setErc20Transactions(erc20Data);
-  //   }
-  // };
-
-  // CHAIN ID OBJECT
-
-  // Function to get chain name based on chain ID
-
-  // Extract unique token names from ethTransactions and erc20Transactions
   const allTransactions = [...ethTransactions, ...erc20Transactions];
   const uniqueTokenNames = Array.from(
     new Set(allTransactions.map((transaction) => transaction.tokenName))
@@ -318,13 +313,16 @@ function Crosschaindashboard() {
         <div className={samechainStyle.stickyIcon1}>
           <a className={samechainStyle.Instagram1}>
             <FontAwesomeIcon icon={faGlobe} />
-            <select id="cars" name="cars">
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="fiat">Fiat</option>
-              <option value="audi">Audi</option>
-            </select>
-            <button>submit</button>
+            <form onSubmit={handleSubmit}>
+        <select style={{borderRadius:"4px"}} value={selectedOption} onChange={handleOptionChange}>
+          <option value="Mode">Mode</option>
+          <option value="Optimism">Optimism</option>
+          <option value="Polygon">Polygon</option>
+          <option value="Scroll">Scroll</option>
+          <option value="Base">Base</option>
+        </select>
+        <button className={samechainStyle.chainsubmitbtn} type="submit">Submit</button>
+      </form>
           </a>
         </div>
       </div>

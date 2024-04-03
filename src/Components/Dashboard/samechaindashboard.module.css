@@ -1,3 +1,11 @@
+.chainsubmitbtn{
+  margin: 0px 4px;
+    border-radius: 13px;
+    background: white;
+    border: 2px solid #7c43ff;
+    line-height: normal;
+    color: #7c43ff;
+}
 .stickyIcon {
   z-index: 1;
   position: fixed;
