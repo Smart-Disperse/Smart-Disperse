@@ -11,7 +11,7 @@ import "driver.js/dist/driver.css";
 import samechainStyle from "./samechaindashboard.module.css";
 import Footer from "../Footer/Footer";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import SameChain from "../DashboardComponents/SameChain/SameChain";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -53,10 +53,69 @@ function Samechaindashboard() {
   const [explorelink, serexplorelink] = useState();
   const [transactionhash, settransactionhash] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
-    useState(false);
+  const [sortingByAmount, setSortingByAmount] = useState(false);
+  const [sortingByLabel, setSortingByLabel] = useState(false);
+  const [sortingByDate, setSortingByDate] = useState(false);
+  const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] = useState(false);
   const chainId = useChainId();
+  const [transactions, setTransactions] = useState(filteredTransactions);
 
+
+  // /............sorting amount function ............./
+  const sortLabels = () => {
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+      if (!a.label || !b.label) {
+        return 0;
+      }
+      return a.label.localeCompare(b.label);
+    });
+    setFilteredTransactions(sortedTransactions);
+    setSortingByLabel(true)
+  };
+  const dortLabels = () => {
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+      if (!a.label || !b.label) {
+        return 0;
+      }
+      return b.label.localeCompare(a.label);
+    });
+    setFilteredTransactions(sortedTransactions);
+    setSortingByLabel(false)
+  };
+// /............sorting amount function ............./
+  const sortAmount = () => {
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+      return parseFloat(b.value) - parseFloat(a.value);
+    });
+    setFilteredTransactions(sortedTransactions);
+    setSortingByAmount(true);
+  };
+  
+  const dortAmount = () => {
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+      return parseFloat(a.value) - parseFloat(b.value);
+    });
+    setFilteredTransactions(sortedTransactions);
+    setSortingByAmount(false);
+  };
+  
+// /............sorting amount function ............./
+  const sortDate = () => {
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+      return new Date(b.blockTimestamp) - new Date(a.blockTimestamp);
+    });
+    setFilteredTransactions(sortedTransactions);
+   setSortingByDate(true)
+  };
+  const dortDate = () => {
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+      return new Date(a.blockTimestamp) - new Date(b.blockTimestamp);
+    });
+    setFilteredTransactions(sortedTransactions);
+   setSortingByDate(false)
+
+  };
+  
   const copyToClipboard = (text, index) => {
     setIsCopiedAddressIndex(index);
     navigator.clipboard.writeText(text).then(
@@ -639,11 +698,35 @@ function Samechaindashboard() {
                       <thead>
                         <tr className={popup.row}>
                           <th className={popup.column1}>Recipient Address</th>
-                          <th className={popup.column2}>Amount</th>
+                          <th className={popup.column2}>
+  Amount
+  {sortingByAmount ? (
+          <button className={popup.btnhoverpointer}  style={{background:"transparent", color:"white",border:"none"}} onClick={dortAmount}><FontAwesomeIcon icon={faArrowUp} /></button>
+        ) : (
+          <button className={popup.btnhoverpointer}  style={{background:"transparent", color:"white", border:"none"}} onClick={sortAmount}><FontAwesomeIcon icon={faArrowDown} /></button>
+        )}
+</th>
+
                           <th className={popup.column3}>Chain</th>
                           <th className={popup.column4}>Token</th>
-                          <th className={popup.column5}>Label</th>
-                          <th className={popup.column6}>Date</th>
+                          <th className={popup.column5}>
+  Label
+  {sortingByLabel ? (
+          <button className={popup.btnhoverpointer}  style={{background:"transparent", color:"white",border:"none"}} onClick={dortLabels}><FontAwesomeIcon icon={faArrowUp} /></button>
+        ) : (
+          <button className={popup.btnhoverpointer}  style={{background:"transparent", color:"white", border:"none"}} onClick={sortLabels}><FontAwesomeIcon icon={faArrowDown} /></button>
+        )}
+</th>
+
+                          <th className={popup.column6}>
+  Date
+  {sortingByDate ? (
+          <button className={popup.btnhoverpointer}  style={{background:"transparent", color:"white",border:"none"}} onClick={dortDate}><FontAwesomeIcon icon={faArrowUp} /></button>
+        ) : (
+          <button className={popup.btnhoverpointer}  style={{background:"transparent", color:"white", border:"none"}} onClick={sortDate}><FontAwesomeIcon icon={faArrowDown} /></button>
+        )}
+</th>
+
                           <th className={popup.column7}>Transaction Hash</th>
                         </tr>
                       </thead>
