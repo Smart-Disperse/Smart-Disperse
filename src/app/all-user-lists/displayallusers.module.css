@@ -1,3 +1,45 @@
+.gobackbtn:hover{
+  cursor: pointer;
+  background-color: #ffffff3c;
+  color: white;
+}
+.linkto:hover{
+  color: white;
+  text-decoration: none;
+}
+.linkto{
+  /* color: white; */
+  text-decoration: none;
+}
+.gobackbtn{
+  /* background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%); */
+    border: none;
+    padding: 8px;
+    font-weight: 700;
+    margin: 5px 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.refreshbtn:hover{
+  cursor: pointer;
+}
+.refreshbtn{
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: underline;
+}
+
+.buttondivgoback{
+  width: 100%;
+  max-width: 1000px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+}
 .maindivofdashboard {
   background: var(--background1);
   background-position: center;
