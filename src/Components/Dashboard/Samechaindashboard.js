@@ -28,6 +28,17 @@ import { useAccount, useChainId, useNetwork } from "wagmi";
 import notnx from "../../Assets/nodata.png";
 
 function Samechaindashboard() {
+  //test
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setShowDatePicker(false);
+  };
+
+  //test
+
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
   const router = useRouter();
@@ -449,7 +460,11 @@ function Samechaindashboard() {
                   <Image
                     src={dropdown}
                     alt="dropdown"
-                    style={{ background: "#8f00ff", borderRadius: "5px" }}
+                    style={{
+                      background: "#8f00ff",
+                      borderRadius: "5px",
+                      transform: "rotate(180deg)",
+                    }}
                   />
                 </button>
               </div>
@@ -580,33 +595,41 @@ function Samechaindashboard() {
                     onChange={handleSearchChange}
                     className={samechainStyle.inputSearch}
                   />
+                  <div>
+                    <lable>Start Date</lable>
+                    <input
+                      type="date"
+                      placeholder="Start Date"
+                      ref={inputRef1}
+                      onChange={handleStartDateChange}
+                      onFocus={() => (inputRef1.current.type = "date")}
+                      // onFocus={() => console.log("fired")}
+                      // onBlur={() => console.log("Leave")}
+                      onBlur={() => (inputRef1.current.type = "text")}
+                      className={samechainStyle.inputDate1}
+                      max={new Date().toISOString().split("T")[0]}
+                    />
+                  </div>
 
-                  <input
-                    type="text"
-                    placeholder="Start Date"
-                    ref={inputRef1}
-                    onChange={handleStartDateChange}
-                    onFocus={() => (inputRef1.current.type = "date")}
-                    onBlur={() => (inputRef1.current.type = "text")}
-                    className={samechainStyle.inputDate1}
-                    max={new Date().toISOString().split("T")[0]}
-                  />
+                  <div>
+                    <lable>End Date</lable>
+                    <input
+                      type="date"
+                      placeholder="End Date"
+                      ref={inputRef3}
+                      onChange={handleEndDateChange}
+                      onFocus={() => (inputRef3.current.type = "date")}
+                      onBlur={() => (inputRef3.current.type = "text")}
+                      className={samechainStyle.inputDate1}
+                      min={
+                        startDate
+                          ? startDate
+                          : new Date().toISOString().split("T")[0]
+                      } // Set min attribute to the selected start date if available, otherwise set it to today's date
+                      max={new Date().toISOString().split("T")[0]}
+                    />
+                  </div>
 
-                  <input
-                    type="text"
-                    placeholder="End Date"
-                    ref={inputRef3}
-                    onChange={handleEndDateChange}
-                    onFocus={() => (inputRef3.current.type = "date")}
-                    onBlur={() => (inputRef3.current.type = "text")}
-                    className={samechainStyle.inputDate1}
-                    min={
-                      startDate
-                        ? startDate
-                        : new Date().toISOString().split("T")[0]
-                    } // Set min attribute to the selected start date if available, otherwise set it to today's date
-                    max={new Date().toISOString().split("T")[0]}
-                  />
                   <div className={samechainStyle.chainSelect}>
                     <select
                       value={selectedToken}
