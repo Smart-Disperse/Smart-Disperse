@@ -38,7 +38,11 @@ function Samechaindashboard() {
   const [endDate, setEndDate] = useState(null);
   const [selectedToken, setSelectedToken] = useState("Eth");
   const [selectedTokenSymbol, setSelectedTokenSymbol] = useState("ETH");
+<<<<<<< HEAD
   const [explorerUrl, setExplorerUrl] = useState("Eth");
+=======
+  const [explorerUrl, setExplorerUrl] = useState("");
+>>>>>>> f124f7c89c065fc69d621b4397b00aae1d9bc9e1
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
   const inputRef3 = useRef();
@@ -182,7 +186,7 @@ function Samechaindashboard() {
       );
       setSelectedToken(selectedToken);
       setSelectedTokenSymbol(
-        selectedTokenObject ? selectedTokenObject.symbol : ""
+        selectedTokenObject ? selectedTokenObject.symbol : "ETH"
       );
     } catch (error) {
       console.error("Error fetching token data:", error);
@@ -191,8 +195,8 @@ function Samechaindashboard() {
     }
   };
   const handleSearch = (searchQuery) => {
-    var filtered = filteredTransactions;
-    filtered = filteredTransactions.filter(
+    var filtered = transactionData;
+    filtered = transactionData.filter(
       (transaction) =>
         transaction.recipient
           .toLowerCase()
@@ -279,6 +283,7 @@ function Samechaindashboard() {
   useEffect(() => {
     const fetchData = async () => {
       if (isOpen) {
+        setIsLoading(true);
         const { allNames, allAddress } = await fetchUserDetails();
         var ethData = [];
         if (selectedToken === "Eth") {
@@ -309,6 +314,7 @@ function Samechaindashboard() {
           setFilteredTransactions(ethData);
           const userTokens = await getERC20Tokens(address, chainId);
           setTokenListOfUser(userTokens);
+          setIsLoading(false);
         } else {
           console.log("Eth data is empty");
         }
@@ -541,9 +547,13 @@ function Samechaindashboard() {
                   <div className={samechainStyle.popTitle}></div>
                   <div className={popup.total}>
                     <h4>Total Transfered</h4>
-                    <p>
-                      {totalAmount} {selectedTokenSymbol}
-                    </p>
+                    {isLoading ? (
+                      <p>Loading... </p>
+                    ) : (
+                      <p>
+                        {totalAmount} {selectedTokenSymbol}
+                      </p>
+                    )}
                   </div>
 
                   {/* <div className={popup.right}>
