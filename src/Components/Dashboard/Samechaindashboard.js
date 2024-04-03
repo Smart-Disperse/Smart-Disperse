@@ -38,11 +38,7 @@ function Samechaindashboard() {
   const [endDate, setEndDate] = useState(null);
   const [selectedToken, setSelectedToken] = useState("Eth");
   const [selectedTokenSymbol, setSelectedTokenSymbol] = useState("ETH");
-<<<<<<< HEAD
   const [explorerUrl, setExplorerUrl] = useState("Eth");
-=======
-  const [explorerUrl, setExplorerUrl] = useState("");
->>>>>>> f124f7c89c065fc69d621b4397b00aae1d9bc9e1
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
   const inputRef3 = useRef();
