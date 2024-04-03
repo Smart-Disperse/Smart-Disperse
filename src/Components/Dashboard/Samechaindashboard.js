@@ -702,12 +702,7 @@ function Samechaindashboard() {
                                           index
                                         )
                                       }
-                                      style={{
-                                        width: "20px",
-                                        margin: "0px 10px",
-                                        cursor: "pointer",
-                                        height: "auto",
-                                      }}
+                                      className={popup.copyIcon}
                                     />
                                   )}
                                 </td>
@@ -816,12 +811,7 @@ function Samechaindashboard() {
                                           index
                                         )
                                       }
-                                      style={{
-                                        width: "20px",
-                                        margin: "0px 10px",
-                                        cursor: "pointer",
-                                        height: "auto",
-                                      }}
+                                      className={popup.copyIcon}
                                     />
                                   )}
                                 </td>

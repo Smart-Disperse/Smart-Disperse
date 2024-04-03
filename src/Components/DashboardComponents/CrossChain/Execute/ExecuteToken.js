@@ -97,6 +97,7 @@ function ExecuteToken(props) {
           // console.log("yayy");
           setMessage(
             <div
+            className={textStyle.Link}
               dangerouslySetInnerHTML={{
                 __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank">here</a> for details.`,
               }}
