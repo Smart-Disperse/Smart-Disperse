@@ -8,8 +8,6 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
 import {
-  polygon,
-  polygonMumbai,
   scroll,
   scrollSepolia,
   sepolia,
@@ -20,11 +18,6 @@ import {
 } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
-import { reconnect } from "@wagmi/core";
-import { injected } from "@wagmi/connectors";
-
-// import { alchemyProvider } from "wagmi/providers/alchemy";
-// import { publicProvider } from "wagmi/providers/public";
 import Navbar from "./Components/Navbar/Navbar";
 const { wallets } = getDefaultWallets();
 
