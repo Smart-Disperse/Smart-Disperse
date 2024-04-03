@@ -329,8 +329,15 @@ function SendEth({ activeTab, listData, setListData }) {
                                       "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)",
                                   }}
                                   onChange={(e) => {
-                                    setLabelValues(index, e.target.value);
-                                  }}
+                                    const inputValue = e.target.value;
+                                    // Regular expression to allow only alphanumeric characters without spaces
+                                    const regex = /^[a-zA-Z0-9]*$/;
+                                
+                                    if (regex.test(inputValue)) {
+                                        setLabelValues(index, inputValue);
+                                    }
+                                }}
+                                
                                   onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                       onAddLabel(index, data.address);
