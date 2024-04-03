@@ -12,11 +12,15 @@ import {
   faPenToSquare,
   faCheck,
   faTrash,
+  faXmark,
+  faArrowLeft,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import loader from "../../Assets/dataloading.webp";
 import notfound from "../../Assets/oops.webp";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 function Displayallusers() {
   const [usersData, setUsersData] = useState([]);
@@ -55,6 +59,12 @@ function Displayallusers() {
     setEditAddress(usersData[index].address);
   };
 
+  const handleAbortedit = () => {
+    setEditUserIndex(null);
+    setEditName("");
+    setEditAddress("");
+  }
+
   const handleUpdate = async (index) => {
     try {
       console.log("entered into try block");
@@ -72,7 +82,7 @@ function Displayallusers() {
       console.log("edit address", editAddress, "editname:", editName);
       if (result.ok) {
         console.log("Data updated successfully");
-        toast.success("Data updated successfully");
+        toast.success("Name updated successfully");
         const updatedUsersData = [...usersData];
         updatedUsersData[index] = {
           ...updatedUsersData[index],
@@ -107,7 +117,7 @@ function Displayallusers() {
       });
       if (result.ok) {
         console.log("Data deleted successfully");
-        toast.success("Data deleted successfully");
+        toast.success("Name deleted successfully");
         const updatedUsersData = [...usersData];
         updatedUsersData.splice(index, 1);
         setUsersData(updatedUsersData);
@@ -121,6 +131,11 @@ function Displayallusers() {
     }
   };
 
+  const handleRefreshpage = () => {
+    console.log("Reloading...")
+    window.location.reload();
+  }
+
   return (
     <div className={displayuser.maindivofdashboard}>
       <div style={{ position: "relative" }}>
@@ -128,13 +143,14 @@ function Displayallusers() {
         <Image className={displayuser.dashbgImg2} src={img4} alt="none" />
       </div>
       <div className={displayuser.samedashmainm}>
-        <div className={displayuser.titledivdashboard}>
-          <div className={displayuser.imagesinthis}></div>
-          <h1>Customize Your Connections</h1>
-          <h3 className={displayuser.dashpera}>
-            Edit and Delete Entries in a Snap for Effortless Data Management!"
-          </h3>
-        </div>
+      <div className={displayuser.titledivdashboard}>
+        <div className={displayuser.imagesinthis}></div>
+        <h1>Customize Your Connections</h1>
+        <h3 className={displayuser.dashpera}>
+          Edit and Delete Entries in a Snap for Effortless Data Management!"
+        </h3>
+      </div>
+       
         <div className={displayuser.maindivforalloptiondashboard}>
           {isLoading ? (
             <div>
@@ -144,7 +160,7 @@ function Displayallusers() {
             <div>
               <Image src={notfound} alt="none" width={400} height={300} />
               <h2>No Data Found!!</h2>
-              <h3>Please try again or Refresh the page.</h3>
+              <h3>Please try again or <button onClick={handleRefreshpage} className={displayuser.refreshbtn}>Refresh the page</button></h3>
             </div>
           ) : (
             <div className={displayuser.displaydatatablewrapper}>
@@ -181,8 +197,9 @@ function Displayallusers() {
                       <td className={displayuser.displaycell}>
                         {user.address}
                       </td>
-                      <td className={displayuser.displaycellbuttons}>
+                      <td style={{display:"flex"}} className={displayuser.displaycellbuttons}>
                         {editUserIndex === index ? (
+                          <div>
                           <button
                             className={displayuser.displayupdatebutton}
                             onClick={handleUpdate}
@@ -192,6 +209,16 @@ function Displayallusers() {
                               style={{ color: "#f5f9ff" }}
                             />
                           </button>
+                          <button
+                            className={displayuser.displayupdatebutton}
+                            onClick={handleAbortedit}
+                          >
+                            <FontAwesomeIcon
+                              icon={faXmark}
+                              style={{ color: "#f5f9ff" }}
+                            />
+                          </button>
+                          </div>
                         ) : (
                           <button
                             className={displayuser.displayeditbutton}
@@ -221,6 +248,12 @@ function Displayallusers() {
               <ToastContainer />
             </div>
           )}
+          <div className={displayuser.buttondivgoback}>
+            <button className={displayuser.gobackbtn}><FontAwesomeIcon icon={faArrowLeft} /> &nbsp; <Link className={displayuser.linkto} href={"/same-chain"}>
+             Go to Same Chain Dashboard</Link>  </button>
+            <button className={displayuser.gobackbtn}> <Link className={displayuser.linkto} href={"/cross-chain"}>
+             Go to Cross Chain Dashboard</Link> &nbsp; <FontAwesomeIcon icon={faArrowRight} /></button>
+          </div>
         </div>
       </div>
       <Footer />
