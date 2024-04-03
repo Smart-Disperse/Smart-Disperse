@@ -37,7 +37,7 @@ function Samechaindashboard() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [selectedToken, setSelectedToken] = useState("Eth");
-  const [selectedTokenSymbol, setSelectedTokenSymbol] = useState("Eth");
+  const [selectedTokenSymbol, setSelectedTokenSymbol] = useState("ETH");
   const [explorerUrl, setExplorerUrl] = useState("Eth");
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -610,10 +610,10 @@ function Samechaindashboard() {
                       {/* DROP DOWN FOR SHOWING TOKENS */}
 
                       <option
-                        value="Eth"
+                        value="ETH"
                         className={samechainStyle.chainOptions}
                       >
-                        Eth
+                        ETH
                       </option>
                       {tokenListOfUser.length > 0
                         ? tokenListOfUser.map((token, index) => (
