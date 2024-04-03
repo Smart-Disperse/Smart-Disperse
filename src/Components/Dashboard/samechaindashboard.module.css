@@ -309,7 +309,7 @@ textarea::-webkit-scrollbar {
   border: 1px solid #8f00ff;
   border-radius: 5px;
   font-size: 1rem;
-  width: 20%; /* Adjust width as needed */
+  /* Adjust width as needed */
 }
 
 .dropdown {
