@@ -284,16 +284,13 @@ function Samechaindashboard() {
         var ethData = [];
         if (selectedToken === "Eth") {
           ethData = await getEthTransactions(address, chainId);
+          ethData = ethData.filter(
+            (transaction) => transaction.tokenName == null
+          );
         } else {
           ethData = await getERC20Transactions(address, selectedToken, chainId);
         }
         if (ethData) {
-          if (selectedToken === "Eth") {
-            ethData = ethData.filter(
-              (transaction) => transaction.tokenName == null
-            );
-            console.log(ethData);
-          }
           console.log(ethData);
           for (let i = 0; i < ethData.length; i++) {
             const recipientAddress = ethData[i].recipient.toLowerCase();
@@ -616,7 +613,7 @@ function Samechaindashboard() {
                       {/* DROP DOWN FOR SHOWING TOKENS */}
 
                       <option
-                        value="ETH"
+                        value="Eth"
                         className={samechainStyle.chainOptions}
                       >
                         ETH
