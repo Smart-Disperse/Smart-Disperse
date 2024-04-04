@@ -16,10 +16,6 @@ function Navbar() {
   const cookie = new Cookies();
   const [isMainnet, setIsMainnet] = useState(true);
 
-  const changeMode = () => {
-    toggleDarkMode();
-  };
-
   const handelMainnet = () => {
     console.log(isMainnet);
 
@@ -63,8 +59,8 @@ function Navbar() {
               <span className={navStyle.slider}></span>
               <span
                 className={navStyle.labels}
-                data-on="TestNet"
-                data-off="Mainnet"
+                data-on="Mainnet"
+                data-off="Testnet"
               ></span>
             </label>
           )}
