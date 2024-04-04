@@ -333,9 +333,9 @@ function SendEth({ activeTab, listData, setListData }) {
                                     // Regular expression to allow only alphanumeric characters without spaces
                                     const regex = /^[a-zA-Z0-9]*$/;
                                 
-                                    if (regex.test(inputValue)) {
-                                        setLabelValues(index, inputValue);
-                                    }
+                                    if (regex.test(inputValue) && inputValue.length <= 10 ) {
+                                      setLabelValues(index, inputValue);
+                                  }
                                 }}
                                 
                                   onKeyDown={(e) => {

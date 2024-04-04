@@ -557,10 +557,9 @@ function SendToken({ activeTab, listData, setListData }) {
                                       const inputValue = e.target.value;
                                       // Regular expression to allow only alphanumeric characters without spaces
                                       const regex = /^[a-zA-Z0-9]*$/;
-                                  
-                                      if (regex.test(inputValue)) {
-                                          setLabelValues(index, inputValue);
-                                      }
+                                      if (regex.test(inputValue) && inputValue.length <= 10 ) {
+                                        setLabelValues(index, inputValue);
+                                    }
                                   }}
                                   
                                   
