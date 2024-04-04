@@ -21,6 +21,9 @@ import notfound from "../../Assets/oops.webp";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
+import { ethers } from "ethers";
+import jwt from "jsonwebtoken";
+import Cookies from "universal-cookie";
 
 function Displayallusers() {
   const [usersData, setUsersData] = useState([]);
@@ -30,6 +33,83 @@ function Displayallusers() {
   const { address } = useAccount();
   const [isLoading, setIsLoading] = useState(true); // State for tracking loading
 
+  const storeToken = async (token) => {
+    try {
+      const cookies = new Cookies();
+
+      console.log("stoing cookie", token);
+      // Store token in HTTP-only cookie
+      cookies.set("jwt_token", token);
+      return true;
+    } catch (e) {
+      console.error("Error storing token:", e);
+      return false;
+    }
+  };
+  const createSign = async () => {
+    try {
+      const { ethereum } = window;
+      if (!ethereum) {
+        throw new Error("Metamask is not installed, please install!");
+      }
+
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const message =
+        "sign this message to verify the ownership of your address";
+
+      // Sign the message using MetaMask
+      const signature = await signer.signMessage(message);
+      console.log(signature);
+      const jwtToken = await decodeSignature(signature, message);
+      console.log(jwtToken);
+      const storetoken = await storeToken(jwtToken);
+      jwt.verify(jwtToken, "abcd", (err, decoded) => {
+        if (err) {
+          console.error("Error verifying token:", err);
+        } else {
+          console.log("Decoded payload:", decoded);
+        }
+      });
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
+
+  const decodeSignature = async (signature, message) => {
+    try {
+      // Decode the signature to get the signer's address
+      const signerAddress = ethers.utils.verifyMessage(message, signature);
+      console.log("Signer's address:", signerAddress, address);
+
+      if (signerAddress.toLowerCase() === address.toLowerCase()) {
+        // Normalize addresses and compare them
+        const jwtToken = generateJWTToken(signerAddress, message);
+        return jwtToken;
+      }
+      return signerAddress;
+    } catch (e) {
+      console.error("Error decoding signature:", e);
+      return null;
+    }
+  };
+
+  const generateJWTToken = (signature, message) => {
+    // Set expiration time to 1 minute from now
+    const expirationTime = Math.floor(Date.now() / 1000) + 60; // 60 seconds = 1 minute
+
+    const tokenPayload = {
+      signature: signature,
+      message: message,
+      exp: expirationTime, // Add expiration time claim
+      // Add more claims as needed
+      // For example, issuer, subject, etc.
+    };
+
+    console.log(tokenPayload);
+    const token = jwt.sign(tokenPayload, "abcd");
+    return token;
+  };
   const fetchUserDetails = async () => {
     console.log(address);
     try {
@@ -50,7 +130,7 @@ function Displayallusers() {
     }
   };
   useEffect(() => {
-    fetchUserDetails();
+    createSign();
   }, []);
 
   const handleEdit = (index) => {
@@ -63,7 +143,7 @@ function Displayallusers() {
     setEditUserIndex(null);
     setEditName("");
     setEditAddress("");
-  }
+  };
 
   const handleUpdate = async (index) => {
     try {
@@ -132,9 +212,9 @@ function Displayallusers() {
   };
 
   const handleRefreshpage = () => {
-    console.log("Reloading...")
+    console.log("Reloading...");
     window.location.reload();
-  }
+  };
 
   return (
     <div className={displayuser.maindivofdashboard}>
@@ -143,14 +223,14 @@ function Displayallusers() {
         <Image className={displayuser.dashbgImg2} src={img4} alt="none" />
       </div>
       <div className={displayuser.samedashmainm}>
-      <div className={displayuser.titledivdashboard}>
-        <div className={displayuser.imagesinthis}></div>
-        <h1>Customize Your Connections</h1>
-        <h3 className={displayuser.dashpera}>
-          Edit and Delete Entries in a Snap for Effortless Data Management!"
-        </h3>
-      </div>
-       
+        <div className={displayuser.titledivdashboard}>
+          <div className={displayuser.imagesinthis}></div>
+          <h1>Customize Your Connections</h1>
+          <h3 className={displayuser.dashpera}>
+            Edit and Delete Entries in a Snap for Effortless Data Management!"
+          </h3>
+        </div>
+
         <div className={displayuser.maindivforalloptiondashboard}>
           {isLoading ? (
             <div>
@@ -160,7 +240,15 @@ function Displayallusers() {
             <div>
               <Image src={notfound} alt="none" width={400} height={300} />
               <h2>No Data Found!!</h2>
-              <h3>Please try again or <button onClick={handleRefreshpage} className={displayuser.refreshbtn}>Refresh the page</button></h3>
+              <h3>
+                Please try again or{" "}
+                <button
+                  onClick={handleRefreshpage}
+                  className={displayuser.refreshbtn}
+                >
+                  Refresh the page
+                </button>
+              </h3>
             </div>
           ) : (
             <div className={displayuser.displaydatatablewrapper}>
@@ -192,12 +280,11 @@ function Displayallusers() {
                               const inputValue = e.target.value;
                               // Regular expression to allow only alphanumeric characters without spaces
                               const regex = /^[a-zA-Z0-9]*$/;
-                          
+
                               if (regex.test(inputValue)) {
-                                  setEditName(inputValue);
+                                setEditName(inputValue);
                               }
-                          }}                          
-                            
+                            }}
                           />
                         ) : (
                           user.name
@@ -206,27 +293,30 @@ function Displayallusers() {
                       <td className={displayuser.displaycell}>
                         {user.address}
                       </td>
-                      <td style={{display:"flex"}} className={displayuser.displaycellbuttons}>
+                      <td
+                        style={{ display: "flex" }}
+                        className={displayuser.displaycellbuttons}
+                      >
                         {editUserIndex === index ? (
                           <div>
-                          <button
-                            className={displayuser.displayupdatebutton}
-                            onClick={handleUpdate}
-                          >
-                            <FontAwesomeIcon
-                              icon={faCheck}
-                              style={{ color: "#f5f9ff" }}
-                            />
-                          </button>
-                          <button
-                            className={displayuser.displayupdatebutton}
-                            onClick={handleAbortedit}
-                          >
-                            <FontAwesomeIcon
-                              icon={faXmark}
-                              style={{ color: "#f5f9ff" }}
-                            />
-                          </button>
+                            <button
+                              className={displayuser.displayupdatebutton}
+                              onClick={handleUpdate}
+                            >
+                              <FontAwesomeIcon
+                                icon={faCheck}
+                                style={{ color: "#f5f9ff" }}
+                              />
+                            </button>
+                            <button
+                              className={displayuser.displayupdatebutton}
+                              onClick={handleAbortedit}
+                            >
+                              <FontAwesomeIcon
+                                icon={faXmark}
+                                style={{ color: "#f5f9ff" }}
+                              />
+                            </button>
                           </div>
                         ) : (
                           <button
@@ -258,10 +348,19 @@ function Displayallusers() {
             </div>
           )}
           <div className={displayuser.buttondivgoback}>
-            <button className={displayuser.gobackbtn}><FontAwesomeIcon icon={faArrowLeft} /> &nbsp; <Link className={displayuser.linkto} href={"/same-chain"}>
-             Go to Same Chain Dashboard</Link>  </button>
-            <button className={displayuser.gobackbtn}> <Link className={displayuser.linkto} href={"/cross-chain"}>
-             Go to Cross Chain Dashboard</Link> &nbsp; <FontAwesomeIcon icon={faArrowRight} /></button>
+            <button className={displayuser.gobackbtn}>
+              <FontAwesomeIcon icon={faArrowLeft} /> &nbsp;{" "}
+              <Link className={displayuser.linkto} href={"/same-chain"}>
+                Go to Same Chain Dashboard
+              </Link>{" "}
+            </button>
+            <button className={displayuser.gobackbtn}>
+              {" "}
+              <Link className={displayuser.linkto} href={"/cross-chain"}>
+                Go to Cross Chain Dashboard
+              </Link>{" "}
+              &nbsp; <FontAwesomeIcon icon={faArrowRight} />
+            </button>
           </div>
         </div>
       </div>
