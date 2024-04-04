@@ -280,7 +280,7 @@ textarea::-webkit-scrollbar {
 .searchBar {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   width: 90%;
   margin: 20px auto;
 }
