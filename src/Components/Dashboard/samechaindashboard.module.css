@@ -291,7 +291,7 @@ textarea::-webkit-scrollbar {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
-  width: 60%; /* Adjust width as needed */
+  width: 30%; /* Adjust width as needed */
   border: 1px solid #8f00ff;
 }
 .inputDate1:focus {
