@@ -192,12 +192,10 @@ function Displayallusers() {
                               const inputValue = e.target.value;
                               // Regular expression to allow only alphanumeric characters without spaces
                               const regex = /^[a-zA-Z0-9]*$/;
-                          
-                              if (regex.test(inputValue)) {
-                                  setEditName(inputValue);
-                              }
+                          if (inputValue.length <= 10 && regex.test(inputValue)) {
+            setEditName(inputValue);
                           }}                          
-                            
+                        }
                           />
                         ) : (
                           user.name

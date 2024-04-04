@@ -7,7 +7,10 @@ const disperse_data = new mongoose.Schema({
     type: String,
     required: true,
   },
-  name: String,
+  name: {
+    type: String,
+    maxlength: 10, 
+  },
   address: String,
 });
 

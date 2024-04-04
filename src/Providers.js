@@ -21,7 +21,6 @@ import { WagmiProvider } from "wagmi";
 import Navbar from "./Components/Navbar/Navbar";
 const { wallets } = getDefaultWallets();
 
-import Cookies from "universal-cookie";
 const modeTestnet = {
   id: 919,
   name: "Mode Testnet",
@@ -55,8 +54,6 @@ const modeMainnet = {
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
 export function Providers({ children }) {
-  const cookie = new Cookies();
-
   const chains = [
     modeMainnet,
     scroll,
