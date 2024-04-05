@@ -22,27 +22,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import contracts from "@/Helpers/ContractAddresses.js";
-
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   getERC20Transactions,
   getEthTransactions,
   getERC20Tokens,
 } from "@/Helpers/GetSentTransactions";
 import { useAccount, useChainId, useNetwork } from "wagmi";
-import notnx from "../../Assets/nodata.png";
 
 function Samechaindashboard() {
-  //test
   const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
-
+  const { openConnectModal } = useConnectModal();
+  const { isConnected } = useAccount();
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setShowDatePicker(false);
   };
-
   //test
-
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
   const router = useRouter();
@@ -57,6 +54,7 @@ function Samechaindashboard() {
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
   const inputRef3 = useRef();
+  
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [tokenListOfUser, setTokenListOfUser] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
@@ -76,7 +74,20 @@ function Samechaindashboard() {
   const chainId = useChainId();
   const [transactions, setTransactions] = useState(filteredTransactions);
 
-  // /............sorting amount function ............./
+
+  useEffect(() => {
+    const handleClick = () => {
+      if (!isConnected) {
+        openConnectModal();
+      }
+    };
+    window.addEventListener("click", handleClick);  
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, [isConnected, openConnectModal]);
+  
+  // /............sorting label function ............./
   const sortLabels = () => {
     const sortedTransactions = [...filteredTransactions].sort((a, b) => {
       if (!a.label || !b.label) {
@@ -357,9 +368,9 @@ function Samechaindashboard() {
         var ethData = [];
         if (selectedToken === "Eth") {
           ethData = await getEthTransactions(address, chainId);
-          ethData = ethData.filter(
-            (transaction) => transaction.tokenName == null
-          );
+          // ethData = ethData.filter(
+          //   (transaction) => transaction.tokenName == null
+          // );
         } else {
           ethData = await getERC20Transactions(address, selectedToken, chainId);
         }
@@ -815,8 +826,9 @@ function Samechaindashboard() {
 
                   {/* Fetching tx data in */}
                   {isLoading ? (
+                  
                     <div style={{ position: "relative", top: "100px" }}>
-                      Loading...
+                      Fetching  transaction History...
                     </div>
                   ) : (
                     <div className={popup.content}>
@@ -985,12 +997,6 @@ function Samechaindashboard() {
                                 flexDirection: "column",
                               }}
                             >
-                              <Image
-                                src={notnx}
-                                alt="none"
-                                width={200}
-                                height={100}
-                              />
                               <tr>
                                 <td
                                   colSpan="7"

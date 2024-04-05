@@ -8,6 +8,7 @@ import img3 from "../../Assets/img3-bg.webp";
 import img4 from "@/Assets/img4-bg.webp";
 import { useAccount } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   faPenToSquare,
   faCheck,
@@ -29,7 +30,20 @@ function Displayallusers() {
   const [editAddress, setEditAddress] = useState("");
   const { address } = useAccount();
   const [isLoading, setIsLoading] = useState(true); // State for tracking loading
-
+  const { openConnectModal } = useConnectModal();
+  const { isConnected } = useAccount();
+  useEffect(() => {
+    const handleClick = () => {
+      if (!isConnected) {
+        openConnectModal();
+      }
+    };
+    window.addEventListener("click", handleClick);  
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, [isConnected, openConnectModal]);
+  
   const fetchUserDetails = async () => {
     console.log(address);
     try {
