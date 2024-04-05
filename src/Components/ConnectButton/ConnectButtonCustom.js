@@ -105,7 +105,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
               console.log(account ? account : null);
               return (
                 <div
-                  style={{ display: "flex", gap: 5, alignItems: "center" }}
+                  style={{ display: "flex", gap: 10, alignItems: "center" }}
                   className={connectStyle.CMain}
                 >
                   <div>
@@ -135,8 +135,8 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                       <div className={connectStyle.disconnect}>
                         <button
                           style={{
-                            borderRadius: "26px",
-                            border: "none",
+                            borderRadius: "20px",
+                            border: " 0.5px solid #5fffbc",
                             background:
                               " linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%)",
                             color: "white",
@@ -153,12 +153,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                               left: " 0",
                               fontSize: "15px",
                               transform: "translate(-50%, -50%)",
-                              background:
-                                "linear-gradient(90deg, #9f53ff 27.06%, #3b7dff 74.14%)",
-                              backgroundClip: "text",
-                              WebkitBackgroundClip: "text",
-                              WebkitTextFillColor: "transparent",
-                              zIndex: "0",
+                              color: "white",
                               position: "relative",
                             }}
                           >{`${account.address.slice(
@@ -195,8 +190,8 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                           <button
                             onClick={handleDisConnect}
                             style={{
-                              borderRadius: "26px",
-                              border: "none",
+                              borderRadius: "20px",
+                              border: " 0.5px solid #5fffbc",
                               background:
                                 " linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%)",
                               color: "white",
@@ -212,12 +207,8 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                                 left: " 0",
                                 fontSize: "15px",
                                 transform: "translate(-50%, -50%)",
-                                background:
-                                  "linear-gradient(90deg, #9f53ff 27.06%, #3b7dff 74.14%)",
-                                backgroundClip: "text",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                zIndex: "0",
+                                color: "white",
+
                                 position: "relative",
                               }}
                             >
