@@ -16,12 +16,8 @@ function Navbar() {
   const cookie = new Cookies();
   const [isMainnet, setIsMainnet] = useState(true);
 
-  const changeMode = () => {
-    toggleDarkMode();
-  };
-
   const handelMainnet = () => {
-    console.log(isMainnet);
+    console.log(!isMainnet);
 
     setIsMainnet(!isMainnet);
     cookie.set("isMainnet", !isMainnet);
@@ -34,13 +30,13 @@ function Navbar() {
       console.log(isMainnetCookie);
       if (isMainnetCookie !== undefined) {
         // If the cookie exists, set the value of isMainnet accordingly
-        setIsMainnet(isMainnetCookie === "true");
+        setIsMainnet(isMainnetCookie);
       }
     };
 
     // Call the function when the component mounts
     getIsMainnetFromCookies();
-
+    console.log(isMainnet, "isMainnet");
     // Clean up function to avoid memory leaks
     return () => {};
   }, []);
@@ -59,12 +55,16 @@ function Navbar() {
         <div className={navStyle.connectwalletbuttondiv}>
           {isConnected && (
             <label className={navStyle.toggle}>
-              <input type="checkbox" onChange={handelMainnet} />
+              <input
+                type="checkbox"
+                onChange={handelMainnet}
+                checked={isMainnet}
+              />
               <span className={navStyle.slider}></span>
               <span
                 className={navStyle.labels}
-                data-on="TestNet"
-                data-off="Mainnet"
+                data-on="Mainnet"
+                data-off="TestNet"
               ></span>
             </label>
           )}
