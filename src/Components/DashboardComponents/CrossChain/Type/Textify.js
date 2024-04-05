@@ -205,9 +205,7 @@ function Textify({
                   resize: "vertical",
                 }}
                 className={textStyle.textareaInput}
-                placeholder="0xe57f4c84539a6414C4Cf48f135210e01c477EFE0=1.41421 
-                  0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421
-                  0xe57f4c84539a6414C4Cf48f135210e01c477EFE0,1.41421"
+                placeholder="@Justin/0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 0.00030/1$"
               ></textarea>
              {suggestions.length > 0 && (
         <div className={textStyle.dropdown}>

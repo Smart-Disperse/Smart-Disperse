@@ -286,9 +286,9 @@
     color: #fff;
   }
   .MainPopup {
-    width: 520px;
+    width: 220px !important;
     height: 520px;
-    min-width: 700px;
+    min-width: 300px !important;
     border: 1px solid;
     font-size: 0.875rem;
     border-color: white;

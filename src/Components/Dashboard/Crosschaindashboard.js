@@ -16,6 +16,7 @@ import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   getERC20Transactions,
   getEthTransactions,
@@ -44,36 +45,25 @@ function Crosschaindashboard() {
   const inputRef3 = useRef();
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [chainname, setChainname] = useState();
-
   const [ethTransactions, setEthTransactions] = useState([]);
   const [erc20Transactions, setErc20Transactions] = useState([]);
   const [allnames, setAllNames] = useState([]);
   const [allAddress, setAllAddress] = useState([]);
-
-  // const getchainid = async () => {
-  //   console.log("Getting chain ID");
-  //   try {
-  //     const chain = Number(
-  //       await window.ethereum.request({ method: "eth_chainId" })
-  //     );
-  //     const network = ethers.providers.getNetwork(chain);
-  //     const chainid = network.chainId.toString();
-  //     console.log("Chain ID:", chainid);
-  //     if(chainid in contracts){
-  //       const chainname = contracts[chainid].name;
-  //       console.log(chainname);
-  //       setChainname(chainname)
-  //     } else {
-  //       console.log(`Chain ID ${chainid} does not match any contract.`);
-  //       return null;
-  //   }
-  //   } catch (error) {
-  //     console.error("Error occurred while fetching chain ID:", error);
-  //     throw error;
-  //   }
-  // };
-
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const { openConnectModal } = useConnectModal();
+  const { isConnected } = useAccount();
+
+  useEffect(() => {
+    const handleClick = () => {
+      if (!isConnected) {
+        openConnectModal();
+      }
+    };
+    window.addEventListener("click", handleClick);  
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, [isConnected, openConnectModal]);
 
   const handleSearchChange = (event) => {
     const { value } = event.target;
