@@ -39,11 +39,11 @@ function Navbar() {
   const storeToken = async (token) => {
     try {
       // Calculate expiration time 1 minute from now
-      const expirationTime = new Date();
-      expirationTime.setTime(expirationTime.getTime() + 1 * 60 * 60 * 1000); // 1 hour * 60 minutes * 60 seconds * 1000 milliseconds
+      const expiryDate = new Date();
+      expiryDate.setHours(expiryDate.getHours() + 2); // 1 hour * 60 minutes * 60 seconds * 1000 milliseconds
 
       // Set the JWT token in a cookie with expiration time
-      cookie.set("jwt_token", token, { expires: expirationTime });
+      cookie.set("jwt_token", token, { expires: expiryDate });
       return true;
     } catch (e) {
       console.error("Error storing token:", e);
@@ -102,8 +102,8 @@ function Navbar() {
   };
 
   const generateJWTToken = (signature, message) => {
-    // Set expiration time to 1 minute from now
-    const expirationTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
+    // Set expiration time to 2 hrs from now
+    const expirationTime = Math.floor(Date.now() / 1000) + 60 * 60 * 2;
 
     const tokenPayload = {
       signature: signature,
