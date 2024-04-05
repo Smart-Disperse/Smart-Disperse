@@ -21,9 +21,6 @@ import notfound from "../../Assets/oops.webp";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
-import { ethers } from "ethers";
-import jwt from "jsonwebtoken";
-import Cookies from "universal-cookie";
 
 function Displayallusers() {
   const [usersData, setUsersData] = useState([]);
@@ -33,83 +30,6 @@ function Displayallusers() {
   const { address } = useAccount();
   const [isLoading, setIsLoading] = useState(true); // State for tracking loading
 
-  const storeToken = async (token) => {
-    try {
-      const cookies = new Cookies();
-
-      console.log("stoing cookie", token);
-      // Store token in HTTP-only cookie
-      cookies.set("jwt_token", token);
-      return true;
-    } catch (e) {
-      console.error("Error storing token:", e);
-      return false;
-    }
-  };
-  const createSign = async () => {
-    try {
-      const { ethereum } = window;
-      if (!ethereum) {
-        throw new Error("Metamask is not installed, please install!");
-      }
-
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      const message =
-        "sign this message to verify the ownership of your address";
-
-      // Sign the message using MetaMask
-      const signature = await signer.signMessage(message);
-      console.log(signature);
-      const jwtToken = await decodeSignature(signature, message);
-      console.log(jwtToken);
-      const storetoken = await storeToken(jwtToken);
-      jwt.verify(jwtToken, "abcd", (err, decoded) => {
-        if (err) {
-          console.error("Error verifying token:", err);
-        } else {
-          console.log("Decoded payload:", decoded);
-        }
-      });
-    } catch (e) {
-      console.log("error", e);
-    }
-  };
-
-  const decodeSignature = async (signature, message) => {
-    try {
-      // Decode the signature to get the signer's address
-      const signerAddress = ethers.utils.verifyMessage(message, signature);
-      console.log("Signer's address:", signerAddress, address);
-
-      if (signerAddress.toLowerCase() === address.toLowerCase()) {
-        // Normalize addresses and compare them
-        const jwtToken = generateJWTToken(signerAddress, message);
-        return jwtToken;
-      }
-      return signerAddress;
-    } catch (e) {
-      console.error("Error decoding signature:", e);
-      return null;
-    }
-  };
-
-  const generateJWTToken = (signature, message) => {
-    // Set expiration time to 1 minute from now
-    const expirationTime = Math.floor(Date.now() / 1000) + 60; // 60 seconds = 1 minute
-
-    const tokenPayload = {
-      signature: signature,
-      message: message,
-      exp: expirationTime, // Add expiration time claim
-      // Add more claims as needed
-      // For example, issuer, subject, etc.
-    };
-
-    console.log(tokenPayload);
-    const token = jwt.sign(tokenPayload, "abcd");
-    return token;
-  };
   const fetchUserDetails = async () => {
     console.log(address);
     try {
@@ -130,7 +50,7 @@ function Displayallusers() {
     }
   };
   useEffect(() => {
-    createSign();
+    fetchUserDetails();
   }, []);
 
   const handleEdit = (index) => {

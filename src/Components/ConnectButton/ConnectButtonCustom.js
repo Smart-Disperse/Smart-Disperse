@@ -8,6 +8,7 @@ import copy from "../../Assets/copy.png";
 import check from "../../Assets/check.png";
 import connectStyle from "../ConnectButton/connect.module.css";
 import Image from "next/image";
+import Cookies from "universal-cookie";
 
 const ConnectButtonCustom = ({ isMainnet }) => {
   const [isAccountModalOpen, setAccountModalOpen] = useState(false); // Modal for account info
@@ -17,10 +18,13 @@ const ConnectButtonCustom = ({ isMainnet }) => {
     ); /*/* Indicates if the address has been copied to clipboard */
   const { disconnect } = useDisconnect(); // Disconnect button functionality
   const modalRef = useRef(); /*/ Reference to the HTML element of the modal */
+  const cookie = new Cookies();
 
   const handleDisConnect = () => {
     // Function that handles the click on the disconnect button
     disconnect();
+    console.log("destroying jwt");
+    cookie.set("jwt_token", null);
     setAccountModalOpen(false);
   };
 
