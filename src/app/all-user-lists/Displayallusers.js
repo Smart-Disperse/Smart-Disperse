@@ -38,12 +38,12 @@ function Displayallusers() {
         openConnectModal();
       }
     };
-    window.addEventListener("click", handleClick);  
+    window.addEventListener("click", handleClick);
     return () => {
       window.removeEventListener("click", handleClick);
     };
   }, [isConnected, openConnectModal]);
-  
+
   const fetchUserDetails = async () => {
     console.log(address);
     try {
@@ -214,18 +214,13 @@ function Displayallusers() {
                               const inputValue = e.target.value;
                               // Regular expression to allow only alphanumeric characters without spaces
                               const regex = /^[a-zA-Z0-9]*$/;
-<<<<<<< HEAD
-                          if (inputValue.length <= 10 && regex.test(inputValue)) {
-            setEditName(inputValue);
-                          }}                          
-                        }
-=======
-
-                              if (regex.test(inputValue)) {
+                              if (
+                                inputValue.length <= 10 &&
+                                regex.test(inputValue)
+                              ) {
                                 setEditName(inputValue);
                               }
                             }}
->>>>>>> jwt_token_feature
                           />
                         ) : (
                           user.name
