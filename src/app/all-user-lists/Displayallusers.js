@@ -8,6 +8,7 @@ import img3 from "../../Assets/img3-bg.webp";
 import img4 from "@/Assets/img4-bg.webp";
 import { useAccount } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   faPenToSquare,
   faCheck,
@@ -29,6 +30,19 @@ function Displayallusers() {
   const [editAddress, setEditAddress] = useState("");
   const { address } = useAccount();
   const [isLoading, setIsLoading] = useState(true); // State for tracking loading
+  const { openConnectModal } = useConnectModal();
+  const { isConnected } = useAccount();
+  useEffect(() => {
+    const handleClick = () => {
+      if (!isConnected) {
+        openConnectModal();
+      }
+    };
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, [isConnected, openConnectModal]);
 
   const fetchUserDetails = async () => {
     console.log(address);
@@ -63,7 +77,7 @@ function Displayallusers() {
     setEditUserIndex(null);
     setEditName("");
     setEditAddress("");
-  }
+  };
 
   const handleUpdate = async (index) => {
     try {
@@ -132,9 +146,9 @@ function Displayallusers() {
   };
 
   const handleRefreshpage = () => {
-    console.log("Reloading...")
+    console.log("Reloading...");
     window.location.reload();
-  }
+  };
 
   return (
     <div className={displayuser.maindivofdashboard}>
@@ -143,14 +157,14 @@ function Displayallusers() {
         <Image className={displayuser.dashbgImg2} src={img4} alt="none" />
       </div>
       <div className={displayuser.samedashmainm}>
-      <div className={displayuser.titledivdashboard}>
-        <div className={displayuser.imagesinthis}></div>
-        <h1>Customize Your Connections</h1>
-        <h3 className={displayuser.dashpera}>
-          Edit and Delete Entries in a Snap for Effortless Data Management!"
-        </h3>
-      </div>
-       
+        <div className={displayuser.titledivdashboard}>
+          <div className={displayuser.imagesinthis}></div>
+          <h1>Customize Your Connections</h1>
+          <h3 className={displayuser.dashpera}>
+            Edit and Delete Entries in a Snap for Effortless Data Management!"
+          </h3>
+        </div>
+
         <div className={displayuser.maindivforalloptiondashboard}>
           {isLoading ? (
             <div>
@@ -160,7 +174,15 @@ function Displayallusers() {
             <div>
               <Image src={notfound} alt="none" width={400} height={300} />
               <h2>No Data Found!!</h2>
-              <h3>Please try again or <button onClick={handleRefreshpage} className={displayuser.refreshbtn}>Refresh the page</button></h3>
+              <h3>
+                Please try again or{" "}
+                <button
+                  onClick={handleRefreshpage}
+                  className={displayuser.refreshbtn}
+                >
+                  Refresh the page
+                </button>
+              </h3>
             </div>
           ) : (
             <div className={displayuser.displaydatatablewrapper}>
@@ -192,10 +214,13 @@ function Displayallusers() {
                               const inputValue = e.target.value;
                               // Regular expression to allow only alphanumeric characters without spaces
                               const regex = /^[a-zA-Z0-9]*$/;
-                          if (inputValue.length <= 10 && regex.test(inputValue)) {
-            setEditName(inputValue);
-                          }}                          
-                        }
+                              if (
+                                inputValue.length <= 10 &&
+                                regex.test(inputValue)
+                              ) {
+                                setEditName(inputValue);
+                              }
+                            }}
                           />
                         ) : (
                           user.name
@@ -204,27 +229,30 @@ function Displayallusers() {
                       <td className={displayuser.displaycell}>
                         {user.address}
                       </td>
-                      <td style={{display:"flex"}} className={displayuser.displaycellbuttons}>
+                      <td
+                        style={{ display: "flex" }}
+                        className={displayuser.displaycellbuttons}
+                      >
                         {editUserIndex === index ? (
                           <div>
-                          <button
-                            className={displayuser.displayupdatebutton}
-                            onClick={handleUpdate}
-                          >
-                            <FontAwesomeIcon
-                              icon={faCheck}
-                              style={{ color: "#f5f9ff" }}
-                            />
-                          </button>
-                          <button
-                            className={displayuser.displayupdatebutton}
-                            onClick={handleAbortedit}
-                          >
-                            <FontAwesomeIcon
-                              icon={faXmark}
-                              style={{ color: "#f5f9ff" }}
-                            />
-                          </button>
+                            <button
+                              className={displayuser.displayupdatebutton}
+                              onClick={handleUpdate}
+                            >
+                              <FontAwesomeIcon
+                                icon={faCheck}
+                                style={{ color: "#f5f9ff" }}
+                              />
+                            </button>
+                            <button
+                              className={displayuser.displayupdatebutton}
+                              onClick={handleAbortedit}
+                            >
+                              <FontAwesomeIcon
+                                icon={faXmark}
+                                style={{ color: "#f5f9ff" }}
+                              />
+                            </button>
                           </div>
                         ) : (
                           <button
@@ -256,10 +284,19 @@ function Displayallusers() {
             </div>
           )}
           <div className={displayuser.buttondivgoback}>
-            <button className={displayuser.gobackbtn}><FontAwesomeIcon icon={faArrowLeft} /> &nbsp; <Link className={displayuser.linkto} href={"/same-chain"}>
-             Go to Same Chain Dashboard</Link>  </button>
-            <button className={displayuser.gobackbtn}> <Link className={displayuser.linkto} href={"/cross-chain"}>
-             Go to Cross Chain Dashboard</Link> &nbsp; <FontAwesomeIcon icon={faArrowRight} /></button>
+            <button className={displayuser.gobackbtn}>
+              <FontAwesomeIcon icon={faArrowLeft} /> &nbsp;{" "}
+              <Link className={displayuser.linkto} href={"/same-chain"}>
+                Go to Same Chain Dashboard
+              </Link>{" "}
+            </button>
+            <button className={displayuser.gobackbtn}>
+              {" "}
+              <Link className={displayuser.linkto} href={"/cross-chain"}>
+                Go to Cross Chain Dashboard
+              </Link>{" "}
+              &nbsp; <FontAwesomeIcon icon={faArrowRight} />
+            </button>
           </div>
         </div>
       </div>
