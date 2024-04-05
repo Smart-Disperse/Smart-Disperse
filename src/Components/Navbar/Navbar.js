@@ -91,7 +91,7 @@ function Navbar() {
 
       if (signerAddress.toLowerCase() === address.toLowerCase()) {
         // Normalize addresses and compare them
-        const jwtToken = generateJWTToken(signerAddress, message);
+        const jwtToken = generateJWTToken(signature, message);
         return jwtToken;
       }
       return null;
