@@ -8,10 +8,19 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import Cookies from "universal-cookie";
 import { useAccount } from "wagmi";
+import { ethers } from "ethers";
+import jwt from "jsonwebtoken";
 
 function Navbar() {
   const [toggleSVG, setToggleSVG] = useState(false);
-  const { isConnected } = useAccount();
+  const {
+    isConnected,
+    address,
+    isDisconnected,
+    status,
+    isConnecting,
+    isReconnecting,
+  } = useAccount();
   const { theme, setTheme } = useTheme();
   const cookie = new Cookies();
   const [isMainnet, setIsMainnet] = useState(true);
@@ -27,6 +36,88 @@ function Navbar() {
     cookie.set("isMainnet", !isMainnet);
   };
 
+  const storeToken = async (token) => {
+    try {
+      // Calculate expiration time 1 minute from now
+      const expirationTime = new Date();
+      expirationTime.setTime(expirationTime.getTime() + 1 * 60 * 60 * 1000); // 1 hour * 60 minutes * 60 seconds * 1000 milliseconds
+
+      // Set the JWT token in a cookie with expiration time
+      cookie.set("jwt_token", token, { expires: expirationTime });
+      return true;
+    } catch (e) {
+      console.error("Error storing token:", e);
+      return false;
+    }
+  };
+  const createSign = async () => {
+    try {
+      const { ethereum } = window;
+      if (!ethereum) {
+        throw new Error("Metamask is not installed, please install!");
+      }
+
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const message =
+        "sign this message to verify the ownership of your address";
+
+      // Sign the message using MetaMask
+      const signature = await signer.signMessage(message);
+
+      const jwtToken = await decodeSignature(signature, message);
+      if (jwtToken === null) {
+        console.log("Error while decoding signature");
+      } else {
+        const storetoken = await storeToken(jwtToken);
+        // jwt.verify(jwtToken, "This is the msg for Jwt Token", (err, decoded) => {
+        //   if (err) {
+        //     console.error("Error verifying token:", err);
+        //   } else {
+        //     console.log("Decoded payload:", decoded);
+        //   }
+        // });
+      }
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
+
+  const decodeSignature = async (signature, message) => {
+    try {
+      // Decode the signature to get the signer's address
+      const signerAddress = ethers.utils.verifyMessage(message, signature);
+      console.log("Signer's address:", signerAddress, address);
+
+      if (signerAddress.toLowerCase() === address.toLowerCase()) {
+        // Normalize addresses and compare them
+        const jwtToken = generateJWTToken(signerAddress, message);
+        return jwtToken;
+      }
+      return null;
+    } catch (e) {
+      console.error("Error decoding signature:", e);
+      return null;
+    }
+  };
+
+  const generateJWTToken = (signature, message) => {
+    // Set expiration time to 1 minute from now
+    const expirationTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
+
+    const tokenPayload = {
+      signature: signature,
+      message: message,
+      exp: expirationTime, // Add expiration time claim
+      // Add more claims as needed
+      // For example, issuer, subject, etc.
+    };
+
+    console.log(tokenPayload);
+    const token = jwt.sign(tokenPayload, "This is the msg for Jwt Token");
+    return token;
+  };
+
   useEffect(() => {
     // Function to retrieve the value of isMainnet from cookies when the component mounts
     const getIsMainnetFromCookies = () => {
@@ -34,7 +125,7 @@ function Navbar() {
       console.log(isMainnetCookie);
       if (isMainnetCookie !== undefined) {
         // If the cookie exists, set the value of isMainnet accordingly
-        setIsMainnet(isMainnetCookie === "true");
+        setIsMainnet(isMainnetCookie);
       }
     };
 
@@ -44,6 +135,18 @@ function Navbar() {
     // Clean up function to avoid memory leaks
     return () => {};
   }, []);
+
+  useEffect(() => {
+    if (isConnected) {
+      console.log("isConnected", isConnected);
+      const jwtToken = cookie.get("jwt_token");
+      console.log(jwtToken);
+      if (jwtToken === undefined || jwtToken === null) {
+        createSign();
+      }
+    }
+  }, [isConnected]);
+
   return (
     <div className={navStyle.navbarMain}>
       <div className={navStyle.divtoflexlogoconnectwallet}>
@@ -59,12 +162,16 @@ function Navbar() {
         <div className={navStyle.connectwalletbuttondiv}>
           {isConnected && (
             <label className={navStyle.toggle}>
-              <input type="checkbox" onChange={handelMainnet} />
+              <input
+                type="checkbox"
+                onChange={handelMainnet}
+                checked={isMainnet}
+              />
               <span className={navStyle.slider}></span>
               <span
                 className={navStyle.labels}
-                data-on="TestNet"
-                data-off="Mainnet"
+                data-on="Mainnet"
+                data-off="TestNet"
               ></span>
             </label>
           )}
