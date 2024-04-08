@@ -147,7 +147,7 @@
   }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 525px) {
   .connectwallet {
     font-size: 12px;
     /* padding: 7px 23px; */
@@ -172,7 +172,7 @@
     display: none;
   }
   .connectaccount {
-    width: 150px !important;
+    width: 125px !important;
     font-size: 8px;
     line-height: 10px !important;
     border-radius: 15px;

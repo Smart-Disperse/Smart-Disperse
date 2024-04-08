@@ -487,7 +487,7 @@ textarea::-webkit-scrollbar {
   }
   .popTitle {
     color: #8f00ff !important;
-    font-size: 1.5rem;
+    font-size: 1.05rem;
     font-weight: 600;
     line-height: 4vh;
   }
@@ -565,19 +565,30 @@ textarea::-webkit-scrollbar {
   }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 426px) {
   .popTitle {
     font-size: 12px;
+    padding: 8px;
     line-height: 2vh;
   }
+
+  .width100{
+    width: 100% !important;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .chainSelect {
-    width: 90%;
+    margin: 8px 4px 0px 4px;
+    display: flex;
+    width: 100%;
     position: relative;
+    justify-content: flex-start;
   }
   .searchBar {
     display: flex;
     justify-content: center;
-
     align-items: center;
     flex-direction: column;
     width: 90%;

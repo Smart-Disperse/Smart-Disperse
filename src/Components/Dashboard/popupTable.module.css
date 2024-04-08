@@ -189,6 +189,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .column2 {
   width: 10%;
 }
@@ -216,7 +217,9 @@
 }
 .content .row {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border: 1px solid #9657eb;
+  /* border: 1px solid #9657eb; */
+  display: flex;
+  align-items: center;
   border-collapse: separate;
   cursor: pointer;
 }
@@ -389,7 +392,7 @@
   }
   .text p,
   .total h4 {
-    font-size: 1.4vw;
+    font-size: 2.94vw;
   }
   .total p {
     font-size: 2.2vw;
@@ -424,12 +427,14 @@
     width: 25vw;
   }
 }
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 426px) {
   .upperPart,
   .tablediv {
     width: 100%;
     padding: 10px 0px;
   }
+
+
   .total {
     width: 21%;
     margin: 0;
@@ -486,7 +491,14 @@
     left: 0;
   }
 }
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 322px) {
+  .MainPopup {
+    width: 250px !important;
+    height: auto;
+    min-width: 250px !important;
+  }
+}
+@media only screen and (max-width: 400px) {
   .upperPart,
   .tablediv {
     width: 100%;
@@ -520,7 +532,7 @@
   .MainPopup {
     width: 300px;
     height: auto;
-    min-width: 300px;
+    min-width: 200px !important;
     border: 1px solid;
     font-size: 0.875rem;
     border-color: white;
