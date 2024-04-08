@@ -163,7 +163,7 @@
     font-size: 10px !important;
   }
 }
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 525px) {
   .footerouterdiv {
     display: flex;
     justify-content: space-between;

@@ -665,7 +665,7 @@ function Samechaindashboard() {
                     onChange={handleSearchChange}
                     className={samechainStyle.inputSearch}
                   />
-                  <div>
+                  <div className={samechainStyle.width100}>
                     <lable style={{ padding: "0px 10px" }}>Start Date</lable>
                     <input
                       type="date"
@@ -677,7 +677,7 @@ function Samechaindashboard() {
                     />
                   </div>
 
-                  <div>
+                  <div className={samechainStyle.width100}>
                     <lable style={{ padding: "0px 10px" }}>End Date</lable>
                     <input
                       type="date"
@@ -859,7 +859,6 @@ function Samechaindashboard() {
                                       style={{
                                         margin: "0px 10px",
                                         cursor: "pointer",
-
                                         color: "#9657eb",
                                       }}
                                     />
@@ -939,7 +938,6 @@ function Samechaindashboard() {
                                   }}
                                 >
                                   {/* {transaction.transactionHash} */}
-
                                   {transaction.transactionHash && (
                                     <a
                                       href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
