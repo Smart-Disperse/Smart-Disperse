@@ -94,9 +94,8 @@
   content: attr(data-off);
   position: absolute;
   right: 12px;
-  color: #9f53ff;
+  color: #ffffff;
   opacity: 1;
-
   transition: all 0.4s ease-in-out;
 }
 
@@ -104,9 +103,8 @@
   content: attr(data-on);
   position: absolute;
   left: 12px;
-  color: #9f53ff;
+  color: #ffffff;
   opacity: 0;
-
   transition: all 0.4s ease-in-out;
 }
 

@@ -8,6 +8,7 @@ import Image from "next/image";
 import textStyle from "@/Components/DashboardComponents/SameChain/Type/textify.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 function SwitchChain({ isMainnet }) {
   // useChainChangeReload(); // Call this hook on every render to ensure the page reloads when chain changes
@@ -66,13 +67,12 @@ function SwitchChain({ isMainnet }) {
             className="dropdown"
             style={{
               display: "flex",
-              // padding: "10px 0px",
+              padding: "10px 5px",
               width: "190px",
               flexDirection: "column",
               borderRadius: "10px",
-              border: "none",
               background:
-                "linear-gradient(90deg, rgb(97 38 193) 0.06%, rgb(63 47 110) 98.57%)",
+                "linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%)",
             }}
           >
             {displayChains.map((network) => (
@@ -82,15 +82,14 @@ function SwitchChain({ isMainnet }) {
                 disabled={isLoading || pendingChainId === network.id}
                 onClick={() => handleOptionClick(network.id)}
                 style={{
-                  borderRadius: "26px",
-                  border: "none",
-                  background:
-                    " linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%)",
+                  border: "1px solid #5FFFBC",
+                  background: "none",
                   color: "white",
+                  cursor: "pointer",
                   padding: "12px",
-
-                  width: "90%",
+                  borderRadius: "20px",
                   margin: "5px auto",
+                  width: "90%",
                 }}
               >
                 {network.hasIcon && network.iconUrl && (
@@ -113,12 +112,7 @@ function SwitchChain({ isMainnet }) {
                     left: " 50%",
                     fontSize: "15px",
                     transform: "translate(-50%, -50%)",
-                    background:
-                      "linear-gradient(90deg, #9f53ff 27.06%, #3b7dff 74.14%)",
-                    backgroundClip: "text",
-                    WebkitAlignItemsebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    zIndex: "0",
+                    color: "white",
                   }}
                 >
                   {network.name}
