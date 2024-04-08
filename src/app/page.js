@@ -11,26 +11,29 @@ export default function Home({ children }) {
   // reportWebVitals();
 }
 export const metadata = {
+  metadataBase: new URL("https://smartdisperse.xyz/"),
   title: "Home Page",
-  // description: "Home Page Description...",
+  description:
+    "All Chains, One Solution Smart-Disperse Your Crypto Transactions",
   openGraph: {
     title: "Home Page",
-    // description: "Home Page Description...",
-    url: "https://smartdisperse.vercel.app/",
+    description:
+      "All Chains, One Solution Smart-Disperse Your Crypto Transactions",
+    url: "https://smartdisperse.xyz/",
     siteName: "SmartDisperse",
-    // images: [
-    //   {
-    //     url: "https://app.optimism.io/og-image.png", // Must be an absolute URL
-    //     width: 800,
-    //     height: 600,
-    //   },
-    //   {
-    //     url: "https://app.optimism.io/og-image.png", // Must be an absolute URL
-    //     width: 1800,
-    //     height: 1600,
-    //     alt: "My custom alt",
-    //   },
-    // ],
+    images: [
+      {
+        url: "https://gateway.lighthouse.storage/ipfs/QmeUAbno6D5VeiJCvaamzuiWugoe5xxfQD7hEm3mTGNxti", // Must be an absolute URL
+        width: 800,
+        height: 600,
+      },
+      {
+        url: "https://gateway.lighthouse.storage/ipfs/QmeUAbno6D5VeiJCvaamzuiWugoe5xxfQD7hEm3mTGNxti", // Must be an absolute URL
+        width: 1800,
+        height: 1600,
+        alt: "My custom alt",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
