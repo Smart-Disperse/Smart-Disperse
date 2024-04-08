@@ -181,21 +181,23 @@ function SendEth({ activeTab, listData, setListData }) {
   };
 
   const onAddLabel = async (index, recipientAddress) => {
+    console.log("enteringggg")
+    console.log(address)
     const userData = {
       userid: address,
       name: labels[index],
       address: recipientAddress.toLowerCase(),
     };
-    // console.log(userData);
+    console.log(userData);
     try {
       // console.log("entered into try block");
-      let result = await fetch(`http://localhost:3000/api/all-user-data`, {
+      let result = await fetch(`http://localhost:3000/api/all-user-data?address=${address}`, {
         method: "POST",
         body: JSON.stringify(userData),
       });
 
       result = await result.json();
-
+      console.log(result)
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
         toast.warn("Name Already Exist! Please Enter Unique Name.");

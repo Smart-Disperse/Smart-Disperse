@@ -1,5 +1,5 @@
 .Link a:-webkit-any-link {
-  color: red;
+  color: white;
   cursor: pointer;
   text-decoration: underline;
 }

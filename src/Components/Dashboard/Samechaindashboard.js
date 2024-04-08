@@ -676,7 +676,6 @@ function Samechaindashboard() {
                       max={new Date().toISOString().split("T")[0]}
                     />
                   </div>
-
                   <div className={samechainStyle.width100}>
                     <lable style={{ padding: "0px 10px" }}>End Date</lable>
                     <input
@@ -693,7 +692,6 @@ function Samechaindashboard() {
                       max={new Date().toISOString().split("T")[0]}
                     />
                   </div>
-
                   <div className={samechainStyle.chainSelect}>
                     <select
                       value={selectedToken}

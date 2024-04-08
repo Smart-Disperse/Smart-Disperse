@@ -48,6 +48,7 @@ export async function middleware(request) {
 
     // Compare the extracted signer's address with the address parameter
     if (signerAddress.toLowerCase() !== address.toLowerCase()) {
+      console.log("hereeeee")
       // If addresses don't match, return unauthorized response or handle accordingly
       return new NextResponse(
         JSON.stringify({
