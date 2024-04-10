@@ -69,6 +69,7 @@ function Samechaindashboard() {
   const [sortingByAmount, setSortingByAmount] = useState(false);
   const [sortingByLabel, setSortingByLabel] = useState(false);
   const [sortingByDate, setSortingByDate] = useState(false);
+  const [dataNotFound, setDataNotFound] = useState(false);
   const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
     useState(false);
   const chainId = useChainId();
@@ -290,7 +291,26 @@ function Samechaindashboard() {
     );
 
     setFilteredTransactions(filtered);
+    calculateTotalAmount(filtered);
   };
+
+  const calculateTotalAmount = async (transactions) => {
+    if (transactions) {
+        let total = 0;
+        transactions.forEach((transaction) => {
+            total += parseFloat(transaction.value);
+        });
+        setTotalAmount(total.toFixed(8));
+    } else {
+        setTotalAmount(0); 
+    }
+};
+
+  
+  useEffect(() => {
+    // Recalculate total amount whenever filtered transactions change
+    calculateTotalAmount(filteredTransactions);
+}, [filteredTransactions]);
 
   useEffect(() => {
     let filtered = transactionData;
@@ -324,16 +344,6 @@ function Samechaindashboard() {
     }
   };
 
-  const calculateTotalAmount = async () => {
-    let total = 0;
-    console.log(transactionData);
-    transactionData.forEach((transaction) => {
-      total += parseFloat(transaction.value);
-    });
-    console.log(total);
-    return total.toFixed(8);
-  };
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -360,6 +370,8 @@ function Samechaindashboard() {
     calculateAmount();
   }, [transactionData]);
 
+
+
   useEffect(() => {
     const fetchData = async () => {
       if (isOpen) {
@@ -374,7 +386,7 @@ function Samechaindashboard() {
         } else {
           ethData = await getERC20Transactions(address, selectedToken, chainId);
         }
-        if (ethData) {
+        if (ethData && ethData.length > 0) {
           console.log(ethData);
           for (let i = 0; i < ethData.length; i++) {
             const recipientAddress = ethData[i].recipient.toLowerCase();
@@ -392,15 +404,17 @@ function Samechaindashboard() {
           const userTokens = await getERC20Tokens(address, chainId);
           setTokenListOfUser(userTokens);
           setIsLoading(false);
+          setDataNotFound(false);
         } else {
+          setDataNotFound(true); 
           console.log("Eth data is empty");
         }
+        setIsLoading(false)
       }
     };
 
     fetchData(address);
   }, [isOpen, selectedToken]);
-
   return (
     <div className={samechainStyle.maindivofdashboard}>
       <div style={{ position: "relative" }}>
@@ -828,7 +842,7 @@ function Samechaindashboard() {
                     <div style={{ position: "relative", top: "100px" }}>
                       Fetching  transaction History...
                     </div>
-                  ) : (
+                  ) : filteredTransactions.length > 0 ? (
                     <div className={popup.content}>
                       <table className={popup.table}>
                         <tbody>
@@ -1009,6 +1023,12 @@ function Samechaindashboard() {
                         </tbody>
                       </table>
                     </div>
+                    ) : dataNotFound ? (
+                      <div style={{ textAlign: "center", marginTop: "20px" }}>
+                          No transactions found.
+                      </div>
+                  ) : (
+                    <div>No data found</div>
                   )}
                 </div>
               </div>
