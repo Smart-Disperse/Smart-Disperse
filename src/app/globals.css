@@ -16,10 +16,9 @@
   --background2: #272332;
   --fontcolor: white
   --borderbottom: black;
-  --boxshadow: -6px 6px 12px rgba(11, 9, 30, 0.5),
-  5px -5px 12px rgba(79, 74, 94, 0.3),
-  inset -6px 6px 12px rgba(11, 9, 30, 0.24),
-  inset -5px -5px 20px rgba(102, 96, 119, 0.2);
+  --boxshadow: inset -8px -8px 60px -5px rgba(21, 20, 29, 0.6),
+  inset 4px -4px 3px rgba(102, 96, 119, 0.5),
+  inset -7px 7px 5px -4px #161222 ;
 }
 body {
   margin: 0;

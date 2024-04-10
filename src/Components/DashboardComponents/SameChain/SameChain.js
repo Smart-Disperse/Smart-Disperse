@@ -74,10 +74,7 @@ function SameChain({ activeTab }) {
               <div style={{ margin: "10px 0px" }}>OR</div>
 
               <button
-                style={{
-                  backgroundColor: isSendingEth ? "" : "white",
-                  color: isSendingEth ? "" : "#924afc",
-                }}
+                id={isSendingEth ? textStyle.falsee :  textStyle.truee }
                 className={textStyle.buttontoaddformdataunload}
                 onClick={() => handleImporttokenbuttonClick()}
               >

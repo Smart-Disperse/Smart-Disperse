@@ -75,8 +75,10 @@
 }
 
 #truee {
-  background: white !important;
-  color: #924afc;
+border:1px solid rgb(172 143 255);
+color: var(--fontcolor);
+  background: linear-gradient(310.65deg, rgba(255, 0, 255, 0.2) -17.9%, rgba(172, 143, 255, 0.2) 86.48%);
+  border-radius: 63px;
 }
 
 .driverpopover01 {
@@ -150,9 +152,7 @@
   background: #fff !important;
   box-shadow: 0px 0px 14px 0px #fff;
 }
-.buttontoaddformdataunload:hover {
-  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
-}
+
 .textareatextlist {
   margin: 10px 0px;
   background-color: rgba(255, 255, 255, 0);
@@ -222,16 +222,16 @@
   background: black;
   backdrop-filter: blur(30.5px);
   margin: 50px 0px;
-  border: 1px solid #fff;
+ 
 }
 .divtocoversametextdiv {
   border-radius: 47px;
-  border: 1px solid #fff;
-  background: linear-gradient(
-    101deg,
-    rgba(255, 255, 255, 0.31) 1.58%,
-    rgba(255, 255, 255, 0.03) 98.15%
-  );
+  box-shadow: inset -8px -8px 60px -5px rgba(21, 20, 29, 0.6), inset 4px -4px 3px rgba(102, 96, 119, 0.5), inset -7px 7px 5px -4px #161222 !important;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+    background: rgb(39, 35, 50);
+    -webkit-backdrop-filter: blur(30.5px);
+    backdrop-filter: blur(30.5px);
+    margin: 50px 0px;
   backdrop-filter: blur(30.5px);
   margin: 50px 0px;
 }
@@ -252,12 +252,13 @@
 
 .titleloadtokensametext {
   border-radius: 47px 47px 0px 0px;
-  background: #fff;
+  background: rgb(39, 35, 50);
   padding: 5px 0px;
+  box-shadow: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
   font-size: 12px;
 }
 .titleloadtokensametext h2 {
-  color: #8f00ff;
+  color: var(--fontcolor);
   font-weight: 700;
   letter-spacing: 1.04px;
   margin: 0px;
@@ -330,8 +331,8 @@
   margin: 0 20px;
   padding: 10px 25px;
 }
-.buttontoaddformdata:hover {
-  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+.buttontoaddformdataunload .buttontoaddformdata:hover {
+ opacity: 0.8;
 }
 .buttontoaddformdataunload {
   background-color: initial;
