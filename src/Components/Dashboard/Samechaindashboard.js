@@ -29,6 +29,7 @@ import {
   getERC20Tokens,
 } from "@/Helpers/GetSentTransactions";
 import { useAccount, useChainId, useNetwork } from "wagmi";
+import {circle} from "@/Assets/circlesbg.svg";
 
 function Samechaindashboard() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -76,17 +77,17 @@ function Samechaindashboard() {
   const [transactions, setTransactions] = useState(filteredTransactions);
 
 
-  useEffect(() => {
-    const handleClick = () => {
-      if (!isConnected) {
-        openConnectModal();
-      }
-    };
-    window.addEventListener("click", handleClick);  
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  }, [isConnected, openConnectModal]);
+  // useEffect(() => {
+  //   const handleClick = () => {
+  //     if (!isConnected) {
+  //       openConnectModal();
+  //     }
+  //   };
+  //   window.addEventListener("click", handleClick);  
+  //   return () => {
+  //     window.removeEventListener("click", handleClick);
+  //   };
+  // }, [isConnected, openConnectModal]);
   
   // /............sorting label function ............./
   const sortLabels = () => {
@@ -417,10 +418,13 @@ function Samechaindashboard() {
   }, [isOpen, selectedToken]);
   return (
     <div className={samechainStyle.maindivofdashboard}>
-      <div style={{ position: "relative" }}>
+      {/* <div style={{ position: "relative" }}>
         <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
-      </div>
+      </div> */}
+      {/* <div>
+        <Image src={circle} alt="none"/>
+      </div> */}
       <div>
         <div className={samechainStyle.stickyIcon}>
           <a href="/all-user-lists" className={samechainStyle.Instagram}>

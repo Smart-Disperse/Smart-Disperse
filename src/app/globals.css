@@ -1,10 +1,25 @@
 :root {
-  --background: url("../Assets/Homepage-bg.webp");
-  --background1: url("../Assets/dashboard-bg.webp");
+  --background1: url("../Assets/circlesbg.svg");
+  --background2 : white;
+  --fontcolor: black;
+  --borderbottom: white;
+  --boxshadow: -6px 6px 12px #D8D5DC,
+  5px -5px 12px #FFFFFF,
+  inset -6px 6px 12px rgba(233, 229, 232, 0.4),
+  inset -5px -5px 14px rgba(255, 255, 255, 0.15)
 }
+
+
 .dark {
   --background: #000000;
-  --background1: #000000;
+  --background1: url("../Assets/circlesbgdark.svg");
+  --background2: #272332;
+  --fontcolor: white
+  --borderbottom: black;
+  --boxshadow: -6px 6px 12px rgba(11, 9, 30, 0.5),
+  5px -5px 12px rgba(79, 74, 94, 0.3),
+  inset -6px 6px 12px rgba(11, 9, 30, 0.24),
+  inset -5px -5px 20px rgba(102, 96, 119, 0.2);
 }
 body {
   margin: 0;
