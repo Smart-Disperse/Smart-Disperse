@@ -290,7 +290,7 @@ opacity: 0.8;
   color: var(--fontcolor);
   font-weight: 700;
   line-height: 154.1%;
-  box-shadow: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
+  box-shadow:var(--boxshadowouter);
   letter-spacing: 1.04px;
   padding: 5px 0px;
   /* border-radius: 47px 47px 0px 0px; */
