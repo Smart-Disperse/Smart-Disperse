@@ -18,7 +18,6 @@ const disperse_data = new mongoose.Schema({
 
 export const smartdisperse_data =
   mongoose.models.name_userid_data || mongoose.model("name_userid_data", disperse_data);
-
 export async function GET(req) {
   let data = [];
   console.log("Connecting to MongoDB...");
@@ -30,7 +29,6 @@ export async function GET(req) {
       process.env.MONGODB_URL
     );
     console.log("Connected to MongoDB!!");
-
     data = await smartdisperse_data.find({
       userid: address,
     });
@@ -52,7 +50,6 @@ export async function POST(request) {
     console.log("Connected to MongoDB!!");
     const payload = await request.json();
     console.log("payload:", payload);
-
     //check if name is already mapped to another address
     let existingName = await smartdisperse_data.findOne({
       name: payload.name,
