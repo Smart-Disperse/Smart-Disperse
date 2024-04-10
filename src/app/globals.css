@@ -2,6 +2,8 @@
   --background1: url("../Assets/circlesbg.svg");
   --background2 : white;
   --fontcolor: black;
+  --fontcolor2:black;
+  --boxbg1:rgb(253, 247, 249);
   --borderbottom: white;
   --boxshadow: -6px 6px 12px #D8D5DC,
   5px -5px 12px #FFFFFF,
@@ -14,7 +16,9 @@
   --background: #000000;
   --background1: url("../Assets/circlesbgdark.svg");
   --background2: #272332;
-  --fontcolor: white
+  --fontcolor: white;
+  --boxbg1:rgb(39, 35, 50);
+  --fontcolor2: rgb(150, 143, 168);
   --borderbottom: black;
   --boxshadow: inset -8px -8px 60px -5px rgba(21, 20, 29, 0.6),
   inset 4px -4px 3px rgba(102, 96, 119, 0.5),

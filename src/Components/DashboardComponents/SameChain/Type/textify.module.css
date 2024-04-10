@@ -228,7 +228,7 @@ color: var(--fontcolor);
   border-radius: 47px;
   box-shadow: inset -8px -8px 60px -5px rgba(21, 20, 29, 0.6), inset 4px -4px 3px rgba(102, 96, 119, 0.5), inset -7px 7px 5px -4px #161222 !important;
     background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
-    background: rgb(39, 35, 50);
+    background:var(--boxbg1);
     -webkit-backdrop-filter: blur(30.5px);
     backdrop-filter: blur(30.5px);
     margin: 50px 0px;
@@ -252,14 +252,14 @@ color: var(--fontcolor);
 
 .titleloadtokensametext {
   border-radius: 47px 47px 0px 0px;
-  background: rgb(39, 35, 50);
+  background:var(--boxbg1);
   padding: 5px 0px;
   box-shadow: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
   font-size: 12px;
 }
 .titleloadtokensametext h2 {
-  color: var(--fontcolor);
-  font-weight: 700;
+  color: var(--fontcolor2);
+  font-weight: 600;
   letter-spacing: 1.04px;
   margin: 0px;
   font-size: 15px;
@@ -279,8 +279,10 @@ color: var(--fontcolor);
   letter-spacing: 1px;
 }
 .titlesametexttextarea {
-  background: #fff;
+  background: var(--boxbg1);
   font-size: 12px;
+  color: var(--fontcolor2);
+  box-shadow: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
 }
 .tokeninput::placeholder {
   color: rgba(255, 255, 255, 0.45) !important;
@@ -289,8 +291,8 @@ color: var(--fontcolor);
   box-shadow: 0px 0px 29px 0px rgba(255, 255, 255, 0.25);
 }
 .titlesametexttextarea {
-  color: #8f00ff;
-  font-weight: 700;
+  color: var(--fontcolor2);
+  font-weight: 600;
   line-height: 154.1%;
   letter-spacing: 1.04px;
   padding: 5px 0px;
@@ -322,7 +324,7 @@ color: var(--fontcolor);
   padding: 8px;
 }
 .buttontoaddformdata {
-  background-color: initial;
+  background-color: rgba(102, 96, 119, 0.22);
   border: 1px solid #fff;
   border-radius: 63px;
   color: #fff;
