@@ -258,7 +258,7 @@ color: var(--fontcolor);
   font-size: 12px;
 }
 .titleloadtokensametext h2 {
-  color: var(--fontcolor2);
+  color: var(--fontcolor1);
   font-weight: 600;
   letter-spacing: 1.04px;
   margin: 0px;
@@ -281,7 +281,7 @@ color: var(--fontcolor);
 .titlesametexttextarea {
   background: var(--boxbg1);
   font-size: 12px;
-  color: var(--fontcolor2);
+  color: var(--fontcolor);
   box-shadow: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
 }
 .tokeninput::placeholder {
@@ -291,7 +291,7 @@ color: var(--fontcolor);
   box-shadow: 0px 0px 29px 0px rgba(255, 255, 255, 0.25);
 }
 .titlesametexttextarea {
-  color: var(--fontcolor2);
+  color: var(--fontcolor);
   font-weight: 600;
   line-height: 154.1%;
   letter-spacing: 1.04px;

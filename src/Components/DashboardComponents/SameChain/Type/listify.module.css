@@ -114,18 +114,14 @@
 }
 
 .eachinputofcreatelist::placeholder {
-  color: rgba(255, 255, 255, 0.542);
+  color: rgb(150, 143, 168);
 }
 
 .eachinputofcreatelist.tokeninput {
   border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(97, 38, 193, 0.58) 0.06%,
-    rgba(63, 47, 110, 0.58) 98.57%
-  );
-  color: white;
+  border: var(--borderlable1);
+  background: transparent;
+  color: var(--fontcolor);
 
   padding: 15px 20px;
   margin: 0px 20px;
@@ -159,17 +155,18 @@
 
 .buttontoaddformdata:hover {
   /* border: 1px solid #0c3d77; */
-  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+opacity: 0.8;
   /* background-color: rgba(18, 224, 235, 0.064); */
   /* color: white; */
 }
 .buttontoaddformdata {
   cursor: pointer;
   padding: 10px 25px;
+  width: 40%;
   background-color: transparent;
   color: white;
-  border: 1px solid white;
-  border-radius: 63px;
+  border: var(--borderlable1);
+  border-radius: 5px;
   margin: 0px 20px;
   font-size: 17px;
 }
@@ -289,10 +286,11 @@
 }
 
 .enteraddressdivtitle {
-  background-color: white;
-  color: #8f00ff;
+  background-color: var(--boxbg1);
+  color: var(--fontcolor);
   font-weight: 700;
   line-height: 154.1%;
+  box-shadow: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
   letter-spacing: 1.04px;
   padding: 5px 0px;
   /* border-radius: 47px 47px 0px 0px; */
@@ -484,6 +482,7 @@
   letter-spacing: 1px;
   text-align: start;
   width: 25%;
+  color: var(--fontcolor2);
 }
 .inputflexlist {
   align-items: center;
