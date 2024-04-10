@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config();
 // import { useAccount } from "wagmi";
 // const { address } = useAccount();
 const disperse_data = new mongoose.Schema({
@@ -11,24 +11,23 @@ const disperse_data = new mongoose.Schema({
   },
   name: {
     type: String,
-    maxlength: 10, 
+    maxlength: 10,
   },
   address: String,
 });
 
 export const smartdisperse_data =
-  mongoose.models.name_userid_data || mongoose.model("name_userid_data", disperse_data);
+  mongoose.models.name_userid_data ||
+  mongoose.model("name_userid_data", disperse_data);
 
 export async function GET(req) {
   let data = [];
   console.log("Connecting to MongoDB...");
   const { searchParams } = new URL(req.url);
   const address = searchParams.get("address");
-  console.log(address)
+  console.log(address);
   try {
-    await mongoose.connect(
-      process.env.MONGODB_URL
-    );
+    await mongoose.connect(process.env.MONGODB_URL);
     console.log("Connected to MongoDB!!");
 
     data = await smartdisperse_data.find({
@@ -46,9 +45,7 @@ export async function POST(request) {
   let result = null;
   console.log("Connecting to MongoDB...");
   try {
-    await mongoose.connect(
-      process.env.MONGODB_URL
-    );
+    await mongoose.connect(process.env.MONGODB_URL);
     console.log("Connected to MongoDB!!");
     const payload = await request.json();
     console.log("payload:", payload);
@@ -85,7 +82,7 @@ export async function POST(request) {
         return new Response("Address already exists", { status: 400 });
       }
     } else {
-      let newData = new smartdisperse_data(payload); 
+      let newData = new smartdisperse_data(payload);
       result = await newData.save();
       console.log("New data created successfully");
     }
@@ -101,9 +98,7 @@ export async function PUT(request) {
   let result = null;
   console.log("Connecting to MongoDB...");
   try {
-    await mongoose.connect(
-      process.env.MONGODB_URL
-    );
+    await mongoose.connect(process.env.MONGODB_URL);
     console.log("Connected to MongoDB!!");
     const payload = await request.json();
     console.log("payload:", payload);
@@ -130,9 +125,7 @@ export async function DELETE(request) {
   console.log("entered into delete function");
   try {
     console.log("Connecting to MongoDB...");
-    await mongoose.connect(
-      process.env.MONGODB_URL
-    );
+    await mongoose.connect(process.env.MONGODB_URL);
     console.log("Connected to MongoDB!!");
 
     const payload = await request.json();
