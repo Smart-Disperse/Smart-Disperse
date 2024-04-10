@@ -226,7 +226,7 @@ color: var(--fontcolor);
 }
 .divtocoversametextdiv {
   border-radius: 47px;
-  box-shadow: inset -8px -8px 60px -5px rgba(21, 20, 29, 0.6), inset 4px -4px 3px rgba(102, 96, 119, 0.5), inset -7px 7px 5px -4px #161222 !important;
+  box-shadow: var(--boxshadowouter);
     background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
     background:var(--boxbg1);
     -webkit-backdrop-filter: blur(30.5px);
@@ -254,7 +254,7 @@ color: var(--fontcolor);
   border-radius: 47px 47px 0px 0px;
   background:var(--boxbg1);
   padding: 5px 0px;
-  box-shadow: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
+  box-shadow: var(--boxshadowouter);
   font-size: 12px;
 }
 .titleloadtokensametext h2 {
@@ -282,7 +282,7 @@ color: var(--fontcolor);
   background: var(--boxbg1);
   font-size: 12px;
   color: var(--fontcolor2);
-  box-shadow: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
+  box-shadow: var(--boxshadowouter);
 }
 .tokeninput::placeholder {
   color: rgba(255, 255, 255, 0.45) !important;
@@ -324,10 +324,10 @@ color: var(--fontcolor);
   padding: 8px;
 }
 .buttontoaddformdata {
-  background-color: rgba(102, 96, 119, 0.22);
+  background-color: var(--buttonbg);
   border: 1px solid #fff;
   border-radius: 63px;
-  color: #fff;
+  color: var(--fontcolor);
   font-size: 17px;
   cursor: pointer;
   margin: 0 20px;
@@ -337,10 +337,10 @@ color: var(--fontcolor);
  opacity: 0.8;
 }
 .buttontoaddformdataunload {
-  background-color: initial;
-  border: 1px solid #fff;
+  background-color: var(--buttonbg);
+  border: 1px solid var(--bordercolor);
   border-radius: 63px;
-  color: #fff;
+  color: var(--fontcolor);
   cursor: pointer;
   font-size: 17px;
   margin: 0 20px;
@@ -383,8 +383,9 @@ color: var(--fontcolor);
 .accountsummarycreatetitle,
 .selectloadtoke-title,
 .viewaddressdivtitle {
-  background-color: #fff;
-  color: #8f00ff;
+  background-color: var(--boxbg1);
+  box-shadow: var(--boxshadowouter);
+  color: var(--fontcolor2);
   font-size: 12px;
   padding: 5px 0;
 }

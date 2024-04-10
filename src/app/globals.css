@@ -4,11 +4,17 @@
   --fontcolor: black;
   --fontcolor2:black;
   --boxbg1:rgb(253, 247, 249);
-  --borderbottom: white;
+  --borderbottom: rgb(4, 4, 4);
   --boxshadow: -6px 6px 12px #D8D5DC,
   5px -5px 12px #FFFFFF,
   inset -6px 6px 12px rgba(233, 229, 232, 0.4),
-  inset -5px -5px 14px rgba(255, 255, 255, 0.15)
+  inset -5px -5px 14px rgba(255, 255, 255, 0.15);
+  --boxshadowouter: -6px 6px 12px #D8D5DC,
+  5px -5px 12px #FFFFFF,
+  inset -6px 6px 12px rgba(233, 229, 232, 0.4),
+  inset -5px -5px 14px rgba(255, 255, 255, 0.15);
+  --buttonbg: rgba(102, 96, 119, 0);
+  --bordercolor: black;
 }
 
 
@@ -19,10 +25,14 @@
   --fontcolor: white;
   --boxbg1:rgb(39, 35, 50);
   --fontcolor2: rgb(150, 143, 168);
-  --borderbottom: black;
+  --borderbottom: rgb(255, 255, 255);
   --boxshadow: inset -8px -8px 60px -5px rgba(21, 20, 29, 0.6),
   inset 4px -4px 3px rgba(102, 96, 119, 0.5),
   inset -7px 7px 5px -4px #161222 ;
+  --boxshadowouter: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
+  --buttonbg: rgba(102, 96, 119, 0.22);
+  --bordercolor: white;
+
 }
 body {
   margin: 0;
