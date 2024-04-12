@@ -326,9 +326,8 @@ function SendEth({ activeTab, listData, setListData }) {
                                     borderRadius: "8px",
                                     padding: "10px",
                                     color: "white",
-                                    border: "none",
-                                    background:
-                                      "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)",
+                                    border: "1px solid rgb(172 143 255)",
+                                    background: "transparent",
                                   }}
                                   onChange={(e) => {
                                     const inputValue = e.target.value;
@@ -364,9 +363,9 @@ function SendEth({ activeTab, listData, setListData }) {
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
-                                background:
-                                  "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                color: "black",
+                                // background:
+                                //   "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
+                                // color: "black",
                                 borderRadius: "10px",
                                 padding: "10px 10px",
                                 fontSize: "12px",
@@ -384,9 +383,9 @@ function SendEth({ activeTab, listData, setListData }) {
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
-                                background:
-                                  "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
-                                color: "white",
+                                // background:
+                                //   "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
+                                // color: "white",
                                 borderRadius: "10px",
                                 padding: "10px 10px",
                                 fontSize: "12px",
@@ -463,19 +462,20 @@ function SendEth({ activeTab, listData, setListData }) {
               <tbody className={textStyle.tbodytextifyaccsum}>
                 <tr>
                   <td id={textStyle.fontsize10px}>
-                    <div
-                      id="font-size-10px"
+                    <div   
+                     id={textStyle.fontsize10px}
                       className={textStyle.textAccSum}
                       style={{
                         width: "fit-content",
                         margin: "0 auto",
-                        background:
-                          "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                        color: "black",
+                        // background:
+                        //   "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
+                        // color: "black",
                         borderRadius: "10px",
                         padding: "10px 10px",
                         fontSize: "12px",
                         letterSpacing: "1px",
+                        fontWeight: "900",
                       }}
                     >
                       {totalEth
@@ -493,9 +493,9 @@ function SendEth({ activeTab, listData, setListData }) {
                         width: "fit-content",
                         margin: "0 auto",
 
-                        background:
-                          "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
-                        color: "white",
+                        // background:
+                        //   "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
+                        // color: "white",
                         borderRadius: "10px",
                         padding: "10px 10px",
                         fontSize: "12px",

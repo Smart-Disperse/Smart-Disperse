@@ -1,4 +1,5 @@
 :root {
+  --background: white;
   --background1: url("../Assets/circlesbg.svg");
   --background2 : white;
   --fontcolor: black;
@@ -6,21 +7,17 @@
   --boxbg1:rgb(253, 247, 249);
    --borderbottom: rgb(4, 4, 4);
   --borderlable1:1px solid black;
-  --boxshadow: -6px 6px 12px #D8D5DC,
-  5px -5px 12px #FFFFFF,
-  inset -6px 6px 12px rgba(233, 229, 232, 0.4),
-  inset -5px -5px 14px rgba(255, 255, 255, 0.15);
-  --boxshadowouter: -6px 6px 12px #D8D5DC,
-  5px -5px 12px #FFFFFF,
-  inset -6px 6px 12px rgba(233, 229, 232, 0.4),
-  inset -5px -5px 14px rgba(255, 255, 255, 0.15);
+  --boxshadow:-6px 6px 12px #D8D5DC, 5px -5px 12px #ffffff, inset -6px 6px 12px rgb(181 181 181 / 40%), inset -5px -5px 14px rgba(255, 255, 255, 0.15);
+  --boxshadowouter: inset 4px -4px 3px #FFFFFF,
+  inset 8px -8px 60px -5px #F1E9EC,
+  inset -7px 7px 5px -4px rgba(174, 174, 192, 0.4);
   --buttonbg: rgba(102, 96, 119, 0);
   --bordercolor: black;
+  --underbox: rgba(255, 255, 255, 0.5) -3px -3px 6px inset, rgba(174, 174, 192, 0.16) 3px 3px 6px inset;
 }
 
-
 .dark {
-  --background: #000000;
+  --background: rgb(39, 35, 50);
   --background1: url("../Assets/circlesbgdark.svg");
   --background2: #272332;
   --fontcolor: white;
@@ -34,7 +31,7 @@
   --boxshadowouter: rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
   --buttonbg: rgba(102, 96, 119, 0.22);
   --bordercolor: white;
-
+  --underbox : rgba(21, 20, 29, 0.6) -8px -8px 60px -5px inset, rgba(102, 96, 119, 0.5) 4px -4px 3px inset, rgb(22, 18, 34) -7px 7px 5px -4px inset;
 }
 body {
   margin: 0;
@@ -84,6 +81,7 @@ button {
   background-color: rgb(39, 2, 72);
   max-width: 100%;
 }
+
 .app-wrapper {
   position: relative;
 }

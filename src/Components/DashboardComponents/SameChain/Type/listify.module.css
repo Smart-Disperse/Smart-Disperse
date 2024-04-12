@@ -164,7 +164,7 @@ opacity: 0.8;
   padding: 10px 25px;
   width: 40%;
   background-color: transparent;
-  color: white;
+  color: var(--fontcolor);
   border: var(--borderlable1);
   border-radius: 5px;
   margin: 0px 20px;

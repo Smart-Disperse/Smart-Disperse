@@ -9,7 +9,7 @@
   font-size: 12px;
   margin: 0 auto;
   background: transparent;
-  color: black;
+  color: var(--fontcolor);
 
   padding: 10px 10px;
   transform: translate(-50%, -50%);
@@ -66,14 +66,17 @@
 }
 
 .deletebutton {
-  color: white;
+  color: var(--fontcolor);
   font-size: 20px;
-  background-color: transparent;
+  background-color: var(--background2);
   border: none;
   border-radius: 15px;
   margin-left: 20px;
 }
 
+#truee:hover {
+  opacity: 0.5;
+}
 #truee {
 border:1px solid rgb(172 143 255);
 color: var(--fontcolor);
@@ -121,11 +124,12 @@ color: var(--fontcolor);
   border-radius: 5px;
 }
 #fontsize10px {
+  color: var(--fontcolor);
   letter-spacing: 1px;
   padding: 8px;
 }
 .textlistdiv textarea {
-  color: aliceblue !important;
+  color: var(--fontcolor) !;
   background-color: transparent !important;
   border: "none";
 }
@@ -133,11 +137,12 @@ color: var(--fontcolor);
   color: rgba(255, 255, 255, 0.45);
   font-size: 15px;
 }
+
 .sendbutton {
-  background: #0000;
-  border: 1px solid #fff;
+  border: 1px solid rgb(172 143 255);
+  background: linear-gradient(310.65deg, rgba(255, 0, 255, 0.2) -17.9%, rgba(172, 143, 255, 0.2) 86.48%);
   border-radius: 40px;
-  color: #fff;
+  color: var(--fontcolor);
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -147,10 +152,9 @@ color: var(--fontcolor);
   text-align: center;
 }
 .sendbutton:hover {
-  border: none;
-  color: #643bdc;
-  background: #fff !important;
-  box-shadow: 0px 0px 14px 0px #fff;
+  cursor: pointer;
+  /* background: var(--fontcolor); */
+opacity: 0.5;
 }
 
 .textareatextlist {
@@ -162,7 +166,6 @@ color: var(--fontcolor);
 
 .tableheadertextlist {
   background-color: rgba(255, 255, 255, 0);
-  border-bottom: 1px solid white;
 }
 .tableheadertextlist .tableTr {
   font-size: 15px;
@@ -237,8 +240,9 @@ color: var(--fontcolor);
 }
 
 .titleforlinupsametext h2 {
-  background: #fff;
-  color: #8f00ff;
+  background: var(--boxbg1);
+  color: var(--fontcolor);
+  box-shadow: var(--boxshadowouter);
   font-weight: 700;
   letter-spacing: 1.04px;
   font-size: 15px;
@@ -265,14 +269,15 @@ color: var(--fontcolor);
   font-size: 15px;
 }
 #backgroundgreen:hover {
-  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+  cursor: pointer;
+  opacity: 0.5;
 }
 #backgroundgreen {
+  background-color: var(--background2);
+  color: var(--fontcolor);
   cursor: pointer;
   padding: 10px 25px;
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
+  border: 1px solid var(--bordercolor);
   border-radius: 63px;
   margin: 0px 20px;
   font-size: 15px;
@@ -286,9 +291,6 @@ color: var(--fontcolor);
 }
 .tokeninput::placeholder {
   color: rgba(255, 255, 255, 0.45) !important;
-}
-.tokeninput:hover {
-  box-shadow: 0px 0px 29px 0px rgba(255, 255, 255, 0.25);
 }
 .titlesametexttextarea {
   color: var(--fontcolor);
@@ -305,15 +307,17 @@ color: var(--fontcolor);
   font-size: 12px;
 }
 .titleforaccountsummarytextsame h2 {
-  color: #8f00ff;
+  background: var(--boxbg1);
+  color: var(--fontcolor);
+  box-shadow: var(--boxshadowouter);
   font-weight: 700;
   letter-spacing: 1.04px;
   margin: 0px;
   font-size: 15px;
 }
-#greenbackground:hover {
+/* #greenbackground:hover {
   background-color: transparent;
-}
+} */
 
 .importtokendiv {
   display: flex;
@@ -323,9 +327,12 @@ color: var(--fontcolor);
   letter-spacing: 1px;
   padding: 8px;
 }
+.buttontoaddformdata:hover {
+  opacity: 0.5;
+}
 .buttontoaddformdata {
   background-color: var(--buttonbg);
-  border: 1px solid #fff;
+  border: 1px solid var(--bordercolor);
   border-radius: 63px;
   color: var(--fontcolor);
   font-size: 17px;
@@ -333,6 +340,11 @@ color: var(--fontcolor);
   margin: 0 20px;
   padding: 10px 25px;
 }
+
+.buttontoaddformdataunload:hover{
+  opacity: 0.5;
+}
+
 .buttontoaddformdataunload .buttontoaddformdata:hover {
  opacity: 0.8;
 }

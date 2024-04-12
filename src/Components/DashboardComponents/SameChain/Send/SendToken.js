@@ -355,9 +355,8 @@ function SendToken({ activeTab, listData, setListData }) {
               onChange={(e) => handleInputTokenAddressChange(e)}
               style={{
                 borderRadius: "5px",
-                border: "1px solid #fff",
-                background:
-                  "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
+                border: "1px solid rgb(172 143 255)",
+                background:"transparent",
                 padding: "10px 20px",
                 margin: "0px 20px",
                 color: "white",
@@ -412,7 +411,7 @@ function SendToken({ activeTab, listData, setListData }) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "10px",
-                border: "1px solid #ddd",
+                // border: "1px solid #ddd",
               }}
             >
               <table className={textStyle.tabletextlist}>
@@ -549,9 +548,8 @@ function SendToken({ activeTab, listData, setListData }) {
                                       borderRadius: "8px",
                                       padding: "10px",
                                       color: "white",
-                                      border: "none",
-                                      background:
-                                        "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)",
+                                      border: "1px solid rgb(172 143 255)",
+                                      background:"transparent",
                                     }}
                                     onChange={(e) => {
                                       const inputValue = e.target.value;
@@ -587,9 +585,9 @@ function SendToken({ activeTab, listData, setListData }) {
                                 style={{
                                   width: "fit-content",
                                   margin: "0 auto",
-                                  background:
-                                    "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                  color: "black",
+                                  // background:
+                                  //   "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
+                                  // color: "black",
                                   borderRadius: "10px",
                                   padding: "10px 10px",
                                   fontSize: "12px",

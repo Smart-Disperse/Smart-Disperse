@@ -7,6 +7,14 @@
   position: relative;
   z-index: 2;
 }
+
+.sunn:hover{
+  opacity: 0.5;
+}
+.sunn{
+  color: var(--fontcolor);
+}
+
 .navbarMain {
   position: absolute;
   width: 100%;

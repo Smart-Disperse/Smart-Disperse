@@ -17,13 +17,16 @@
   padding: 30px 0px;
   width: 200px;
 }
+.connectwallet:hover {
+  opacity: 0.5;
+}
 .connectwallet {
   position: relative;
   overflow: hidden;
   z-index: 1;
   padding: 15px 30px;
   border-radius: 20px;
-  border: 0.5px solid #5fffbc;
+  border: 0.5px solid #ab00ff;
   background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
   width: 100%;
   font-weight: 700;
@@ -42,6 +45,9 @@
   transform: translate(-50%, -50%);
   color: white;
 }
+.networkoption:hover {
+  opacity: 0.5;
+}
 .ChainDropdownMain {
   position: absolute;
   top: 60px;
@@ -49,13 +55,16 @@
   padding: 30px 0px;
   width: 200px;
 }
+.connectchain:hover {
+  opacity: 0.5;
+}
 .connectchain {
   position: relative;
   overflow: hidden;
   z-index: 1;
   padding: 15px 30px;
   border-radius: 20px;
-  border: 0.5px solid #5fffbc;
+  border: 0.5px solid #ab00ff;
   background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
   width: 200px;
   font-weight: 700;
@@ -76,13 +85,16 @@
   color: white;
 }
 
+.connectaccount:hover {
+  opacity: 0.5;
+}
 .connectaccount {
   /* position: relative; */
   /* overflow: hidden; */
   z-index: 1;
   padding: 7px 30px;
   border-radius: 20px;
-  border: 0.5px solid #5fffbc;
+  border: 0.5px solid #ab00ff;
   background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
   width: 200px;
   font-weight: 700;

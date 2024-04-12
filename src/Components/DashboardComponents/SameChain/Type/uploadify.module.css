@@ -176,6 +176,9 @@
   margin-right: 10px;
 }
 
+.downloadbtn button:hover {
+  opacity: 0.5;
+}
 .downloadbtn button {
   border-radius: 63px;
   background-image: linear-gradient(310.65deg, rgba(255, 0, 255, 0.2) -17.9%, rgba(172, 143, 255, 0.2) 86.48%);
