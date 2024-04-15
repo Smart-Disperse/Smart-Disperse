@@ -1,11 +1,12 @@
 import styles from "./page.module.css";
 import Landingpage from "../Components/Homepage/Landingpage";
 import { Providers } from "@/Providers";
+import Samechaindashboard from "@/Components/Dashboard/Samechaindashboard";
 
 export default function Home({ children }) {
   return (
     <main className={styles.main}>
-      <Landingpage />
+      <Samechaindashboard />
     </main>
   );
   // reportWebVitals();
