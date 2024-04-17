@@ -17,7 +17,6 @@ export const smartDisperseInstance = async (chainId) => {
       signer
     );
 
-    // console.log(contract);
     return contract;
   } catch (error) {
     console.error("Error:", error.message);

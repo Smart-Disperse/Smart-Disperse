@@ -45,18 +45,14 @@ function Displayallusers() {
   }, [isConnected, openConnectModal]);
 
   const fetchUserDetails = async () => {
-    console.log(address);
     try {
-      console.log("entered into try block");
-      const result = await fetch(
-        `http://localhost:3000/api/all-user-data?address=${address}`
-      );
+      const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
-      console.log("Response from API:", response);
+
       const filteredData = response.result.filter(
         (user) => user.userid === address
       );
-      console.log("Filtered data:", filteredData);
+
       setIsLoading(false);
       setUsersData(filteredData);
     } catch (error) {
@@ -81,8 +77,7 @@ function Displayallusers() {
 
   const handleUpdate = async (index) => {
     try {
-      console.log("entered into try block");
-      const result = await fetch(`http://localhost:3000/api/all-user-data`, {
+      const result = await fetch(`api/all-user-data?address=${address}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -92,10 +87,8 @@ function Displayallusers() {
           address: editAddress,
         }),
       });
-      console.log("result", result);
-      console.log("edit address", editAddress, "editname:", editName);
+
       if (result.ok) {
-        console.log("Data updated successfully");
         toast.success("Name updated successfully");
         const updatedUsersData = [...usersData];
         updatedUsersData[index] = {
@@ -122,7 +115,7 @@ function Displayallusers() {
   const handleDelete = async (index) => {
     try {
       const addressToDelete = usersData[index].address;
-      const result = await fetch(`http://localhost:3000/api/all-user-data`, {
+      const result = await fetch(`api/all-user-data?address=${address}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -130,7 +123,6 @@ function Displayallusers() {
         body: JSON.stringify({ address: addressToDelete }),
       });
       if (result.ok) {
-        console.log("Data deleted successfully");
         toast.success("Name deleted successfully");
         const updatedUsersData = [...usersData];
         updatedUsersData.splice(index, 1);
@@ -146,7 +138,6 @@ function Displayallusers() {
   };
 
   const handleRefreshpage = () => {
-    console.log("Reloading...");
     window.location.reload();
   };
 

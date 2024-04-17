@@ -4,6 +4,7 @@ import "driver.js/dist/driver.css";
 import textStyle from "./Type/textify.module.css";
 import SendEth from "./Send/SendEth";
 import SendToken from "./Send/SendToken";
+import { useAccount } from "wagmi";
 
 /*
 Main Component : the prop is use to get which of the three from textify, listify or uplaodify should ne loaded
@@ -13,6 +14,8 @@ function SameChain({ activeTab }) {
   const [isSendingEth, setIsSendingEth] = useState(true);
   const [isSendingToken, setIsSendingToken] = useState(false);
   const [listData, setListData] = useState([]);
+  const [render, setRender] = useState(1);
+  const { address } = useAccount();
 
   /*
   Funtion : To load SendEth component
@@ -27,7 +30,6 @@ function SameChain({ activeTab }) {
   */
 
   const handleImporttokenbuttonClick = () => {
-    // console.log("import token");
     setIsSendingToken(true);
     setListData([]);
     setIsSendingEth(false);
@@ -86,7 +88,7 @@ function SameChain({ activeTab }) {
             </div>
           </div>
 
-          {isSendingEth ? (
+          {render && isSendingEth ? (
             <SendEth
               activeTab={activeTab}
               listData={listData}

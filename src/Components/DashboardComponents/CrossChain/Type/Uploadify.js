@@ -33,7 +33,7 @@ function Uploadify({
   // Fetching all names and addresses stored in the database
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(`http://localhost:3000/api/all-user-data`);
+      const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
       console.log("Response from API:", response);
 

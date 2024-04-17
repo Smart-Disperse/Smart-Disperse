@@ -70,7 +70,7 @@ export const getEthTransactions = async (address, chainId) => {
 
         // also return TotalEth
         // console.log("Eth transfer data:", transformedData);
-        console.log(transformedData);
+
         return transformedData;
       }
     } else {
@@ -88,7 +88,7 @@ export const getERC20Transactions = async (address, tokenAddress, chainId) => {
   try {
     if (chainId in contracts) {
       const chainname = contracts[chainId].chainDisplayName;
-      console.log(chainname);
+
       chainAPIurl = contracts[chainId].APIURL;
       // console.log(chainAPIurl);
       // return chainAPIurl;
@@ -128,7 +128,6 @@ export const getERC20Transactions = async (address, tokenAddress, chainId) => {
           blockTimestamp: transaction.blockTimestamp,
         })
       );
-      console.log("txs", transactions);
 
       const transformedData = [];
 
@@ -150,7 +149,6 @@ export const getERC20Transactions = async (address, tokenAddress, chainId) => {
             blockTimestamp: gmtTime,
             tokenName: tokenDetails.symbol,
           });
-          console.log("ERC20 transfer data:", transformedData);
         });
       });
 
@@ -180,7 +178,7 @@ export const getERC20Tokens = async (address, chainId) => {
     });
 
     const data = await client.query(tokensQuery).toPromise();
-    console.log("api data", data);
+
     const transactions = data.data.erc20TokenDisperseds.map((transaction) => ({
       tokens: transaction._token,
     }));
@@ -189,7 +187,6 @@ export const getERC20Tokens = async (address, chainId) => {
     const distinctTokenAddresses = [
       ...new Set(transactions.map((transaction) => transaction.tokens)),
     ];
-    console.log(distinctTokenAddresses);
 
     let tokenDetails = [];
     for (let tokenAddress of distinctTokenAddresses) {

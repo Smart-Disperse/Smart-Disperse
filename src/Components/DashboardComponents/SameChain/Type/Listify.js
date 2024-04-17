@@ -31,10 +31,8 @@ function Listify({
   const dropdownRef = useRef(null);
   // Function to close the error modal
   const closeErrorModal = () => {
-    // console.log("clicked");
     setErrorModalIsOpen(false);
     setErrorMessage("");
-    // console.log("modal open");
   };
 
   const handleReceiverAddressChange = (event) => {
@@ -112,7 +110,6 @@ function Listify({
     }
 
     if (!isValidValue(amount) && !isValidAddress(address)) {
-      // console.log("Invalid address");
       setErrorMessage("Incorrect details");
       setErrorModalIsOpen(true);
       return false;
@@ -133,7 +130,7 @@ function Listify({
     } else {
       formData.value = isValidValue(amount);
     }
-    // console.log("here");
+
     return true;
   };
 
@@ -203,7 +200,6 @@ function Listify({
     }
   };
   const handleAddClick = async () => {
-    // console.log("checking");
     const isvalid = await validateFormData();
 
     if (isvalid) {

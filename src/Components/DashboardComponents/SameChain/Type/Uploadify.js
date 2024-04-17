@@ -5,7 +5,7 @@ import uploadStyle from "./uploadify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
-import SendEth from "../Send/SendEth";
+import { useAccount } from "wagmi";
 
 function Uploadify({
   listData,
@@ -15,16 +15,9 @@ function Uploadify({
   allAddresses,
 }) {
   const [csvData, setCsvData] = useState([]); // Stores the parsed CSV data
-  const [isCsvDataEmpty, setIsCsvDataEmpty] =
-    useState(true); /*True if csvData array is empty */
   const [allnames, setAllNames] = useState([]);
   const [alladdresses, setAllAddresses] = useState([]);
-  const [matchedData, setMatchedData] = useState([]);
-  const [labels, setLabels] = useState([]);
-
-  const isValidEthereumAddress = (str) => {
-    return str.startsWith("0x");
-  };
+  const { address } = useAccount();
 
   useEffect(() => {
     fetchUserDetails();
@@ -33,7 +26,7 @@ function Uploadify({
   // Fetching all names and addresses stored in the database
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(`http://localhost:3000/api/all-user-data`);
+      const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
 
       const usersData = response.result;
@@ -81,7 +74,7 @@ function Uploadify({
 
     reader.onload = async (e) => {
       const content = e.target.result;
-      // console.log(content);
+
       try {
         const parsedData = parseCSV(content);
 
@@ -139,59 +132,6 @@ function Uploadify({
 
     reader.readAsText(file);
   };
-
-  /* Validates all fields in each object of csvData array. Returns true if all are valid or false otherwise.*/
-  // const handleFileUpload = (event) => {
-  //   const file = event.target.files[0];
-
-  //   if (file) {
-  //     const reader = new FileReader();
-
-  //     reader.onload = async (e) => {
-  //       const content = e.target.result;
-  //       // console.log(content);
-  //       try {
-  //         const parsedData = parseCSV(content);
-
-  //         if (parsedData) {
-  //           setCsvData(parsedData);
-  //           setIsCsvDataEmpty(parsedData.length === 0);
-  //           // console.log(parsedData);
-  //           const listData = [];
-  //           for (let i = 0; i < parsedData.length; i++) {
-  //             if (tokenDecimal) {
-  //               var validValue = isValidTokenValue(
-  //                 parsedData[i]["Token Amount"],
-  //                 tokenDecimal
-  //               );
-  //             } else {
-  //               var validValue = isValidValue(parsedData[i]["Token Amount"]);
-  //             }
-
-  //             if (
-  //               isValidAddress(parsedData[i]["Receiver Address"]) &&
-  //               validValue
-  //             ) {
-  //               listData.push({
-  //                 address: parsedData[i]["Receiver Address"],
-  //                 value: validValue,
-  //               });
-  //             }
-  //           }
-  //           // console.log(listData);
-  //           setListData(listData);
-  //           // console.log("list data is set");
-  //         } else {
-  //           console.error("Parsed data is empty.");
-  //         }
-  //       } catch (error) {
-  //         console.error("Error parsing CSV data:", error);
-  //       }
-  //     };
-
-  //     reader.readAsText(file);
-  //   }
-  // };
 
   // Function to handle form submission after validation checks
   const handleInputChange = (index, field, value) => {

@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 import { ethers } from "ethers";
 import { jwtVerify } from "jose";
 
@@ -18,12 +17,8 @@ export async function middleware(request) {
 
   try {
     // Decode the JWT token to get the signature
-    console.log(token);
 
     const decoded = await jwtVerify(token, JWT_SECRET);
-    console.log(decoded);
-
-    console.log("decoded", decoded);
 
     if (!decoded) {
       return new NextResponse(
@@ -35,7 +30,7 @@ export async function middleware(request) {
 
     // Extract the signature from the decoded JWT token
     const signature = decoded["payload"]["signature"];
-    console.log(signature);
+
     const message = decoded["payload"]["message"];
 
     const signerAddress = ethers.utils.verifyMessage(message, signature);
@@ -43,12 +38,10 @@ export async function middleware(request) {
     // const address = "0xe57f4c84539a6414C4Cf48f135210e01c477EFE0";
     const { searchParams } = new URL(request.url);
     const address = searchParams.get("address");
-    console.log("address", address);
-    console.log("Signeraddress", signerAddress);
 
+    console.log("address", address);
     // Compare the extracted signer's address with the address parameter
     if (signerAddress.toLowerCase() !== address.toLowerCase()) {
-      console.log("hereeeee")
       // If addresses don't match, return unauthorized response or handle accordingly
       return new NextResponse(
         JSON.stringify({

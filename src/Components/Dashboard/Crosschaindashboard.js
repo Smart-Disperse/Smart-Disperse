@@ -265,9 +265,7 @@ function Crosschaindashboard() {
     console.log(address);
     try {
       console.log("entered into try block");
-      const result = await fetch(
-        `http://localhost:3000/api/all-user-data?address=${address}`
-      );
+      const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
 
       console.log("Response from API:", response);

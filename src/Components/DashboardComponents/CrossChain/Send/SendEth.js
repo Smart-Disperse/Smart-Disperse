@@ -149,11 +149,8 @@ function SendEth({ activeTab, listData, setListData }) {
 
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(
-        `http://localhost:3000/api/all-user-data?address=${address}`
-      );
+      const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
-      console.log("Response from API:", response);
 
       const usersData = response.result;
       const names = usersData.map((user) =>
@@ -193,7 +190,7 @@ function SendEth({ activeTab, listData, setListData }) {
     console.log(userData);
     try {
       console.log("entered into try block");
-      let result = await fetch(`http://localhost:3000/api/all-user-data`, {
+      let result = await fetch(`api/all-user-data?address=${address}`, {
         method: "POST",
         body: JSON.stringify(userData),
       });
@@ -340,12 +337,14 @@ function SendEth({ activeTab, listData, setListData }) {
                                     const inputValue = e.target.value;
                                     // Regular expression to allow only alphanumeric characters without spaces
                                     const regex = /^[a-zA-Z0-9]*$/;
-                                
-                                    if (regex.test(inputValue) && inputValue.length <= 10 ) {
-                                        setLabelValues(index, inputValue);
+
+                                    if (
+                                      regex.test(inputValue) &&
+                                      inputValue.length <= 10
+                                    ) {
+                                      setLabelValues(index, inputValue);
                                     }
-                                }}
-                                
+                                  }}
                                   onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                       onAddLabel(index, data.address);

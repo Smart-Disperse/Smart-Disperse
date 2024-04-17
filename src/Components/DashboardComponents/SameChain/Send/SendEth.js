@@ -147,17 +147,21 @@ function SendEth({ activeTab, listData, setListData }) {
 
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(
-        `http://localhost:3000/api/all-user-data?address=${address}`
-      );
+      const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
       const usersData = response.result;
-      const names = usersData.map((user) =>
+      var names = usersData?.map((user) =>
         user.name ? user.name.toLowerCase() : ""
       );
-      const addresses = usersData.map((user) =>
+      var addresses = usersData?.map((user) =>
         user.address ? user.address.toLowerCase() : ""
       );
+      if (names === undefined) {
+        names = [];
+      }
+      if (addresses === undefined) {
+        addresses = [];
+      }
       setAllNames(names);
 
       setAllAddresses(addresses);
@@ -170,8 +174,10 @@ function SendEth({ activeTab, listData, setListData }) {
   };
 
   useEffect(() => {
-    fetchUserDetails();
-  }, []);
+    if (address) {
+      fetchUserDetails();
+    }
+  }, [address]);
 
   const setLabelValues = (index, name) => {
     const updatedLabels = [...labels]; // Create a copy of the labels array
@@ -181,35 +187,30 @@ function SendEth({ activeTab, listData, setListData }) {
   };
 
   const onAddLabel = async (index, recipientAddress) => {
-    console.log("enteringggg")
-    console.log(address)
     const userData = {
       userid: address,
       name: labels[index],
       address: recipientAddress.toLowerCase(),
     };
-    console.log(userData);
+
     try {
-      // console.log("entered into try block");
-      let result = await fetch(`http://localhost:3000/api/all-user-data?address=${address}`, {
+      let result = await fetch(`api/all-user-data?address=${address}`, {
         method: "POST",
         body: JSON.stringify(userData),
       });
 
       result = await result.json();
-      console.log(result)
+      // console.log(result);
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
         toast.warn("Name Already Exist! Please Enter Unique Name.");
         setErrormsg(result.error);
       } else {
         if (result.success) {
-          alert("Added to MongoDB");
           toast.success("Label Added successfully");
         }
       }
     } catch (error) {
-      // setNameErrorModalIsOpen(true);
       setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
@@ -334,12 +335,14 @@ function SendEth({ activeTab, listData, setListData }) {
                                     const inputValue = e.target.value;
                                     // Regular expression to allow only alphanumeric characters without spaces
                                     const regex = /^[a-zA-Z0-9]*$/;
-                                
-                                    if (regex.test(inputValue) && inputValue.length <= 10 ) {
+
+                                    if (
+                                      regex.test(inputValue) &&
+                                      inputValue.length <= 10
+                                    ) {
                                       setLabelValues(index, inputValue);
-                                  }
-                                }}
-                                
+                                    }
+                                  }}
                                   onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                       onAddLabel(index, data.address);

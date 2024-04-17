@@ -54,7 +54,7 @@ function Samechaindashboard() {
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
   const inputRef3 = useRef();
-  
+
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [tokenListOfUser, setTokenListOfUser] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
@@ -74,7 +74,7 @@ function Samechaindashboard() {
     useState(false);
   const chainId = useChainId();
   const [transactions, setTransactions] = useState(filteredTransactions);
-
+  const [render, setRender] = useState(1);
 
   useEffect(() => {
     const handleClick = () => {
@@ -82,12 +82,12 @@ function Samechaindashboard() {
         openConnectModal();
       }
     };
-    window.addEventListener("click", handleClick);  
+    window.addEventListener("click", handleClick);
     return () => {
       window.removeEventListener("click", handleClick);
     };
   }, [isConnected, openConnectModal]);
-  
+
   // /............sorting label function ............./
   const sortLabels = () => {
     const sortedTransactions = [...filteredTransactions].sort((a, b) => {
@@ -296,21 +296,20 @@ function Samechaindashboard() {
 
   const calculateTotalAmount = async (transactions) => {
     if (transactions) {
-        let total = 0;
-        transactions.forEach((transaction) => {
-            total += parseFloat(transaction.value);
-        });
-        setTotalAmount(total.toFixed(8));
+      let total = 0;
+      transactions.forEach((transaction) => {
+        total += parseFloat(transaction.value);
+      });
+      setTotalAmount(total.toFixed(8));
     } else {
-        setTotalAmount(0); 
+      setTotalAmount(0);
     }
-};
+  };
 
-  
   useEffect(() => {
     // Recalculate total amount whenever filtered transactions change
     calculateTotalAmount(filteredTransactions);
-}, [filteredTransactions]);
+  }, [filteredTransactions]);
 
   useEffect(() => {
     let filtered = transactionData;
@@ -331,9 +330,7 @@ function Samechaindashboard() {
 
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(
-        `http://localhost:3000/api/all-user-data?address=${address}`
-      );
+      const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
       const alldata = response.result;
       const allNames = alldata.map((user) => user.name);
@@ -370,8 +367,6 @@ function Samechaindashboard() {
     calculateAmount();
   }, [transactionData]);
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       if (isOpen) {
@@ -387,10 +382,9 @@ function Samechaindashboard() {
           ethData = await getERC20Transactions(address, selectedToken, chainId);
         }
         if (ethData && ethData.length > 0) {
-          console.log(ethData);
           for (let i = 0; i < ethData.length; i++) {
             const recipientAddress = ethData[i].recipient.toLowerCase();
-            console.log(allNames, allAddress);
+
             const index = allAddress.findIndex(
               (addr) => addr === recipientAddress
             );
@@ -406,17 +400,22 @@ function Samechaindashboard() {
           setIsLoading(false);
           setDataNotFound(false);
         } else {
-          setDataNotFound(true); 
-          console.log("Eth data is empty");
+          setDataNotFound(true);
         }
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
 
     fetchData(address);
   }, [isOpen, selectedToken]);
+
+  useEffect(() => {
+    if (address) {
+      setRender((prev) => prev + 1);
+    }
+  }, [address, chainId]);
   return (
-    <div className={samechainStyle.maindivofdashboard}>
+    <div className={samechainStyle.maindivofdashboard} key={render}>
       <div style={{ position: "relative" }}>
         <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
@@ -838,9 +837,8 @@ function Samechaindashboard() {
 
                   {/* Fetching tx data in */}
                   {isLoading ? (
-                  
                     <div style={{ position: "relative", top: "100px" }}>
-                      Fetching  transaction History...
+                      Fetching transaction History...
                     </div>
                   ) : filteredTransactions.length > 0 ? (
                     <div className={popup.content}>
@@ -1023,10 +1021,10 @@ function Samechaindashboard() {
                         </tbody>
                       </table>
                     </div>
-                    ) : dataNotFound ? (
-                      <div style={{ textAlign: "center", marginTop: "20px" }}>
-                          No transactions found.
-                      </div>
+                  ) : dataNotFound ? (
+                    <div style={{ textAlign: "center", marginTop: "20px" }}>
+                      No transactions found.
+                    </div>
                   ) : (
                     <div>No data found</div>
                   )}

@@ -94,7 +94,7 @@ function ExecuteToken(props) {
           const receipt = await txsendPayment.wait();
           let blockExplorerURL = await getExplorer();
           props.setLoading(false);
-          // console.log("yayy");
+
           setMessage(
             <div
               className={textStyle.Link}

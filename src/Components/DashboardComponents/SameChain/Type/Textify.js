@@ -26,7 +26,7 @@ function Textify({
     setTextValue(value);
     if (value.includes("@")) {
       const searchTerm = value.split("@").pop().toLowerCase();
-      const filteredSuggestions = allNames.filter((name) =>
+      const filteredSuggestions = allNames?.filter((name) =>
         name.toLowerCase().includes(searchTerm)
       );
       setSuggestions(filteredSuggestions);
@@ -95,12 +95,13 @@ function Textify({
     let newTextValue = textValue.replace(resolveRegex, (match, name) => {
       const index = allNames.indexOf(name);
       if (index !== -1) {
-        return allAddresses[index] + " ";
+        if (allAddresses[index]) {
+          return allAddresses[index] + " ";
+        }
       }
       return match;
     });
 
-    console.log(newTextValue);
     setTextValue(newTextValue);
 
     const lines = newTextValue.split("\n").filter((line) => line.trim() !== "");
@@ -118,7 +119,7 @@ function Textify({
           let convertedValue = numericValue / ethToUsdExchangeRate;
           // Round the converted value to 18 decimal places
           convertedValue = parseFloat(convertedValue.toFixed(18));
-          console.log("Converted value:", convertedValue); // Log the converted value
+          // Log the converted value
           validValue = isValidValue(String(convertedValue)); // Convert to string
         } else if (tokenDecimal) {
           validValue = isValidTokenValue(value, tokenDecimal);
@@ -128,8 +129,6 @@ function Textify({
 
         // Check if validValue is false or invalid BigNumber string
         if (!validValue || validValue === "false") {
-          // Log an error and skip this value
-          console.error("Invalid value:", value);
           continue;
         }
 
@@ -144,7 +143,6 @@ function Textify({
       }
     }
 
-    console.log("Updated recipients:", updatedRecipients); // Log the updated recipients
     await setListData(updatedRecipients);
   };
 
@@ -153,7 +151,9 @@ function Textify({
       e.preventDefault();
       const newIndex = focusedSuggestionIndex + (e.key === "ArrowUp" ? -1 : 1);
 
-      if (newIndex >= 0 && newIndex < suggestions.length) {
+      if (
+        newIndex >= 0 && newIndex < suggestions.length ? suggestions.length : 0
+      ) {
         setFocusedSuggestionIndex(newIndex);
 
         // Calculate the scroll position
@@ -232,7 +232,7 @@ function Textify({
                 className={textStyle.textareaInput}
                 placeholder="@Justin/0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421"
               ></textarea>
-              {suggestions.length > 0 && (
+              {suggestions?.length > 0 && (
                 <div
                   ref={dropdownRef}
                   className={textStyle.dropdown}

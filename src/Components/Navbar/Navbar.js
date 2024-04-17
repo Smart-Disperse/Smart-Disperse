@@ -26,19 +26,15 @@ function Navbar() {
   const [isMainnet, setIsMainnet] = useState(true);
 
   const handelMainnet = () => {
-    console.log(!isMainnet);
-
     setIsMainnet(!isMainnet);
     cookie.set("isMainnet", !isMainnet);
   };
 
   const storeToken = async (token) => {
     try {
-      // Calculate expiration time 1 minute from now
       const expiryDate = new Date();
       expiryDate.setHours(expiryDate.getHours() + 2); // 1 hour * 60 minutes * 60 seconds * 1000 milliseconds
 
-      // Set the JWT token in a cookie with expiration time
       cookie.set("jwt_token", token, { expires: expiryDate });
       return true;
     } catch (e) {
@@ -66,13 +62,6 @@ function Navbar() {
         console.log("Error while decoding signature");
       } else {
         const storetoken = await storeToken(jwtToken);
-        // jwt.verify(jwtToken, "This is the msg for Jwt Token", (err, decoded) => {
-        //   if (err) {
-        //     console.error("Error verifying token:", err);
-        //   } else {
-        //     console.log("Decoded payload:", decoded);
-        //   }
-        // });
       }
     } catch (e) {
       console.log("error", e);
@@ -83,7 +72,6 @@ function Navbar() {
     try {
       // Decode the signature to get the signer's address
       const signerAddress = ethers.utils.verifyMessage(message, signature);
-      console.log("Signer's address:", signerAddress, address);
 
       if (signerAddress.toLowerCase() === address.toLowerCase()) {
         // Normalize addresses and compare them
@@ -109,7 +97,6 @@ function Navbar() {
       // For example, issuer, subject, etc.
     };
 
-    console.log(tokenPayload);
     const token = jwt.sign(tokenPayload, "This is the msg for Jwt Token");
     return token;
   };
@@ -118,7 +105,7 @@ function Navbar() {
     // Function to retrieve the value of isMainnet from cookies when the component mounts
     const getIsMainnetFromCookies = () => {
       const isMainnetCookie = cookie.get("isMainnet");
-      console.log(isMainnetCookie);
+
       if (isMainnetCookie !== undefined) {
         // If the cookie exists, set the value of isMainnet accordingly
         setIsMainnet(isMainnetCookie);
@@ -127,16 +114,15 @@ function Navbar() {
 
     // Call the function when the component mounts
     getIsMainnetFromCookies();
-    console.log(isMainnet, "isMainnet");
+
     // Clean up function to avoid memory leaks
     return () => {};
   }, []);
 
   useEffect(() => {
     if (isConnected) {
-      console.log("isConnected", isConnected);
       const jwtToken = cookie.get("jwt_token");
-      console.log(jwtToken);
+
       if (jwtToken === undefined || jwtToken === null) {
         createSign();
       }

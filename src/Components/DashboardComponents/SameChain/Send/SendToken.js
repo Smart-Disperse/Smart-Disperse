@@ -197,18 +197,16 @@ function SendToken({ activeTab, listData, setListData }) {
       name: labels[index],
       address: recipientAddress.toLowerCase(),
     };
-    console.log(userData);
+
     try {
-      console.log("entered into try block");
-      let result = await fetch(`http://localhost:3000/api/all-user-data`, {
+      let result = await fetch(`api/all-user-data?address=${address}`, {
         method: "POST",
         body: JSON.stringify(userData),
       });
 
-      console.log(result);
       result = await result.json();
       console.log("Result after submission:", result);
-      
+
       if (typeof result.error === "string") {
         setNameErrorModalIsOpen(true);
         toast.warn("Name Already Exist! Please Enter Unique Name.");
@@ -226,7 +224,6 @@ function SendToken({ activeTab, listData, setListData }) {
     }
 
     const { names, addresses } = await fetchUserDetails();
-    console.log(names, addresses);
 
     const updatedListData = await listData.map((item) => {
       if (
@@ -240,7 +237,6 @@ function SendToken({ activeTab, listData, setListData }) {
       return item;
     });
 
-    console.log(updatedListData);
     await setListData(updatedListData);
   };
 
@@ -280,11 +276,8 @@ function SendToken({ activeTab, listData, setListData }) {
 
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(
-        `http://localhost:3000/api/all-user-data?address=${address}`
-      );
+      const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
-      console.log("Response from API:", response);
 
       const usersData = response.result;
       const names = usersData.map((user) =>
@@ -294,9 +287,9 @@ function SendToken({ activeTab, listData, setListData }) {
         user.address ? user.address.toLowerCase() : ""
       );
       setAllNames(names);
-      console.log("Addresses:", addresses);
+
       setAllAddresses(addresses);
-      console.log("Names:", names);
+
       setLabels([]);
       return { names, addresses };
     } catch (error) {
@@ -305,13 +298,14 @@ function SendToken({ activeTab, listData, setListData }) {
   };
 
   useEffect(() => {
-    fetchUserDetails();
-  }, []);
+    if (address) {
+      fetchUserDetails();
+    }
+  }, [address]);
 
   const setLabelValues = (index, name) => {
     const updatedLabels = [...labels]; // Create a copy of the labels array
     updatedLabels[index] = name; // Update the value at the specified index
-    console.log(updatedLabels);
     setLabels(updatedLabels);
   };
   useEffect(() => {
@@ -557,12 +551,13 @@ function SendToken({ activeTab, listData, setListData }) {
                                       const inputValue = e.target.value;
                                       // Regular expression to allow only alphanumeric characters without spaces
                                       const regex = /^[a-zA-Z0-9]*$/;
-                                      if (regex.test(inputValue) && inputValue.length <= 10 ) {
+                                      if (
+                                        regex.test(inputValue) &&
+                                        inputValue.length <= 10
+                                      ) {
                                         setLabelValues(index, inputValue);
-                                    }
-                                  }}
-                                  
-                                  
+                                      }
+                                    }}
                                     onKeyDown={(e) => {
                                       if (e.key === "Enter") {
                                         onAddLabel(index, data.address);

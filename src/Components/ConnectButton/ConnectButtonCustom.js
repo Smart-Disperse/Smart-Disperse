@@ -23,7 +23,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
   const handleDisConnect = () => {
     // Function that handles the click on the disconnect button
     disconnect();
-    console.log("destroying jwt");
+    // console.log("destroying jwt");
     cookie.set("jwt_token", null);
     setAccountModalOpen(false);
   };
@@ -106,7 +106,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                   </button>
                 );
               }
-              console.log(account ? account : null);
+
               return (
                 <div
                   style={{ display: "flex", gap: 10, alignItems: "center" }}
