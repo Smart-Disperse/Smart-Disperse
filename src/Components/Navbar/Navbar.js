@@ -62,6 +62,9 @@ function Navbar() {
         console.log("Error while decoding signature");
       } else {
         const storetoken = await storeToken(jwtToken);
+        if (storetoken) {
+          window.location.reload();
+        }
       }
     } catch (e) {
       console.log("error", e);
