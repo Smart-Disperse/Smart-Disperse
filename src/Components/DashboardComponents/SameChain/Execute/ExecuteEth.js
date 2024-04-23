@@ -81,7 +81,7 @@ function ExecuteEth(props) {
         let blockExplorerURL = await getExplorer();
         setMessage(
           <div
-          className={textStyle.Link}
+            className={textStyle.Link}
             dangerouslySetInnerHTML={{
               __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank "   style={{ color: "white", textDecoration: "none" }}>here</a> for details.`,
             }}

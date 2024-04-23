@@ -76,17 +76,17 @@ function Samechaindashboard() {
   const [transactions, setTransactions] = useState(filteredTransactions);
   const [render, setRender] = useState(1);
 
-  useEffect(() => {
-    const handleClick = () => {
-      if (!isConnected) {
-        openConnectModal();
-      }
-    };
-    window.addEventListener("click", handleClick);
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  }, [isConnected, openConnectModal]);
+  // useEffect(() => {
+  //   const handleClick = () => {
+  //     if (!isConnected) {
+  //       openConnectModal();
+  //     }
+  //   };
+  //   window.addEventListener("click", handleClick);
+  //   return () => {
+  //     window.removeEventListener("click", handleClick);
+  //   };
+  // }, [isConnected, openConnectModal]);
 
   // /............sorting label function ............./
   const sortLabels = () => {
