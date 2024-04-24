@@ -118,7 +118,7 @@ function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && !isHome) {
       const jwtToken = cookie.get("jwt_token");
 
       if (jwtToken === undefined || jwtToken === null) {
