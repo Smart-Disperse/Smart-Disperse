@@ -68,9 +68,6 @@ export const getEthTransactions = async (address, chainId) => {
           });
         });
 
-        // also return TotalEth
-        // console.log("Eth transfer data:", transformedData);
-
         return transformedData;
       }
     } else {
@@ -78,7 +75,6 @@ export const getEthTransactions = async (address, chainId) => {
     }
   } else {
     console.log("chainId not found in contracts");
-    // Handle this case, maybe return an error or some default value
     return [];
   }
 };
@@ -90,14 +86,9 @@ export const getERC20Transactions = async (address, tokenAddress, chainId) => {
       const chainname = contracts[chainId].chainDisplayName;
 
       chainAPIurl = contracts[chainId].APIURL;
-      // console.log(chainAPIurl);
-      // return chainAPIurl;
 
       const tokenDetails = await LoadTokenForAnalysis(tokenAddress);
-      // console.log("tokenaddr  ",tokenAddress);
 
-      // console.log("symbol", tokenDetails.symbol);
-      // console.log(address);
       const APIURL = chainAPIurl;
       const tokensQuery = `
     query MyQuery {
@@ -158,6 +149,7 @@ export const getERC20Transactions = async (address, tokenAddress, chainId) => {
     // return {transformedData};
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 
@@ -201,5 +193,6 @@ export const getERC20Tokens = async (address, chainId) => {
     // return {transformedData};
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
