@@ -20,24 +20,17 @@ function Uploadify({
   const { address } = useAccount();
 
   useEffect(() => {
-    fetchUserDetails();
-  }, []);
+    if (address) {
+      fetchUserDetails();
+    }
+  }, [address]);
 
   // Fetching all names and addresses stored in the database
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(`api/all-user-data?address=${address}`);
-      const response = await result.json();
-
-      const usersData = response.result;
-      const names = usersData.map((user) =>
-        user.name ? user.name.toLowerCase() : ""
-      );
-      const addresses = usersData.map((user) =>
-        user.address ? user.address.toLowerCase() : ""
-      );
-      setAllNames(names);
-      setAllAddresses(addresses);
+      const { allNames, allAddress } = await fetchUserLabels(address);
+      setAllNames(allNames);
+      setAllAddresses(allAddress);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }

@@ -29,6 +29,7 @@ import {
   getERC20Tokens,
 } from "@/Helpers/GetSentTransactions";
 import { useAccount, useChainId, useNetwork } from "wagmi";
+import { fetchUserDetails, fetchUserLabels } from "@/Helpers/FetchUserLabels";
 
 function Samechaindashboard() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -75,18 +76,6 @@ function Samechaindashboard() {
   const chainId = useChainId();
   const [transactions, setTransactions] = useState(filteredTransactions);
   const [render, setRender] = useState(1);
-
-  useEffect(() => {
-    const handleClick = () => {
-      if (!isConnected) {
-        openConnectModal();
-      }
-    };
-    window.addEventListener("click", handleClick);
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  }, [isConnected, openConnectModal]);
 
   // /............sorting label function ............./
   const sortLabels = () => {
@@ -300,8 +289,10 @@ function Samechaindashboard() {
       transactions.forEach((transaction) => {
         total += parseFloat(transaction.value);
       });
+      console.log(total.toFixed(8));
       setTotalAmount(total.toFixed(8));
     } else {
+      console.log("first");
       setTotalAmount(0);
     }
   };
@@ -328,19 +319,6 @@ function Samechaindashboard() {
     setFilteredTransactions(filtered);
   }, [startDate, endDate]);
 
-  const fetchUserDetails = async () => {
-    try {
-      const result = await fetch(`api/all-user-data?address=${address}`);
-      const response = await result.json();
-      const alldata = response.result;
-      const allNames = alldata.map((user) => user.name);
-      const allAddress = alldata.map((user) => user.address);
-      return { allNames, allAddress };
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  };
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -360,8 +338,7 @@ function Samechaindashboard() {
   useEffect(() => {
     const calculateAmount = async () => {
       if (transactionData) {
-        const total = await calculateTotalAmount();
-        setTotalAmount(total);
+        await calculateTotalAmount(transactionData);
       }
     };
     calculateAmount();
@@ -371,7 +348,7 @@ function Samechaindashboard() {
     const fetchData = async () => {
       if (isOpen) {
         setIsLoading(true);
-        const { allNames, allAddress } = await fetchUserDetails();
+        const { allNames, allAddress } = await fetchUserLabels(address);
         var ethData = [];
         if (selectedToken === "Eth") {
           ethData = await getEthTransactions(address, chainId);
@@ -506,9 +483,14 @@ function Samechaindashboard() {
                 backgroundColor: isOpen ? "white" : "white",
                 color: isOpen ? "dark" : "custom-light",
                 overflow: "hidden",
-                position: "relative",
 
-                top: "unset",
+                position: "fixed", // Changed from 'relative' to 'fixed'
+                bottom: "0", // Set to '0' to stick to the bottom
+                left: "50%", // Center horizontally
+                transform: "translateX(-50%)", // Correct the centering horizontally
+                width: "100%", // Optional: Adjust the width as necessary
+                maxWidth: "600px", // Optional: Set a maximum width if desired
+                zIndex: 1000, // Make sure it sits above other content
               }}
             >
               <div

@@ -16,6 +16,7 @@ import warning from "@/Assets/warning.webp";
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 
 function SendEth({ activeTab, listData, setListData }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
@@ -147,27 +148,11 @@ function SendEth({ activeTab, listData, setListData }) {
 
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(`api/all-user-data?address=${address}`);
-      const response = await result.json();
-      const usersData = response.result;
-      var names = usersData?.map((user) =>
-        user.name ? user.name.toLowerCase() : ""
-      );
-      var addresses = usersData?.map((user) =>
-        user.address ? user.address.toLowerCase() : ""
-      );
-      if (names === undefined) {
-        names = [];
-      }
-      if (addresses === undefined) {
-        addresses = [];
-      }
-      setAllNames(names);
-
-      setAllAddresses(addresses);
+      const { allNames, allAddress } = await fetchUserLabels(address);
+      setAllNames(allNames);
+      setAllAddresses(allAddress);
 
       setLabels([]);
-      return { names, addresses };
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -214,7 +199,7 @@ function SendEth({ activeTab, listData, setListData }) {
       setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
-    const { names, addresses } = await fetchUserDetails();
+    const { names, addresses } = await fetchUserLabels();
     // console.log(names, addresses);
 
     const updatedListData = await listData.map((item) => {

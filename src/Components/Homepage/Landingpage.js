@@ -10,18 +10,12 @@ import send from "../../Assets/sendgif.gif";
 import historyview from "../../Assets/view.gif";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import homeStyle from "../Homepage/landingpage.module.css";
-import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import {
   faArrowRight,
   faGlobe,
   faTimes,
-  faExchangeAlt,
-  faLink,
-  faMapMarked,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAccount } from "wagmi";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 
 function Modal({ closeModal }) {
@@ -88,33 +82,25 @@ function Modal({ closeModal }) {
 
 export default function Landingpage() {
   const router = useRouter();
-  // const { themeClass } = useTheme();
-  const { openConnectModal } = useConnectModal();
-  // const navigate = useNavigate();
-  const { isConnected } = useAccount();
   const [showModal, setShowModal] = useState(false);
 
   const handleGetStartedClick = () => {
-    if (isConnected) {
-      setShowModal(true);
-    } else {
-      openConnectModal();
-    }
+    setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
   };
 
-  const handleCrossChain = () => {
-    navigate("/cross-chain");
-    closeModal();
-  };
+  // const handleCrossChain = () => {
+  //   navigate("/cross-chain");
+  //   closeModal();
+  // };
 
-  const handleSameChain = () => {
-    router.push("/same-chain");
-    closeModal();
-  };
+  // const handleSameChain = () => {
+  //   router.push("/same-chain");
+  //   closeModal();
+  // };
 
   return (
     <div className={homeStyle.wholelandingpage}>

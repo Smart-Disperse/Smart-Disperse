@@ -6,6 +6,7 @@ import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 import SendEth from "../Send/SendEth";
+import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 
 function Uploadify({
   listData,
@@ -27,27 +28,17 @@ function Uploadify({
   };
 
   useEffect(() => {
-    fetchUserDetails();
-  }, []);
+    if (address) {
+      fetchUserDetails();
+    }
+  }, [address]);
 
   // Fetching all names and addresses stored in the database
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(`api/all-user-data?address=${address}`);
-      const response = await result.json();
-      console.log("Response from API:", response);
-
-      const usersData = response.result;
-      const names = usersData.map((user) =>
-        user.name ? user.name.toLowerCase() : ""
-      );
-      const addresses = usersData.map((user) =>
-        user.address ? user.address.toLowerCase() : ""
-      );
-      setAllNames(names);
-      setAllAddresses(addresses);
-      console.log("Names:", names);
-      console.log("Addresses:", addresses);
+      const { allNames, allAddress } = await fetchUserLabels(address);
+      setAllNames(allNames);
+      setAllAddresses(allAddress);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }

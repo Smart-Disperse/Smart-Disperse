@@ -1,30 +1,30 @@
-.gobackbtn:hover{
+.gobackbtn:hover {
   cursor: pointer;
   background-color: #ffffff3c;
   color: white;
 }
-.linkto:hover{
+.linkto:hover {
   color: white;
   text-decoration: none;
 }
-.linkto{
+.linkto {
   /* color: white; */
   text-decoration: none;
 }
-.gobackbtn{
+.gobackbtn {
   /* background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%); */
-    border: none;
-    padding: 8px;
-    font-weight: 700;
-    margin: 5px 10px;
-    width: 100%;
-    border-radius: 5px;
+  border: none;
+  padding: 8px;
+  font-weight: 700;
+  margin: 5px 10px;
+  width: 100%;
+  border-radius: 5px;
 }
 
-.refreshbtn:hover{
+.refreshbtn:hover {
   cursor: pointer;
 }
-.refreshbtn{
+.refreshbtn {
   background-color: transparent;
   border: none;
   color: white;
@@ -33,7 +33,7 @@
   text-decoration: underline;
 }
 
-.buttondivgoback{
+.buttondivgoback {
   width: 100%;
   max-width: 1000px;
   margin: 10px auto;
@@ -233,7 +233,7 @@
   }
 }
 @media only screen and (max-width: 778px) {
-  .gobackbtn{
+  .gobackbtn {
     font-size: 9px !important;
   }
 }

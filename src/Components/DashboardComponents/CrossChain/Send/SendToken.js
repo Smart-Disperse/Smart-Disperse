@@ -22,6 +22,7 @@ import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 
 function SendToken({ activeTab, listData, setListData }) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
@@ -225,7 +226,7 @@ function SendToken({ activeTab, listData, setListData }) {
       console.error("Error:", error);
     }
 
-    const { names, addresses } = await fetchUserDetails();
+    const { names, addresses } = await fetchUserLabels();
     console.log(names, addresses);
 
     const updatedListData = await listData.map((item) => {
@@ -280,31 +281,20 @@ function SendToken({ activeTab, listData, setListData }) {
 
   const fetchUserDetails = async () => {
     try {
-      const result = await fetch(`api/all-user-data?address=${address}`);
-      const response = await result.json();
-      console.log("Response from API:", response);
-
-      const usersData = response.result;
-      const names = usersData.map((user) =>
-        user.name ? user.name.toLowerCase() : ""
-      );
-      const addresses = usersData.map((user) =>
-        user.address ? user.address.toLowerCase() : ""
-      );
-      setAllNames(names);
-      console.log("Addresses:", addresses);
-      setAllAddresses(addresses);
-      console.log("Names:", names);
+      const { allNames, allAddress } = await fetchUserLabels(address);
+      setAllNames(allNames);
+      setAllAddresses(allAddress);
       setLabels([]);
-      return { names, addresses };
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
 
   useEffect(() => {
-    fetchUserDetails();
-  }, []);
+    if (address) {
+      fetchUserDetails();
+    }
+  }, [address]);
 
   const setLabelValues = (index, name) => {
     const updatedLabels = [...labels]; // Create a copy of the labels array

@@ -1,6 +1,5 @@
 "use client";
 import Footer from "@/Components/Footer/Footer";
-import Navbar from "@/Components/Navbar/Navbar";
 import React, { useEffect, useState } from "react";
 import displayuser from "./displayallusers.module.css";
 import Image from "next/image";
@@ -8,7 +7,7 @@ import img3 from "../../Assets/img3-bg.webp";
 import img4 from "@/Assets/img4-bg.webp";
 import { useAccount } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+
 import {
   faPenToSquare,
   faCheck,
@@ -30,38 +29,25 @@ function Displayallusers() {
   const [editAddress, setEditAddress] = useState("");
   const { address } = useAccount();
   const [isLoading, setIsLoading] = useState(true); // State for tracking loading
-  const { openConnectModal } = useConnectModal();
-  const { isConnected } = useAccount();
-  useEffect(() => {
-    const handleClick = () => {
-      if (!isConnected) {
-        openConnectModal();
-      }
-    };
-    window.addEventListener("click", handleClick);
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  }, [isConnected, openConnectModal]);
 
   const fetchUserDetails = async () => {
     try {
       const result = await fetch(`api/all-user-data?address=${address}`);
       const response = await result.json();
 
-      const filteredData = response.result.filter(
-        (user) => user.userid === address
-      );
+      const userData = response.result;
 
       setIsLoading(false);
-      setUsersData(filteredData);
+      setUsersData(userData);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
   useEffect(() => {
-    fetchUserDetails();
-  }, []);
+    if (address) {
+      fetchUserDetails();
+    }
+  }, [address]);
 
   const handleEdit = (index) => {
     setEditUserIndex(index);
@@ -157,137 +143,137 @@ function Displayallusers() {
         </div>
 
         <div className={displayuser.maindivforalloptiondashboard}>
-          {isLoading ? (
-            <div>
-              <Image src={loader.src} alt="none" width={100} height={100} />
-            </div>
-          ) : usersData.length === 0 ? (
-            <div>
-              <Image src={notfound} alt="none" width={400} height={300} />
-              <h2>No Data Found!!</h2>
-              <h3>
-                Please try again or{" "}
-                <button
-                  onClick={handleRefreshpage}
-                  className={displayuser.refreshbtn}
-                >
-                  Refresh the page
-                </button>
-              </h3>
-            </div>
-          ) : (
-            <div className={displayuser.displaydatatablewrapper}>
-              <table className={displayuser.displaytable}>
-                <thead>
-                  <tr>
-                    <th className={displayuser.displayheader}>Name</th>
-                    <th className={displayuser.displayheader}>Address</th>
-                    <th className={displayuser.displayheader}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {usersData.map((user, index) => (
-                    <tr
-                      key={index}
-                      className={
-                        index % 2 === 0
-                          ? `${displayuser.displayevenrow}`
-                          : `${displayuser.displayoddrow}`
-                      }
-                    >
-                      <td className={displayuser.displaycell}>
-                        {editUserIndex === index ? (
-                          <input
-                            className={displayuser.editinput}
-                            type="text"
-                            value={editName}
-                            onChange={(e) => {
-                              const inputValue = e.target.value;
-                              // Regular expression to allow only alphanumeric characters without spaces
-                              const regex = /^[a-zA-Z0-9]*$/;
-                              if (
-                                inputValue.length <= 10 &&
-                                regex.test(inputValue)
-                              ) {
-                                setEditName(inputValue);
-                              }
-                            }}
-                          />
-                        ) : (
-                          user.name
-                        )}
-                      </td>
-                      <td className={displayuser.displaycell}>
-                        {user.address}
-                      </td>
-                      <td
-                        style={{ display: "flex" }}
-                        className={displayuser.displaycellbuttons}
+          {address ? (
+            isLoading ? (
+              <div>
+                <Image src={loader.src} alt="none" width={100} height={100} />
+              </div>
+            ) : usersData?.length === 0 ? (
+              <div>
+                <Image src={notfound} alt="none" width={400} height={300} />
+                <h2>No Data Found!!</h2>
+                <h3>
+                  Please try again or{" "}
+                  <button
+                    onClick={handleRefreshpage}
+                    className={displayuser.refreshbtn}
+                  >
+                    Refresh the page
+                  </button>
+                </h3>
+              </div>
+            ) : (
+              <div className={displayuser.displaydatatablewrapper}>
+                <table className={displayuser.displaytable}>
+                  <thead>
+                    <tr>
+                      <th className={displayuser.displayheader}>Name</th>
+                      <th className={displayuser.displayheader}>Address</th>
+                      <th className={displayuser.displayheader}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usersData?.map((user, index) => (
+                      <tr
+                        key={index}
+                        className={
+                          index % 2 === 0
+                            ? `${displayuser.displayevenrow}`
+                            : `${displayuser.displayoddrow}`
+                        }
                       >
-                        {editUserIndex === index ? (
-                          <div>
+                        <td className={displayuser.displaycell}>
+                          {editUserIndex === index ? (
+                            <input
+                              className={displayuser.editinput}
+                              type="text"
+                              value={editName}
+                              onChange={(e) => {
+                                const inputValue = e.target.value;
+                                // Regular expression to allow only alphanumeric characters without spaces
+                                const regex = /^[a-zA-Z0-9]*$/;
+                                if (
+                                  inputValue.length <= 10 &&
+                                  regex.test(inputValue)
+                                ) {
+                                  setEditName(inputValue);
+                                }
+                              }}
+                            />
+                          ) : (
+                            user.name
+                          )}
+                        </td>
+                        <td className={displayuser.displaycell}>
+                          {user.address}
+                        </td>
+                        <td
+                          style={{ display: "flex" }}
+                          className={displayuser.displaycellbuttons}
+                        >
+                          {editUserIndex === index ? (
+                            <div>
+                              <button
+                                className={displayuser.displayupdatebutton}
+                                onClick={handleUpdate}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faCheck}
+                                  style={{ color: "#f5f9ff" }}
+                                />
+                              </button>
+                              <button
+                                className={displayuser.displayupdatebutton}
+                                onClick={handleAbortedit}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faXmark}
+                                  style={{ color: "#f5f9ff" }}
+                                />
+                              </button>
+                            </div>
+                          ) : (
                             <button
-                              className={displayuser.displayupdatebutton}
-                              onClick={handleUpdate}
+                              className={displayuser.displayeditbutton}
+                              onClick={() => handleEdit(index)}
                             >
                               <FontAwesomeIcon
-                                icon={faCheck}
-                                style={{ color: "#f5f9ff" }}
+                                className={displayuser.editicon}
+                                icon={faPenToSquare}
+                                // style={{ color: "#ffffff" }}
                               />
                             </button>
-                            <button
-                              className={displayuser.displayupdatebutton}
-                              onClick={handleAbortedit}
-                            >
-                              <FontAwesomeIcon
-                                icon={faXmark}
-                                style={{ color: "#f5f9ff" }}
-                              />
-                            </button>
-                          </div>
-                        ) : (
+                          )}
                           <button
-                            className={displayuser.displayeditbutton}
-                            onClick={() => handleEdit(index)}
+                            className={displayuser.displaydeletebutton}
+                            onClick={() => handleDelete(index)}
                           >
                             <FontAwesomeIcon
-                              className={displayuser.editicon}
-                              icon={faPenToSquare}
-                              // style={{ color: "#ffffff" }}
+                              className={displayuser.deleteicon}
+                              icon={faTrash}
                             />
                           </button>
-                        )}
-                        <button
-                          className={displayuser.displaydeletebutton}
-                          onClick={() => handleDelete(index)}
-                        >
-                          <FontAwesomeIcon
-                            className={displayuser.deleteicon}
-                            icon={faTrash}
-                          />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <ToastContainer />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <ToastContainer />
+              </div>
+            )
+          ) : (
+            <div>
+              <h2>Please connect your wallet</h2>
             </div>
           )}
           <div className={displayuser.buttondivgoback}>
-            <button className={displayuser.gobackbtn}>
-              <FontAwesomeIcon icon={faArrowLeft} /> &nbsp;{" "}
-              <Link className={displayuser.linkto} href={"/same-chain"}>
-                Go to Same Chain Dashboard
-              </Link>{" "}
-            </button>
-            <button className={displayuser.gobackbtn}>
-              {" "}
-              <Link className={displayuser.linkto} href={"/cross-chain"}>
-                Go to Cross Chain Dashboard
-              </Link>{" "}
-              &nbsp; <FontAwesomeIcon icon={faArrowRight} />
-            </button>
+            <Link className={displayuser.gobackbtn} href={"/same-chain"}>
+              <FontAwesomeIcon icon={faArrowLeft} /> Go to Same Chain Dashboard
+            </Link>{" "}
+            <Link className={displayuser.gobackbtn} href={"/cross-chain"}>
+              Go to Cross Chain Dashboard{" "}
+              <FontAwesomeIcon icon={faArrowRight} />
+            </Link>{" "}
           </div>
         </div>
       </div>
