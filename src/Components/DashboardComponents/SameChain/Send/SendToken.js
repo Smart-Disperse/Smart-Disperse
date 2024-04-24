@@ -224,20 +224,20 @@ function SendToken({ activeTab, listData, setListData }) {
       console.error("Error:", error);
     }
 
-    const { names, addresses } = await fetchUserLabels();
+    const { allNames, allAddress } = await fetchUserLabels(address);
 
     const updatedListData = await listData.map((item) => {
       if (
         (item.label === undefined || item.label === "") &&
-        addresses.includes(item.address)
+        allAddress.includes(item.address)
       ) {
-        const index = addresses.indexOf(item.address);
+        const index = allAddress.indexOf(item.address);
         console.log(index);
-        item.label = names[index];
+        item.label = allNames[index];
       }
       return item;
     });
-
+    await fetchUserDetails();
     await setListData(updatedListData);
   };
 

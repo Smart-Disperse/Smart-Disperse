@@ -199,21 +199,21 @@ function SendEth({ activeTab, listData, setListData }) {
       setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
-    const { names, addresses } = await fetchUserLabels();
-    // console.log(names, addresses);
+    const { allNames, allAddress } = await fetchUserLabels(address);
+    console.log(allNames, allAddress);
 
     const updatedListData = await listData.map((item) => {
       if (
         (item.label === undefined || item.label === "") &&
-        addresses.includes(item.address.toLowerCase())
+        allAddress.includes(item.address.toLowerCase())
       ) {
-        const index = addresses.indexOf(item.address.toLowerCase());
+        const index = allAddress.indexOf(item.address.toLowerCase());
         // console.log(index);
-        item.label = names[index];
+        item.label = allNames[index];
       }
       return item;
     });
-
+    await fetchUserDetails();
     await setListData(updatedListData);
   };
 

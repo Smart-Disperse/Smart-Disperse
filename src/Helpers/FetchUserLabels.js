@@ -5,6 +5,7 @@ export const fetchUserLabels = async (address) => {
     const alldata = response?.result;
     const allNames = alldata?.map((user) => user.name);
     const allAddress = alldata?.map((user) => user.address);
+    console.log(allNames, allAddress);
     return { allNames, allAddress };
   } catch (error) {
     const allNames = [];
