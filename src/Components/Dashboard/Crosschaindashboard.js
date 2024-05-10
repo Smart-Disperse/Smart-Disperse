@@ -16,7 +16,7 @@ import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+// import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   getERC20Transactions,
   getEthTransactions,

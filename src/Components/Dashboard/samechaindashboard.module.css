@@ -7,6 +7,11 @@
   display: flex;
   flex-direction: column;
 }
+
+.width100 {
+  color: var(--fontcolor);
+}
+
 .stickyIcon a {
   transform: translate(160px, 0px);
   border-radius: 50px 0px 0px 50px;
@@ -79,7 +84,7 @@
   background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%) !important;
 }
 .maindivofdashboard {
-  background-image: url("../../Assets/circlesbg.svg");
+  /* background-image: url("../../Assets/circlesbg.svg"); */
   background: var(--background1);
   background-position: center;
   background-repeat: no-repeat;
@@ -132,6 +137,9 @@ textarea::-webkit-scrollbar-thumb {
 textarea::-webkit-scrollbar {
   width: 5px;
 } */
+.menubardashboard button:hover {
+  opacity: 0.5;
+}
 .menubardashboard button {
   font-size: 18px;
   font-style: normal;
@@ -156,16 +164,8 @@ textarea::-webkit-scrollbar {
 .menubardashboard button.active {
   color: #ffffff;
   box-shadow: none;
-  background: linear-gradient(
-    99.85deg,
-    rgb(179, 46, 255) -18.29%,
-    rgb(242, 164, 152) 109.86%
-  );
-  border: none;
-}
-
-.menubardashboard button:hover {
-  background-position: 0% 100%;
+  background-color: #ab00ff !important;
+  border: none !important;
 }
 .menubardashboard {
   display: flex;
@@ -287,7 +287,7 @@ textarea::-webkit-scrollbar {
 
 /* ...history css */
 .popTitle {
-  color: #8f00ff !important;
+  color: var(--fontcolor);
   font-size: 2rem;
   font-weight: 600;
   line-height: 5vh;
@@ -302,13 +302,16 @@ textarea::-webkit-scrollbar {
 }
 
 .inputSearch {
+  box-shadow: var(--underbox);
   padding: 0.5rem;
   margin-right: 0.5rem;
+  background-color: transparent;
+
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
   width: 30%; /* Adjust width as needed */
-  border: 1px solid #8f00ff;
+  border: 1px solid #747076;
 }
 .inputDate1:focus {
   outline: #8f00ff !important;
@@ -322,16 +325,20 @@ textarea::-webkit-scrollbar {
 .inputDate1 {
   padding: 0.5rem;
   margin-right: 0.5rem;
-  border: 1px solid #8f00ff;
+  border: 1px solid #747076;
   border-radius: 5px;
+  box-shadow: var(--underbox);
+  background-color: transparent;
+
   font-size: 1rem;
   /* Adjust width as needed */
 }
 
 .dropdown {
   padding: 0.5rem;
-
-  border: 1px solid #8f00ff;
+  background-color: transparent;
+  box-shadow: var(--underbox);
+  border: 1px solid #747076;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;

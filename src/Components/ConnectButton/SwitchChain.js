@@ -82,7 +82,7 @@ function SwitchChain({ isMainnet }) {
                 disabled={isLoading || pendingChainId === network.id}
                 onClick={() => handleOptionClick(network.id)}
                 style={{
-                  border: "1px solid #5FFFBC",
+                  border: "1px solid #ab00ff",
                   background: "none",
                   color: "white",
                   cursor: "pointer",

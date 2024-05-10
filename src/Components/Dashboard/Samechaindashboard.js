@@ -506,8 +506,8 @@ function Samechaindashboard() {
                 borderTopLeftRadius: "1rem",
                 borderTopRightRadius: "1rem",
                 padding: "1rem 1.25rem",
-                backgroundColor: isOpen ? "white" : "white",
-                color: isOpen ? "dark" : "custom-light",
+                backgroundColor: isOpen ? "white" : "#ab00ff",
+                color: isOpen ? "ab00ff" : "white",
                 overflow: "hidden",
                 position: "relative",
 
@@ -523,7 +523,7 @@ function Samechaindashboard() {
                   alignItems: "center",
                   marginBottom: "0.75rem",
                   marginTop: "0.5rem",
-                  color: "#8f00ff",
+                  color: "white",
                   cursor: "pointer",
                 }}
                 onClick={() => setIsOpen(!isOpen)}
@@ -547,7 +547,7 @@ function Samechaindashboard() {
                     src={dropdown}
                     alt="dropdown"
                     style={{
-                      background: "#8f00ff",
+                      // background: "#8f00ff",
                       borderRadius: "5px",
                       transform: "rotate(180deg)",
                     }}
@@ -568,13 +568,14 @@ function Samechaindashboard() {
               style={{
                 ...slideStyles[state],
 
-                border: "1px solid",
+                border:"none",
+                // border: "1px solid",
                 fontSize: "0.875rem",
-                borderColor: "white",
+                // borderColor: "white",
                 borderRadius: "1rem",
                 padding: "1rem 1.25rem",
-                backgroundColor: "white",
-                color: "custom-light",
+                // backgroundColor: "white",
+                // color: "white",
                 overflow: "hidden",
                 position: "fixed",
                 top: 150,
@@ -591,7 +592,7 @@ function Samechaindashboard() {
                   alignItems: "center",
                   marginBottom: "0.75rem",
                   marginTop: "0.5rem",
-                  color: "#8f00ff",
+                  // color: "#8f00ff",
                 }}
               >
                 <button
@@ -661,14 +662,14 @@ function Samechaindashboard() {
                 </div>
                 <div
                   style={{
-                    borderBottom: "1px solid #8f00ff",
+                    borderBottom: "1px solid rgb(141 133 147)",
                     paddingTop: "10px",
                     width: "90%",
                   }}
                 ></div>
                 <div
                   style={{
-                    borderBottom: "1px solid #8f00ff",
+                    borderBottom: "1px solid rgb(141 133 147)",
                     paddingTop: "10px",
                   }}
                 ></div>

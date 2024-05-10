@@ -174,13 +174,14 @@ function Navbar() {
           <ConnectButtonCustom isMainnet={isMainnet} />
           {theme === "light" ? (
             <svg
+            className={navStyle.sunn}
               xmlns="http://www.w3.org/2000/svg"
               onClick={() => setTheme("dark")}
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="moon"
+              // className="moon"
               width="50px"
               id={navStyle.changeMode}
             >
@@ -193,13 +194,14 @@ function Navbar() {
             </svg>
           ) : (
             <svg
+            className={navStyle.sunn}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               onClick={() => setTheme("light")}
               strokeWidth="1.5"
               stroke="currentColor"
-              className="sun "
+              // className="sun "
               id={navStyle.changeMode}
             >
               {/* Light mode sun SVG path */}
