@@ -29,7 +29,7 @@ import {
   getERC20Tokens,
 } from "@/Helpers/GetSentTransactions";
 import { useAccount, useChainId, useNetwork } from "wagmi";
-import {circle} from "@/Assets/circlesbg.svg";
+import { circle } from "@/Assets/circlesbg.svg";
 
 function Samechaindashboard() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -55,7 +55,7 @@ function Samechaindashboard() {
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
   const inputRef3 = useRef();
-  
+
   const { address } = useAccount(); /*/User's Ethereum Address*/
   const [tokenListOfUser, setTokenListOfUser] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
@@ -76,19 +76,18 @@ function Samechaindashboard() {
   const chainId = useChainId();
   const [transactions, setTransactions] = useState(filteredTransactions);
 
-
   // useEffect(() => {
   //   const handleClick = () => {
   //     if (!isConnected) {
   //       openConnectModal();
   //     }
   //   };
-  //   window.addEventListener("click", handleClick);  
+  //   window.addEventListener("click", handleClick);
   //   return () => {
   //     window.removeEventListener("click", handleClick);
   //   };
   // }, [isConnected, openConnectModal]);
-  
+
   // /............sorting label function ............./
   const sortLabels = () => {
     const sortedTransactions = [...filteredTransactions].sort((a, b) => {
@@ -297,21 +296,20 @@ function Samechaindashboard() {
 
   const calculateTotalAmount = async (transactions) => {
     if (transactions) {
-        let total = 0;
-        transactions.forEach((transaction) => {
-            total += parseFloat(transaction.value);
-        });
-        setTotalAmount(total.toFixed(8));
+      let total = 0;
+      transactions.forEach((transaction) => {
+        total += parseFloat(transaction.value);
+      });
+      setTotalAmount(total.toFixed(8));
     } else {
-        setTotalAmount(0); 
+      setTotalAmount(0);
     }
-};
+  };
 
-  
   useEffect(() => {
     // Recalculate total amount whenever filtered transactions change
     calculateTotalAmount(filteredTransactions);
-}, [filteredTransactions]);
+  }, [filteredTransactions]);
 
   useEffect(() => {
     let filtered = transactionData;
@@ -371,8 +369,6 @@ function Samechaindashboard() {
     calculateAmount();
   }, [transactionData]);
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       if (isOpen) {
@@ -407,10 +403,10 @@ function Samechaindashboard() {
           setIsLoading(false);
           setDataNotFound(false);
         } else {
-          setDataNotFound(true); 
+          setDataNotFound(true);
           console.log("Eth data is empty");
         }
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
 
@@ -456,7 +452,9 @@ function Samechaindashboard() {
               data-bs-placement="top"
               data-bs-custom-class="color-tooltip"
             >
-              Textify
+              <span>Textify</span>
+
+              <div class="liquid"></div>
             </button>
             <button
               id="list"
@@ -842,9 +840,8 @@ function Samechaindashboard() {
 
                   {/* Fetching tx data in */}
                   {isLoading ? (
-                  
                     <div style={{ position: "relative", top: "100px" }}>
-                      Fetching  transaction History...
+                      Fetching transaction History...
                     </div>
                   ) : filteredTransactions.length > 0 ? (
                     <div className={popup.content}>
@@ -1027,10 +1024,10 @@ function Samechaindashboard() {
                         </tbody>
                       </table>
                     </div>
-                    ) : dataNotFound ? (
-                      <div style={{ textAlign: "center", marginTop: "20px" }}>
-                          No transactions found.
-                      </div>
+                  ) : dataNotFound ? (
+                    <div style={{ textAlign: "center", marginTop: "20px" }}>
+                      No transactions found.
+                    </div>
                   ) : (
                     <div>No data found</div>
                   )}

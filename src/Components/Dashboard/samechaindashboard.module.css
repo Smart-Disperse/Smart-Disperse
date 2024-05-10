@@ -136,7 +136,7 @@ textarea::-webkit-scrollbar {
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
-  line-height: 154.1%; /* 36.984px */
+  line-height: 154.1%;
   letter-spacing: 2.04px;
   text-align: center;
   cursor: pointer;
@@ -148,14 +148,24 @@ textarea::-webkit-scrollbar {
   color: var(--fontcolor);
   margin: 0px 5px;
   box-shadow: var(--boxshadow);
-
+  background: linear-gradient(to top, #ffffff 50%, transparent 50%);
+  background-size: 100% 200%;
+  transition: background-position 0.5s;
 }
+
 .menubardashboard button.active {
   color: #ffffff;
   box-shadow: none;
-  /* background-color: white !important; */
-  background: linear-gradient(99.85deg, rgb(179, 46, 255) -18.29%, rgb(242, 164, 152) 109.86%) !important;
-  border: none !important;
+  background: linear-gradient(
+    99.85deg,
+    rgb(179, 46, 255) -18.29%,
+    rgb(242, 164, 152) 109.86%
+  );
+  border: none;
+}
+
+.menubardashboard button:hover {
+  background-position: 0% 100%;
 }
 .menubardashboard {
   display: flex;
@@ -578,7 +588,7 @@ textarea::-webkit-scrollbar {
     line-height: 2vh;
   }
 
-  .width100{
+  .width100 {
     width: 100% !important;
     display: flex;
     align-items: flex-start;

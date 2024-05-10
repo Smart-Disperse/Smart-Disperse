@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+// import { useConnectModal } from "@rainbow-me/rainbowkit";
 import popup from "../Dashboard/popupTable.module.css";
 import Image from "next/image";
 import img3 from "../../Assets/img3-bg.webp";
@@ -59,7 +59,7 @@ function Crosschaindashboard() {
         openConnectModal();
       }
     };
-    window.addEventListener("click", handleClick);  
+    window.addEventListener("click", handleClick);
     return () => {
       window.removeEventListener("click", handleClick);
     };
