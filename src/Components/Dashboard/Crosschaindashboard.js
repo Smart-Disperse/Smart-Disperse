@@ -50,20 +50,20 @@ function Crosschaindashboard() {
   const [allnames, setAllNames] = useState([]);
   const [allAddress, setAllAddress] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const { openConnectModal } = useConnectModal();
+  // const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
 
-  useEffect(() => {
-    const handleClick = () => {
-      if (!isConnected) {
-        openConnectModal();
-      }
-    };
-    window.addEventListener("click", handleClick);
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  }, [isConnected, openConnectModal]);
+  // useEffect(() => {
+  //   const handleClick = () => {
+  //     if (!isConnected) {
+  //       openConnectModal();
+  //     }
+  //   };
+  //   window.addEventListener("click", handleClick);
+  //   return () => {
+  //     window.removeEventListener("click", handleClick);
+  //   };
+  // }, [isConnected, openConnectModal]);
 
   const handleSearchChange = (event) => {
     const { value } = event.target;
