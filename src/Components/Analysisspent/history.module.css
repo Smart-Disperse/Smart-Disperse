@@ -1,0 +1,123 @@
+.maindivofhisotry{
+    margin: 130px 350px;
+    /* border: 1px solid white; */
+    color: white;
+    height: 100%;
+}
+
+.searchinputbox:focus{
+       outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+.searchinputbox{
+    margin: 6px;
+    padding: 5px;
+    border: none;
+    width: 100%;
+
+}
+
+.searchdiv{
+    width: 100%;
+    padding: 3px;
+    color: black;
+    display: flex;
+    background-color: white;
+    border-radius: 80px;
+}
+
+.searchicon{
+  width: 20px;
+    color: white;
+    height: auto;
+    padding: 8px;
+    border: none;
+    border-radius: 70px;
+}
+.searchbtn{
+        border: none;
+    background-color: blue;
+    border-radius: 28px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+
+}
+
+.tableandheadingdiv{
+    border: 1px solid white;
+    border-radius: 20px;
+}
+
+.tablediv1{
+    display: flex;
+    justify-content:space-between;
+}
+
+.maintablediv{
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.headingdiv{
+    font-weight: 700;
+    font-size: 20px;
+    color: blue;
+}
+
+.dateInput{
+    border: none;
+    background: blue;
+    color: white;
+    border-radius: 21px;
+    padding: 5px;
+    margin: 5px;
+    font-weight: 900;
+}
+
+
+.tokenSelect{
+    border: none;
+    background: blue;
+    color: white;
+    border-radius: 21px;
+    padding: 5px;
+    margin: 5px;
+    font-weight: 900;
+}
+
+.tablediv{
+    padding: 10px;
+}
+
+.theadintable{
+    color: white;
+    background-color: blue;
+    font-weight: 900;
+    font-size: 15px;
+    padding: 5px;
+}
+
+.eachtdintable{
+    padding: 11px;
+    font-weight: 300;
+    font-size: 13px;
+    border-top: 1px solid rgba(0, 0, 0, 0.229);
+
+}
+
+.transactionTable{
+    width: 100%;
+    height: auto;
+}
+@media only screen and (max-width: 1025px) {
+.maindivofhisotry{
+    margin: 130px 150px;
+}
+}

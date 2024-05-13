@@ -1,82 +1,47 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import popup from "../Dashboard/popupTable.module.css";
-import Image from "next/image";
-import img3 from "../../Assets/img3-bg.webp";
-import { Transition } from "react-transition-group";
-import dropdown from "../../Assets/down.png";
-import img4 from "../../Assets/img4-bg.webp";
-import { driver } from "driver.js"; //driver .js is a javascript library used for guiding
-import "driver.js/dist/driver.css";
-import samechainStyle from "./samechaindashboard.module.css";
-import Footer from "../Footer/Footer";
-import homeStyle from "@/Components/Homepage/landingpage.module.css";
-import {
-  faArrowDown,
-  faArrowUp,
-  faCircleCheck,
-} from "@fortawesome/free-solid-svg-icons";
-import SameChain from "../DashboardComponents/SameChain/SameChain";
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import histroyStyle from "./history.module.css";
+import { faArrowDown, faArrowUp, faCopy, faMagnifyingGlass,faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
-import contracts from "@/Helpers/ContractAddresses.js";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 import {
+  getERC20Tokens,
   getERC20Transactions,
   getEthTransactions,
-  getERC20Tokens,
 } from "@/Helpers/GetSentTransactions";
-import { useAccount, useChainId, useNetwork } from "wagmi";
-import { fetchUserDetails, fetchUserLabels } from "@/Helpers/FetchUserLabels";
+import { useAccount, useChainId } from "wagmi";
+import popup from "@/Components/Dashboard/popupTable.module.css";
 
-function Samechaindashboard() {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const { openConnectModal } = useConnectModal();
-  const { isConnected } = useAccount();
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setShowDatePicker(false);
-  };
-  //test
-  const [activeTab, setActiveTab] = useState("text"); //default tab is textify
-  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
-  const router = useRouter();
-  // ...user-analysis
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef();
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+function History() {
+  const { address } = useAccount();
+  const chainId = useChainId();
+  const [render, setRender] = useState(1);
   const [selectedToken, setSelectedToken] = useState("Eth");
-  const [selectedTokenSymbol, setSelectedTokenSymbol] = useState("ETH");
+  const [tokenListOfUser, setTokenListOfUser] = useState([]);
+  const [transactionData, setTransactionData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [dataNotFound, setDataNotFound] = useState(false);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [sortingByAmount, setSortingByAmount] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+  const [isCopiedAddressIndex, setIsCopiedAddressIndex] = useState(false);
+  const [isCopiedHash, setIsCopiedHash] = useState(false);
+  const [sortingByLabel, setSortingByLabel] = useState(false);
+  const [sortingByDate, setSortingByDate] = useState(false);
+  const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
+    useState(false);
+  const [transactions, setTransactions] = useState(filteredTransactions);
   const [explorerUrl, setExplorerUrl] = useState("Eth");
   const inputRef1 = useRef();
   const [totalAmount, setTotalAmount] = useState(0);
   const inputRef3 = useRef();
 
-  const { address } = useAccount(); /*/User's Ethereum Address*/
-  const [tokenListOfUser, setTokenListOfUser] = useState([]);
-  const [transactionData, setTransactionData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [isCopied, setIsCopied] = useState(false);
-  const [isCopiedAddressIndex, setIsCopiedAddressIndex] = useState(false);
-  const [isCopiedHash, setIsCopiedHash] = useState(false);
-  const [explorelink, serexplorelink] = useState();
-  const [transactionhash, settransactionhash] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [sortingByAmount, setSortingByAmount] = useState(false);
-  const [sortingByLabel, setSortingByLabel] = useState(false);
-  const [sortingByDate, setSortingByDate] = useState(false);
-  const [dataNotFound, setDataNotFound] = useState(false);
-  const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
-    useState(false);
-  const chainId = useChainId();
-  const [transactions, setTransactions] = useState(filteredTransactions);
-  const [render, setRender] = useState(1);
+  // State for selected token and dates
+  // const [selectedToken, setSelectedToken] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
+  
   // /............sorting label function ............./
   const sortLabels = () => {
     const sortedTransactions = [...filteredTransactions].sort((a, b) => {
@@ -160,77 +125,8 @@ function Samechaindashboard() {
     );
   };
 
-  const fadeStyles = {
-    entering: { opacity: 1 },
-    exiting: { opacity: 0 },
-    exited: { opacity: 0 },
-  };
-
-  const slideStyles = {
-    entered: { transition: "all 0.3s ease", transform: "translateY(0px)" },
-    entering: { transform: "translateY(1000px)" },
-    exiting: {
-      transition: "all 0.3s ease",
-      transform: "translateY(1000px)",
-    },
-  };
-
-  /******************************Driver.JS Code Starts Here******************************* */
-  //Function to start the tour
-  useEffect(() => {
-    const hasVisitedBefore = document.cookie.includes("visited=true"); //Checks if user has visited the page
-    if (!hasVisitedBefore) {
-      document.cookie = "visited=true; max-age=31536000"; // Max age is set to 1 year in seconds
-      const driverObj = driver({
-        overlayColor: "#00000094",
-        popoverClass: ` ${samechainStyle.driverpopover01}`,
-        showProgress: true,
-        steps: [
-          {
-            element: "#text",
-            popover: {
-              title: "Textify",
-              description:
-                "Effortlessly input recipient addresses and amounts in one line with Textify, whether through copy-paste or direct entry",
-              side: "right",
-              align: "start",
-            },
-          },
-          {
-            element: "#list",
-            popover: {
-              title: "Listify",
-              description:
-                "Effortlessly send funds: Use Listify to fill out recipient addresses and amounts in a simple form",
-              side: "right",
-              align: "start",
-            },
-          },
-          {
-            element: "#csv",
-            popover: {
-              title: "Uploadify",
-              description:
-                "Effortless data management: Use Uploadify to seamlessly upload CSV files with recipient addresses and amounts for convenient editing on our platform",
-              side: "right",
-              align: "start",
-            },
-          },
-        ],
-      });
-      driverObj.drive();
-    }
-
-    const getExplorer = async () => {
-      setExplorerUrl(contracts[chainId]["block-explorer"]);
-    };
-    getExplorer();
-  }, []);
-
-  /******************************User Analysis code Starts Here******************************* */
-
-  // Function to handle changes in both address and label search inputs
-  const handleSearchChange = (event) => {
+   // Function to handle changes in both address and label search inputs
+   const handleSearchChange = (event) => {
     const { value } = event.target;
     handleSearch(value);
   };
@@ -311,364 +207,112 @@ function Samechaindashboard() {
         const nextDayEndDate = new Date(endDate);
         nextDayEndDate.setDate(nextDayEndDate.getDate() + 1); // Increment endDate by 1 day
         return (
-          transactionDate >= new Date(startDate) && 
+          transactionDate >= new Date(startDate) &&
           transactionDate < nextDayEndDate // Adjusted comparison to include endDate
         );
       });
     }
     setFilteredTransactions(filtered);
   }, [startDate, endDate]);
-
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("click", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [isOpen]);
-
-  useEffect(() => {
-    const calculateAmount = async () => {
-      if (transactionData) {
-        await calculateTotalAmount(transactionData);
-      }
-    };
-    calculateAmount();
-  }, [transactionData]);
-
-  useEffect(() => {
+    console.log("fetchinggg");
     const fetchData = async () => {
-      if (isOpen) {
-        setIsLoading(true);
-        const { allNames, allAddress } = await fetchUserLabels(address);
-        var ethData = [];
-        if (selectedToken === "Eth") {
-          ethData = await getEthTransactions(address, chainId);
-          // ethData = ethData.filter(
-          //   (transaction) => transaction.tokenName == null
-          // );
-        } else {
-          ethData = await getERC20Transactions(address, selectedToken, chainId);
-        }
-        if (ethData && ethData.length > 0) {
-          for (let i = 0; i < ethData.length; i++) {
-            const recipientAddress = ethData[i].recipient.toLowerCase();
-
-            const index = allAddress.findIndex(
-              (addr) => addr === recipientAddress
-            );
-            if (index !== -1) {
-              ethData[i].label = allNames[index];
-            }
-          }
-
-          setTransactionData(ethData);
-          setFilteredTransactions(ethData);
-          const userTokens = await getERC20Tokens(address, chainId);
-          setTokenListOfUser(userTokens);
-          setIsLoading(false);
-          setDataNotFound(false);
-        } else {
-          setDataNotFound(true);
-        }
-        setIsLoading(false);
+      // setIsLoading(true);
+      try {
+      const { allNames, allAddress } = await fetchUserLabels(address);
+      console.log("all names",allNames);
+      var ethData = [];
+      if (selectedToken === "Eth") {
+        console.log(address,chainId)
+        ethData = await getEthTransactions(address, chainId);
+        console.log(ethData);
+        // ethData = ethData.filter(
+        //   (transaction) => transaction.tokenName == null
+        // );
+      } else {
+        ethData = await getERC20Transactions(address, selectedToken, chainId);
+        console.log(ethData);
       }
+      if (ethData && ethData.length > 0) {
+        for (let i = 0; i < ethData.length; i++) {
+          const recipientAddress = ethData[i].recipient.toLowerCase();
+
+          const index = allAddress.findIndex(
+            (addr) => addr === recipientAddress
+          );
+          if (index !== -1) {
+            ethData[i].label = allNames[index];
+          }
+        }
+        console.log(ethData);
+        setTransactionData(ethData);
+        setFilteredTransactions(ethData);
+        const userTokens = await getERC20Tokens(address, chainId);
+        console.log("usertokens", userTokens)
+        setTokenListOfUser(userTokens);
+        setIsLoading(false);
+        setDataNotFound(false);
+      } else {
+        setDataNotFound(true);
+      }
+      setIsLoading(false);
+    } catch (error) {
+        console.log("error",error)
+    }
     };
 
     fetchData(address);
-  }, [isOpen, selectedToken]);
+  }, [address, selectedToken]);
 
   useEffect(() => {
     if (address) {
       setRender((prev) => prev + 1);
     }
   }, [address, chainId]);
+
   return (
-    <div className={samechainStyle.maindivofdashboard} key={render}>
-      <div style={{ position: "relative" }}>
-        <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
-        <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
-      </div>
-      <div>
-        <div className={samechainStyle.stickyIcon}>
-          <a href="/all-user-lists" className={samechainStyle.Instagram}>
-            <FontAwesomeIcon icon={faUser} /> <div>Manage Labels</div>
-          </a>
-        </div>
-      </div>
-      {/* <div className={samechainStyle.samedashmainm}> */}
-      <div
-        className={`${samechainStyle["samedashmainm"]} ${
-          errorModalIsOpen ? `${homeStyle["blurbackground"]}` : ""
-        }`}
-      >
-        <div className={samechainStyle.titledivdashboard}>
-          <div className={samechainStyle.imagesinthis}></div>
-          <h1>Effortless Token Distribution</h1>
-          <h3 className={samechainStyle.dashpera}>
-            Instant Multi-Account Dispersement – Seamlessly Send Tokens to
-            Multiple Accounts in One Click
-          </h3>
-        </div>
-        <div className={samechainStyle.maindivforalloptiondashboard}>
-          <div className={samechainStyle.menubardashboard}>
-            <button
-              id="text"
-              className={activeTab === "text" ? `${samechainStyle.active}` : ""}
-              onClick={() => setActiveTab("text")}
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-custom-class="color-tooltip"
-            >
-              Textify
-            </button>
-            <button
-              id="list"
-              className={activeTab === "list" ? `${samechainStyle.active}` : ""}
-              onClick={() => setActiveTab("list")}
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-custom-class="color-tooltip"
-            >
-              Listify
-            </button>
-            <button
-              id="csv"
-              className={activeTab === "csv" ? `${samechainStyle.active}` : ""}
-              onClick={() => setActiveTab("csv")}
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              data-bs-custom-class="color-tooltip"
-            >
-              Uploadify
-            </button>
-          </div>
-        </div>
-        <div className={samechainStyle.divtocenterthecomponentrender}>
-          <div className={samechainStyle.componentcontainerdashboard}>
-            <SameChain
-              activeTab={activeTab}
-              setErrorModalIsOpen={setErrorModalIsOpen}
-              errorModalIsOpen={errorModalIsOpen}
+    <div className={histroyStyle.maindivofhisotry}>
+      <div className={histroyStyle.searchtablediv}>
+        <div className={histroyStyle.searchdiv}>
+          <input
+            placeholder="Search by address or hash"
+            className={histroyStyle.searchinputbox}
+          />
+          <button className={histroyStyle.searchbtn}>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className={histroyStyle.searchicon}
             />
-          </div>
+          </button>
         </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Transition in={!isOpen} timeout={1500}>
-          {(state) => (
-            <div
-              className={popup.HistoryMain1}
-              style={{
-                ...fadeStyles[state],
-
-                borderColor: isOpen ? "white" : "white",
-                borderTopLeftRadius: "1rem",
-                borderTopRightRadius: "1rem",
-                padding: "1rem 1.25rem",
-                backgroundColor: isOpen ? "white" : "white",
-                color: isOpen ? "dark" : "custom-light",
-                overflow: "hidden",
-
-                position: "fixed", // Changed from 'relative' to 'fixed'
-                bottom: "0", // Set to '0' to stick to the bottom
-                left: "50%", // Center horizontally
-                transform: "translateX(-50%)", // Correct the centering horizontally
-                width: "100%", // Optional: Adjust the width as necessary
-                maxWidth: "600px", // Optional: Set a maximum width if desired
-                zIndex: 1000, // Make sure it sits above other content
-              }}
-            >
-              <div
-                className={popup.openHistory}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "0.75rem",
-                  marginTop: "0.5rem",
-                  color: "#8f00ff",
-                  cursor: "pointer",
-                }}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <h2
-                  style={{ fontSize: "1.25rem", fontWeight: "600", margin: 0 }}
-                >
-                  Analyse Spents
-                </h2>
-                <button
-                  aria-label="toggle history"
-                  style={{
-                    right: 0,
-                    position: "absolute",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    border: "none",
-                  }}
-                >
-                  <Image
-                    src={dropdown}
-                    alt="dropdown"
-                    style={{
-                      background: "#8f00ff",
-                      borderRadius: "5px",
-                      transform: "rotate(180deg)",
-                    }}
-                  />
-                </button>
-              </div>
-            </div>
-          )}
-        </Transition>
-        <Transition
-          in={isOpen}
-          timeout={{ appear: 0, exit: 500 }}
-          unmountOnExit
-        >
-          {(state) => (
-            <div
-              ref={dropdownRef}
-              style={{
-                ...slideStyles[state],
-
-                border: "1px solid",
-                fontSize: "0.875rem",
-                borderColor: "white",
-                borderRadius: "1rem",
-                padding: "1rem 1.25rem",
-                backgroundColor: "white",
-                color: "custom-light",
-                overflow: "hidden",
-                position: "fixed",
-                top: 150,
-                left: "auto",
-                zIndex: 40,
-              }}
-              className={popup.MainPopup}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "0.75rem",
-                  marginTop: "0.5rem",
-                  color: "#8f00ff",
-                }}
-              >
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  aria-label="toggle history"
-                  style={{
-                    right: 0,
-                    position: "absolute",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    border: "none",
-                  }}
-                >
-                  <Image
-                    src={dropdown}
-                    alt="dropdown"
-                    style={{ background: "#8f00ff", borderRadius: "5px" }}
-                  />
-                </button>
-              </div>
-              <div className={popup.poolList}>
-                <div className={popup.upperPart}>
-                  <div className={samechainStyle.popTitle}>
-                    Track your Native and ERC-20 token transfers with precision!
-                  </div>
-                  <div className={samechainStyle.popTitle}></div>
-                  <div className={popup.total}>
-                    <h4>Total Transfered</h4>
-                    {isLoading ? (
-                      <p>Loading... </p>
-                    ) : (
-                      <p>
-                        {totalAmount} {selectedTokenSymbol}
-                      </p>
-                    )}
-                  </div>
-     
-                </div>
-                <div
-                  style={{
-                    borderBottom: "1px solid #8f00ff",
-                    paddingTop: "10px",
-                    width: "90%",
-                  }}
-                ></div>
-                <div
-                  style={{
-                    borderBottom: "1px solid #8f00ff",
-                    paddingTop: "10px",
-                  }}
-                ></div>
-                <div className={samechainStyle.searchBar}>
-                  <input
-                    type="text"
-                    name="query"
-                    placeholder="Search..."
-                    value={searchQuery.query}
-                    onChange={handleSearchChange}
-                    className={samechainStyle.inputSearch}
-                  />
-                  <div className={samechainStyle.width100}>
-                    <lable style={{ padding: "0px 10px" }}>Start Date</lable>
-                    <input
-                      type="date"
-                      placeholder="Start Date"
-                      ref={inputRef1}
-                      onChange={handleStartDateChange}
-                      className={samechainStyle.inputDate1}
-                      max={new Date().toISOString().split("T")[0]}
-                    />
-                  </div>
-                  <div className={samechainStyle.width100}>
-                    <lable style={{ padding: "0px 10px" }}>End Date</lable>
-                    <input
-                      type="date"
-                      placeholder="End Date"
-                      ref={inputRef3}
-                      onChange={handleEndDateChange}
-                      className={samechainStyle.inputDate1}
-                      min={
-                        startDate
-                          ? startDate
-                          : new Date().toISOString().split("T")[0]
-                      } // Set min attribute to the selected start date if available, otherwise set it to today's date
-                      max={new Date().toISOString().split("T")[0]}
-                    />
-                  </div>
-                  <div className={samechainStyle.chainSelect}>
-                    <select
+        <div className={histroyStyle.maintablediv}>
+          <div className={histroyStyle.tableandheadingdiv}>
+            <div className={histroyStyle.tablediv1}>
+              <div className={histroyStyle.headingdiv}>Latest Transactions</div>
+              <div className={histroyStyle.filterdiv}>
+                <input
+                  type="date"
+                  className={histroyStyle.dateInput}
+                  value={startDate}
+                  onChange={handleStartDateChange}
+                  placeholder="Start Date"
+                />
+                <input
+                  type="date"
+                  className={histroyStyle.dateInput}
+                  value={endDate}
+                  onChange={handleEndDateChange}
+                />
+               <select
                       value={selectedToken}
                       onChange={handleTokenChange}
-                      className={samechainStyle.dropdown}
+                      className={histroyStyle.dropdown}
                     >
                       {/* DROP DOWN FOR SHOWING TOKENS */}
 
                       <option
                         value="Eth"
-                        className={samechainStyle.chainOptions}
+                        className={histroyStyle.chainOptions}
                       >
                         ETH
                       </option>
@@ -677,17 +321,16 @@ function Samechaindashboard() {
                             <option
                               key={index}
                               value={token.tokenAddress}
-                              className={samechainStyle.chainOptions}
+                              className={histroyStyle.chainOptions}
                             >
                               {token.symbol}
                             </option>
                           ))
                         : null}
                     </select>
-                  </div>
-                </div>
-
-                <div className={popup.tablediv}>
+              </div>
+            </div>
+            <div className={popup.tablediv}>
                   <div className={popup.head}>
                     <table className={popup.table}>
                       <thead>
@@ -982,14 +625,11 @@ function Samechaindashboard() {
                     <div>No data found</div>
                   )}
                 </div>
-              </div>
-            </div>
-          )}
-        </Transition>
+          </div>
+        </div>
       </div>
-      <Footer />
     </div>
   );
 }
 
-export default Samechaindashboard;
+export default History;

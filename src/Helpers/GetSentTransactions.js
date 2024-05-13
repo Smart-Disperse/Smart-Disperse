@@ -14,10 +14,11 @@ import contracts from "./ContractAddresses";
 // }
 
 export const getEthTransactions = async (address, chainId) => {
+  console.log("eth....")
   if (chainId in contracts) {
     const chainAPIurl = contracts[chainId].APIURL;
     const chainname = contracts[chainId].chainDisplayName;
-
+console.log(chainAPIurl, chainname)
     const APIURL = chainAPIurl;
 
     const EthQuery = `
