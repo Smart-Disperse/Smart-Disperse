@@ -91,6 +91,7 @@
 }
 
 .headingofsamechain {
+  font-weight: 400 !important;
   font-size: 72px;
   background: -webkit-linear-gradient(#00ffff, #5fffbc);
   -webkit-background-clip: text;
@@ -106,11 +107,11 @@
   padding-bottom: 15px;
   border-bottom: 1px solid white;
   letter-spacing: 1.5px;
-  font-weight: 100 !important;
+  font-weight: 100 ;
   font-size: 15px;
 }
 .titledivdashboard h1 {
-  font-weight: 100 !important;
+  font-weight: 100;
   letter-spacing: 1.5px;
   font-size: 2.2rem;
   margin: 0px;
@@ -154,7 +155,8 @@ textarea::-webkit-scrollbar {
 .menubardashboard button {
   font-size: 18px;
   font-style: normal;
-  font-weight: 100;
+  font-weight: 200;
+  font-family: "Poppins";
   line-height: 154.1%; /* 36.984px */
   letter-spacing: 2.04px;
   text-align: center;

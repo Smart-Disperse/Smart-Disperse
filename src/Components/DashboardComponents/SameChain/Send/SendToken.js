@@ -384,7 +384,7 @@ function SendToken({ activeTab, listData, setListData }) {
                   fontSize: "20px",
                   margin: "0px",
                   letterSpacing: "1px",
-                  fontWeight: "700",
+                  fontWeight: "100",
                 }}
               >
                 Token Details
@@ -463,7 +463,7 @@ function SendToken({ activeTab, listData, setListData }) {
                     padding: "10px",
                     letterSpacing: "1px",
                     fontSize: "20px",
-                    fontWeight: "700",
+                    fontWeight: "200",
                   }}
                 >
                   Your Transaction Lineup

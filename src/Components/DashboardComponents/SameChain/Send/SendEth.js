@@ -236,7 +236,7 @@ function SendEth({ activeTab, listData, setListData }) {
                   padding: "10px",
                   letterSpacing: "1px",
                   fontSize: "20px",
-                  fontWeight: "700",
+                  fontWeight: "200",
                 }}
               >
                 Your Transaction Lineup

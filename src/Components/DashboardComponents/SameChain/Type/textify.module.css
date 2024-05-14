@@ -234,9 +234,10 @@ background-color: transparent;
 }
 
 .titleforlinupsametext h2 {
-  background: #fff;
-  color: #8f00ff;
-  font-weight: 700;
+  color: #CA86FF;
+  background: rgb(24,26,83);
+  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   letter-spacing: 1.04px;
   font-size: 15px;
   margin: 0px;
@@ -252,6 +253,8 @@ background-color: transparent;
   border-radius: 47px 47px 0px 0px;
   background: rgb(24,26,83);
 background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+color: #CA86FF;
+
   padding: 5px 0px;
   font-size: 12px;
 }
@@ -277,6 +280,9 @@ background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%)
   letter-spacing: 1px;
 }
 .titlesametexttextarea {
+  font-weight: 100;
+  color: #CA86FF;
+
   font-size: 12px;
 }
 .tokeninput::placeholder {
@@ -298,11 +304,13 @@ background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%)
   margin-top: 80px;
 }
 .titleforaccountsummarytextsame {
-  background: #fff;
+  background: rgb(24,26,83);
+  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   font-size: 12px;
 }
 .titleforaccountsummarytextsame h2 {
-  color: #8f00ff;
+  color:  #CA86FF;
   font-weight: 700;
   letter-spacing: 1.04px;
   margin: 0px;
@@ -344,7 +352,6 @@ background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%)
   padding: 10px 25px;
 }
 .textareaInput {
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   outline: none;
 }
 .textareaInput::-webkit-scrollbar {

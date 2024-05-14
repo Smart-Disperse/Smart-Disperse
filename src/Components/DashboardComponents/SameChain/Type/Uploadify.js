@@ -166,7 +166,7 @@ function Uploadify({
       {/* Render input fields for each address and value pair */}
       {/* {csvData.map((rowData, index) => (
         <div key={index}>
-          <div>yoooooooooooooooooooooooooooooooooo</div>
+          <div></div>
           <input
             type="text"
             value={rowData["Receiver Address"]}
@@ -203,7 +203,7 @@ function Uploadify({
             padding: "10px",
             fontSize: "20px",
             margin: "0px",
-            fontWeight: "100",
+            fontWeight: "200",
             letterSpacing: "1px",
           }}
           className={uploadStyle.sametextmain}

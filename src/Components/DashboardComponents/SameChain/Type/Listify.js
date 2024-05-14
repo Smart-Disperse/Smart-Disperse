@@ -240,7 +240,7 @@ function Listify({
             fontSize: "20px",
             margin: "0px",
             letterSpacing: "1px",
-            fontWeight: "100",
+            fontWeight: "200",
           }}
           className={listStyle.enteraddressdivtitleh2}
         >

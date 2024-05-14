@@ -119,12 +119,12 @@
 
 .eachinputofcreatelist.tokeninput {
   border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: linear-gradient(
+  /* background: linear-gradient(
     90deg,
     rgba(97, 38, 193, 0.58) 0.06%,
     rgba(63, 47, 110, 0.58) 98.57%
-  );
+  ); */
+  background: transparent;
   color: white;
 
   padding: 15px 20px;
@@ -285,6 +285,7 @@
 }
 
 .enteraddressdivtitlee {
+  
   font-size: 12px;
 }
 
@@ -296,6 +297,8 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
   line-height: 154.1%;
   letter-spacing: 1.04px;
   padding: 5px 0px;
+  color: #CA86FF;
+
   /* border-radius: 47px 47px 0px 0px; */
   font-size: 12px;
   /* margin-bottom: 35px; */
@@ -478,6 +481,7 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
   animation: spin 2s linear infinite;
 }
 .inputflexlist input {
+  border: 1px solid #9D79FF;
   letter-spacing: 1px;
   width: 40%;
 }
