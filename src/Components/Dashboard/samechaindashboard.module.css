@@ -79,7 +79,7 @@
   background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%) !important;
 }
 .maindivofdashboard {
-  background: var(--background1);
+  background: var(--background);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -88,6 +88,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.headingofsamechain {
+  font-size: 72px;
+  background: -webkit-linear-gradient(#00ffff, #5fffbc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .samedashmainm {
@@ -99,9 +106,11 @@
   padding-bottom: 15px;
   border-bottom: 1px solid white;
   letter-spacing: 1.5px;
+  font-weight: 100 !important;
   font-size: 15px;
 }
 .titledivdashboard h1 {
+  font-weight: 100 !important;
   letter-spacing: 1.5px;
   font-size: 2.2rem;
   margin: 0px;
@@ -130,10 +139,22 @@ textarea::-webkit-scrollbar-thumb {
 textarea::-webkit-scrollbar {
   width: 5px;
 } */
+.menubardashboard button:hover {
+  animation: btnn-hover 2s infinite;
+}
+
+@keyframes btnn-hover {
+  /* Define slower animation for hover state */
+  100% {
+    box-shadow: 2px 2px 15.7px 3px #00FFFFB2 inset;
+    color: #00ffff;
+  }
+
+}
 .menubardashboard button {
   font-size: 18px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 100;
   line-height: 154.1%; /* 36.984px */
   letter-spacing: 2.04px;
   text-align: center;
@@ -141,16 +162,32 @@ textarea::-webkit-scrollbar {
   width: 100%;
   padding: 15px 7px;
   border-radius: 63px;
-  border: 1px solid #2dda8f;
-  background-color: transparent;
+  border: none;
+  background: #19153f;
   color: white;
   margin: 0px 5px;
 }
+
 .menubardashboard button.active {
-  color: #7543f6;
-  background-color: white !important;
-  border: none !important;
+  color: white;
+  border:none;
+  box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 40px 0px inset;
+background-color: #00ffff;
+} 
+/* .menubardashboard button.active {
+  color: white;
+  border:none;
+  box-shadow: none;
+animation: btn-active 3s infinite;
+
 }
+
+@keyframes btn-active {
+  50% {    box-shadow: 2px 2px 55.7px 3px #00FFFFB2 inset;
+    background-color: transparent;
+    color: white;}
+} */
+
 .menubardashboard {
   display: flex;
   justify-content: space-between;
@@ -474,6 +511,7 @@ textarea::-webkit-scrollbar {
     -webkit-backdrop-filter: blur(30.5px);
     backdrop-filter: blur(30.5px);
     margin: 50px 0px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     margin-bottom: 120px;
   }
   .menubardashboard button {
@@ -572,7 +610,7 @@ textarea::-webkit-scrollbar {
     line-height: 2vh;
   }
 
-  .width100{
+  .width100 {
     width: 100% !important;
     display: flex;
     align-items: flex-start;

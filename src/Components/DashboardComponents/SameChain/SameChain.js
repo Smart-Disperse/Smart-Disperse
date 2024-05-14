@@ -46,7 +46,7 @@ function SameChain({ activeTab }) {
                 letterSpacing: "1px",
                 fontSize: "20px",
                 margin: "0px",
-                fontWeight: "700",
+                fontWeight: "100",
               }}
             >
               Select or Import Token you want to Disperse
@@ -77,8 +77,9 @@ function SameChain({ activeTab }) {
 
               <button
                 style={{
-                  backgroundColor: isSendingEth ? "" : "white",
-                  color: isSendingEth ? "" : "#924afc",
+                  backgroundColor: isSendingEth ? "" : " rgba(140, 62, 250, 0.73) ",
+                  color: isSendingEth ? "" : "white",
+                  border: "none",
                 }}
                 className={textStyle.buttontoaddformdataunload}
                 onClick={() => handleImporttokenbuttonClick()}

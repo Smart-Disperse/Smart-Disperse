@@ -203,7 +203,7 @@ function Uploadify({
             padding: "10px",
             fontSize: "20px",
             margin: "0px",
-            fontWeight: "700",
+            fontWeight: "100",
             letterSpacing: "1px",
           }}
           className={uploadStyle.sametextmain}

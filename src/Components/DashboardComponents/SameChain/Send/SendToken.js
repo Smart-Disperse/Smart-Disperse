@@ -318,7 +318,7 @@ function SendToken({ activeTab, listData, setListData }) {
                 fontSize: "20px",
                 margin: "0px",
                 letterSpacing: "1px",
-                fontWeight: "700",
+                fontWeight: "100",
               }}
             >
               Load Your Token
