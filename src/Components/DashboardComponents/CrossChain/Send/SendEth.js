@@ -17,6 +17,7 @@ import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
+import { transactionType } from "viem";
 
 function SendEth({ activeTab, listData, setListData }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
@@ -245,7 +246,7 @@ function SendEth({ activeTab, listData, setListData }) {
                   padding: "10px",
                   letterSpacing: "1px",
                   fontSize: "20px",
-                  fontWeight: "700",
+                  fontWeight: "200",
                 }}
               >
                 Transaction Lineup
@@ -300,12 +301,14 @@ function SendEth({ activeTab, listData, setListData }) {
                 <tbody>
                   {listData.length > 0
                     ? listData.map((data, index) => (
-                        <tr key={index}>
+                        <tr style={{borderBottom: "1px solid #ffffff70"}} key={index}>
                           <td
                             id={textStyle.fontsize10px}
                             style={{ letterSpacing: "1px", padding: "8px" }}
                           >
-                            {data.address.toUpperCase()}
+                            {/* {data.address.toUpperCase()} */}
+                            {data.address.substr(0, 3)}...
+                            {data.address.substr(-5)}
                           </td>
                           <td
                             id={textStyle.fontsize10px}
@@ -361,10 +364,9 @@ function SendEth({ activeTab, listData, setListData }) {
                               id={textStyle.fontsize10px}
                               style={{
                                 width: "fit-content",
-                                margin: "0 auto",
-                                background:
-                                  "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                color: "black",
+                                background: "transparent",
+                                color: "#00FBFB",
+                                border: "1px solid #00FBFB",
                                 borderRadius: "10px",
                                 padding: "10px 10px",
                                 fontSize: "12px",
@@ -382,9 +384,9 @@ function SendEth({ activeTab, listData, setListData }) {
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
-                                background:
-                                  "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
-                                color: "white",
+                                background: "transparent",
+                                color: "#19F26F",
+                                border: "1px solid #19F26F",
                                 borderRadius: "10px",
                                 padding: "10px 10px",
                                 fontSize: "12px",
@@ -437,7 +439,7 @@ function SendEth({ activeTab, listData, setListData }) {
                 padding: "10px",
                 letterSpacing: "1px",
                 fontSize: "20px",
-                fontWeight: "700",
+                fontWeight: "200",
               }}
             >
               Account Summary
@@ -462,7 +464,7 @@ function SendEth({ activeTab, listData, setListData }) {
                 </tr>
               </thead>
               <tbody className={textStyle.tbodytextifyaccsum}>
-                <tr>
+                <tr style={{borderBottom: "1px solid #ffffff70;"}}>
                   <td id={textStyle.fontsize10px}>
                     <div
                       id="font-size-10px"
@@ -470,9 +472,9 @@ function SendEth({ activeTab, listData, setListData }) {
                       style={{
                         width: "fit-content",
                         margin: "0 auto",
-                        background:
-                          "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                        color: "black",
+                        background: "transparent",
+                        color: "#00FBFB",
+                        border: "1px solid #00FBFB",
                         borderRadius: "10px",
                         padding: "10px 10px",
                         fontSize: "12px",
@@ -493,10 +495,9 @@ function SendEth({ activeTab, listData, setListData }) {
                       style={{
                         width: "fit-content",
                         margin: "0 auto",
-
-                        background:
-                          "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
-                        color: "white",
+                        background: "transparent",
+                        color: "#19F26F",
+                        border: "1px solid #19F26F",
                         borderRadius: "10px",
                         padding: "10px 10px",
                         fontSize: "12px",
@@ -541,14 +542,15 @@ function SendEth({ activeTab, listData, setListData }) {
                       style={{
                         width: "fit-content",
                         margin: "0 auto",
-                        background:
-                          remaining < 0
-                            ? "red"
-                            : "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                        color: remaining < 0 ? "white" : "black",
+                        background: "transparent",
+                        color: remaining < 0 ? "red" : "#19F26F",
                         borderRadius: "10px",
                         padding: "10px 10px",
                         fontSize: "12px",
+                        border:
+                        remaining < 0
+                          ? "1px solid red"
+                          : "1px solid #19F26F",
                       }}
                     >
                       {remaining === null

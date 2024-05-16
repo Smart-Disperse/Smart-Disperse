@@ -3,8 +3,8 @@
   --background1: url("../Assets/dashboard-bg.webp");
 }
 .dark {
-  --background: #000000;
-  --background1: #000000;
+  --background: #00000000;
+  --background1: #00000000;
 }
 body {
   font-family: "Poppins" !important;

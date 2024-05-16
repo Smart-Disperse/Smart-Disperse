@@ -13,7 +13,16 @@
 
   padding: 10px 10px;
   transform: translate(-50%, -50%);
-  animation: zoomAnimation 1s infinite alternate;
+  animation: zoomAnimation 5s infinite alternate;
+}
+
+#yeserror{
+  
+  border: 1px solid red;
+}
+
+#noerror{
+  border: 1px solid #9D79FF;
 }
 
 .dropdownItem {
@@ -78,6 +87,12 @@
   background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%);
   color: white;
 }
+#truee:hover {
+  background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%);
+  color: white;
+}
+
+
 
 .driverpopover01 {
   color: white !important;
@@ -88,19 +103,14 @@
     transform: scale(1);
   }
   100% {
-    transform: scale(1.2);
+    transform: scale(1.02);
   }
 }
 
 .eachinputofcreatelist {
   border-radius: 5px;
-  border: 1px solid #fff;
-  background: linear-gradient(
-    90deg,
-    rgba(97, 38, 193, 0.58) 0.06%,
-    rgba(63, 47, 110, 0.58) 98.57%
-  );
   padding: 10px 20px;
+  background-color: transparent;
   margin: 0px 20px;
 }
 .loadtokens {
@@ -144,6 +154,12 @@
   padding: 5px 35px;
   text-align: center;
 }
+
+.blurbutton{
+  filter: blur(3px); /* Apply blur effect */
+  pointer-events: none; 
+  color: red;
+}
 .sendbutton:hover {
   border: none;
   color: #643bdc;
@@ -151,7 +167,7 @@
   box-shadow: 0px 0px 14px 0px #fff;
 }
 .buttontoaddformdataunload:hover {
-  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+  box-shadow: rgb(255 255 255 / 72%) 1px 1px 18px 0px inset;
 }
 .textareatextlist {
   margin: 10px 0px;
@@ -161,8 +177,7 @@
 }
 
 .tableheadertextlist {
-  background-color: rgba(255, 255, 255, 0);
-  border-bottom: 1px solid white;
+  background-color: #8D37FB;
 }
 .tableheadertextlist .tableTr {
   font-size: 15px;
@@ -188,11 +203,16 @@
   letter-spacing: 1px;
   padding: 8px;
 }
-
+.entertokenaddress{
+  display: flex;
+  justify-content: center;
+}
 .showtokentablesametext {
   width: 100%;
-  margin: 5px 0px;
+  /* margin: 5px 0px; */
   border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 20px !important; 
 }
 
 .tablecontainer table {
@@ -339,8 +359,10 @@ color: #CA86FF;
   padding: 10px 25px;
 }
 .buttontoaddformdata:hover {
-  box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
+  box-shadow: rgb(255 255 255 / 72%) 1px 1px 18px 0px inset;
+  border: 1px solid ;
 }
+
 .buttontoaddformdataunload {
   background: linear-gradient(90deg, rgba(102, 43, 187, 0.37) 0%, rgba(62, 18, 124, 0.37) 100%) !important;
   border: none;
@@ -365,7 +387,9 @@ color: #CA86FF;
   background: #555;
 }
 .scrollabletablecontainer {
-  margin: 25px 0;
+  border: 1px solid #8D37FB;
+  border-radius: 20px;
+  margin: 25px;
   max-height: 280px;
   overflow: auto;
 }
@@ -383,7 +407,7 @@ color: #CA86FF;
   background: #555;
 }
 #tableresponsive {
-  margin: 25px 0px;
+  margin: 25px;
 }
 .accountsummarycreatetitle,
 .selectloadtoke-title,
@@ -393,6 +417,10 @@ color: #CA86FF;
   font-size: 12px;
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   padding: 5px 0;
+}
+.buttontaddformdataunload{
+    background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%);
+    border: none;
 }
 .popupforpayment {
   background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
@@ -457,8 +485,8 @@ color: #CA86FF;
     padding: 10px 25px;
     background-color: transparent;
     color: white;
-    border: 1px solid white;
     border-radius: 63px;
+    border: none;
     margin: 10px 15px;
     font-size: 15px;
     letter-spacing: 1px;
@@ -499,7 +527,6 @@ color: #CA86FF;
     padding: 10px 25px;
     background-color: transparent !important;
     color: white;
-    border: 1px solid white !important;
     border-radius: 63px;
     margin: 0px 20px;
   }
@@ -606,7 +633,6 @@ color: #CA86FF;
     padding: 10px 25px;
     background-color: transparent;
     color: white;
-    border: 1px solid white;
     border-radius: 63px;
     margin: 10px 20px;
     font-size: 15px;
@@ -706,7 +732,6 @@ color: #CA86FF;
     padding: 10px 25px;
     background-color: transparent;
     color: white;
-    border: 1px solid white;
     border-radius: 63px;
     margin: 10px 20px;
     font-size: 15px;

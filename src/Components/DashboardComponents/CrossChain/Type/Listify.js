@@ -241,9 +241,10 @@ function Listify({
             fontWeight: "700",
             padding: "10px",
             fontSize: "20px",
+            color:"rgb(202, 134, 255)",
             margin: "0px",
             letterSpacing: "1px",
-            fontWeight: "700",
+            fontWeight: "200",
           }}
           className={listStyle.enteraddressdivtitleh2}
         >

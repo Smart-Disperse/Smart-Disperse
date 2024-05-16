@@ -52,7 +52,7 @@ function SendToken({ activeTab, listData, setListData }) {
     balance: null,
     decimal: null,
   };
-
+const [erroroccured, setErroroccured] = useState(false);
   const [labels, setLabels] = useState([]);
   const [allNames, setAllNames] = useState([]);
   const [allAddresses, setAllAddresses] = useState([]);
@@ -144,7 +144,9 @@ function SendToken({ activeTab, listData, setListData }) {
     setListData([]);
     if (customTokenAddress === "") {
       setErrorMessage("Please add token address");
-      setErrorModalIsOpen(true);
+      setErroroccured(true);
+
+      // setErrorModalIsOpen(true);
       return;
     }
 
@@ -156,13 +158,15 @@ function SendToken({ activeTab, listData, setListData }) {
         setTokenDetails(tokenDetails);
         setERC20Balance(tokenDetails.balance);
         setTokenLoaded(true);
+        setErroroccured(false);
       } else {
         throw new Error("Token details not found"); // Throw error if token details are not found
       }
     } catch (error) {
       console.log(error);
       setErrorMessage("Invalid Token Address"); // Set error message
-      setErrorModalIsOpen(true); // Open modal
+      setErroroccured(true);
+      // setErrorModalIsOpen(true); // Open modal
     }
   };
   // Function to close the error modal
@@ -330,8 +334,13 @@ function SendToken({ activeTab, listData, setListData }) {
             style={{ padding: "20px" }}
           >
             <label style={{ margin: "5px" }}>Enter Token Address: </label>
+            <div style={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection:"column",
+            }}>
             <input
-              id="input-token-load"
+              id={erroroccured ? textStyle.yeserror : textStyle.noerror}
               type="text"
               className={`${textStyle["eachinputofcreatelist"]} ${textStyle["tokeninput"]}`}
               placeholder="Enter token Address"
@@ -339,14 +348,18 @@ function SendToken({ activeTab, listData, setListData }) {
               onChange={(e) => handleInputTokenAddressChange(e)}
               style={{
                 borderRadius: "5px",
-                border: "1px solid #fff",
-                background:
-                  "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
+                // border: "1px solid #9D79FF",
+                // background:
+                //   "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
                 padding: "10px 20px",
                 margin: "0px 20px",
                 color: "white",
               }}
             />
+            {erroroccured && (
+              <div style={{color:"red", fontSize:"12px"}}>{errorMessage}</div>
+            )}
+            </div>
             {isTokenLoaded ? (
               <button
                 id={textStyle.backgroundgreen}

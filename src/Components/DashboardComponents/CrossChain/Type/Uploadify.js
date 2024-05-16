@@ -7,6 +7,7 @@ import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 import SendEth from "../Send/SendEth";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
+import { useAccount } from "wagmi";
 
 function Uploadify({
   listData,
@@ -23,6 +24,7 @@ function Uploadify({
   const [matchedData, setMatchedData] = useState([]);
   const [labels, setLabels] = useState([]);
 
+  const {address} = useAccount();
   const isValidEthereumAddress = (str) => {
     return str.startsWith("0x");
   };
@@ -267,7 +269,8 @@ function Uploadify({
             padding: "10px",
             fontSize: "20px",
             margin: "0px",
-            fontWeight: "700",
+            fontWeight: "200",
+            color:"rgb(202, 134, 255)",
             letterSpacing: "1px",
           }}
           className={uploadStyle.sametextmain}

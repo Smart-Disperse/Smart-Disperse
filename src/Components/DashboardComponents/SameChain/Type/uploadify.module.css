@@ -13,6 +13,21 @@
   text-align: center;
 }
 
+.downloadbtn button {
+  border-radius: 63px;
+  color: white;
+  font-weight: 500;
+  line-height: 37px;
+  letter-spacing: 1px;
+  font-size: 12px;
+  text-align: center;
+  width: max-content;
+  padding: 5px 20px;
+  border: none;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
 .maindivforuploadcsvfile {
   margin-top: 10px;
   border-radius: 47px;
@@ -176,10 +191,13 @@
   margin-right: 10px;
 }
 
+.downloadbtn button:hover {
+  background-color: transparent;
+  box-shadow: rgb(255 255 255 / 72%) 1px 1px 18px 0px inset;
+  
+}
 .downloadbtn button {
   border-radius: 63px;
-  background-color: transparent;
-  border: 1px solid white !important;
   color: white;
   font-weight: 700;
   line-height: 37px;
@@ -263,6 +281,15 @@
   border: 1px solid red; /* Red border color for invalid input */
   background-color: red; /* Red background color for invalid input */
   /* Any other styles for invalid input */
+}
+
+.downbtn:hover{
+  box-shadow: rgb(255 255 255 / 72%) 1px 1px 18px 0px inset;
+  background-color: transparent;
+}
+.downbtn{
+    background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%) !important;
+    border: none !important;
 }
 
 #borderpurple {
@@ -558,8 +585,6 @@ background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%)
   }
   .downloadbtn button {
     border-radius: 63px;
-    background-color: transparent;
-    border: 1px solid white !important;
     color: white;
     font-weight: 500;
     line-height: 37px;

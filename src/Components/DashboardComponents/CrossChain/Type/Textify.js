@@ -178,8 +178,9 @@ function Textify({
                   padding: "10px",
                   fontSize: "20px",
                   margin: "0px",
+                  color:"#CA86FF",
                   letterSpacing: "1px",
-                  fontWeight: "700",
+                  fontWeight: "200",
                 }}
               >
                 Enter Recipients and Amount (enter one address and amount on
@@ -197,7 +198,6 @@ function Textify({
                   minHeight: "100px",
                   padding: "10px",
                   border: "none",
-                  background: "#e6e6fa",
                   color: "black",
                   fontSize: "16px",
                   fontFamily: "Arial, sans-serif",

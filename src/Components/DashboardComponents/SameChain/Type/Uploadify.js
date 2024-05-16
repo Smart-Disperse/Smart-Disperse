@@ -229,7 +229,7 @@ function Uploadify({
               download="SampleUpload.csv"
               className={uploadStyle.downloadbtn}
             >
-              <button style={{ cursor: "pointer" }}>
+              <button className={uploadStyle.downbtn} style={{ cursor: "pointer" }}>
                 Download sample CSV file
               </button>
             </a>

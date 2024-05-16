@@ -119,12 +119,8 @@
 
 .eachinputofcreatelist.tokeninput {
   border-radius: 5px;
-  border: 1px solid rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(97, 38, 193, 0.58) 0.06%,
-    rgba(63, 47, 110, 0.58) 98.57%
-  );
+  border: 1px solid #9D79FF;
+  background:transparent;
   color: white;
 
   padding: 15px 20px;
@@ -165,9 +161,9 @@
 .buttontoaddformdata {
   cursor: pointer;
   padding: 10px 25px;
-  background-color: transparent;
+  background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%);
   color: white;
-  border: 1px solid white;
+  border: none;
   border-radius: 63px;
   margin: 0px 20px;
   font-size: 17px;
@@ -288,9 +284,9 @@
 }
 
 .enteraddressdivtitle {
-  background-color: white;
-  color: #8f00ff;
-  font-weight: 700;
+  background: rgb(24,26,83);
+  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+  font-weight: 200;
   line-height: 154.1%;
   letter-spacing: 1.04px;
   padding: 5px 0px;
@@ -423,7 +419,7 @@
 .divinsamecreatelisttokenload {
   /* border-bottom: 1px solid #0c3d77; */
   border-radius: 10px;
-  padding: 5px 0px;
+  /* padding: 5px 0px; */
 }
 
 .divtocenter {

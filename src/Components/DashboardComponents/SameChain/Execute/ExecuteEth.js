@@ -32,6 +32,7 @@ function ExecuteEth(props) {
   const [paymentmodal, setPaymentmodal] = useState(false);
   const [limitexceed, setLimitexceed] = useState(null);
   const [tweetModalIsOpen, setTweetModalIsOpen] = useState(false); // New state for tweet modal
+  const [showmsg, setshowmsg] = useState(false);
   const chainId = useChainId();
 
   const sendTweet = () => {
@@ -50,6 +51,7 @@ function ExecuteEth(props) {
     if (!props.ethBalance.gt(props.totalEth)) {
       props.setLoading(false);
       setLimitexceed("Insufficient ETH balance");
+      setshowmsg(true)
       setMessage(
         `Current ETH Balance is ${(+ethers.utils.formatEther(
           props.ethBalance
@@ -151,11 +153,11 @@ function ExecuteEth(props) {
       {" "}
       <button
         id={textStyle.greenbackground}
-        className={textStyle.sendbutton}
+        className={`${textStyle.sendbutton} ${showmsg && textStyle.blurbutton}`}
         onClick={() => {
           execute();
         }}
-        disabled={props.loading}
+        disabled={ showmsg}
       >
         {props.loading ? (
           <div>
@@ -171,7 +173,13 @@ function ExecuteEth(props) {
             </Modal>
           </div>
         ) : (
-          "Begin Payment"
+          <>
+          {showmsg ? (
+            "Begin payment"
+          ) : (
+            "Insufficient ETH balance"
+          )}
+        </>
         )}
       </button>
       <Modal

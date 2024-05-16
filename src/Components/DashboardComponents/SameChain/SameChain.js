@@ -77,8 +77,8 @@ function SameChain({ activeTab }) {
 
               <button
                 style={{
-                  backgroundColor: isSendingEth ? "" : " rgba(140, 62, 250, 0.73) ",
-                  color: isSendingEth ? "" : "white",
+                  backgroundColor: isSendingToken ? "" : " white",
+                  color: isSendingToken ? "" : "white",
                   border: "none",
                 }}
                 className={textStyle.buttontoaddformdataunload}

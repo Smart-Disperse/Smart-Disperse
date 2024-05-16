@@ -30,7 +30,7 @@ function SendEth({ activeTab, listData, setListData }) {
   const [allAddresses, setAllAddresses] = useState([]);
   const [errormsg, setErrormsg] = useState("");
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState("");
   const renderComponent = (tab) => {
     switch (tab) {
       case "text":
@@ -149,6 +149,7 @@ function SendEth({ activeTab, listData, setListData }) {
   const fetchUserDetails = async () => {
     try {
       const { allNames, allAddress } = await fetchUserLabels(address);
+      console.log(allAddress);
       setAllNames(allNames);
       setAllAddresses(allAddress);
 
@@ -290,12 +291,17 @@ function SendEth({ activeTab, listData, setListData }) {
                 <tbody>
                   {listData.length > 0
                     ? listData.map((data, index) => (
-                        <tr key={index}>
+                        <tr
+                          style={{ borderBottom: "1px solid #ffffff61" }}
+                          key={index}
+                        >
                           <td
                             id={textStyle.fontsize10px}
                             style={{ letterSpacing: "1px", padding: "8px" }}
                           >
-                            {data.address.toUpperCase()}
+                            {/* {data.address.toUpperCase()} */}
+                            {data.address.substr(0, 3)}...
+                            {data.address.substr(-5)}
                           </td>
                           <td
                             id={textStyle.fontsize10px}
@@ -312,12 +318,20 @@ function SendEth({ activeTab, listData, setListData }) {
                                     borderRadius: "8px",
                                     padding: "10px",
                                     color: "white",
-                                    border: "none",
-                                    background:
-                                      "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)",
+                                    border: "1px solid #8D37FB",
+                                    background: "transparent",
                                   }}
                                   onChange={(e) => {
                                     const inputValue = e.target.value;
+                                    if (
+                                      inputValue === "" &&
+                                      e.key !== "Enter"
+                                    ) {
+                                      setErrorMessage("Enter Label");
+                                    } else {
+                                      setErrorMessage("Press Enter to submit label");
+                                    }
+
                                     // Regular expression to allow only alphanumeric characters without spaces
                                     const regex = /^[a-zA-Z0-9]*$/;
 
@@ -331,15 +345,12 @@ function SendEth({ activeTab, listData, setListData }) {
                                   onKeyDown={(e) => {
                                     if (e.key === "Enter") {
                                       onAddLabel(index, data.address);
+                                      setErrorMessage('');
+
                                     }
                                   }}
                                 />
-                                {/* <input
-  type="button"
-  onClick={(e) => {
-    onAddLabel(index, data.address);
-  }}
-/> */}
+                                {errorMessage && <p style={{ color: 'red', margin: "0px", fontSize:"13px"}}>{errorMessage}</p>}
                               </>
                             )}
                           </td>
@@ -352,9 +363,9 @@ function SendEth({ activeTab, listData, setListData }) {
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
-                                background:
-                                  "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                color: "black",
+                                background: "transparent",
+                                color: "#00FBFB",
+                                border: "1px solid #00FBFB",
                                 borderRadius: "10px",
                                 padding: "10px 10px",
                                 fontSize: "12px",
@@ -372,9 +383,9 @@ function SendEth({ activeTab, listData, setListData }) {
                               style={{
                                 width: "fit-content",
                                 margin: "0 auto",
-                                background:
-                                  "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
-                                color: "white",
+                                background: "transparent",
+                                color: "#19F26F",
+                                border: "1px solid #19F26F",
                                 borderRadius: "10px",
                                 padding: "10px 10px",
                                 fontSize: "12px",
@@ -424,128 +435,137 @@ function SendEth({ activeTab, listData, setListData }) {
                 padding: "10px",
                 letterSpacing: "1px",
                 fontSize: "20px",
-                fontWeight: "700",
+                fontWeight: "200",
               }}
             >
               Account Summary
             </h2>
           </div>
           <div id={textStyle.tableresponsive}>
-            <table
-              className={`${textStyle["showtokentablesametext"]} ${textStyle["tabletextlist"]}`}
-            >
-              <thead className={textStyle.tableheadertextlist}>
-                <tr style={{ width: "100%", margin: "0 auto" }}>
-                  <th className={textStyle.accountsummaryth}>
-                    Total Amount(ETH)
-                  </th>
-                  <th className={textStyle.accountsummaryth}>
-                    Total Amount(USD)
-                  </th>
-                  <th className={textStyle.accountsummaryth}>Your Balance</th>
-                  <th className={textStyle.accountsummaryth}>
-                    Remaining Balance
-                  </th>
-                </tr>
-              </thead>
-              <tbody className={textStyle.tbodytextifyaccsum}>
-                <tr>
-                  <td id={textStyle.fontsize10px}>
-                    <div
-                      id="font-size-10px"
-                      className={textStyle.textAccSum}
-                      style={{
-                        width: "fit-content",
-                        margin: "0 auto",
-                        background:
-                          "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                        color: "black",
-                        borderRadius: "10px",
-                        padding: "10px 10px",
-                        fontSize: "12px",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      {totalEth
-                        ? `${(+ethers.utils.formatEther(totalEth)).toFixed(
-                            9
-                          )} ETH`
-                        : null}
-                    </div>
-                  </td>
-                  <td id={textStyle.fontsize10px}>
-                    {" "}
-                    <div
-                      id={textStyle.fontsize10px}
-                      style={{
-                        width: "fit-content",
-                        margin: "0 auto",
-
-                        background:
-                          "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
-                        color: "white",
-                        borderRadius: "10px",
-                        padding: "10px 10px",
-                        fontSize: "12px",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      {totalEth
-                        ? `${(
-                            ethers.utils.formatUnits(totalEth, 18) *
-                            ethToUsdExchangeRate
-                          ).toFixed(2)} $`
-                        : null}
-                    </div>
-                  </td>
-                  <td id={textStyle.fontsize10px}>
-                    <div
-                      id="font-size-10px"
-                      style={{
-                        width: "fit-content",
-                        margin: "0 auto",
-                        color: "white",
-                        borderRadius: "10px",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      {ethBalance
-                        ? `${(+ethers.utils.formatEther(ethBalance)).toFixed(
-                            9
-                          )} ETH`
-                        : null}
-                    </div>
-                  </td>
-                  <td
-                    id={textStyle.fontsize10px}
-                    className={`showtoken-remaining-balance ${
-                      remaining < 0 ? "showtoken-remaining-negative" : ""
-                    }`}
+            <div style={{ borderRadius: "20px", border: "1px solid #8D37FB" }}>
+              <table
+                className={`${textStyle["showtokentablesametext"]} ${textStyle["tabletextlist"]}`}
+              >
+                <thead className={textStyle.tableheadertextlist}>
+                  <tr
+                    style={{
+                      width: "100%",
+                      margin: "0 auto",
+                      borderRadius: "20px",
+                    }}
                   >
-                    <div
+                    <th className={textStyle.accountsummaryth}>
+                      Total Amount(ETH)
+                    </th>
+                    <th className={textStyle.accountsummaryth}>
+                      Total Amount(USD)
+                    </th>
+                    <th className={textStyle.accountsummaryth}>Your Balance</th>
+                    <th className={textStyle.accountsummaryth}>
+                      Remaining Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className={textStyle.tbodytextifyaccsum}>
+                  <tr style={{ borderBottom: "1px solid #ffffff61" }}>
+                    <td id={textStyle.fontsize10px}>
+                      <div
+                        id="font-size-10px"
+                        className={textStyle.textAccSum}
+                        style={{
+                          width: "fit-content",
+                          margin: "0 auto",
+                          background: "transparent",
+                          color: "#00FBFB",
+                          border: "1px solid #00FBFB",
+                          borderRadius: "10px",
+                          padding: "10px 10px",
+                          fontSize: "12px",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        {totalEth
+                          ? `${(+ethers.utils.formatEther(totalEth)).toFixed(
+                              9
+                            )} ETH`
+                          : null}
+                      </div>
+                    </td>
+                    <td id={textStyle.fontsize10px}>
+                      {" "}
+                      <div
+                        id={textStyle.fontsize10px}
+                        style={{
+                          width: "fit-content",
+                          margin: "0 auto",
+                          background: "transparent",
+                          color: "#19F26F",
+                          border: "1px solid #19F26F",
+                          borderRadius: "10px",
+                          padding: "10px 10px",
+                          fontSize: "12px",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        {totalEth
+                          ? `${(
+                              ethers.utils.formatUnits(totalEth, 18) *
+                              ethToUsdExchangeRate
+                            ).toFixed(2)} $`
+                          : null}
+                      </div>
+                    </td>
+                    <td id={textStyle.fontsize10px}>
+                      <div
+                        id="font-size-10px"
+                        style={{
+                          width: "fit-content",
+                          margin: "0 auto",
+                          color: "white",
+                          borderRadius: "10px",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        {ethBalance
+                          ? `${(+ethers.utils.formatEther(ethBalance)).toFixed(
+                              9
+                            )} ETH`
+                          : null}
+                      </div>
+                    </td>
+                    <td
                       id={textStyle.fontsize10px}
-                      // className="font-size-12px"
-                      style={{
-                        width: "fit-content",
-                        margin: "0 auto",
-                        background:
-                          remaining < 0
-                            ? "red"
-                            : "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                        color: remaining < 0 ? "white" : "black",
-                        borderRadius: "10px",
-                        padding: "10px 10px",
-                        fontSize: "12px",
-                      }}
+                      className={`showtoken-remaining-balance ${
+                        remaining < 0 ? "showtoken-remaining-negative" : ""
+                      }`}
                     >
-                      {remaining === null
-                        ? null
-                        : `${(+remaining).toFixed(9)} ETH`}{" "}
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                      <div
+                        id={textStyle.fontsize10px}
+                        // className="font-size-12px"
+                        style={{
+                          width: "fit-content",
+                          margin: "0 auto",
+                          background:
+                            remaining < 0 ? "transparent" : "transparent",
+                          color: remaining < 0 ? "red" : "#19F26F",
+                          borderRadius: "10px",
+                          padding: "10px 10px",
+                          fontSize: "12px",
+                          border:
+                            remaining < 0
+                              ? "1px solid red"
+                              : "1px solid #19F26F",
+                        }}
+                      >
+                        {remaining === null
+                          ? null
+                          : `${(+remaining).toFixed(9)} ETH`}{" "}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <Modal
             id={textStyle.popupwarning}

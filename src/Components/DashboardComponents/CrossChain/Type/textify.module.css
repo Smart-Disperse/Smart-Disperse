@@ -8,7 +8,7 @@
 
   padding: 10px 10px;
   transform: translate(-50%, -50%);
-  animation: zoomAnimation 1s infinite alternate;
+  animation: zoomAnimation 10s infinite alternate;
 }
 
 .dropdownItem {
@@ -83,18 +83,14 @@
     transform: scale(1);
   }
   100% {
-    transform: scale(1.2);
+    transform: scale(1.002);
   }
 }
 
 .eachinputofcreatelist {
   border-radius: 5px;
-  border: 1px solid #fff;
-  background: linear-gradient(
-    90deg,
-    rgba(97, 38, 193, 0.58) 0.06%,
-    rgba(63, 47, 110, 0.58) 98.57%
-  );
+  /* border: 1px solid #fff; */
+  background: transparent;
   padding: 10px 20px;
   margin: 0px 20px;
 }
@@ -121,6 +117,7 @@
   color: aliceblue !important;
   background-color: transparent !important;
   border: "none";
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 .textlistdiv textarea::placeholder {
   color: rgba(255, 255, 255, 0.45);
@@ -156,8 +153,7 @@
 }
 
 .tableheadertextlist {
-  background-color: rgba(255, 255, 255, 0);
-  border-bottom: 1px solid white;
+  background-color:#8D37FB;
 }
 .tableheadertextlist .tableTr {
   font-size: 15px;
@@ -185,8 +181,9 @@
 }
 
 .showtokentablesametext {
+  overflow: hidden;
+    border-radius: inherit;
   width: 100%;
-  margin: 5px 0px;
   border-collapse: collapse;
 }
 
@@ -214,28 +211,29 @@
 
 .divtocoversametextdiv {
   border-radius: 47px;
-  background: black;
+  /* background: black; */
   backdrop-filter: blur(30.5px);
   margin: 50px 0px;
-  border: 1px solid #fff;
 }
 .divtocoversametextdiv {
   border-radius: 47px;
-  border: 1px solid #fff;
-  background: linear-gradient(
+  /* background:linear-gradient(
     101deg,
     rgba(255, 255, 255, 0.31) 1.58%,
     rgba(255, 255, 255, 0.03) 98.15%
-  );
+  ); */
   backdrop-filter: blur(30.5px);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   margin: 50px 0px;
 }
 
 .titleforlinupsametext h2 {
-  background: #fff;
-  color: #8f00ff;
-  font-weight: 700;
+  background: rgb(24,26,83);
+  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+  color: #CA86FF;
+  font-weight: 200;
   letter-spacing: 1.04px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   font-size: 15px;
   margin: 0px;
 }
@@ -243,16 +241,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 40px 0px inset;
 }
 
 .titleloadtokensametext {
   border-radius: 47px 47px 0px 0px;
-  background: #fff;
+  background: rgb(24,26,83);
+  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
   padding: 5px 0px;
   font-size: 12px;
 }
 .titleloadtokensametext h2 {
-  color: #8f00ff;
+  /* color: #8f00ff; */
   font-weight: 700;
   letter-spacing: 1.04px;
   margin: 0px;
@@ -273,7 +273,8 @@
   letter-spacing: 1px;
 }
 .titlesametexttextarea {
-  background: #fff;
+  background: rgb(24,26,83);
+background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
   font-size: 12px;
 }
 .tokeninput::placeholder {
@@ -283,8 +284,7 @@
   box-shadow: 0px 0px 29px 0px rgba(255, 255, 255, 0.25);
 }
 .titlesametexttextarea {
-  color: #8f00ff;
-  font-weight: 700;
+  font-weight: 200;
   line-height: 154.1%;
   letter-spacing: 1.04px;
   padding: 5px 0px;
@@ -293,7 +293,9 @@
   margin-top: 80px;
 }
 .titleforaccountsummarytextsame {
-  background: #fff;
+  background: rgb(24,26,83);
+background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   font-size: 12px;
 }
 .titleforaccountsummarytextsame h2 {
@@ -342,12 +344,17 @@
   outline: none;
 }
 .scrollabletablecontainer {
-  margin: 25px 0;
+  margin: 25px;
   max-height: 280px;
-  overflow: auto;
+  border-radius: 20px;
+  border: 1px solid #8D37FB;
+    overflow: auto;
+
 }
 #tableresponsive {
-  margin: 25px 0px;
+  margin: 25px;
+  border: 1px solid #8D37FB;
+  border-radius: 20px;
 }
 .accountsummarycreatetitle,
 .selectloadtoke-title,
@@ -407,13 +414,17 @@
   width: 200px; /* Adjust width as needed */
   padding: 8px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  color: white;
+  border: none;
   border-radius: 5px;
+  background:linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%)
 }
 
 /* Style for select options */
 #blockchainChains option {
   font-size: 16px;
+  background:linear-gradient(90deg, rgba(68, 9, 205, 0.432) 0%, rgba(140, 62, 250, 0.417) 100%);
+
 }
 
 /* Style for when the select input is focused */
@@ -423,7 +434,8 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Example shadow, adjust as needed */
 }
 #blockchainChains option:hover {
-  background-color: #f0f0f0; /* Adjust the color as needed */
+  background-color: #3e0d92; /* Adjust the color as needed */
+  color: white;
 }
 @media only screen and (max-width: 768px) {
   .sendethdiv {

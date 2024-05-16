@@ -52,22 +52,22 @@ function Crosschaindashboard() {
   const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
 
-  useEffect(() => {
-    const handleClick = () => {
-      if (!isConnected) {
-        openConnectModal();
-      }
-    };
-    window.addEventListener("click", handleClick);
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  }, [isConnected, openConnectModal]);
+  // useEffect(() => {
+  //   const handleClick = () => {
+  //     if (!isConnected) {
+  //       openConnectModal();
+  //     }
+  //   };
+  //   window.addEventListener("click", handleClick);
+  //   return () => {
+  //     window.removeEventListener("click", handleClick);
+  //   };
+  // }, [isConnected, openConnectModal]);
 
-  const handleSearchChange = (event) => {
-    const { value } = event.target;
-    setQuery(value);
-  };
+  // const handleSearchChange = (event) => {
+  //   const { value } = event.target;
+  //   setQuery(value);
+  // };
 
   // Modify filterTransactions function to include token name filter
   const filterTransactions = (query) => {
@@ -292,10 +292,10 @@ function Crosschaindashboard() {
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
-      <div style={{ position: "relative" }}>
+      {/* <div style={{ position: "relative" }}>
         <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
         <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
-      </div>
+      </div> */}
       <div>
         <button
           onClick={() => router.push("/all-user-lists")}
@@ -370,337 +370,8 @@ function Crosschaindashboard() {
           justifyContent: "center",
         }}
       >
-        <Transition in={!isOpen} timeout={1500}>
-          {(state) => (
-            <div
-              className={popup.HistoryMain1}
-              style={{
-                ...fadeStyles[state],
-
-                borderColor: isOpen ? "white" : "white",
-                borderTopLeftRadius: "1rem",
-                borderTopRightRadius: "1rem",
-                padding: "1rem 1.25rem",
-                backgroundColor: isOpen ? "white" : "white",
-                color: isOpen ? "dark" : "custom-light",
-                overflow: "hidden",
-                position: "relative",
-
-                top: "unset",
-              }}
-            >
-              <div
-                className={popup.openHistory}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "0.75rem",
-                  marginTop: "0.5rem",
-                  color: "#8f00ff",
-                  cursor: "pointer",
-                }}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <h2
-                  style={{ fontSize: "1.25rem", fontWeight: "600", margin: 0 }}
-                >
-                  History
-                </h2>
-                <button
-                  aria-label="toggle history"
-                  style={{
-                    right: 0,
-                    position: "absolute",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    border: "none",
-                  }}
-                >
-                  <Image
-                    src={dropdown}
-                    alt="dropdown"
-                    style={{ background: "#8f00ff", borderRadius: "5px" }}
-                  />
-                </button>
-              </div>
-            </div>
-          )}
-        </Transition>
-        <Transition
-          in={isOpen}
-          timeout={{ appear: 0, exit: 500 }}
-          unmountOnExit
-        >
-          {(state) => (
-            <div
-              ref={dropdownRef}
-              style={{
-                ...slideStyles[state],
-
-                border: "1px solid",
-                fontSize: "0.875rem",
-                borderColor: "white",
-                borderRadius: "1rem",
-                padding: "1rem 1.25rem",
-                backgroundColor: "white",
-                color: "custom-light",
-                overflow: "hidden",
-                position: "fixed",
-                top: 150,
-                left: "auto",
-                zIndex: 40,
-              }}
-              className={popup.MainPopup}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "0.75rem",
-                  marginTop: "0.5rem",
-                  color: "#8f00ff",
-                }}
-              >
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  aria-label="toggle history"
-                  style={{
-                    right: 0,
-                    position: "absolute",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    border: "none",
-                  }}
-                >
-                  <Image
-                    src={dropdown}
-                    alt="dropdown"
-                    style={{ background: "#8f00ff", borderRadius: "5px" }}
-                  />
-                </button>
-              </div>
-              {/* <div className={samechainStyle.popTitle}>
-                Track Your Transfers
-              </div>
-              <div className={samechainStyle.popTitle}>
-                Where Every Token's journey is Accounted For !
-              </div>
-              <div
-                style={{
-                  borderBottom: "1px solid #8f00ff",
-                  paddingTop: "10px",
-                }}
-              ></div>
-              <div className={samechainStyle.searchBar}>
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={query}
-                  onChange={handleChange}
-                  className={samechainStyle.inputSearch}
-                />
-                <div style={{ color: "#8f00ff" }}>
-                  Total Transferred:<span>2.25 ETH</span>
-                </div>
-              </div> */}
-              <div className={popup.poolList}>
-                <div className={popup.upperPart}>
-                  <div className={samechainStyle.popTitle}>
-                    Track Your Transfers Where Every Token's journey is
-                    Accounted For !
-                  </div>
-                  <div className={samechainStyle.popTitle}></div>
-                  <div className={popup.total}>
-                    <h4>Total Transfered</h4>
-                    <p>{totalAmount} ETH</p>
-                  </div>
-
-                  {/* <div className={popup.right}>
-                    <Link to={"/add/ETH"}>
-                      <button className={popup.button}>Create position</button>
-                    </Link>
-                  </div> */}
-                </div>
-                <div
-                  style={{
-                    borderBottom: "1px solid #8f00ff",
-                    paddingTop: "10px",
-                    width: "90%",
-                  }}
-                ></div>
-                <div
-                  style={{
-                    borderBottom: "1px solid #8f00ff",
-                    paddingTop: "10px",
-                  }}
-                ></div>
-                <div className={samechainStyle.searchBar}>
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={query}
-                    onChange={handleSearchChange}
-                    className={samechainStyle.inputSearch}
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="Start Date"
-                    ref={inputRef1}
-                    onChange={(e) => console.log(e.target.value)}
-                    onFocus={() => (inputRef1.current.type = "date")}
-                    onBlur={() => (inputRef1.current.type = "text")}
-                    className={samechainStyle.inputDate1}
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="End Date"
-                    ref={inputRef3}
-                    onChange={(e) => console.log(e.target.value)}
-                    onFocus={() => (inputRef3.current.type = "date")}
-                    onBlur={() => (inputRef3.current.type = "text")}
-                    className={samechainStyle.inputDate1}
-                  />
-
-                  <select
-                    value={selectedToken}
-                    onChange={handleTokenChange}
-                    className={samechainStyle.dropdown}
-                  >
-                    <option value="all">All Tokens</option>
-                    {uniqueTokenNames.map((tokenName) => (
-                      <option key={tokenName} value={tokenName}>
-                        {tokenName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className={popup.tablediv}>
-                  <div className={popup.head}>
-                    <table className={popup.table}>
-                      <thead>
-                        <tr className={popup.row}>
-                          <th className={popup.column1}>Recipient Address</th>
-                          <th className={popup.column2}>Amount</th>
-                          <th className={popup.column3}>Chain</th>
-                          <th className={popup.column4}>Token</th>
-                          <th className={popup.column5}>Label</th>
-                          <th className={popup.column6}>Date</th>
-                          <th className={popup.column7}>Transaction Hash</th>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-
-                  {/* Fetching tx data in */}
-                  <div className={popup.content}>
-                    <table className={popup.table}>
-                      <tbody>
-                        {filteredTransactions.length > 0 ? (
-                          filteredTransactions.map((transaction, index) => (
-                            <tr className={popup.row} key={index}>
-                              <td
-                                className={popup.column1}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {`${transaction.recipient.substring(
-                                  0,
-                                  3
-                                )}...${transaction.recipient.substring(
-                                  transaction.recipient.length - 5
-                                )}`}
-                                {/* {transaction.recipient} */}
-                              </td>
-                              <td
-                                className={popup.column2}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {transaction.value}
-                              </td>
-                              <td
-                                className={popup.column3}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {transaction.chainName}
-                              </td>
-                              <td
-                                className={popup.column4}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {transaction.tokenName || "ETH"}
-                              </td>
-                              <td
-                                className={popup.column5}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {transaction.label ? transaction.label : null}
-                              </td>
-                              <td
-                                className={popup.column6}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {new Date(
-                                  transaction.blockTimestamp
-                                ).toLocaleDateString("en-US", {
-                                  day: "numeric",
-                                  month: "short",
-                                  year: "numeric",
-                                })}
-                              </td>
-                              <td
-                                className={popup.column7}
-                                style={{ color: "#8f00ff", fontWeight: "600" }}
-                              >
-                                {/* {transaction.transactionHash} */}
-                                {`${transaction.transactionHash.substring(
-                                  0,
-                                  3
-                                )}...${transaction.transactionHash.substring(
-                                  transaction.transactionHash.length - 5
-                                )}`}
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              flexDirection: "column",
-                            }}
-                          >
-                            <Image
-                              src={notnx}
-                              alt="none"
-                              width={200}
-                              height={100}
-                            />
-                            <tr>
-                              <td
-                                colSpan="7"
-                                style={{
-                                  textAlign: "center",
-                                  fontSize: "12px",
-                                }}
-                              >
-                                No transactions found.
-                              </td>
-                            </tr>
-                          </div>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </Transition>
+       
+       
       </div>
       <Footer />
     </div>
