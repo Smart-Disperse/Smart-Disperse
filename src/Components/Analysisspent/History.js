@@ -1,7 +1,13 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import histroyStyle from "./history.module.css";
-import { faArrowDown, faArrowUp, faCopy, faMagnifyingGlass,faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faArrowUp,
+  faCopy,
+  faMagnifyingGlass,
+  faCircleCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 import {
@@ -41,7 +47,6 @@ function History() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  
   // /............sorting label function ............./
   const sortLabels = () => {
     const sortedTransactions = [...filteredTransactions].sort((a, b) => {
@@ -125,8 +130,8 @@ function History() {
     );
   };
 
-   // Function to handle changes in both address and label search inputs
-   const handleSearchChange = (event) => {
+  // Function to handle changes in both address and label search inputs
+  const handleSearchChange = (event) => {
     const { value } = event.target;
     handleSearch(value);
   };
@@ -219,46 +224,46 @@ function History() {
     const fetchData = async () => {
       // setIsLoading(true);
       try {
-      const { allNames, allAddress } = await fetchUserLabels(address);
-      console.log("all names",allNames);
-      var ethData = [];
-      if (selectedToken === "Eth") {
-        console.log(address,chainId)
-        ethData = await getEthTransactions(address, chainId);
-        console.log(ethData);
-        // ethData = ethData.filter(
-        //   (transaction) => transaction.tokenName == null
-        // );
-      } else {
-        ethData = await getERC20Transactions(address, selectedToken, chainId);
-        console.log(ethData);
-      }
-      if (ethData && ethData.length > 0) {
-        for (let i = 0; i < ethData.length; i++) {
-          const recipientAddress = ethData[i].recipient.toLowerCase();
-
-          const index = allAddress.findIndex(
-            (addr) => addr === recipientAddress
-          );
-          if (index !== -1) {
-            ethData[i].label = allNames[index];
-          }
+        const { allNames, allAddress } = await fetchUserLabels(address);
+        console.log("all names", allNames);
+        var ethData = [];
+        if (selectedToken === "Eth") {
+          console.log(address, chainId);
+          ethData = await getEthTransactions(address, chainId);
+          console.log(ethData);
+          // ethData = ethData.filter(
+          //   (transaction) => transaction.tokenName == null
+          // );
+        } else {
+          ethData = await getERC20Transactions(address, selectedToken, chainId);
+          console.log(ethData);
         }
-        console.log(ethData);
-        setTransactionData(ethData);
-        setFilteredTransactions(ethData);
-        const userTokens = await getERC20Tokens(address, chainId);
-        console.log("usertokens", userTokens)
-        setTokenListOfUser(userTokens);
+        if (ethData && ethData.length > 0) {
+          for (let i = 0; i < ethData.length; i++) {
+            const recipientAddress = ethData[i].recipient.toLowerCase();
+
+            const index = allAddress.findIndex(
+              (addr) => addr === recipientAddress
+            );
+            if (index !== -1) {
+              ethData[i].label = allNames[index];
+            }
+          }
+          console.log(ethData);
+          setTransactionData(ethData);
+          setFilteredTransactions(ethData);
+          const userTokens = await getERC20Tokens(address, chainId);
+          console.log("usertokens", userTokens);
+          setTokenListOfUser(userTokens);
+          setIsLoading(false);
+          setDataNotFound(false);
+        } else {
+          setDataNotFound(true);
+        }
         setIsLoading(false);
-        setDataNotFound(false);
-      } else {
-        setDataNotFound(true);
+      } catch (error) {
+        console.log("error", error);
       }
-      setIsLoading(false);
-    } catch (error) {
-        console.log("error",error)
-    }
     };
 
     fetchData(address);
@@ -286,345 +291,338 @@ function History() {
           </button>
         </div>
         <div className={histroyStyle.maintablediv}>
-          <div className={histroyStyle.tableandheadingdiv}>
-            <div className={histroyStyle.tablediv1}>
-              <div className={histroyStyle.headingdiv}>Latest Transactions</div>
-              <div className={histroyStyle.filterdiv}>
-                <input
-                  type="date"
-                  className={histroyStyle.dateInput}
-                  value={startDate}
-                  onChange={handleStartDateChange}
-                  placeholder="Start Date"
-                />
-                <input
-                  type="date"
-                  className={histroyStyle.dateInput}
-                  value={endDate}
-                  onChange={handleEndDateChange}
-                />
-               <select
-                      value={selectedToken}
-                      onChange={handleTokenChange}
-                      className={histroyStyle.dropdown}
-                    >
-                      {/* DROP DOWN FOR SHOWING TOKENS */}
-
+          <div className={histroyStyle.tablediv1}>
+            <div className={histroyStyle.headingdiv}>Latest Transactions</div>
+            <div className={histroyStyle.filterdiv}>
+              <input
+                type="date"
+                className={histroyStyle.dateInput}
+                value={startDate}
+                onChange={handleStartDateChange}
+                placeholder="Start Date"
+              />
+              <input
+                type="date"
+                className={histroyStyle.dateInput}
+                value={endDate}
+                onChange={handleEndDateChange}
+              />
+              <select
+                value={selectedToken}
+                onChange={handleTokenChange}
+                className={histroyStyle.dropdown}
+              >
+                {/* DROP DOWN FOR SHOWING TOKENS */}
+                <option value="Select" className={histroyStyle.chainOptions}>
+                  Select
+                </option>
+                <option value="Eth" className={histroyStyle.chainOptions}>
+                  ETH
+                </option>
+                {tokenListOfUser.length > 0
+                  ? tokenListOfUser.map((token, index) => (
                       <option
-                        value="Eth"
+                        key={index}
+                        value={token.tokenAddress}
                         className={histroyStyle.chainOptions}
                       >
-                        ETH
+                        {token.symbol}
                       </option>
-                      {tokenListOfUser.length > 0
-                        ? tokenListOfUser.map((token, index) => (
-                            <option
-                              key={index}
-                              value={token.tokenAddress}
-                              className={histroyStyle.chainOptions}
-                            >
-                              {token.symbol}
-                            </option>
-                          ))
-                        : null}
-                    </select>
-              </div>
+                    ))
+                  : null}
+              </select>
             </div>
+          </div>
+          <div className={histroyStyle.tableandheadingdiv}>
             <div className={popup.tablediv}>
-                  <div className={popup.head}>
-                    <table className={popup.table}>
-                      <thead>
-                        <tr className={popup.row}>
-                          <th className={popup.column1}>Recipient Address</th>
-                          <th className={popup.column2}>
-                            Amount
-                            {sortingByAmount ? (
-                              <button
-                                className={popup.btnhoverpointer}
-                                style={{
-                                  background: "transparent",
-                                  color: "white",
-                                  border: "none",
-                                }}
-                                onClick={dortAmount}
-                              >
-                                <FontAwesomeIcon icon={faArrowUp} />
-                              </button>
-                            ) : (
-                              <button
-                                className={popup.btnhoverpointer}
-                                style={{
-                                  background: "transparent",
-                                  color: "white",
-                                  border: "none",
-                                }}
-                                onClick={sortAmount}
-                              >
-                                <FontAwesomeIcon icon={faArrowDown} />
-                              </button>
-                            )}
-                          </th>
+              <div className={popup.head}>
+                <table className={popup.table}>
+                  <thead>
+                    <tr className={popup.row}>
+                      <th className={popup.column1}>Recipient Address</th>
+                      <th className={popup.column2}>
+                        Amount
+                        {sortingByAmount ? (
+                          <button
+                            className={popup.btnhoverpointer}
+                            style={{
+                              background: "transparent",
+                              color: "black",
+                              border: "none",
+                            }}
+                            onClick={dortAmount}
+                          >
+                            <FontAwesomeIcon icon={faArrowUp} />
+                          </button>
+                        ) : (
+                          <button
+                            className={popup.btnhoverpointer}
+                            style={{
+                              background: "transparent",
+                              color: "black",
+                              border: "none",
+                            }}
+                            onClick={sortAmount}
+                          >
+                            <FontAwesomeIcon icon={faArrowDown} />
+                          </button>
+                        )}
+                      </th>
 
-                          <th className={popup.column3}>Chain</th>
-                          <th className={popup.column4}>Token</th>
-                          <th className={popup.column5}>
-                            Label
-                            {sortingByLabel ? (
-                              <button
-                                className={popup.btnhoverpointer}
-                                style={{
-                                  background: "transparent",
-                                  color: "white",
-                                  border: "none",
-                                }}
-                                onClick={dortLabels}
-                              >
-                                <FontAwesomeIcon icon={faArrowUp} />
-                              </button>
-                            ) : (
-                              <button
-                                className={popup.btnhoverpointer}
-                                style={{
-                                  background: "transparent",
-                                  color: "white",
-                                  border: "none",
-                                }}
-                                onClick={sortLabels}
-                              >
-                                <FontAwesomeIcon icon={faArrowDown} />
-                              </button>
-                            )}
-                          </th>
+                      <th className={popup.column3}>Chain</th>
+                      <th className={popup.column4}>Token</th>
+                      <th className={popup.column5}>
+                        Label
+                        {sortingByLabel ? (
+                          <button
+                            className={popup.btnhoverpointer}
+                            style={{
+                              background: "transparent",
+                              color: "black",
+                              border: "none",
+                            }}
+                            onClick={dortLabels}
+                          >
+                            <FontAwesomeIcon icon={faArrowUp} />
+                          </button>
+                        ) : (
+                          <button
+                            className={popup.btnhoverpointer}
+                            style={{
+                              background: "transparent",
+                              color: "black",
+                              border: "none",
+                            }}
+                            onClick={sortLabels}
+                          >
+                            <FontAwesomeIcon icon={faArrowDown} />
+                          </button>
+                        )}
+                      </th>
 
-                          <th className={popup.column6}>
-                            Date
-                            {sortingByDate ? (
-                              <button
-                                className={popup.btnhoverpointer}
-                                style={{
-                                  background: "transparent",
-                                  color: "white",
-                                  border: "none",
-                                }}
-                                onClick={dortDate}
-                              >
-                                <FontAwesomeIcon icon={faArrowUp} />
-                              </button>
-                            ) : (
-                              <button
-                                className={popup.btnhoverpointer}
-                                style={{
-                                  background: "transparent",
-                                  color: "white",
-                                  border: "none",
-                                }}
-                                onClick={sortDate}
-                              >
-                                <FontAwesomeIcon icon={faArrowDown} />
-                              </button>
-                            )}
-                          </th>
+                      <th className={popup.column6}>
+                        Date
+                        {sortingByDate ? (
+                          <button
+                            className={popup.btnhoverpointer}
+                            style={{
+                              background: "transparent",
+                              color: "black",
+                              border: "none",
+                            }}
+                            onClick={dortDate}
+                          >
+                            <FontAwesomeIcon icon={faArrowUp} />
+                          </button>
+                        ) : (
+                          <button
+                            className={popup.btnhoverpointer}
+                            style={{
+                              background: "transparent",
+                              color: "black",
+                              border: "none",
+                            }}
+                            onClick={sortDate}
+                          >
+                            <FontAwesomeIcon icon={faArrowDown} />
+                          </button>
+                        )}
+                      </th>
 
-                          <th className={popup.column7}>Transaction Hash</th>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
+                      <th className={popup.column7}>Transaction Hash</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
 
-                  {/* Fetching tx data in */}
-                  {isLoading ? (
-                    <div style={{ position: "relative", top: "100px" }}>
-                      Fetching transaction History...
-                    </div>
-                  ) : filteredTransactions.length > 0 ? (
-                    <div className={popup.content}>
-                      <table className={popup.table}>
-                        <tbody>
-                          {filteredTransactions.length > 0 ? (
-                            filteredTransactions.map((transaction, index) => (
-                              <tr className={popup.row} key={index}>
-                                <td
-                                  className={popup.column1}
-                                  style={{
-                                    color: "#8f00ff",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {`${transaction.recipient.substring(
-                                    0,
-                                    3
-                                  )}...${transaction.recipient.substring(
-                                    transaction.recipient.length - 5
-                                  )}`}
-                                  {isCopied &&
-                                  isCopiedAddressIndex === index ? (
-                                    <FontAwesomeIcon
-                                      icon={faCircleCheck}
-                                      size="sm"
-                                      alt="Check Icon"
-                                      style={{
-                                        margin: "0px 10px",
-                                        cursor: "pointer",
-                                        color: "#9657eb",
-                                      }}
-                                    />
-                                  ) : (
-                                    <FontAwesomeIcon
-                                      icon={faCopy}
-                                      size="2xs"
-                                      alt="Copy Icon"
-                                      onClick={() =>
-                                        copyToClipboard(
-                                          transaction.recipient,
-                                          index
-                                        )
-                                      }
-                                      className={popup.copyIcon}
-                                    />
-                                  )}
-                                </td>
-                                <td
-                                  className={popup.column2}
-                                  style={{
-                                    color: "#8f00ff",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {transaction.value}
-                                </td>
-                                <td
-                                  className={popup.column3}
-                                  style={{
-                                    color: "#8f00ff",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {transaction.chainName}
-                                </td>
-                                <td
-                                  className={popup.column4}
-                                  style={{
-                                    color: "#8f00ff",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {transaction.tokenName || "ETH"}
-                                </td>
-                                <td
-                                  className={popup.column5}
-                                  style={{
-                                    color: "#8f00ff",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {transaction.label
-                                    ? transaction.label
-                                    : "---"}
-                                </td>
-                                <td
-                                  className={popup.column6}
-                                  style={{
-                                    color: "#8f00ff",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {new Date(
-                                    transaction.blockTimestamp
-                                  ).toLocaleDateString("en-US", {
-                                    day: "numeric",
-                                    month: "short",
-                                    year: "numeric",
-                                  })}
-                                </td>
-                                <td
-                                  className={popup.column7}
-                                  style={{
-                                    color: "#8f00ff",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {/* {transaction.transactionHash} */}
-                                  {transaction.transactionHash && (
-                                    <a
-                                      href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      style={{
-                                        color: "#8f00ff",
-                                        textDecoration: "none",
-                                      }}
-                                    >
-                                      {`${transaction.transactionHash.substring(
-                                        0,
-                                        3
-                                      )}...${transaction.transactionHash.substring(
-                                        transaction.transactionHash.length - 5
-                                      )}`}
-                                    </a>
-                                  )}
-
-                                  {isCopiedHash &&
-                                  isCopiedAddressIndexHash === index ? (
-                                    <FontAwesomeIcon
-                                      icon={faCircleCheck}
-                                      size="sm"
-                                      alt="Check Icon"
-                                      style={{
-                                        margin: "0px 10px",
-                                        cursor: "pointer",
-
-                                        color: "#9657eb",
-                                      }}
-                                    />
-                                  ) : (
-                                    <FontAwesomeIcon
-                                      icon={faCopy}
-                                      size="2xs"
-                                      alt="Copy Icon"
-                                      onClick={() =>
-                                        copyToClipboardHash(
-                                          transaction.transactionHash,
-                                          index
-                                        )
-                                      }
-                                      className={popup.copyIcon}
-                                    />
-                                  )}
-                                </td>
-                              </tr>
-                            ))
-                          ) : (
-                            <div
+              {/* Fetching tx data in */}
+              {isLoading ? (
+                <div style={{ position: "relative", top: "100px" }}>
+                  Fetching transaction History...
+                </div>
+              ) : filteredTransactions.length > 0 ? (
+                <div className={popup.content}>
+                  <table className={popup.table}>
+                    <tbody>
+                      {filteredTransactions.length > 0 ? (
+                        filteredTransactions.map((transaction, index) => (
+                          <tr className={popup.row} key={index}>
+                            <td
+                              className={popup.column1}
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                flexDirection: "column",
+                                color: "#FFFFFF",
+                                fontWeight: "600",
                               }}
                             >
-                              <tr>
-                                <td
-                                  colSpan="7"
+                              {`${transaction.recipient.substring(
+                                0,
+                                3
+                              )}...${transaction.recipient.substring(
+                                transaction.recipient.length - 5
+                              )}`}
+                              {isCopied && isCopiedAddressIndex === index ? (
+                                <FontAwesomeIcon
+                                  icon={faCircleCheck}
+                                  size="sm"
+                                  alt="Check Icon"
                                   style={{
-                                    textAlign: "center",
-                                    fontSize: "12px",
+                                    margin: "0px 10px",
+                                    cursor: "pointer",
+                                    color: "#ffffff",
+                                  }}
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faCopy}
+                                  size="sm"
+                                  alt="Copy Icon"
+                                  onClick={() =>
+                                    copyToClipboard(
+                                      transaction.recipient,
+                                      index
+                                    )
+                                  }
+                                  className={popup.copyIcon}
+                                />
+                              )}
+                            </td>
+                            <td
+                              className={popup.column2}
+                              style={{
+                                color: "#FFFFFF",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {`${transaction.value.substring(
+                                0,
+                                3
+                              )}...${transaction.value.substring(
+                                transaction.value.length - 5
+                              )}`}
+                            </td>
+                            <td
+                              className={popup.column3}
+                              style={{
+                                color: "#FFFFFF",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {transaction.chainName}
+                            </td>
+                            <td
+                              className={popup.column4}
+                              style={{
+                                color: "#FFFFFF",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {transaction.tokenName || "ETH"}
+                            </td>
+                            <td
+                              className={popup.column5}
+                              style={{
+                                color: "#FFFFFF",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {transaction.label ? transaction.label : "---"}
+                            </td>
+                            <td
+                              className={popup.column6}
+                              style={{
+                                color: "#FFFFFF",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {new Date(
+                                transaction.blockTimestamp
+                              ).toLocaleDateString("en-US", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })}
+                            </td>
+                            <td
+                              className={popup.column7}
+                              style={{
+                                color: "#FFFFFF",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {/* {transaction.transactionHash} */}
+                              {transaction.transactionHash && (
+                                <a
+                                  href={`https://${explorerUrl}/tx/${transaction.transactionHash}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{
+                                    color: "#FFFFFF",
+                                    textDecoration: "none",
                                   }}
                                 >
-                                  No transactions found.
-                                </td>
-                              </tr>
-                            </div>
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : dataNotFound ? (
-                    <div style={{ textAlign: "center", marginTop: "20px" }}>
-                      No transactions found.
-                    </div>
-                  ) : (
-                    <div>No data found</div>
-                  )}
+                                  {`${transaction.transactionHash.substring(
+                                    0,
+                                    3
+                                  )}...${transaction.transactionHash.substring(
+                                    transaction.transactionHash.length - 5
+                                  )}`}
+                                </a>
+                              )}
+
+                              {isCopiedHash &&
+                              isCopiedAddressIndexHash === index ? (
+                                <FontAwesomeIcon
+                                  icon={faCircleCheck}
+                                  size="sm"
+                                  alt="Check Icon"
+                                  style={{
+                                    margin: "0px 10px",
+                                    cursor: "pointer",
+
+                                    color: "#ffffff",
+                                  }}
+                                />
+                              ) : (
+                                <FontAwesomeIcon
+                                  icon={faCopy}
+                                  size="2xs"
+                                  alt="Copy Icon"
+                                  onClick={() =>
+                                    copyToClipboardHash(
+                                      transaction.transactionHash,
+                                      index
+                                    )
+                                  }
+                                  className={popup.copyIcon}
+                                />
+                              )}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <tr>
+                            <td colSpan="7" className={popup.Nodata}>
+                              No transactions found.
+                            </td>
+                          </tr>
+                        </div>
+                      )}
+                    </tbody>
+                  </table>
                 </div>
+              ) : dataNotFound ? (
+                <div className={popup.Nodata}>No transactions found.</div>
+              ) : (
+                <div className={popup.Nodata}>No data found</div>
+              )}
+            </div>
           </div>
         </div>
       </div>

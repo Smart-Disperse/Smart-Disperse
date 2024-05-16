@@ -22,7 +22,9 @@ body {
 
   text-align: center !important;
   scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-  background-color: #000000;
+  background: url("../Assets/Homepage-bg.webp");
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 body::-webkit-scrollbar {

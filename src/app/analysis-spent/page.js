@@ -1,12 +1,8 @@
-import History from '@/Components/Analysisspent/History'
-import React from 'react'
+import History from "@/Components/Analysisspent/History";
+import React from "react";
 
 function page() {
-  return (
-    <div>
-        <History/>
-    </div>
-  )
+  return <History />;
 }
 
-export default page
+export default page;
