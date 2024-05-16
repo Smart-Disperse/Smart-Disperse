@@ -229,8 +229,6 @@
   color: black;
 }
 .content .row {
-  display: flex;
-  align-items: center;
   border-collapse: separate;
   cursor: pointer;
   border-bottom: 1px solid white;
@@ -239,6 +237,7 @@
   background-color: #e4ff30;
   color: #101010;
 } */
+
 @media only screen and (max-width: 1024px) {
   .MainPopup {
     width: 520px;

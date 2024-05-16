@@ -133,11 +133,16 @@
   padding: 15px;
   background: transparent;
 }
+
 .dropdown option {
-  background: white;
+  background: #00ffff;
   color: black;
 }
 
+.dropdown option:focus {
+  background: red;
+  color: black;
+}
 @media only screen and (max-width: 1025px) {
   .maindivofhisotry {
     margin: 130px 150px;
