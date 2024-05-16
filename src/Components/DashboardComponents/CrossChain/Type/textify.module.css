@@ -423,8 +423,9 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
 /* Style for select options */
 #blockchainChains option {
   font-size: 16px;
-  background:linear-gradient(90deg, rgba(68, 9, 205, 0.432) 0%, rgba(140, 62, 250, 0.417) 100%);
-
+  /* background:linear-gradient(90deg, rgba(68, 9, 205, 0.432) 0%, rgba(140, 62, 250, 0.417) 100%); */
+  background-color: #007bff;
+color: black;
 }
 
 /* Style for when the select input is focused */
