@@ -80,7 +80,6 @@ function Textify({
 
   const parseText = async (textValue) => {
     let updatedRecipients = [];
-
     const resolveRegex = /@(\w+)\s/g;
     let newTextValue = textValue.replace(resolveRegex, (match, name) => {
       const index = allNames.indexOf(name);

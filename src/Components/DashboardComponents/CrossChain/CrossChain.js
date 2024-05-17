@@ -1,30 +1,108 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import "driver.js/dist/driver.css";
 import textStyle from "./Type/textify.module.css";
 import SendEth from "./Send/SendEth";
 import SendToken from "./Send/SendToken";
+import { getChain } from "@/Helpers/GetChain";
+import { useAccount } from "wagmi";
+import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
 
-/*
-Main Component : the prop is use to get which of the three from textify, listify or uplaodify should ne loaded
-It will be handled further by sendEth or sendToken component
-*/
 function CrossChain({ activeTab }) {
   const [isSendingEth, setIsSendingEth] = useState(true);
   const [isSendingToken, setIsSendingToken] = useState(false);
   const [listData, setListData] = useState([]);
+  const { address } = useAccount();
+  const [connectedChain, setConnectedChain] = useState(null);
+  const [destinationChainsOptions, setDestinationChainsOptions] = useState([]);
+  const [selectedDestinationChain, setSelectedDestinationChain] = useState(null);
+  const [tokenOptions, setTokenOptions] = useState([]);
 
-  /*
-  Funtion : To load SendEth component
-  */
+  const allchains = [
+    {
+      chainName: "sepolia",
+      chainSelector: "16015286601757825753",
+      destinationChains: ["opSepolia", "baseSepolia", "arbSepolia", "amoy"],
+      tokens: {
+        usdc: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+      },
+    },
+    {
+      chainName: "opsepolia",
+      chainSelector: "5224473277236331295",
+      destinationChains: ["sepolia", "baseSepolia", "arbSepolia", "amoy"],
+      tokens: {
+        usdc: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
+      },
+    },
+    {
+      chainName: "basesepolia",
+      chainSelector: "10344971235874465080",
+      destinationChains: ["sepolia", "opSepolia", "arbSepolia"],
+      tokens: {
+        usdc: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+      },
+    },
+    {
+      chainName: "arbitrumsepolia",
+      chainSelector: "3478487238524512106",
+      destinationChains: ["sepolia", "opSepolia", "baseSepolia"],
+      tokens: {
+        usdc: "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d",
+      },
+    },
+    {
+      chainName: "amoy",
+      chainSelector: "16281711391670634445",
+      destinationChains: ["sepolia", "opSepolia"],
+      tokens: {
+        usdc: "0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582",
+      },
+    },
+    // Add more chain definitions if needed
+  ];
+  
+  useEffect(() => {
+    const fetchChain = async () => {
+      console.log("Getting chain...");
+      const currentChainId = await getChain(); // Assuming getChain() retrieves the current chain ID
+      console.log("Current chain ID:", currentChainId);
+
+      const networkObj = {
+        "11155111": "sepolia",
+        "11155420": "opsepolia",
+        "84532": "basesepolia",
+        "421614": "arbitrumsepolia",
+        "80002": "amoy",
+      };
+      const currentChainName = networkObj[currentChainId];
+      const connectedChain = currentChainName ? currentChainName : null;
+
+      console.log("Current chain name:", connectedChain);
+
+      if (connectedChain) {
+        setConnectedChain(connectedChain);
+        const connectedChainInfo = allchains.find(
+          (chain) => chain.chainName === connectedChain
+        );
+
+        if (connectedChainInfo) {
+          const options = connectedChainInfo.destinationChains.map((chain) => (
+            <option key={chain} value={chain}>
+              {chain}
+            </option>
+          ));
+          setDestinationChainsOptions(options);
+        }
+      }
+    };
+
+    fetchChain();
+  }, [address]);
+
   const handleSendEthbuttonClick = () => {
     setIsSendingEth(true);
     setIsSendingToken(false);
   };
-
-  /*
-  Funtion : To load SendToken component
-  */
 
   const handleImporttokenbuttonClick = () => {
     // console.log("import token");
@@ -32,6 +110,34 @@ function CrossChain({ activeTab }) {
     setListData([]);
     setIsSendingEth(false);
   };
+
+  const handleDestinationChainChange = (e) => {
+    const selectedChain = e.target.value;
+    setSelectedDestinationChain(selectedChain);
+  console.log(selectedChain);
+    // Find the selected destination chain and get its tokens
+    const connectedChainInfo = allchains.find(
+      (chain) => chain.chainName === connectedChain
+    );
+    console.log(connectedChainInfo);
+  
+    if (connectedChainInfo) {
+      const tokens = connectedChainInfo.tokens;
+      console.log(tokens)
+      if (tokens) {
+        const tokenOptions = Object.entries(tokens).map(([key, value]) => (
+          <option key={value} value={value}>
+            {key}
+          </option>
+        ));
+        console.log(tokenOptions)
+        setTokenOptions(tokenOptions);
+      } else {
+        setTokenOptions([]);
+      }
+    }
+  };
+  
 
   return (
     <>
@@ -61,36 +167,23 @@ function CrossChain({ activeTab }) {
             className={textStyle.sametextmain}
           >
             <div id="send-eth" className={textStyle.sendethdiv}>
-              <select id={textStyle.blockchainChains}>
-                <option value="bitcoin">Select Token</option>
-                <option value="bitcoin">Bitcoin</option>
-                <option value="ethereum">Ethereum</option>
-                <option value="binance-smart-chain">Binance Smart Chain</option>
-                <option value="solana">Solana</option>
-                <option value="cardano">Cardano</option>
-                <option value="ripple">Ripple</option>
-                <option value="polkadot">Polkadot</option>
-                <option value="tezos">Tezos</option>
-                <option value="tron">Tron</option>
-                <option value="eos">EOS</option>
+              {/* Dropdown of chains */}
+              <select
+                id={textStyle.blockchainChains}
+                onChange={handleDestinationChainChange}
+                value={selectedDestinationChain}
+              >
+                <option value="">Select destination chain</option>
+                {destinationChainsOptions}
               </select>
             </div>
 
             <div className={textStyle.importtokendiv}>
               <div style={{ margin: "10px 10px" }}>⇨</div>
-
+              {/* Dropdown of tokens */}
               <select id={textStyle.blockchainChains}>
-                <option value="bitcoin">Select Chain</option>
-                <option value="bitcoin">Bitcoin</option>
-                <option value="ethereum">Ethereum</option>
-                <option value="binance-smart-chain">Binance Smart Chain</option>
-                <option value="solana">Solana</option>
-                <option value="cardano">Cardano</option>
-                <option value="ripple">Ripple</option>
-                <option value="polkadot">Polkadot</option>
-                <option value="tezos">Tezos</option>
-                <option value="tron">Tron</option>
-                <option value="eos">EOS</option>
+                <option value="">Select token</option>
+                {tokenOptions}
               </select>
             </div>
           </div>
