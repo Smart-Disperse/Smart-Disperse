@@ -58,13 +58,12 @@ function CrossChain({ activeTab }) {
         usdc: "0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582",
       },
     },
-    // Add more chain definitions if needed
   ];
   
   useEffect(() => {
     const fetchChain = async () => {
       console.log("Getting chain...");
-      const currentChainId = await getChain(); // Assuming getChain() retrieves the current chain ID
+      const currentChainId = await getChain(); 
       console.log("Current chain ID:", currentChainId);
 
       const networkObj = {
