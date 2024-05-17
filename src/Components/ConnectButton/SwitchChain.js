@@ -9,6 +9,7 @@ import textStyle from "@/Components/DashboardComponents/SameChain/Type/textify.m
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { faL } from "@fortawesome/free-solid-svg-icons";
+import {alertlogo} from "../../Assets/alert.png"
 
 function SwitchChain({ isMainnet }) {
   // useChainChangeReload(); // Call this hook on every render to ensure the page reloads when chain changes
@@ -55,15 +56,22 @@ function SwitchChain({ isMainnet }) {
         type="button"
         onClick={handleButtonClick}
       >
-        <span>
-          {chain && displayChains?.some((network) => network.id === chain.id)
-            ? ` ${chain.name}`
-            : "Wrong Network"}
-        </span>
+       <div className={connectStyle.icon}>
+  {chain && displayChains?.some((network) => network.id === chain.id)
+    ? (
+      <>
+        <img src={chain.iconUrl} alt={`${chain.name} icon`} style={{background:"white", width:"20px",borderRadius:"10px"}}/>
+       
+      </>
+    )
+    : <img src="https://gateway.lighthouse.storage/ipfs/QmbgFguL3LUNj3AvEqSqXU85TdJi24v1ccsoT18uFAxpZR" style={{width:"20px"}}/>}
+</div>
+
+       
       </button>
       <div className={connectStyle.ChainDropdownMain}>
-        {dropdownVisible && (
-          <div
+       {dropdownVisible && (
+        <div
             className="dropdown"
             style={{
               display: "flex",
@@ -90,37 +98,42 @@ function SwitchChain({ isMainnet }) {
                   borderRadius: "20px",
                   margin: "5px auto",
                   width: "90%",
+                
                 }}
               >
-                {network.hasIcon && network.iconUrl && (
+              <div className={connectStyle.icon2}>
+              {network.iconUrl && (
                   <img
                     src={network.iconUrl}
                     alt={network.name}
                     style={{
                       width: "20px", // Adjust the width according to your design
-                      marginRight: "8px", // Add some spacing between the icon and text
-                      background: network.iconBackground || "transparent",
+                   marginRight:"10px",
+                      background: 'white',
                       borderRadius: "50%", // Make the icon round if needed
                     }}
                   />
                 )}
 
-                <span
+                <div
                   style={{
                     content: "",
                     top: "50%",
                     left: " 50%",
                     fontSize: "15px",
-                    transform: "translate(-50%, -50%)",
                     color: "white",
                   }}
                 >
                   {network.name}
-                </span>
+                </div>
+              </div>
+              
               </button>
             ))}
           </div>
-        )}
+       )}
+          
+     
       </div>
 
       <ToastContainer />

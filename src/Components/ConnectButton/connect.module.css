@@ -45,6 +45,7 @@
 .ChainDropdownMain {
   position: absolute;
   top: 60px;
+  right: 15%;
   cursor: pointer;
   padding: 30px 0px;
   width: 200px;
@@ -53,17 +54,16 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
-  padding: 15px 30px;
-  border-radius: 20px;
+  padding: 13px 20px;
+  border-radius: 15px;
   border: 0.5px solid #5fffbc;
   background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
-  width: 200px;
+  /* width: 86px; */
   font-weight: 700;
   font-size: 17px;
   letter-spacing: 1px;
   cursor: pointer;
   color: transparent;
-  line-height: none !important;
 }
 .connectchain span {
   content: "";
@@ -84,7 +84,7 @@
   border-radius: 20px;
   border: 0.5px solid #5fffbc;
   background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
-  width: 200px;
+  width: 210px;
   font-weight: 700;
   font-size: 15px;
   letter-spacing: 1px;
@@ -96,7 +96,16 @@
 .connectaccount span {
   color: white;
 }
+.icon{
+  display: flex;
+  align-items: center;
 
+}
+.icon2{
+  display: flex;
+  align-items: center;
+
+}
 @media only screen and (max-width: 768px) {
   .connectchain {
     width: 150px;
