@@ -8,7 +8,7 @@ import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import ExecuteEth from "../Execute/ExecuteEth";
+import ExecuteEth from "../Execute/CrossChainTransfer";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { isContractAddress } from "@/Helpers/ValidateInput.js";
 import Modal from "react-modal";

@@ -5,7 +5,6 @@ import SendEth from "./Send/SendEth";
 import SendToken from "./Send/SendToken";
 import { getChain } from "@/Helpers/GetChain";
 import { useAccount } from "wagmi";
-import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
 
 function CrossChain({ activeTab }) {
   const [isSendingEth, setIsSendingEth] = useState(true);

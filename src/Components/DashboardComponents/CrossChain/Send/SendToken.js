@@ -7,7 +7,7 @@ import textStyle from "../Type/textify.module.css";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ExecuteToken from "../Execute/ExecuteToken";
+import ExecuteToken from "../Execute/CrossChainTransfer";
 import { LoadToken } from "@/Helpers/LoadToken.js";
 import {
   faCircleExclamation,
