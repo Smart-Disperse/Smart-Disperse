@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 import { transactionType } from "viem";
 
-function SendEth({ activeTab, listData, setListData }) {
+function SendEth({ activeTab, listData, setListData,selectedDestinationChain }) {
   const [ethToUsdExchangeRate, setEthToUsdExchangeRate] = useState(null); //store ETH to USD exchange rate
   const [totalEth, setTotalEth] = useState(null); // store total amount of Ether in the transaction
   const [remaining, setRemaining] = useState(null); // store remaining amount after deducting already sent value
@@ -163,6 +163,7 @@ function SendEth({ activeTab, listData, setListData }) {
   };
 
   useEffect(() => {
+    console.log(selectedDestinationChain)
     if (address) {
       fetchUserDetails();
     }
@@ -411,7 +412,7 @@ function SendEth({ activeTab, listData, setListData }) {
                             </span>
                           </td> */}
                           <td style={{ letterSpacing: "1px", padding: "8px" }}>
-                            Polygon
+                           {selectedDestinationChain}
                           </td>
 
                           <td style={{ letterSpacing: "1px", padding: "8px" }}>

@@ -83,6 +83,7 @@ function CrossChain({ activeTab }) {
         const connectedChainInfo = allchains.find(
           (chain) => chain.chainName === connectedChain
         );
+        console.log("Connected chain info:", connectedChainInfo);
 
         if (connectedChainInfo) {
           const options = connectedChainInfo.destinationChains.map((chain) => (
@@ -192,6 +193,7 @@ function CrossChain({ activeTab }) {
               activeTab={activeTab}
               listData={listData}
               setListData={setListData}
+              selectedDestinationChain={selectedDestinationChain}
             />
           ) : null}
 
@@ -200,6 +202,7 @@ function CrossChain({ activeTab }) {
               activeTab={activeTab}
               listData={listData}
               setListData={setListData}
+
             />
           ) : null}
         </div>
