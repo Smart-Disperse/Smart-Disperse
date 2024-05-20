@@ -158,8 +158,12 @@ function CrossChainTransfer(props) {
   };
 
   const getinstance = async () => {
+    const addresses = props.listData.map(item => item.address);
+    console.log(addresses)
+    const values = props.listData.map(item => (item.value).toString());
+    console.log(values)
+    console.log(props.Contractaddress);
     console.log(props.Chainselector);
-    console.log(".......");
     console.log(props.SelectedTokenUSDC);
     console.log(props.totalERC20);
     const con = await smartDisperseCrossChainInstance(chainId);
@@ -175,46 +179,43 @@ function CrossChainTransfer(props) {
     } catch (error) {
       console.log("error:", error);
     }
-    try {
-      console.log("calculating estimated fees");
-      const estimatedfees = await con.getEstimatedFees(
-        "5224473277236331295",
-        "0x74bEDd44a248ef781A57c6e8e962BbF70B331E8f",
-        [
-          "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
-          "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
-        ],
-        [1, 2],
-        "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-        3
-      );
-      console.log("estimated fees:", estimatedfees);
-      const valueBigNumber = ethers.BigNumber.from(estimatedfees);
-      const valueWeiString = ethers.utils.formatUnits(valueBigNumber, "wei");
-      try {
-        console.log("Transaction Started");
-        const txsendPayment = await con.sendMessagePayNative(
-          "5224473277236331295",
-          "0x74bEDd44a248ef781A57c6e8e962BbF70B331E8f",
-          [
-            "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
-            "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
-          ],
-          [1, 2],
-          "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-          3,
-          {
-            value: valueWeiString,
-          }
-        );
-        console.log("Transaction Successful");
-        console.log(txsendPayment);
-      } catch (error) {
-        console.log("error:", error);
-      }
-    } catch (error) {
-      console.log("error:", error);
-    }
+    // try {
+    //   console.log("calculating estimated fees");
+    //   const estimatedfees = await con.getEstimatedFees(
+    //     props.Chainselector,
+    //     props.Contractaddress,
+    //     addresses,
+    //     values,
+    //     props.SelectedTokenUSDC,
+    //     props.totalERC20
+    //   );
+    //   console.log("estimated fees:", estimatedfees);
+      // const valueBigNumber = ethers.BigNumber.from(estimatedfees);
+      // const valueWeiString = ethers.utils.formatUnits(valueBigNumber, "wei");
+      // try {
+      //   console.log("Transaction Started");
+      //   const txsendPayment = await con.sendMessagePayNative(
+      //     "5224473277236331295",
+      //     "0x74bEDd44a248ef781A57c6e8e962BbF70B331E8f",
+      //     [
+      //       "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
+      //       "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
+      //     ],
+      //     [1, 2],
+      //     "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+      //     3,
+      //     {
+      //       value: valueWeiString,
+      //     }
+      //   );
+      //   console.log("Transaction Successful");
+      //   console.log(txsendPayment);
+      // } catch (error) {
+      //   console.log("error:", error);
+      // }
+    // } catch (error) {
+    //   console.log("error:", error);
+    // }
   };
   return (
     <div>

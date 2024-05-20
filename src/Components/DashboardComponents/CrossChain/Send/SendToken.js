@@ -25,7 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 import CrossChainTransfer from "../Execute/CrossChainTransfer";
 
-function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,SelectedTokenUSDC,selectedDestinationChain,Chainselector}) {
+function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,SelectedTokenUSDC,selectedDestinationChain,Chainselector,Contractaddress}) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const [errormsg, setErrormsg] = useState("");
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
@@ -643,6 +643,7 @@ function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,
               customTokenAddress={customTokenAddress}
               SelectedTokenUSDC={SelectedTokenUSDC}
               Chainselector={Chainselector}
+              Contractaddress={Contractaddress}
             />
           ) : null}
         </div>

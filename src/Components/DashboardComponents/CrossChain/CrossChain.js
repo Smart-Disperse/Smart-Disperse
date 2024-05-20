@@ -5,6 +5,7 @@ import textStyle from "./Type/textify.module.css";
 import SendToken from "./Send/SendToken";
 import { getChain } from "@/Helpers/GetChain";
 import { useAccount } from "wagmi";
+import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
 
 function CrossChain({ activeTab }) {
   // const [isSendingEth, setIsSendingEth] = useState(true);
@@ -17,6 +18,7 @@ function CrossChain({ activeTab }) {
   const [tokenOptions, setTokenOptions] = useState([]);
   const [SelectedTokenUSDC, setSelectedTokenUSDC] = useState('');
   const [Chainselector, setChainSelector] = useState('')
+  const [Contractaddress, setContractaddress] = useState('');
 
   const allchains = [
     {
@@ -36,7 +38,7 @@ function CrossChain({ activeTab }) {
       },
     },
     {
-      chainName: "basesepolia",
+      chainName: "baseSepolia",
       chainSelector: "10344971235874465080",
       destinationChains: ["sepolia", "opSepolia", "arbSepolia"],
       tokens: {
@@ -66,7 +68,13 @@ function CrossChain({ activeTab }) {
       console.log("Getting chain...");
       const currentChainId = await getChain(); 
       console.log("Current chain ID:", currentChainId);
-
+      if (currentChainId in crossContracts) {
+        const contractDetails = crossContracts[currentChainId];
+        console.log("Address:", contractDetails.address);
+        setContractaddress(contractDetails.address);
+    } else {
+        console.log("Chain ID does not match any contract details in crossContracts.");
+    }
       const networkObj = {
         "11155111": "sepolia",
         "11155420": "opsepolia",
@@ -76,7 +84,6 @@ function CrossChain({ activeTab }) {
       };
       const currentChainName = networkObj[currentChainId];
       const connectedChain = currentChainName ? currentChainName : null;
-
       console.log("Current chain name:", connectedChain);
 
       if (connectedChain) {
@@ -117,6 +124,10 @@ function CrossChain({ activeTab }) {
     const selectedChain = e.target.value;
     setSelectedDestinationChain(selectedChain);
   console.log(selectedChain);
+  const connectedChainnfo = allchains.find(
+    (chain) => chain.chainName === selectedChain
+  );
+  console.log(connectedChainnfo);
     // Find the selected destination chain and get its tokens
     const connectedChainInfo = allchains.find(
       (chain) => chain.chainName === connectedChain
@@ -209,6 +220,7 @@ function CrossChain({ activeTab }) {
               SelectedTokenUSDC={SelectedTokenUSDC}
               selectedDestinationChain={selectedDestinationChain}
               Chainselector={Chainselector}
+              Contractaddress={Contractaddress}
             />
           {/* ) : null} */}
         </div>
