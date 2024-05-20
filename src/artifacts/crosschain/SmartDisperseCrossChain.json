@@ -1,5 +1,6 @@
 {
   "name": "SmartDisperseCrossChain",
+  "address": "0x510d3ed32dede97bca3391154efff15c058170f1",
   "abi": [
     {
       "inputs": [],
@@ -374,7 +375,7 @@
             }
           ],
           "indexed": false,
-          "internalType": "struct ProgrammableTokenTransfers.PaymentData",
+          "internalType": "struct SmartDisperseCrossChain.PaymentData",
           "name": "_paymentData",
           "type": "tuple"
         },
@@ -711,6 +712,6 @@
       "type": "function"
     }
   ],
-  "filePath": "CCIP/contracts/ccip_message.sol",
-  "pinnedAt": 1715661297949
+  "filePath": "CCIP/contracts/smartDisperseCrossChain.sol",
+  "pinnedAt": 1715944872314
 }

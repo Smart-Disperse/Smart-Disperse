@@ -5,7 +5,7 @@ import uploadStyle from "./uploadify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
-import SendEth from "../Send/SendEth";
+// import SendEth from "../Send/SendEth";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 import { useAccount } from "wagmi";
 

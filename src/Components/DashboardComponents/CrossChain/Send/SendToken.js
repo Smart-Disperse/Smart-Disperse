@@ -7,7 +7,7 @@ import textStyle from "../Type/textify.module.css";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ExecuteToken from "../Execute/ExecuteToken";
+import ExecuteToken from "../Execute/CrossChainTransfer";
 import { LoadToken } from "@/Helpers/LoadToken.js";
 import {
   faCircleExclamation,
@@ -23,8 +23,9 @@ import oopsimage from "@/Assets/oops.webp";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
+import CrossChainTransfer from "../Execute/CrossChainTransfer";
 
-function SendToken({ activeTab, listData, setListData }) {
+function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,SelectedTokenUSDC,selectedDestinationChain,Chainselector}) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const [errormsg, setErrormsg] = useState("");
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
@@ -309,152 +310,10 @@ function SendToken({ activeTab, listData, setListData }) {
   return (
     <>
       <>
-        <div>
-          <div
-            style={{
-              marginBottom: "10px ",
-            }}
-            className={textStyle.accountsummarycreatetitle}
-          >
-            <h2
-              style={{
-                padding: "10px",
-                fontSize: "20px",
-                margin: "0px",
-                letterSpacing: "1px",
-                fontWeight: "700",
-              }}
-            >
-              Load Your Token
-            </h2>
-          </div>
 
-          <div
-            className={textStyle.entertokenaddress}
-            style={{ padding: "20px" }}
-          >
-            <label style={{ margin: "5px" }}>Enter Token Address: </label>
-            <input
-              id="input-token-load"
-              type="text"
-              className={`${textStyle["eachinputofcreatelist"]} ${textStyle["tokeninput"]}`}
-              placeholder="Enter token Address"
-              value={customTokenAddress}
-              onChange={(e) => handleInputTokenAddressChange(e)}
-              style={{
-                borderRadius: "5px",
-                border: "1px solid #fff",
-                background:
-                  "linear-gradient(90deg, rgba(97, 38, 193, 0.58) 0.06%, rgba(63, 47, 110, 0.58) 98.57%)",
-                padding: "10px 20px",
-                margin: "0px 20px",
-                color: "white",
-              }}
-            />
-            {isTokenLoaded ? (
-              <button
-                id={textStyle.backgroundgreen}
-                className={textStyle.buttontaddformdataunload}
-                onClick={() => {
-                  unloadToken();
-                }}
-              >
-                Unload Token
-              </button>
-            ) : (
-              <button
-                id={textStyle.backgroundgreen}
-                className={textStyle.buttontoaddformdata}
-                onClick={() => {
-                  loadToken();
-                }}
-              >
-                Load Token
-              </button>
-            )}
-          </div>
-        </div>
-        {isTokenLoaded ? (
-          // <div
-          //   className={`${textStyle["accountsummarycreatetitle"]} ${
-          //     errorModalIsOpen ? `${homeStyle["blurbackground"]}` : ""
-          //   }`}
-          // >
-          <div>
-            <div className={textStyle.accountsummarycreatetitle}>
-              <h2
-                style={{
-                  padding: "10px",
-                  fontSize: "20px",
-                  margin: "0px",
-                  letterSpacing: "1px",
-                  fontWeight: "700",
-                }}
-              >
-                Token Details
-              </h2>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "10px",
-              }}
-            >
-              <table className={textStyle.tabletextlist}>
-                <thead className={textStyle.tableheadertextlist}>
-                  <tr className={textStyle.tableTr}>
-                    <th
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTh}
-                    >
-                      Name
-                    </th>
-                    <th
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTh}
-                    >
-                      Symbol
-                    </th>
-                    <th
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTh}
-                    >
-                      Balance
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className={textStyle.tableTr}>
-                    <td
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTd}
-                    >
-                      {tokenDetails.name}
-                    </td>
-                    <td
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTd}
-                    >
-                      {tokenDetails.symbol}
-                    </td>
-                    <td className={textStyle.tableTd}>
-                      {ethers.utils.formatUnits(
-                        tokenDetails.balance,
-                        tokenDetails.decimal
-                      )}{" "}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            {/* </div> */}
-          </div>
-        ) : null}
-        {isTokenLoaded ? renderComponent(activeTab) : null}
+        {destinationChainsOptions ? renderComponent(activeTab) : null}
 
-        {isTokenLoaded && listData.length > 0 ? (
+        {destinationChainsOptions  && listData.length > 0 ? (
           <div>
             <div className={textStyle.tablecontainer}>
               <div
@@ -496,6 +355,12 @@ function SendToken({ activeTab, listData, setListData }) {
                         style={{ letterSpacing: "1px", padding: "8px" }}
                       >
                         Amount({tokenDetails.symbol})
+                      </th>
+                      <th
+                        className={textStyle.fontsize12px}
+                        style={{ letterSpacing: "1px", padding: "8px" }}
+                      >
+                       Chainname
                       </th>
                       {/* <th
                       className={textStyle.fontsize12px}
@@ -613,6 +478,9 @@ function SendToken({ activeTab, listData, setListData }) {
                               ).toFixed(2)} $`}
                             </div>
                           </td> */}
+                          <td>
+                            {selectedDestinationChain}
+                          </td>
 
                             <td
                               style={{ letterSpacing: "1px", padding: "8px" }}
@@ -764,7 +632,7 @@ function SendToken({ activeTab, listData, setListData }) {
         ) : null}
         <div>
           {listData.length > 0 ? (
-            <ExecuteToken
+            <CrossChainTransfer
               listData={listData}
               setListData={setListData}
               ERC20Balance={ERC20Balance}
@@ -773,6 +641,8 @@ function SendToken({ activeTab, listData, setListData }) {
               setLoading={setLoading}
               tokenDetails={tokenDetails}
               customTokenAddress={customTokenAddress}
+              SelectedTokenUSDC={SelectedTokenUSDC}
+              Chainselector={Chainselector}
             />
           ) : null}
         </div>

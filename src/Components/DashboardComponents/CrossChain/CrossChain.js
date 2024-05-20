@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "driver.js/dist/driver.css";
 import textStyle from "./Type/textify.module.css";
-import SendEth from "./Send/SendEth";
+// import SendEth from "./Send/SendEth";
 import SendToken from "./Send/SendToken";
 import { getChain } from "@/Helpers/GetChain";
 import { useAccount } from "wagmi";
-import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
 
 function CrossChain({ activeTab }) {
-  const [isSendingEth, setIsSendingEth] = useState(true);
-  const [isSendingToken, setIsSendingToken] = useState(false);
+  // const [isSendingEth, setIsSendingEth] = useState(true);
+  // const [isSendingToken, setIsSendingToken] = useState(false);
   const [listData, setListData] = useState([]);
   const { address } = useAccount();
   const [connectedChain, setConnectedChain] = useState(null);
   const [destinationChainsOptions, setDestinationChainsOptions] = useState([]);
   const [selectedDestinationChain, setSelectedDestinationChain] = useState(null);
   const [tokenOptions, setTokenOptions] = useState([]);
+  const [SelectedTokenUSDC, setSelectedTokenUSDC] = useState('');
+  const [Chainselector, setChainSelector] = useState('')
 
   const allchains = [
     {
@@ -84,7 +85,8 @@ function CrossChain({ activeTab }) {
           (chain) => chain.chainName === connectedChain
         );
         console.log("Connected chain info:", connectedChainInfo);
-
+        console.log("chain Selector:",connectedChainInfo.chainSelector)
+        setChainSelector(connectedChainInfo.chainSelector);
         if (connectedChainInfo) {
           const options = connectedChainInfo.destinationChains.map((chain) => (
             <option key={chain} value={chain}>
@@ -123,7 +125,8 @@ function CrossChain({ activeTab }) {
   
     if (connectedChainInfo) {
       const tokens = connectedChainInfo.tokens;
-      console.log(tokens)
+      console.log(tokens.usdc)
+      setSelectedTokenUSDC(tokens.usdc)
       if (tokens) {
         const tokenOptions = Object.entries(tokens).map(([key, value]) => (
           <option key={value} value={value}>
@@ -188,23 +191,26 @@ function CrossChain({ activeTab }) {
             </div>
           </div>
 
-          {isSendingEth ? (
+          {/* {isSendingEth ? (
             <SendEth
               activeTab={activeTab}
               listData={listData}
               setListData={setListData}
               selectedDestinationChain={selectedDestinationChain}
             />
-          ) : null}
+          ) : null} */}
 
-          {isSendingToken ? (
+          {/* {isSendingToken ? ( */}
             <SendToken
               activeTab={activeTab}
               listData={listData}
               setListData={setListData}
-
+              destinationChainsOptions={destinationChainsOptions}
+              SelectedTokenUSDC={SelectedTokenUSDC}
+              selectedDestinationChain={selectedDestinationChain}
+              Chainselector={Chainselector}
             />
-          ) : null}
+          {/* ) : null} */}
         </div>
       </div>
     </>

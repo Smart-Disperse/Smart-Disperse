@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { smartDisperseInstance } from "@/Helpers/ContractInstance";
 import textStyle from "../Type/textify.module.css";
-import contracts from "@/Helpers/ContractAddresses.js";
 import { ethers } from "ethers";
 import Modal from "react-modal";
 import Image from "next/image";
@@ -18,6 +16,9 @@ import {
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { useChainId, useNetwork } from "wagmi";
+import { smartDisperseCrossChainInstance } from "@/Helpers/CrosschainHelpers/ContractInstance";
+import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
+import { approveToken } from "@/Helpers/CrosschainHelpers/CrossApproveToken";
 
 const ConfettiScript = () => (
   <Head>
@@ -25,7 +26,7 @@ const ConfettiScript = () => (
   </Head>
 );
 
-function ExecuteEth(props) {
+function CrossChainTransfer(props) {
   const [message, setMessage] = useState("");
   const [isModalIsOpen, setModalIsOpen] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -70,10 +71,20 @@ function ExecuteEth(props) {
       }
 
       try {
-        const con = await smartDisperseInstance(chainId);
-        const txsendPayment = await con.disperseEther(recipients, values, {
-          value: props.totalEth,
-        });
+        const contractInstance = await smartDisperseCrossChainInstance(chainId);
+        const txsendPayment = await contractInstance.getEstimatedFees(
+          5224473277236331295,
+          "0x74bEDd44a248ef781A57c6e8e962BbF70B331E8f",
+          [
+            "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
+            "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
+          ],
+          [1, 2],
+          "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+          3
+        );
+
+        // console.log("Contract Instance", contractInstance);
 
         const receipt = await txsendPayment.wait();
         props.setLoading(false);
@@ -143,12 +154,72 @@ function ExecuteEth(props) {
   }, [success]);
 
   const getExplorer = async () => {
-    return contracts[chainId]["block-explorer"];
+    return crossContracts[chainId]["block-explorer"];
   };
 
+  const getinstance = async () => {
+    console.log(props.Chainselector);
+    console.log(".......");
+    console.log(props.SelectedTokenUSDC);
+    console.log(props.totalERC20);
+    const con = await smartDisperseCrossChainInstance(chainId);
+    try {
+      console.log("checking token");
+      const isTokenApproved = await approveToken(
+        props.totalERC20,
+        props.SelectedTokenUSDC,
+        chainId
+      );
+      console.log(isTokenApproved);
+      console.log("Token Approved");
+    } catch (error) {
+      console.log("error:", error);
+    }
+    try {
+      console.log("calculating estimated fees");
+      const estimatedfees = await con.getEstimatedFees(
+        "5224473277236331295",
+        "0x74bEDd44a248ef781A57c6e8e962BbF70B331E8f",
+        [
+          "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
+          "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
+        ],
+        [1, 2],
+        "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+        3
+      );
+      console.log("estimated fees:", estimatedfees);
+      const valueBigNumber = ethers.BigNumber.from(estimatedfees);
+      const valueWeiString = ethers.utils.formatUnits(valueBigNumber, "wei");
+      try {
+        console.log("Transaction Started");
+        const txsendPayment = await con.sendMessagePayNative(
+          "5224473277236331295",
+          "0x74bEDd44a248ef781A57c6e8e962BbF70B331E8f",
+          [
+            "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
+            "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
+          ],
+          [1, 2],
+          "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+          3,
+          {
+            value: valueWeiString,
+          }
+        );
+        console.log("Transaction Successful");
+        console.log(txsendPayment);
+      } catch (error) {
+        console.log("error:", error);
+      }
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
   return (
     <div>
       {" "}
+      <button onClick={getinstance}>call contract</button>
       <button
         id={textStyle.greenbackground}
         className={textStyle.sendbutton}
@@ -250,4 +321,4 @@ function ExecuteEth(props) {
   );
 }
 
-export default ExecuteEth;
+export default CrossChainTransfer;
