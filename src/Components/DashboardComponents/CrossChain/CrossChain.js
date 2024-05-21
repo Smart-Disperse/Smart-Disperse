@@ -77,7 +77,7 @@ function CrossChain({ activeTab }) {
     }
       const networkObj = {
         "11155111": "sepolia",
-        "11155420": "opsepolia",
+        "11155420": "opSepolia",
         "84532": "baseSepolia",
         "421614": "arbitrumsepolia",
         "80002": "amoy",
