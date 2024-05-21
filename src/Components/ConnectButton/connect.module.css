@@ -1,51 +1,58 @@
-.disconnect {
-  display: flex;
-  padding: 10px 0px;
-  width: 200px;
-  flex-direction: column;
-  border-radius: 20px;
-  border: "none";
-  border-radius: 10px;
-
-  background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
-}
-.disconnectmain {
-  right: 45px;
-  position: absolute;
-
-  top: 60px;
-  padding: 30px 0px;
-  width: 200px;
-}
 .connectwallet {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  padding: 15px 30px;
-  border-radius: 20px;
-  border: 0.5px solid #5fffbc;
-  background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
+  padding: 12px 40px;
+  border-radius: 30px;
+  border: 0.5px solid #00ffff;
+  background: #2b285445;
   width: 100%;
-  font-weight: 700;
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-family: "Poppins";
+  cursor: pointer;
+  color: #00ffffb2;
+  box-shadow: 0px 4px 17.8px 0px #0000002e inset;
+  text-shadow: 5px 2px 20px #00ffffa8;
+}
+
+.connectwallet:hover {
+  background: white;
+  color: #9747ff;
+  text-shadow: none;
+  border: 0.5px solid #9747ff;
+}
+.connectaccount {
+  z-index: 1;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 0.5px solid #00ffff;
+  background: #2b285445;
+  width: 230px;
+  font-weight: 400;
   font-size: 15px;
   letter-spacing: 1px;
   cursor: pointer;
-  color: transparent;
+  display: flex;
+  color: #00ffffb2;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 17.8px 0px #0000002e inset;
+  text-shadow: 5px 2px 20px #00ffffa8;
 }
-.connectwallet::after {
-  content: "Connect Wallet";
-  position: absolute;
-  width: 200px;
-  top: 50%;
-  left: 50%;
-  font-size: 12px;
-  transform: translate(-50%, -50%);
-  color: white;
+
+.connectaccount:hover {
+  color: #9747ff;
+  border: 0.5px solid #9747ff;
+  background: white;
+  text-shadow: none;
 }
+
 .ChainDropdownMain {
   position: absolute;
-  top: 60px;
-  right: 15%;
+  top: 65px;
+  right: 200px;
   cursor: pointer;
   padding: 30px 0px;
   width: 200px;
@@ -54,57 +61,128 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
-  padding: 13px 20px;
-  border-radius: 15px;
-  border: 0.5px solid #5fffbc;
-  background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
-  /* width: 86px; */
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: 0.5px solid #00ffff;
+  background: #2b285445;
+
+  width: 80px;
   font-weight: 700;
   font-size: 17px;
   letter-spacing: 1px;
   cursor: pointer;
   color: transparent;
-}
-.connectchain span {
-  content: "";
-  /* position: absolute; */
-  top: 50%;
-  cursor: pointer;
-  left: 50%;
-  font-size: 15px;
-  transform: translate(-50%, -50%);
-  color: white;
+  line-height: none !important;
 }
 
-.connectaccount {
-  /* position: relative; */
-  /* overflow: hidden; */
-  z-index: 1;
-  padding: 7px 30px;
+.connectchain:hover {
+  color: #9747ff;
+  border: 0.5px solid #9747ff;
+  background: white;
+  text-shadow: none;
+  border: 0.5px solid #9747ff;
+}
+.logo {
+  background: white;
+  border-radius: 15px;
+  width: 22px;
+}
+
+.disconnect {
+  display: flex;
+  padding: 10px 0px;
+  padding-top: 20px;
+  width: 300px;
+  flex-direction: column;
+  color: white;
+  backdrop-filter: blur(10px);
   border-radius: 20px;
-  border: 0.5px solid #5fffbc;
-  background: linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%);
-  width: 210px;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: 0.5px solid #00ffff;
+  border-radius: 10px;
+  background: #1c1b1b85;
 }
-.connectaccount span {
+.disconnectmain {
+  position: absolute;
+  top: 65px;
+  padding: 30px 0px;
+  width: 350px;
+}
+.disconnectBtn {
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dropdown {
+  display: flex;
+  background: #1c1b1b85;
+  backdrop-filter: blur(20px);
+  width: 200px;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 0.5px solid #00ffff;
+}
+.EthBalance {
+  padding: 20px 0px;
+}
+.EthBalance button {
+  background: none;
+  border: none;
+  font-size: 25px;
   color: white;
 }
-.icon{
-  display: flex;
-  align-items: center;
+.networkoption {
+  border-bottom: 1px solid #00ffff;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: none;
 
+  font-size: 17px;
+  color: white;
+  cursor: pointer;
+  padding: 15px 20px;
+  width: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
-.icon2{
+.networkoption:hover {
+  background: white;
+  color: #9747ff;
+  border-bottom: 1px solid #9747ff;
+}
+.svg-icon path {
+  fill: white;
+  transition: fill 0.3s ease;
+}
+
+/* Change the fill color to red on hover */
+.svg-icon:hover path {
+  fill: red;
+}
+.icon2 {
   display: flex;
   align-items: center;
-
+  justify-content: flex-start;
+}
+.iconStyle {
+  width: 20px;
+  margin: 0px 10px;
+  cursor: pointer;
+  height: auto;
+  color: #00ffff;
+}
+.connectchain:hover .iconStyle {
+  color: #9747ff;
+}
+.iconCopy:hover {
+  color: #00ffff;
+}
+.iconCopy {
+  font-size: 16px;
+  margin: 0px 10px;
+  cursor: pointer;
 }
 @media only screen and (max-width: 768px) {
   .connectchain {

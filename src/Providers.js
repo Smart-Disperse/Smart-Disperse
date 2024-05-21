@@ -62,12 +62,12 @@ rpcUrls: {
 
 const baseSepolia = {
   id:84532,
-  name: "baseSepolia",
-  network: "baseSepolia",
+  name: "Base Sepolia",
+  network: "Base Sepolia",
   iconUrl:"https://gateway.lighthouse.storage/ipfs/QmXwYGzbYduEyX6uwaLRXxJ2YtBqLSzACubqMjqP1PAuSQ",
   nativeCurrency: {
     decimals: 18,
-    name: "Base Sepolia Testnet",
+    name: "Base Sepolia",
     symbol: "ETH",
   },
   rpcUrls: {
@@ -122,12 +122,12 @@ const baseSepolia = {
         };
         const scrollSepolia= {
           id:534351,
-          name: "scrollSepolia",
+          name: "Scroll Sepolia",
           network: "scrollSepolia",
           iconUrl:"https://gateway.lighthouse.storage/ipfs/Qmef99zfw3Wgz6E6c3hN1mypsorGDd4DdcJc6MsvWDdnAD",
           nativeCurrency: {
             decimals: 18,
-            name: "scrollSepolia",
+            name: "Scroll Sepolia",
             symbol: "ETH",
           },
           rpcUrls: {
@@ -137,12 +137,12 @@ const baseSepolia = {
           };
           const sepolia= {
             id:11155111 ,
-            name: "sepolia",
-            network: "sepolia",
+            name: "Sepolia",
+            network: "Sepolia",
             iconUrl:"https://gateway.lighthouse.storage/ipfs/QmXwYGzbYduEyX6uwaLRXxJ2YtBqLSzACubqMjqP1PAuSQ",
             nativeCurrency: {
               decimals: 18,
-              name: "sepolia",
+              name: "Sepolia",
               symbol: "ETH",
             },
             rpcUrls: {

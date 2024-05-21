@@ -3,27 +3,28 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useState, useRef, useEffect } from "react";
 import SwitchChain from "../ConnectButton/SwitchChain";
 import { useDisconnect } from "wagmi";
-import power from "../../Assets/power.png";
-import copy from "../../Assets/copy.png";
-import check from "../../Assets/check.png";
 import connectStyle from "../ConnectButton/connect.module.css";
 import Image from "next/image";
 import Cookies from "universal-cookie";
+import metamask from "../../Assets/metamask.svg";
+import {
+  faArrowRightFromBracket,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { toast } from "react-hot-toast";
 
 const ConnectButtonCustom = ({ isMainnet }) => {
   const [isAccountModalOpen, setAccountModalOpen] = useState(false); // Modal for account info
-  const [isCopied, setIsCopied] =
-    useState(
-      false
-    ); /*/* Indicates if the address has been copied to clipboard */
+  const [isCopied, setIsCopied] = useState( false); /*/* Indicates if the address has been copied to clipboard */
   const { disconnect } = useDisconnect(); // Disconnect button functionality
   const modalRef = useRef(); /*/ Reference to the HTML element of the modal */
   const cookie = new Cookies();
 
   const handleDisConnect = () => {
     // Function that handles the click on the disconnect button
+    toast.success("Disconneted!");
     disconnect();
-    // console.log("destroying jwt");
     cookie.set("jwt_token", null);
     setAccountModalOpen(false);
   };
@@ -32,7 +33,9 @@ const ConnectButtonCustom = ({ isMainnet }) => {
   const modelOpen = () => {
     setAccountModalOpen(!isAccountModalOpen);
   };
-
+  const handleHoverConnectChain = () => {
+    setAccountModalOpen(false);
+  };
   // Add an event listener to close the modal when clicking outside it
   const closeModalOnOutsideClick = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -50,6 +53,8 @@ const ConnectButtonCustom = ({ isMainnet }) => {
 
   /** Copy functionnality */
   const copyToClipboard = (text) => {
+    console.log("textt");
+    toast.success("Copying to clipboard!");
     navigator.clipboard.writeText(text).then(
       () => {
         setIsCopied(true);
@@ -102,7 +107,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                     className={connectStyle.connectwallet}
                     style={{}}
                   >
-                    <span>Connect Wallet</span>
+                    Connect Wallet
                   </button>
                 );
               }
@@ -113,7 +118,10 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                   className={connectStyle.CMain}
                 >
                   <div>
-                    <SwitchChain isMainnet={isMainnet} />
+                    <SwitchChain
+                      isMainnet={isMainnet}
+                      closeAccountModal={handleHoverConnectChain}
+                    />
                   </div>
 
                   <button
@@ -137,26 +145,18 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className={connectStyle.disconnect}>
-                        <button
-                          style={{
-                            borderRadius: "20px",
-                            border: " 0.5px solid #5fffbc",
-                            background:
-                              " linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%)",
-                            color: "white",
-                            padding: "12px",
-                            width: "90%",
-                            margin: "5px auto",
-                          }}
-                          onClick={() => copyToClipboard(account.address)}
-                        >
+                        <button className={connectStyle.disconnectBtn}>
+                          <Image
+                            src={metamask}
+                            style={{
+                              width: "20px",
+                              margin: "0px 10px",
+                              height: "auto",
+                            }}
+                          ></Image>
                           <span
                             style={{
-                              content: "",
-                              top: "-4px",
-                              left: " 0",
-                              fontSize: "15px",
-                              transform: "translate(-50%, -50%)",
+                              fontSize: "16px",
                               color: "white",
                               position: "relative",
                             }}
@@ -164,68 +164,26 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                             0,
                             7
                           )}...${account.address.slice(-4)}`}</span>
-
-                          {isCopied ? (
-                            <Image
-                              src={check}
-                              alt="Check Icon"
-                              style={{
-                                width: "20px",
-                                margin: "0px 10px",
-                                cursor: "pointer",
-                              }}
-                            />
-                          ) : (
-                            <Image
-                              src={copy}
-                              alt="Copy Icon"
-                              onClick={() => copyToClipboard(account.address)}
-                              style={{
-                                width: "20px",
-                                margin: "0px 10px",
-                                cursor: "pointer",
-                                height: "auto",
-                              }}
-                            />
-                          )}
+                          (
+                          <FontAwesomeIcon
+                            icon={faCopy}
+                            onClick={() => copyToClipboard(account.address)}
+                            className={connectStyle.iconCopy}
+                            color="white"
+                          />
+                          <FontAwesomeIcon
+                            icon={faArrowRightFromBracket}
+                            onClick={handleDisConnect}
+                            color="white"
+                            className={connectStyle.iconCopy}
+                          />
                         </button>
 
-                        <div>
-                          <button
-                            onClick={handleDisConnect}
-                            style={{
-                              borderRadius: "20px",
-                              border: " 0.5px solid #5fffbc",
-                              background:
-                                " linear-gradient(92deg, #1e1e1e 0.87%, #1c1b1b 98.92%)",
-                              color: "white",
-                              padding: "12px",
-                              width: "90%",
-                              margin: "5px auto",
-                            }}
-                          >
-                            <span
-                              style={{
-                                content: "",
-                                top: "-4px",
-                                left: " 0",
-                                fontSize: "15px",
-                                transform: "translate(-50%, -50%)",
-                                color: "white",
-
-                                position: "relative",
-                              }}
-                            >
-                              Disconnect
-                            </span>
-                            <Image
-                              src={power}
-                              style={{
-                                width: "20px",
-                                margin: "0px 10px",
-                                height: "auto",
-                              }}
-                            ></Image>
+                        <div className={connectStyle.EthBalance}>
+                          <button type="button">
+                            {account.displayBalance
+                              ? "(" + account.displayBalance + ")"
+                              : "Loading..."}
                           </button>
                         </div>
                       </div>
