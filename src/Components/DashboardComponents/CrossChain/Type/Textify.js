@@ -107,7 +107,7 @@ function Textify({
           let convertedValue = numericValue / ethToUsdExchangeRate;
           // Round the converted value to 18 decimal places
           convertedValue = parseFloat(convertedValue.toFixed(18));
-          console.log("Converted value:", convertedValue); // Log the converted value
+          console.log("Converted value:", convertedValue); 
           validValue = isValidValue(String(convertedValue)); // Convert to string
         } else if (tokenDecimal) {
           validValue = isValidTokenValue(value, tokenDecimal);

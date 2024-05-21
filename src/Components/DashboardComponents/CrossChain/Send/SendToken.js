@@ -25,7 +25,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 import CrossChainTransfer from "../Execute/CrossChainTransfer";
 
-function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,SelectedTokenUSDC,selectedDestinationChain,Chainselector,Contractaddress}) {
+function SendToken({
+  activeTab,
+  listData,
+  setListData,
+  destinationChainsOptions,
+  SelectedTokenUSDC,
+  selectedDestinationChain,
+  Chainselector,
+  Contractaddress,
+}) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const [errormsg, setErrormsg] = useState("");
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
@@ -259,7 +268,7 @@ function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,
           totalERC20 = totalERC20.add(data.value);
         });
       }
-      // console.log(totalERC20);
+      console.log(totalERC20);
 
       setTotalERC20(totalERC20);
     };
@@ -310,10 +319,9 @@ function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,
   return (
     <>
       <>
-
         {destinationChainsOptions ? renderComponent(activeTab) : null}
 
-        {destinationChainsOptions  && listData.length > 0 ? (
+        {destinationChainsOptions && listData.length > 0 ? (
           <div>
             <div className={textStyle.tablecontainer}>
               <div
@@ -360,7 +368,7 @@ function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,
                         className={textStyle.fontsize12px}
                         style={{ letterSpacing: "1px", padding: "8px" }}
                       >
-                       Chainname
+                        Chainname
                       </th>
                       {/* <th
                       className={textStyle.fontsize12px}
@@ -478,9 +486,7 @@ function SendToken({ activeTab, listData, setListData ,destinationChainsOptions,
                               ).toFixed(2)} $`}
                             </div>
                           </td> */}
-                          <td>
-                            {selectedDestinationChain}
-                          </td>
+                            <td>{selectedDestinationChain}</td>
 
                             <td
                               style={{ letterSpacing: "1px", padding: "8px" }}

@@ -30,7 +30,7 @@ function CrossChain({ activeTab }) {
       },
     },
     {
-      chainName: "opsepolia",
+      chainName: "opSepolia",
       chainSelector: "5224473277236331295",
       destinationChains: ["sepolia", "baseSepolia", "arbSepolia", "amoy"],
       tokens: {
@@ -46,7 +46,7 @@ function CrossChain({ activeTab }) {
       },
     },
     {
-      chainName: "arbitrumsepolia",
+      chainName: "arbSepolia",
       chainSelector: "3478487238524512106",
       destinationChains: ["sepolia", "opSepolia", "baseSepolia"],
       tokens: {
@@ -78,7 +78,7 @@ function CrossChain({ activeTab }) {
       const networkObj = {
         "11155111": "sepolia",
         "11155420": "opsepolia",
-        "84532": "basesepolia",
+        "84532": "baseSepolia",
         "421614": "arbitrumsepolia",
         "80002": "amoy",
       };
@@ -92,8 +92,10 @@ function CrossChain({ activeTab }) {
           (chain) => chain.chainName === connectedChain
         );
         console.log("Connected chain info:", connectedChainInfo);
+        console.log("Connected chain info:", connectedChainInfo.tokens.usdc);
+        setSelectedTokenUSDC(connectedChainInfo.tokens.usdc);
         console.log("chain Selector:",connectedChainInfo.chainSelector)
-        setChainSelector(connectedChainInfo.chainSelector);
+        // setChainSelector(connectedChainInfo.chainSelector);
         if (connectedChainInfo) {
           const options = connectedChainInfo.destinationChains.map((chain) => (
             <option key={chain} value={chain}>
@@ -123,35 +125,61 @@ function CrossChain({ activeTab }) {
   const handleDestinationChainChange = (e) => {
     const selectedChain = e.target.value;
     setSelectedDestinationChain(selectedChain);
-  console.log(selectedChain);
-  const connectedChainnfo = allchains.find(
-    (chain) => chain.chainName === selectedChain
-  );
-  console.log(connectedChainnfo);
-    // Find the selected destination chain and get its tokens
+    console.log(selectedChain);
     const connectedChainInfo = allchains.find(
-      (chain) => chain.chainName === connectedChain
+        (chain) => chain.chainName === selectedChain
     );
-    console.log(connectedChainInfo);
-  
+    console.log("Connected chain info:", connectedChainInfo);
+    console.log(connectedChainInfo.chainSelector); 
+    setChainSelector(connectedChainInfo.chainSelector)
+
     if (connectedChainInfo) {
-      const tokens = connectedChainInfo.tokens;
-      console.log(tokens.usdc)
-      setSelectedTokenUSDC(tokens.usdc)
-      if (tokens) {
-        const tokenOptions = Object.entries(tokens).map(([key, value]) => (
-          <option key={value} value={value}>
-            {key}
-          </option>
-        ));
-        console.log(tokenOptions)
-        setTokenOptions(tokenOptions);
+        const tokens = connectedChainInfo.tokens;
+        console.log(tokens)
+        console.log(tokens.usdc);
+        // setSelectedTokenUSDC(tokens.usdc);
+        const networkObj = {
+          "11155111": "sepolia",
+          "11155420": "opSepolia",
+          "84532": "baseSepolia",
+          "421614": "arbSepolia",
+          "80002": "amoy",
+        };
+        const selectedChainName = Object.entries(networkObj).find(([id, name]) => name === selectedChain);
+    
+        if (selectedChainName) {
+          console.log(`Selected chain: ${selectedChainName[1]}`);
+          console.log(`Chain ID: ${selectedChainName[0]}`);
+          // You can add more details if needed
+        
+        const chainId = selectedChainName[0];
+      if (chainId in crossContracts) {
+        const chainAddress = crossContracts[chainId].address;
+        console.log(`Address of ${selectedChain}:`, chainAddress);
+        setContractaddress(chainAddress)
       } else {
-        setTokenOptions([]);
+        console.log(`No contract address found for ${selectedChain}.`);
       }
+        }
+    else {
+      console.log(`Selected chain "${selectedChain}" not found in networkObj.`);
     }
-  };
-  
+
+        if (tokens) {
+            const tokenOptions = Object.entries(tokens).map(([key, value]) => (
+                <option key={value} value={value}>
+                    {key}
+                </option>
+            ));
+            console.log(tokenOptions);
+            setTokenOptions(tokenOptions);
+        } else {
+            setTokenOptions([]);
+        }
+
+    }
+};
+
 
   return (
     <>
