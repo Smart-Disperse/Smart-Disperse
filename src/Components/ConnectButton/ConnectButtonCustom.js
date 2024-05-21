@@ -174,7 +174,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                             0,
                             7
                           )}...${account.address.slice(-4)}`}</span>
-                          (
+                          
                             <Tooltip content="Copy" className={connectStyle.tooltip}>
                             <FontAwesomeIcon
                             icon={faCopy}

@@ -6,7 +6,7 @@ import {
   getDefaultWallets,
   getDefaultConfig,
 } from "@rainbow-me/rainbowkit";
-import { metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
+// import { metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import Navbar from "./Components/Navbar/Navbar";
@@ -48,7 +48,7 @@ const Base = {
 id:8453,
 name: "Base",
 network: "Base",
-iconUrl:"https://gateway.lighthouse.storage/ipfs/QmXwYGzbYduEyX6uwaLRXxJ2YtBqLSzACubqMjqP1PAuSQ",
+iconUrl:"https://gateway.lighthouse.storage/ipfs/Qmbkmfi3tUYA1a4cxmGQqhnLzim3RV9QqjpeN77eouLdyu",
 nativeCurrency: {
   decimals: 18,
   name: "Base Mainnet",
@@ -64,7 +64,7 @@ const baseSepolia = {
   id:84532,
   name: "Base Sepolia",
   network: "Base Sepolia",
-  iconUrl:"https://gateway.lighthouse.storage/ipfs/QmXwYGzbYduEyX6uwaLRXxJ2YtBqLSzACubqMjqP1PAuSQ",
+  iconUrl:"https://gateway.lighthouse.storage/ipfs/Qmbkmfi3tUYA1a4cxmGQqhnLzim3RV9QqjpeN77eouLdyu",
   nativeCurrency: {
     decimals: 18,
     name: "Base Sepolia",
@@ -167,12 +167,7 @@ export function Providers({ children }) {
   const config = getDefaultConfig({
     appName: "RainbowKit demo",
     projectId: "f8a6524307e28135845a9fe5811fcaa2",
-    wallets: [
-      {
-        groupName: "Other",
-        wallets: [metaMaskWallet],
-      },
-    ],
+   
     chains: chains,
     ssr: true,
   });
