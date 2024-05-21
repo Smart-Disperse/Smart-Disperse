@@ -152,14 +152,12 @@
   color: #9747ff;
   border-bottom: 1px solid #9747ff;
 }
-.svg-icon path {
-  fill: white;
-  transition: fill 0.3s ease;
-}
-
-/* Change the fill color to red on hover */
-.svg-icon:hover path {
-  fill: red;
+.tooltip{
+  color: #00ffff;
+  background: #1c1b1b85;
+  border-radius: 10px;
+padding: 5px 15px;
+backdrop-filter: blur(10px);
 }
 .icon2 {
   display: flex;

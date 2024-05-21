@@ -7,6 +7,7 @@ import connectStyle from "../ConnectButton/connect.module.css";
 import Image from "next/image";
 import Cookies from "universal-cookie";
 import metamask from "../../Assets/metamask.svg";
+import {Tooltip, Button} from "@nextui-org/react";
 import {
   faArrowRightFromBracket,
   faCopy,
@@ -15,6 +16,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-hot-toast";
 
 const ConnectButtonCustom = ({ isMainnet }) => {
+  const colors = [
+    "default",
+    "primary",
+    "secondary",
+    "success",
+    "warning",
+    "danger",
+    "foreground",
+  ];
   const [isAccountModalOpen, setAccountModalOpen] = useState(false); // Modal for account info
   const [isCopied, setIsCopied] = useState( false); /*/* Indicates if the address has been copied to clipboard */
   const { disconnect } = useDisconnect(); // Disconnect button functionality
@@ -165,18 +175,22 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                             7
                           )}...${account.address.slice(-4)}`}</span>
                           (
-                          <FontAwesomeIcon
+                            <Tooltip content="Copy" className={connectStyle.tooltip}>
+                            <FontAwesomeIcon
                             icon={faCopy}
                             onClick={() => copyToClipboard(account.address)}
                             className={connectStyle.iconCopy}
                             color="white"
                           />
+                            </Tooltip>
+                            <Tooltip content="LogOut" className={connectStyle.tooltip}>
                           <FontAwesomeIcon
                             icon={faArrowRightFromBracket}
                             onClick={handleDisConnect}
                             color="white"
                             className={connectStyle.iconCopy}
                           />
+                          </Tooltip>
                         </button>
 
                         <div className={connectStyle.EthBalance}>
