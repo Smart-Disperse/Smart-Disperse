@@ -3,28 +3,24 @@ import ERC20ABI from "@/artifacts/contracts/ERC20.sol/ERC20.json";
 import crossContracts from "./Contractaddresses";
 
 export const approveToken = async (amount, tokenContractAddress, chainId) => {
-  console.log("cross approve")
-  const { ethereum } = window; 
-  console.log("1")
-  if (ethereum) {
-    console.log("2")
-    try {
-    console.log("3")
+  const { ethereum } = window;
 
-        console.log(crossContracts[chainId]["address"]);
-        console.log("approving....")
+  if (ethereum) {
+    try {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
-      const address = await signer.getAddress()
-console.log(address);
+      const address = await signer.getAddress();
       const tokenContract = new ethers.Contract(
         tokenContractAddress,
         ERC20ABI.abi,
         signer
       );
-      const currentAllowance = await tokenContract.allowance(address , crossContracts[chainId]["address"]);
+      const currentAllowance = await tokenContract.allowance(
+        address,
+        crossContracts[chainId]["address"]
+      );
 
-      if(currentAllowance >= amount){
+      if (currentAllowance >= amount) {
         return true;
       }
       const tx = await tokenContract.approve(

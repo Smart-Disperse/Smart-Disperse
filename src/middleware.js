@@ -34,12 +34,10 @@ export async function middleware(request) {
     const message = decoded["payload"]["message"];
 
     const signerAddress = ethers.utils.verifyMessage(message, signature);
-    // Extract the 'address' parameter from the URL
-    // const address = "0xe57f4c84539a6414C4Cf48f135210e01c477EFE0";
+
     const { searchParams } = new URL(request.url);
     const address = searchParams.get("address");
 
-    console.log("address", address);
     // Compare the extracted signer's address with the address parameter
     if (signerAddress.toLowerCase() !== address.toLowerCase()) {
       // If addresses don't match, return unauthorized response or handle accordingly
