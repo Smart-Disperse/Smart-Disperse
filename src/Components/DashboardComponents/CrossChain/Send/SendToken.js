@@ -29,11 +29,9 @@ function SendToken({
   activeTab,
   listData,
   setListData,
-  destinationChainsOptions,
-  SelectedTokenUSDC,
-  selectedDestinationChain,
-  Chainselector,
-  Contractaddress,
+  tokenAddress,
+  chainSelector,
+  receivingChainAddress,
 }) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const [errormsg, setErrormsg] = useState("");
@@ -148,33 +146,41 @@ function SendToken({
   };
 
   // Function to load token details
-  const loadToken = async () => {
+  const loadTokenDetails = async (_tokenAddress) => {
+    setTokenLoaded(false);
     setRemaining(null);
     setTotalERC20(null);
     setListData([]);
-    if (customTokenAddress === "") {
-      setErrorMessage("Please add token address");
-      setErrorModalIsOpen(true);
-      return;
-    }
+    console.log(_tokenAddress);
 
     setTokenDetails(defaultTokenDetails);
-
-    try {
-      const tokenDetails = await LoadToken(customTokenAddress, address);
-      if (tokenDetails) {
-        setTokenDetails(tokenDetails);
-        setERC20Balance(tokenDetails.balance);
-        setTokenLoaded(true);
-      } else {
-        throw new Error("Token details not found"); // Throw error if token details are not found
-      }
-    } catch (error) {
-      console.log(error);
-      setErrorMessage("Invalid Token Address"); // Set error message
-      setErrorModalIsOpen(true); // Open modal
+    console.log(address);
+    const tokenDetails = await LoadToken(_tokenAddress, address);
+    console.log(tokenDetails);
+    if (tokenDetails) {
+      setTokenDetails(tokenDetails);
+      setERC20Balance(tokenDetails.balance);
+      setTokenLoaded(true);
+    } else {
+      throw new Error("Token details not found"); // Throw error if token details are not found
     }
   };
+
+  useEffect(() => {
+    const loadSelectedToken = async () => {
+      if (tokenAddress) {
+        if (tokenAddress === "") {
+          setTokenLoaded(false);
+        } else {
+          await loadTokenDetails(tokenAddress);
+        }
+      } else {
+        setTokenLoaded(false);
+      }
+    };
+    loadSelectedToken();
+  }, [tokenAddress]);
+
   // Function to close the error modal
   const closeErrorModal = () => {
     // console.log("clicked");
@@ -190,16 +196,6 @@ function SendToken({
     setTotalERC20(null);
     setTokenLoaded(false);
     setListData([]);
-  };
-
-  // Handle input change for token address
-  const handleInputTokenAddressChange = (e) => {
-    const inputValue = e.target.value;
-    const isValidInput = /^[a-zA-Z0-9]+$/.test(inputValue);
-
-    if (isValidInput || inputValue === "") {
-      setCustomTokenAddress(inputValue);
-    }
   };
 
   const onAddLabel = async (index, recipientAddress) => {
@@ -319,9 +315,83 @@ function SendToken({
   return (
     <>
       <>
-        {destinationChainsOptions ? renderComponent(activeTab) : null}
+        {isTokenLoaded ? (
+          <div>
+            <div className={textStyle.accountsummarycreatetitle}>
+              <h2
+                style={{
+                  padding: "10px",
+                  fontSize: "20px",
+                  margin: "0px",
+                  letterSpacing: "1px",
+                  fontWeight: "100",
+                }}
+              >
+                Token Details
+              </h2>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "10px",
+                border: "1px solid #ddd",
+              }}
+            >
+              <table className={textStyle.tabletextlist}>
+                <thead className={textStyle.tableheadertextlist}>
+                  <tr className={textStyle.tableTr}>
+                    <th
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTh}
+                    >
+                      Name
+                    </th>
+                    <th
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTh}
+                    >
+                      Symbol
+                    </th>
+                    <th
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTh}
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className={textStyle.tableTr}>
+                    <td
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTd}
+                    >
+                      {tokenDetails.name}
+                    </td>
+                    <td
+                      style={{ letterSpacing: "1px" }}
+                      className={textStyle.tableTd}
+                    >
+                      {tokenDetails.symbol}
+                    </td>
+                    <td className={textStyle.tableTd}>
+                      {ethers.utils.formatUnits(
+                        tokenDetails.balance,
+                        tokenDetails.decimal
+                      )}{" "}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {/* </div> */}
+          </div>
+        ) : null}
+        {isTokenLoaded ? renderComponent(activeTab) : null}
 
-        {destinationChainsOptions && listData.length > 0 ? (
+        {listData.length > 0 ? (
           <div>
             <div className={textStyle.tablecontainer}>
               <div
@@ -486,7 +556,7 @@ function SendToken({
                               ).toFixed(2)} $`}
                             </div>
                           </td> */}
-                            <td>{selectedDestinationChain}</td>
+                            {/* <td>{selectedDestinationChain}</td> */}
 
                             <td
                               style={{ letterSpacing: "1px", padding: "8px" }}
@@ -646,10 +716,9 @@ function SendToken({
               loading={loading}
               setLoading={setLoading}
               tokenDetails={tokenDetails}
-              customTokenAddress={customTokenAddress}
-              SelectedTokenUSDC={SelectedTokenUSDC}
-              Chainselector={Chainselector}
-              Contractaddress={Contractaddress}
+              tokenAddress={tokenAddress}
+              chainSelector={chainSelector}
+              receivingChainAddress={receivingChainAddress}
             />
           ) : null}
         </div>

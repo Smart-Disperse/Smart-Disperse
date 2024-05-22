@@ -48,17 +48,18 @@ function CrossChainTransfer(props) {
     setPaymentmodal(true);
     props.setLoading(true);
 
-    if (!props.ethBalance.gt(props.totalEth)) {
+    if (!props.ERC20Balance.gt(props.totalERC20)) {
       props.setLoading(false);
-      setLimitexceed("Insufficient ETH balance");
       setMessage(
-        `Current ETH Balance is ${(+ethers.utils.formatEther(
-          props.ethBalance
-        )).toFixed(
-          9
-        )}ETH & your Total Sending ETH Amount is ${(+ethers.utils.formatEther(
-          props.totalEth
-        )).toFixed(9)} ETH `
+        `Insufficient Token balance. Your Token Balance is ${(+ethers.utils.formatUnits(
+          props.ERC20Balance,
+          props.tokenDetails.decimal
+        )).toFixed(4)} ${
+          props.tokenDetails.symbol
+        }   and you total sending Token amount is ${(+ethers.utils.formatUnits(
+          props.totalERC20,
+          props.tokenDetails.decimal
+        )).toFixed(4)} ${props.tokenDetails.symbol} `
       );
       setModalIsOpen(true);
       return;
@@ -70,41 +71,55 @@ function CrossChainTransfer(props) {
         values.push(props.listData[i]["value"]);
       }
 
+      console.log(recipients);
+      console.log(values);
+      console.log(props.tokenAddress);
+      console.log(props.chainSelector);
+      console.log(props.receivingChainAddress);
+      console.log(props.totalERC20);
+
+      const con = await smartDisperseCrossChainInstance(chainId);
+      console.log(chainId);
       try {
-        const contractInstance = await smartDisperseCrossChainInstance(chainId);
-        const txsendPayment = await contractInstance.getEstimatedFees(
-          5224473277236331295,
-          "0x74bEDd44a248ef781A57c6e8e962BbF70B331E8f",
-          [
-            "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
-            "0x2131A6c0b66bE63E38558dC5fbe4C0ab65b9906e",
-          ],
-          [1, 2],
-          "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-          3
+        console.log("checking token");
+        const isTokenApproved = await approveToken(
+          props.totalERC20,
+          props.tokenAddress,
+          chainId
         );
-
-        // console.log("Contract Instance", contractInstance);
-
-        const receipt = await txsendPayment.wait();
-        props.setLoading(false);
-
-        let blockExplorerURL = await getExplorer();
-        setMessage(
-          <div
-            className={textStyle.Link}
-            dangerouslySetInnerHTML={{
-              __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank "   style={{ color: "white", textDecoration: "none" }}>here</a> for details.`,
-            }}
-          />
-        );
-        setModalIsOpen(true);
-        setSuccess(true);
+        console.log(isTokenApproved);
+        console.log("Token Approved");
       } catch (error) {
-        props.setLoading(false);
-        setMessage(`Transaction cancelled.`);
-        setModalIsOpen(true);
-        setSuccess(false);
+        console.log("error:", error);
+      }
+      try {
+        const estimatedfees = await con.getEstimatedFees(
+          props.chainSelector,
+          props.receivingChainAddress,
+          recipients,
+          values,
+          props.tokenAddress,
+          props.totalERC20
+        );
+        console.log("estimated fees:", estimatedfees);
+        console.log(values);
+        console.log(props.totalERC20);
+        console.log("Transaction Started");
+        const txsendPayment = await con.sendMessagePayNative(
+          props.chainSelector,
+          props.receivingChainAddress,
+          recipients,
+          values,
+          props.tokenAddress,
+          props.totalERC20,
+          {
+            value: estimatedfees,
+          }
+        );
+        console.log("Transaction Successful");
+        console.log(txsendPayment);
+      } catch (error) {
+        console.log("error:", error);
       }
     }
   };
@@ -157,67 +172,9 @@ function CrossChainTransfer(props) {
     return crossContracts[chainId]["block-explorer"];
   };
 
-  const getinstance = async () => {
-    console.log(props.listData);
-    const addresses = props.listData.map((item) => item.address);
-    console.log(addresses);
-    const values = props.listData.map((item) => item.value);
-    console.log(values);
-    console.log(props.Contractaddress);
-    console.log(props.Chainselector);
-    console.log(props.SelectedTokenUSDC);
-    console.log(props.totalERC20);
-    const con = await smartDisperseCrossChainInstance(chainId);
-    console.log(chainId);
-    try {
-      console.log("checking token");
-      const isTokenApproved = await approveToken(
-        props.totalERC20,
-        props.SelectedTokenUSDC,
-        chainId
-      );
-      console.log(isTokenApproved);
-      console.log("Token Approved");
-    } catch (error) {
-      console.log("error:", error);
-    }
-    try {
-      console.log("calculating estimated fees");
-      const estimatedfees = await con.getEstimatedFees(
-        props.Chainselector,
-        props.Contractaddress,
-        addresses,
-        values,
-        props.SelectedTokenUSDC,
-        props.totalERC20
-      );
-      console.log("estimated fees:", estimatedfees);
-      const valueBigNumber = ethers.BigNumber.from(estimatedfees);
-    const valueWeiString = ethers.utils.formatUnits(valueBigNumber, "wei");
-    console.log(values);
-    console.log(props.totalERC20)
-      console.log("Transaction Started");
-      const txsendPayment = await con.sendMessagePayNative(
-        props.Chainselector,
-        props.Contractaddress,
-       addresses,
-        values,
-        props.SelectedTokenUSDC,
-        props.totalERC20,
-        {
-          value: valueWeiString,
-        }
-      );
-      console.log("Transaction Successful");
-      console.log(txsendPayment);
-    } catch (error) {
-      console.log("error:", error);
-    }
-  };
   return (
     <div>
       {" "}
-      <button onClick={getinstance}>call contract</button>
       <button
         id={textStyle.greenbackground}
         className={textStyle.sendbutton}
