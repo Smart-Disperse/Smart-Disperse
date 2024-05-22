@@ -28,7 +28,7 @@ import {
   getEthTransactions,
   getERC20Tokens,
 } from "@/Helpers/GetSentTransactions";
-import { useAccount, useChainId, useNetwork } from "wagmi";
+import { useAccount, useChainId, useNetwork, useSwitchChain } from "wagmi";
 import { fetchUserDetails, fetchUserLabels } from "@/Helpers/FetchUserLabels";
 
 function Samechaindashboard() {
@@ -76,6 +76,8 @@ function Samechaindashboard() {
   const chainId = useChainId();
   const [transactions, setTransactions] = useState(filteredTransactions);
   const [render, setRender] = useState(1);
+
+
 
   // /............sorting label function ............./
   const sortLabels = () => {

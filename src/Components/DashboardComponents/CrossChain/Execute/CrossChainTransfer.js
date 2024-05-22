@@ -118,6 +118,7 @@ function CrossChainTransfer(props) {
         );
         console.log("Transaction Successful");
         console.log(txsendPayment);
+        props.setLoading(false)
       } catch (error) {
         console.log("error:", error);
       }
