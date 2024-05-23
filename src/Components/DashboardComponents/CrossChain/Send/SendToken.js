@@ -14,6 +14,8 @@ import {
   faTrashAlt,
   faExclamationTriangle,
   faTriangleExclamation,
+  faCopy,
+  faGasPump,
 } from "@fortawesome/free-solid-svg-icons";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import Modal from "react-modal";
@@ -24,6 +26,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 import CrossChainTransfer from "../Execute/CrossChainTransfer";
+import loaderimg from "@/Assets/loader.gif";
+import loadjson from "@/Assets/tokenload.json";
 
 function SendToken({
   activeTab,
@@ -31,6 +35,7 @@ function SendToken({
   setListData,
   tokenAddress,
   chainSelector,
+  destinationchainName,
   receivingChainAddress,
 }) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
@@ -53,6 +58,9 @@ function SendToken({
     useState(
       false
     ); /* Flag to check if the user has loaded their ERC20 Tokens */
+  const [Istokenloading, setIstokenloading] = useState(false);
+  const { tkloadimg } = loadjson;
+  const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
 
   const defaultTokenDetails = {
     name: null,
@@ -60,9 +68,9 @@ function SendToken({
     balance: null,
     decimal: null,
   };
-
   const [labels, setLabels] = useState([]);
   const [allNames, setAllNames] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
   const [allAddresses, setAllAddresses] = useState([]);
   const [tokenDetails, setTokenDetails] =
     useState(defaultTokenDetails); /*Details of the selected token to be sent*/
@@ -116,6 +124,8 @@ function SendToken({
   For fetching the Exchnage rate of ETH to USD to display value in USD
   */
   useEffect(() => {
+    console.log("................................................................")
+    console.log(destinationchainName)
     const fetchExchangeRate = async () => {
       try {
         const response = await fetch(
@@ -147,6 +157,7 @@ function SendToken({
 
   // Function to load token details
   const loadTokenDetails = async (_tokenAddress) => {
+    setIstokenloading(true);
     setTokenLoaded(false);
     setRemaining(null);
     setTotalERC20(null);
@@ -157,11 +168,13 @@ function SendToken({
     console.log(address);
     const tokenDetails = await LoadToken(_tokenAddress, address);
     console.log(tokenDetails);
+    setIstokenloading(false);
     if (tokenDetails) {
       setTokenDetails(tokenDetails);
       setERC20Balance(tokenDetails.balance);
       setTokenLoaded(true);
     } else {
+      toast.error("Token details not found")
       throw new Error("Token details not found"); // Throw error if token details are not found
     }
   };
@@ -274,6 +287,7 @@ function SendToken({
 
   useEffect(() => {
     calculateRemaining();
+
   }, [totalERC20]);
 
   const calculateRemaining = () => {
@@ -312,83 +326,130 @@ function SendToken({
     calculateRemaining();
   }, []); // Execute once on component mount
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(
+
+      () => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 2000); // Reset the copy status after 2 seconds
+        toast.success("Token Address Copied Successfully!")
+      },
+      (err) => {
+        console.error("Unable to copy to clipboard:", err);
+      }
+    );
+  };
+
   return (
     <>
       <>
-        {isTokenLoaded ? (
+        {Istokenloading ? (
           <div>
-            <div className={textStyle.accountsummarycreatetitle}>
-              <h2
-                style={{
-                  padding: "10px",
-                  fontSize: "20px",
-                  margin: "0px",
-                  letterSpacing: "1px",
-                  fontWeight: "100",
-                }}
-              >
-                Token Details
-              </h2>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "10px",
-                border: "1px solid #ddd",
-              }}
-            >
-              <table className={textStyle.tabletextlist}>
-                <thead className={textStyle.tableheadertextlist}>
-                  <tr className={textStyle.tableTr}>
-                    <th
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTh}
-                    >
-                      Name
-                    </th>
-                    <th
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTh}
-                    >
-                      Symbol
-                    </th>
-                    <th
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTh}
-                    >
-                      Balance
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className={textStyle.tableTr}>
-                    <td
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTd}
-                    >
-                      {tokenDetails.name}
-                    </td>
-                    <td
-                      style={{ letterSpacing: "1px" }}
-                      className={textStyle.tableTd}
-                    >
-                      {tokenDetails.symbol}
-                    </td>
-                    <td className={textStyle.tableTd}>
-                      {ethers.utils.formatUnits(
-                        tokenDetails.balance,
-                        tokenDetails.decimal
-                      )}{" "}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            {/* </div> */}
+            <Image src={loaderimg} alt="none" width={150} height={100} />
           </div>
-        ) : null}
+        ) : (
+          <div>
+            {isTokenLoaded ? (
+              <div>
+                <div className={textStyle.accountsummarycreatetitle}>
+                  <h2
+                    style={{
+                      padding: "10px",
+                      fontSize: "20px",
+                      margin: "0px",
+                      letterSpacing: "1px",
+                      fontWeight: "100",
+                    }}
+                  >
+                    Token Details
+                  </h2>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    margin: "10px",
+                    border: "1px solid #8D37FB",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <table className={textStyle.tabletextlist}>
+                    <thead className={textStyle.tableheadertextlist}>
+                      <tr className={textStyle.tableTr}>
+                        <th
+                          style={{ letterSpacing: "1px" }}
+                          className={textStyle.tableTh}
+                        >
+                          Name
+                        </th>
+                        <th
+                          style={{ letterSpacing: "1px" }}
+                          className={textStyle.tableTh}
+                        >
+                          Symbol
+                        </th>
+                        <th
+                          style={{ letterSpacing: "1px" }}
+                          className={textStyle.tableTh}
+                        >
+                          Address
+                        </th>
+                        <th
+                          style={{ letterSpacing: "1px" }}
+                          className={textStyle.tableTh}
+                        >
+                          Balance
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className={textStyle.tableTr}>
+                        <td
+                          style={{ letterSpacing: "1px" }}
+                          className={textStyle.tableTd}
+                        >
+                          {tokenDetails.name}
+                        </td>
+                        <td
+                          style={{ letterSpacing: "1px" }}
+                          className={textStyle.tableTd}
+                        >
+                          {tokenDetails.symbol}
+                        </td>
+                        <td
+                          style={{ letterSpacing: "1px" }}
+                          className={textStyle.tableTd}
+                        >
+                          {`${tokenAddress.slice(0, 7)}...${tokenAddress.slice(
+                            -4
+                          )}`}{" "}
+                          
+                          <FontAwesomeIcon
+                          className={textStyle.copyicon}
+                            onClick={() => copyToClipboard(tokenAddress)}
+                            icon={faCopy}
+                          />
+                        </td>
+                        <td className={textStyle.tableTd}>
+                          {ethers.utils.formatUnits(
+                            tokenDetails.balance,
+                            tokenDetails.decimal
+                          )}{" "}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* </div> */}
+              </div>
+            ) : null}
+          </div>
+        )}
+
         {isTokenLoaded ? renderComponent(activeTab) : null}
 
         {listData.length > 0 ? (
@@ -438,7 +499,7 @@ function SendToken({
                         className={textStyle.fontsize12px}
                         style={{ letterSpacing: "1px", padding: "8px" }}
                       >
-                        Chainname
+                        Destination Chain
                       </th>
                       {/* <th
                       className={textStyle.fontsize12px}
@@ -462,7 +523,9 @@ function SendToken({
                               id={textStyle.fontsize10px}
                               style={{ letterSpacing: "1px", padding: "8px" }}
                             >
-                              {data.address}
+                             {`${data.address.slice(0, 7)}...${data.address.slice(
+                            -4
+                          )}`}
                             </td>
                             <td
                               id={textStyle.fontsize10px}
@@ -479,15 +542,22 @@ function SendToken({
                                       borderRadius: "8px",
                                       padding: "10px",
                                       color: "white",
-                                      border: "none",
-                                      background:
-                                        "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)",
+                                      border: "1px solid #8D37FB",
+                                      background: "transparent",
                                     }}
                                     onChange={(e) => {
                                       const inputValue = e.target.value;
-                                      // Regular expression to allow only alphanumeric characters without spaces
-                                      const regex = /^[a-zA-Z0-9]*$/;
-
+                                      if (
+                                        inputValue === "" &&
+                                        e.key !== "Enter"
+                                      ) {
+                                        setErrorMessage("Enter Label");
+                                      } else {
+                                        setErrorMessage("Press Enter to submit label");
+                                      }
+  
+                                      const regex = /^[a-zA-Z]*$/;
+  
                                       if (
                                         regex.test(inputValue) &&
                                         inputValue.length <= 10
@@ -501,12 +571,7 @@ function SendToken({
                                       }
                                     }}
                                   />
-                                  {/* <input
-                                    type="button"
-                                    onClick={(e) => {
-                                      onAddLabel(index, data.address);
-                                    }}
-                                  /> */}
+                                {errorMessage && <p style={{ color: 'red', margin: "0px", fontSize:"13px"}}>{errorMessage}</p>}
                                 </>
                               )}
                             </td>
@@ -520,13 +585,15 @@ function SendToken({
                                   width: "fit-content",
                                   margin: "0 auto",
                                   background:
-                                    "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                  color: "black",
+                                    "transparent",
+                                  color: "#00FBFB",
                                   borderRadius: "10px",
                                   padding: "10px 10px",
+                                  border:"1px solid #00FBFB",
                                   fontSize: "12px",
                                   letterSpacing: "1px",
                                 }}
+
                               >
                                 {(+ethers.utils.formatUnits(
                                   data.value,
@@ -535,29 +602,10 @@ function SendToken({
                                 {tokenDetails.symbol}
                               </div>
                             </td>
-                            {/* <td id="font-size-10px" style={{ padding: "8px" }}>
-                            <div
-                              id="font-size-10px"
-                              style={{
-                                width: "fit-content",
-                                margin: "0 auto",
-                                background:
-                                  "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
-                                color: "white",
-                                borderRadius: "10px",
-                                padding: "10px 10px",
-                                fontSize: "12px",
-                                letterSpacing: "1px",
-                              }}
-                            >
-                              {`${(
-                                ethers.utils.formatUnits(data.value, 18) *
-                                ethToUsdExchangeRate
-                              ).toFixed(2)} $`}
-                            </div>
-                          </td> */}
-                            {/* <td>{selectedDestinationChain}</td> */}
-
+                            <td
+                              id={textStyle.fontsize10px}
+                              style={{ padding: "8px" }}
+                            >{destinationchainName}</td>
                             <td
                               style={{ letterSpacing: "1px", padding: "8px" }}
                             >
@@ -600,9 +648,9 @@ function SendToken({
                     <th className={textStyle.accountsummaryth}>
                       Total Amount({tokenDetails.symbol})
                     </th>
-                    {/* <th className={textStyle.accountsummaryth}>
-                    Total Amount(USD)
-                  </th> */}
+                    <th className={textStyle.accountsummaryth}>
+                    Estimated Gas Price <FontAwesomeIcon icon={faGasPump} />
+                  </th>
                     <th className={textStyle.accountsummaryth}>Your Balance</th>
                     <th className={textStyle.accountsummaryth}>
                       Remaining Balance
@@ -621,16 +669,13 @@ function SendToken({
                           : null}{" "}
                       </div>
                     </td>
-                    {/* <td id={textStyle.fontsize10px}>
+                    <td id={textStyle.fontsize10px}>
                     {" "}
                     <div
                       id={textStyle.fontsize10px}
                       style={{
                         width: "fit-content",
                         margin: "0 auto",
-
-                        background:
-                          "linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%)",
                         color: "white",
                         borderRadius: "10px",
                         padding: "10px 10px",
@@ -638,14 +683,12 @@ function SendToken({
                         letterSpacing: "1px",
                       }}
                     >
-                      {totalERC20
-                        ? `${(
-                            ethers.utils.formatUnits(totalERC20, 18) *
-                            ethToUsdExchangeRate
-                          ).toFixed(2)} $`
-                        : null}
+                      {showestimatedgasprice ? 
+                    (+ethers.utils.formatEther((showestimatedgasprice))).toFixed(6)
+                    :null
+                      }
                     </div>
-                  </td> */}
+                  </td>
                     <td id={textStyle.fontsize10px}>
                       <div
                         id="font-size-10px"
@@ -680,11 +723,11 @@ function SendToken({
                         style={{
                           width: "fit-content",
                           margin: "0 auto",
-                          background:
+                          border:
                             remaining < 0
-                              ? "red"
-                              : "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                          color: remaining < 0 ? "white" : "black",
+                              ? "1px solid red"
+                              : "1px solid  #00FBFB",
+                          color: remaining < 0 ? "red" : "#00FBFB" ,
                           borderRadius: "10px",
                           padding: "10px 10px",
                           fontSize: "12px",
@@ -716,6 +759,7 @@ function SendToken({
               loading={loading}
               setLoading={setLoading}
               tokenDetails={tokenDetails}
+              setshowestimatedgasprice={setshowestimatedgasprice}
               tokenAddress={tokenAddress}
               chainSelector={chainSelector}
               receivingChainAddress={receivingChainAddress}

@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import Modal from "react-modal";
 import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
-import bggif from "@/Assets/bp.gif";
+import bggif from "@/Assets/tnxloader.gif";
 import completegif from "@/Assets/complete.gif";
 import confetti from "canvas-confetti";
 import Head from "next/head";
@@ -34,7 +34,7 @@ function CrossChainTransfer(props) {
   const [limitexceed, setLimitexceed] = useState(null);
   const [tweetModalIsOpen, setTweetModalIsOpen] = useState(false); // New state for tweet modal
   const chainId = useChainId();
-
+const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
   const sendTweet = () => {
     console.log("tweeting");
     const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz?utm_source=twitter_tweet&utm_medium=social&utm_campaign=smart_disperse&utm_id=002 and simplify your crypto transfers today!`;
@@ -43,6 +43,37 @@ function CrossChainTransfer(props) {
     )}`;
     window.open(twitterUrl, "_blank");
   };
+
+  useEffect(() => {
+    const calculateGasFees = async () => {
+      console.log("calculating gas fees");
+      var recipients = [];
+      var values = [];
+      for (let i = 0; i < props.listData.length; i++) {
+        recipients.push(props.listData[i]["address"]);
+        values.push(props.listData[i]["value"]);
+      }
+      const con = await smartDisperseCrossChainInstance(chainId);
+      try {
+        const estimatedfees = await con.getEstimatedFees(
+          props.chainSelector,
+          props.receivingChainAddress,
+          recipients,
+          values,
+          props.tokenAddress,
+          props.totalERC20
+        );
+        console.log("estimated fees:", estimatedfees);
+        props.setshowestimatedgasprice(estimatedfees)
+      } catch (error) {
+        console.log("error:", error);
+      }
+    };
+  
+    calculateGasFees();
+  
+  }, [props.totalERC20]);
+  
 
   const execute = async () => {
     setPaymentmodal(true);
@@ -77,7 +108,7 @@ function CrossChainTransfer(props) {
       console.log(props.chainSelector);
       console.log(props.receivingChainAddress);
       console.log(props.totalERC20);
-
+      
       const con = await smartDisperseCrossChainInstance(chainId);
       console.log(chainId);
       try {
@@ -101,7 +132,7 @@ function CrossChainTransfer(props) {
           props.tokenAddress,
           props.totalERC20
         );
-        console.log("estimated fees:", estimatedfees);
+        console.log("estimated fees:",estimatedfees);
         console.log(values);
         console.log(props.totalERC20);
         console.log("Transaction Started");
@@ -117,10 +148,17 @@ function CrossChainTransfer(props) {
           }
         );
         console.log("Transaction Successful");
+        setMessage("yayyy")
+        setModalIsOpen(true);
+        setSuccess(true);
         console.log(txsendPayment);
         props.setLoading(false)
       } catch (error) {
-        console.log("error:", error);
+        props.setLoading(false);
+        console.log("error",error)
+        setMessage(`Transaction cancelled.`);
+        setModalIsOpen(true);
+        setSuccess(false);
       }
     }
   };
@@ -210,8 +248,8 @@ function CrossChainTransfer(props) {
         {message ? (
           <>
             <h2>
-              {success
-                ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
+              {success ?
+               "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
                 : "Something went Wrong..."}
             </h2>
             <div>

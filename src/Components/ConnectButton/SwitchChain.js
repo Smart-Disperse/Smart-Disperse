@@ -9,10 +9,13 @@ import textStyle from "@/Components/DashboardComponents/SameChain/Type/textify.m
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { faL } from "@fortawesome/free-solid-svg-icons";
+import { usePathname } from "next/navigation";
 
 function SwitchChain({ isMainnet }) {
   // useChainChangeReload(); // Call this hook on every render to ensure the page reloads when chain changes
   const { chain } = useAccount();
+  const path = usePathname();
+
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
 
   const { chains, error, isLoading, pendingChainId, switchChain } =
@@ -20,9 +23,19 @@ function SwitchChain({ isMainnet }) {
 
   const mainnetChains = [34443, 534352, 8453, 10];
 
-  const displayChains = isMainnet
+  const isCrosschainPage = path === "/cross-chain";
+
+  const availableChains = [11155111, 11155420, 84532, 421614, 80002];
+
+  let displayChains = isMainnet
     ? chains.filter((chain) => mainnetChains.includes(chain.id))
     : chains.filter((chain) => !mainnetChains.includes(chain.id));
+
+  if (isCrosschainPage) {
+    displayChains = displayChains.filter((chain) =>
+      availableChains.includes(chain.id)
+    );
+  }
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
 

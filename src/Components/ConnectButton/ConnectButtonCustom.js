@@ -55,7 +55,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);
-        }, 2000); // Reset the copy status after 2 seconds
+        }, 2000); 
       },
       (err) => {
         console.error("Unable to copy to clipboard:", err);
