@@ -1,14 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { smartDisperseInstance } from "@/Helpers/ContractInstance";
 import textStyle from "../Type/textify.module.css";
-import contracts from "@/Helpers/ContractAddresses.js";
 import { ethers } from "ethers";
 import Modal from "react-modal";
 import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
-import bggif from "@/Assets/bp.gif";
+import bggif from "@/Assets/tnxloader.gif";
 import completegif from "@/Assets/complete.gif";
+// import completegif from "@/Assets/congoimg.gif";
 import confetti from "canvas-confetti";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +17,9 @@ import {
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { useChainId, useNetwork } from "wagmi";
+import { smartDisperseCrossChainInstance } from "@/Helpers/CrosschainHelpers/ContractInstance";
+import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
+import { approveToken } from "@/Helpers/CrosschainHelpers/CrossApproveToken";
 
 const ConfettiScript = () => (
   <Head>
@@ -25,7 +27,7 @@ const ConfettiScript = () => (
   </Head>
 );
 
-function ExecuteEth(props) {
+function CrossChainTransfer(props) {
   const [message, setMessage] = useState("");
   const [isModalIsOpen, setModalIsOpen] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -33,7 +35,7 @@ function ExecuteEth(props) {
   const [limitexceed, setLimitexceed] = useState(null);
   const [tweetModalIsOpen, setTweetModalIsOpen] = useState(false); // New state for tweet modal
   const chainId = useChainId();
-
+const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
   const sendTweet = () => {
     console.log("tweeting");
     const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz?utm_source=twitter_tweet&utm_medium=social&utm_campaign=smart_disperse&utm_id=002 and simplify your crypto transfers today!`;
@@ -43,21 +45,53 @@ function ExecuteEth(props) {
     window.open(twitterUrl, "_blank");
   };
 
+  useEffect(() => {
+    const calculateGasFees = async () => {
+      console.log("calculating gas fees");
+      var recipients = [];
+      var values = [];
+      for (let i = 0; i < props.listData.length; i++) {
+        recipients.push(props.listData[i]["address"]);
+        values.push(props.listData[i]["value"]);
+      }
+      const con = await smartDisperseCrossChainInstance(chainId);
+      try {
+        const estimatedfees = await con.getEstimatedFees(
+          props.chainSelector,
+          props.receivingChainAddress,
+          recipients,
+          values,
+          props.tokenAddress,
+          props.totalERC20
+        );
+        console.log("estimated fees:", estimatedfees);
+        props.setshowestimatedgasprice(estimatedfees)
+      } catch (error) {
+        console.log("error:", error);
+      }
+    };
+  
+    calculateGasFees();
+  
+  }, [props.totalERC20]);
+  
+
   const execute = async () => {
     setPaymentmodal(true);
     props.setLoading(true);
 
-    if (!props.ethBalance.gt(props.totalEth)) {
+    if (!props.ERC20Balance.gt(props.totalERC20)) {
       props.setLoading(false);
-      setLimitexceed("Insufficient ETH balance");
       setMessage(
-        `Current ETH Balance is ${(+ethers.utils.formatEther(
-          props.ethBalance
-        )).toFixed(
-          9
-        )}ETH & your Total Sending ETH Amount is ${(+ethers.utils.formatEther(
-          props.totalEth
-        )).toFixed(9)} ETH `
+        `Insufficient Token balance. Your Token Balance is ${(+ethers.utils.formatUnits(
+          props.ERC20Balance,
+          props.tokenDetails.decimal
+        )).toFixed(4)} ${
+          props.tokenDetails.symbol
+        }   and you total sending Token amount is ${(+ethers.utils.formatUnits(
+          props.totalERC20,
+          props.tokenDetails.decimal
+        )).toFixed(4)} ${props.tokenDetails.symbol} `
       );
       setModalIsOpen(true);
       return;
@@ -69,12 +103,52 @@ function ExecuteEth(props) {
         values.push(props.listData[i]["value"]);
       }
 
+      console.log(recipients);
+      console.log(values);
+      console.log(props.tokenAddress);
+      console.log(props.chainSelector);
+      console.log(props.receivingChainAddress);
+      console.log(props.totalERC20);
+      
+      const con = await smartDisperseCrossChainInstance(chainId);
+      console.log(chainId);
       try {
-        const con = await smartDisperseInstance(chainId);
-        const txsendPayment = await con.disperseEther(recipients, values, {
-          value: props.totalEth,
-        });
-
+        console.log("checking token");
+        const isTokenApproved = await approveToken(
+          props.totalERC20,
+          props.tokenAddress,
+          chainId
+        );
+        console.log(isTokenApproved);
+        console.log("Token Approved");
+      } catch (error) {
+        console.log("error:", error);
+      }
+      try {
+        const estimatedfees = await con.getEstimatedFees(
+          props.chainSelector,
+          props.receivingChainAddress,
+          recipients,
+          values,
+          props.tokenAddress,
+          props.totalERC20
+        );
+        console.log("estimated fees:",estimatedfees);
+        console.log(values);
+        console.log(props.totalERC20);
+        console.log("Transaction Started");
+        const txsendPayment = await con.sendMessagePayNative(
+          props.chainSelector,
+          props.receivingChainAddress,
+          recipients,
+          values,
+          props.tokenAddress,
+          props.totalERC20,
+          {
+            value: estimatedfees,
+          }
+        );
+        console.log("Transaction Successful");
         const receipt = await txsendPayment.wait();
         props.setLoading(false);
 
@@ -89,8 +163,11 @@ function ExecuteEth(props) {
         );
         setModalIsOpen(true);
         setSuccess(true);
+        console.log(txsendPayment);
+        props.setLoading(false)
       } catch (error) {
         props.setLoading(false);
+        console.log("error",error)
         setMessage(`Transaction cancelled.`);
         setModalIsOpen(true);
         setSuccess(false);
@@ -102,7 +179,7 @@ function ExecuteEth(props) {
     if (success) {
       const count = 500,
         defaults = {
-          origin: { y: 0.7 },
+          origin: { y: 0.7 }
         };
 
       function fire(particleRatio, opts) {
@@ -143,7 +220,7 @@ function ExecuteEth(props) {
   }, [success]);
 
   const getExplorer = async () => {
-    return contracts[chainId]["block-explorer"];
+    return crossContracts[chainId]["block-explorer"];
   };
 
   return (
@@ -183,8 +260,8 @@ function ExecuteEth(props) {
         {message ? (
           <>
             <h2>
-              {success
-                ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
+              {success ?
+               "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
                 : "Something went Wrong..."}
             </h2>
             <div>
@@ -250,4 +327,4 @@ function ExecuteEth(props) {
   );
 }
 
-export default ExecuteEth;
+export default CrossChainTransfer;

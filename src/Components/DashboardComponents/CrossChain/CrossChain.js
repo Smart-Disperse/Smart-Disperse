@@ -1,36 +1,85 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import "driver.js/dist/driver.css";
 import textStyle from "./Type/textify.module.css";
-import SendEth from "./Send/SendEth";
+// import SendEth from "./Send/SendEth";
 import SendToken from "./Send/SendToken";
+import { getChain } from "@/Helpers/GetChain";
+import { useAccount } from "wagmi";
+import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
+import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
+import { useChainId } from "wagmi";
 
-/*
-Main Component : the prop is use to get which of the three from textify, listify or uplaodify should ne loaded
-It will be handled further by sendEth or sendToken component
-*/
 function CrossChain({ activeTab }) {
-  const [isSendingEth, setIsSendingEth] = useState(true);
-  const [isSendingToken, setIsSendingToken] = useState(false);
+  // const [isSendingEth, setIsSendingEth] = useState(true);
+  // const [isSendingToken, setIsSendingToken] = useState(false);
   const [listData, setListData] = useState([]);
+  const { address } = useAccount();
+  const [connectedChain, setConnectedChain] = useState(null);
+  const [destinationChainsOptions, setDestinationChainsOptions] = useState([]);
+  const [selectedDestinationChain, setSelectedDestinationChain] =
+    useState(null);
+  const [tokenOptions, setTokenOptions] = useState([]);
+  const [SelectedToken, setSelectedToken] = useState(null);
+  const [chainSelector, setChainSelector] = useState("");
+  const [receivingChainAddress, setReceivingChainAddress] = useState("");
+  const [tokenAddress, setTokenAddress] = useState("");
+const [destinationchainName, setdestinationchainName] = useState("");
+  const chainId = useChainId();
 
-  /*
-  Funtion : To load SendEth component
-  */
-  const handleSendEthbuttonClick = () => {
-    setIsSendingEth(true);
-    setIsSendingToken(false);
+  const getChainsForDropDown = () => {
+    const chainDetails = allchains[chainId];
+    console.log(chainDetails);
+    const options = Object.entries(chainDetails.destinationChains).map(
+      ([name]) => (
+        <option key={name} value={name}>
+          {name}
+        </option>
+      )
+    );
+    setDestinationChainsOptions(options);
   };
 
-  /*
-  Funtion : To load SendToken component
-  */
+  useEffect(() => {
+    getChainsForDropDown();
+  }, [address]);
 
-  const handleImporttokenbuttonClick = () => {
-    // console.log("import token");
-    setIsSendingToken(true);
-    setListData([]);
-    setIsSendingEth(false);
+  const handleDestinationChainChange = (e) => {
+    setTokenAddress("");
+    setSelectedToken("");
+    const selectedChainName = e.target.value;
+    console.log(selectedChainName);
+setdestinationchainName(selectedChainName);
+console.log(destinationchainName);
+    const chainDetails = allchains[chainId];
+    const selectedChain = chainDetails.destinationChains[selectedChainName];
+    console.log(selectedChain);
+
+    setSelectedDestinationChain(selectedChainName);
+
+    if (selectedChain) {
+      const tokenOptions = Object.entries(selectedChain.tokens).map(
+        ([key, value]) => (
+          <option key={value} value={value}>
+            {key}
+          </option>
+        )
+      );
+      console.log(tokenOptions);
+      setChainSelector(selectedChain.chainSelector);
+      setReceivingChainAddress(selectedChain.receiverAddress);
+      setTokenOptions(tokenOptions);
+    } else {
+      setTokenOptions([]);
+    }
+  };
+
+  const handleDestinationTokenChnage = (e) => {
+    const selectedToken = e.target.value;
+    console.log(selectedToken);
+    console.log(typeof selectedToken);
+    const selectedKey = e.target.selectedOptions[0].getAttribute("data-key");
+    setSelectedToken(selectedKey);
+    setTokenAddress(selectedToken);
   };
 
   return (
@@ -61,55 +110,40 @@ function CrossChain({ activeTab }) {
             className={textStyle.sametextmain}
           >
             <div id="send-eth" className={textStyle.sendethdiv}>
-              <select id={textStyle.blockchainChains}>
-                <option value="bitcoin">Select Token</option>
-                <option value="bitcoin">Bitcoin</option>
-                <option value="ethereum">Ethereum</option>
-                <option value="binance-smart-chain">Binance Smart Chain</option>
-                <option value="solana">Solana</option>
-                <option value="cardano">Cardano</option>
-                <option value="ripple">Ripple</option>
-                <option value="polkadot">Polkadot</option>
-                <option value="tezos">Tezos</option>
-                <option value="tron">Tron</option>
-                <option value="eos">EOS</option>
+              {/* Dropdown of chains */}
+              <select
+                id={textStyle.blockchainChains}
+                onChange={handleDestinationChainChange}
+                value={selectedDestinationChain}
+              >
+                <option value="">Select destination chain</option>
+                {destinationChainsOptions}
               </select>
             </div>
 
             <div className={textStyle.importtokendiv}>
               <div style={{ margin: "10px 10px" }}>⇨</div>
-
-              <select id={textStyle.blockchainChains}>
-                <option value="bitcoin">Select Chain</option>
-                <option value="bitcoin">Bitcoin</option>
-                <option value="ethereum">Ethereum</option>
-                <option value="binance-smart-chain">Binance Smart Chain</option>
-                <option value="solana">Solana</option>
-                <option value="cardano">Cardano</option>
-                <option value="ripple">Ripple</option>
-                <option value="polkadot">Polkadot</option>
-                <option value="tezos">Tezos</option>
-                <option value="tron">Tron</option>
-                <option value="eos">EOS</option>
+              {/* Dropdown of tokens */}
+              <select
+                id={textStyle.blockchainChains}
+                onChange={handleDestinationTokenChnage}
+                value={SelectedToken}
+              >
+                <option value="">Select token</option>
+                {tokenOptions}
               </select>
             </div>
           </div>
 
-          {isSendingEth ? (
-            <SendEth
-              activeTab={activeTab}
-              listData={listData}
-              setListData={setListData}
-            />
-          ) : null}
-
-          {isSendingToken ? (
-            <SendToken
-              activeTab={activeTab}
-              listData={listData}
-              setListData={setListData}
-            />
-          ) : null}
+          <SendToken
+            activeTab={activeTab}
+            listData={listData}
+            setListData={setListData}
+            tokenAddress={tokenAddress}
+            destinationchainName={destinationchainName}
+            chainSelector={chainSelector}
+            receivingChainAddress={receivingChainAddress}
+          />
         </div>
       </div>
     </>

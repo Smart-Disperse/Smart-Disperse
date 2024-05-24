@@ -73,6 +73,7 @@ function ExecuteToken(props) {
         recipients.push(props.listData[i]["address"]);
         values.push(props.listData[i]["value"]);
       }
+      console.log(values);
       // Check if token is approved
 
       const isTokenApproved = await approveToken(
@@ -94,7 +95,6 @@ function ExecuteToken(props) {
           const receipt = await txsendPayment.wait();
           let blockExplorerURL = await getExplorer();
           props.setLoading(false);
-
           setMessage(
             <div
               className={textStyle.Link}

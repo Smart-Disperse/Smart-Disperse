@@ -51,7 +51,7 @@ function ExecuteEth(props) {
     if (!props.ethBalance.gt(props.totalEth)) {
       props.setLoading(false);
       setLimitexceed("Insufficient ETH balance");
-      setshowmsg(true)
+      setshowmsg(true);
       setMessage(
         `Current ETH Balance is ${(+ethers.utils.formatEther(
           props.ethBalance
@@ -157,7 +157,7 @@ function ExecuteEth(props) {
         onClick={() => {
           execute();
         }}
-        disabled={ showmsg}
+        disabled={showmsg}
       >
         {props.loading ? (
           <div>
@@ -173,13 +173,7 @@ function ExecuteEth(props) {
             </Modal>
           </div>
         ) : (
-          <>
-          {showmsg ? (
-            "Begin payment"
-          ) : (
-            "Insufficient ETH balance"
-          )}
-        </>
+          <>{showmsg ? "Begin payment" : "Insufficient ETH balance"}</>
         )}
       </button>
       <Modal
@@ -188,7 +182,7 @@ function ExecuteEth(props) {
         onRequestClose={() => setModalIsOpen(false)}
         contentLabel="Error Modal"
       >
-        {message ? (
+        {true ? (
           <>
             <h2>
               {success

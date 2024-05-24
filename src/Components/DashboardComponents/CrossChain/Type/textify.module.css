@@ -4,7 +4,6 @@
   font-size: 12px;
   margin: 0 auto;
   background: transparent;
-  color: black;
 
   padding: 10px 10px;
   transform: translate(-50%, -50%);
@@ -117,7 +116,11 @@
   color: aliceblue !important;
   background-color: transparent !important;
   border: "none";
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 .textlistdiv textarea::placeholder {
   color: rgba(255, 255, 255, 0.45);
@@ -138,9 +141,13 @@
 }
 .sendbutton:hover {
   border: none;
+  background: transparent !important;
+  cursor: pointer;
+  box-shadow: rgb(255 255 255 / 72%) 1px 1px 18px 0px inset;
+}
+.copyicon:hover {
+  cursor: pointer;
   color: #643bdc;
-  background: #fff !important;
-  box-shadow: 0px 0px 14px 0px #fff;
 }
 .buttontoaddformdataunload:hover {
   box-shadow: rgba(238, 242, 243, 0.553) 0px 5px 15px;
@@ -153,7 +160,7 @@
 }
 
 .tableheadertextlist {
-  background-color:#8D37FB;
+  background-color: #8d37fb;
 }
 .tableheadertextlist .tableTr {
   font-size: 15px;
@@ -182,7 +189,7 @@
 
 .showtokentablesametext {
   overflow: hidden;
-    border-radius: inherit;
+  border-radius: inherit;
   width: 100%;
   border-collapse: collapse;
 }
@@ -223,17 +230,26 @@
     rgba(255, 255, 255, 0.03) 98.15%
   ); */
   backdrop-filter: blur(30.5px);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   margin: 50px 0px;
 }
 
 .titleforlinupsametext h2 {
-  background: rgb(24,26,83);
-  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
-  color: #CA86FF;
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
+  color: #ca86ff;
   font-weight: 200;
   letter-spacing: 1.04px;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   font-size: 15px;
   margin: 0px;
 }
@@ -246,8 +262,12 @@
 
 .titleloadtokensametext {
   border-radius: 47px 47px 0px 0px;
-  background: rgb(24,26,83);
-  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
   padding: 5px 0px;
   font-size: 12px;
 }
@@ -273,8 +293,12 @@
   letter-spacing: 1px;
 }
 .titlesametexttextarea {
-  background: rgb(24,26,83);
-background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
   font-size: 12px;
 }
 .tokeninput::placeholder {
@@ -293,13 +317,22 @@ background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%)
   margin-top: 80px;
 }
 .titleforaccountsummarytextsame {
-  background: rgb(24,26,83);
-background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
-box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   font-size: 12px;
 }
 .titleforaccountsummarytextsame h2 {
   color: #8f00ff;
+
   font-weight: 700;
   letter-spacing: 1.04px;
   margin: 0px;
@@ -347,25 +380,33 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
   margin: 25px;
   max-height: 280px;
   border-radius: 20px;
-  border: 1px solid #8D37FB;
-    overflow: auto;
-
+  border: 1px solid #8d37fb;
+  overflow: auto;
 }
 #tableresponsive {
   margin: 25px;
-  border: 1px solid #8D37FB;
+  border: 1px solid #8d37fb;
   border-radius: 20px;
 }
 .accountsummarycreatetitle,
 .selectloadtoke-title,
 .viewaddressdivtitle {
-  background-color: #fff;
-  color: #8f00ff;
+  /* background-color: #fff; */
+  /* color: #8f00ff; */
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
   font-size: 12px;
   padding: 5px 0;
 }
 .popupforpayment {
-  background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
+  background: linear-gradient(
+    94.24deg,
+    rgb(117 81 230 / 70%) 2.41%,
+    rgb(50 0 113 / 85%) 98.65%
+  );
   border-radius: 30px;
   box-shadow: 0 0 10px #0000001a;
   color: #fff;
@@ -387,12 +428,7 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
 }
 .popupforpayment button {
   background: rgb(0, 255, 239);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 255, 239, 1) 35%,
-    rgba(9, 255, 0, 1) 100%
-  );
-  border: 1px solid #1bff76;
+  border:none;
   border-radius: 5px;
   color: black;
   cursor: pointer;
@@ -414,18 +450,20 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
   width: 200px; /* Adjust width as needed */
   padding: 8px;
   font-size: 16px;
-  color: white;
+  color: #00FBFB;
   border: none;
-  border-radius: 5px;
-  background:linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%)
+  border-radius: 15px;
+  background: #8D37FB;
+ 
 }
 
 /* Style for select options */
 #blockchainChains option {
   font-size: 16px;
   /* background:linear-gradient(90deg, rgba(68, 9, 205, 0.432) 0%, rgba(140, 62, 250, 0.417) 100%); */
-  background-color: #007bff;
-color: black;
+  border: 1px solid #19F26F;
+  background-color: #0f042c;
+  color: white;
 }
 
 /* Style for when the select input is focused */
@@ -435,7 +473,7 @@ color: black;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Example shadow, adjust as needed */
 }
 #blockchainChains option:hover {
-  background-color: #3e0d92; /* Adjust the color as needed */
+  background-color: #0f042c; /* Adjust the color as needed */
   color: white;
 }
 @media only screen and (max-width: 768px) {
@@ -648,8 +686,12 @@ color: black;
     overflow: auto;
   }
   .sendbutton {
-    background: #0000;
-    border: 1px solid #fff;
+    background: linear-gradient(
+      90deg,
+      rgba(39, 37, 62, 0.73) 0%,
+      rgba(50, 37, 67, 0.73) 100%
+    );
+    border: none;
     border-radius: 40px;
     color: #fff;
     font-size: 12px;
@@ -662,7 +704,11 @@ color: black;
     text-align: center;
   }
   .popupforpayment {
-    background: linear-gradient(103deg, #6126c1 5.04%, #384cff 97.86%);
+    background: linear-gradient(
+      94.24deg,
+      rgb(117 81 230 / 70%) 2.41%,
+      rgb(50 0 113 / 85%) 98.65%
+    );
     border-radius: 30px;
     box-shadow: 0 0 10px #0000001a;
     color: #fff;
