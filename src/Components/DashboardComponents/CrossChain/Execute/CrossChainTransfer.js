@@ -7,6 +7,7 @@ import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
 import bggif from "@/Assets/tnxloader.gif";
 import completegif from "@/Assets/complete.gif";
+// import completegif from "@/Assets/congoimg.gif";
 import confetti from "canvas-confetti";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -148,7 +149,18 @@ const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
           }
         );
         console.log("Transaction Successful");
-        setMessage("yayyy")
+        const receipt = await txsendPayment.wait();
+        props.setLoading(false);
+
+        let blockExplorerURL = await getExplorer();
+        setMessage(
+          <div
+            className={textStyle.Link}
+            dangerouslySetInnerHTML={{
+              __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank "   style={{ color: "white", textDecoration: "none" }}>here</a> for details.`,
+            }}
+          />
+        );
         setModalIsOpen(true);
         setSuccess(true);
         console.log(txsendPayment);
@@ -167,7 +179,7 @@ const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
     if (success) {
       const count = 500,
         defaults = {
-          origin: { y: 0.7 },
+          origin: { y: 0.7 }
         };
 
       function fire(particleRatio, opts) {
