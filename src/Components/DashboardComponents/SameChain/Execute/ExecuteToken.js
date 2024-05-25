@@ -27,10 +27,9 @@ const ConfettiScript = () => (
 
 function ExecuteToken(props) {
   const [message, setMessage] = useState(""); //manage message to display in popup
-  const [isModalIsOpen, setModalIsOpen] = useState(false); //Control modal visibility state
+  const [executionStatusmodal, setExecutionStatusmodal] = useState(false); //Control modal visibility state
   const [success, setSuccess] = useState(false); //If transaction was successful or not
-  const [paymentmodal, setPaymentmodal] = useState(false);
-  const [limitexceed, setLimitexceed] = useState(null);
+  const [loaderModal, setLoadermodal] = useState(false);
   const chainId = useChainId();
 
   const sendTweet = () => {
@@ -43,84 +42,65 @@ function ExecuteToken(props) {
   };
   // Function to execute token transfer
   const execute = async () => {
-    setPaymentmodal(true);
-    // console.log(props.listData);
-    props.setLoading(true);
-    // console.log(props.ERC20Balance);
-    // console.log(props.totalERC20);
+    setLoadermodal(true);
 
-    // Check if ERC20 balance is sufficient for transaction
-    if (!props.ERC20Balance.gt(props.totalERC20)) {
-      props.setLoading(false);
-      setMessage(
-        `Insufficient Token balance. Your Token Balance is ${(+ethers.utils.formatUnits(
-          props.ERC20Balance,
-          props.tokenDetails.decimal
-        )).toFixed(4)} ${
-          props.tokenDetails.symbol
-        }   and you total sending Token amount is ${(+ethers.utils.formatUnits(
-          props.totalERC20,
-          props.tokenDetails.decimal
-        )).toFixed(4)} ${props.tokenDetails.symbol} `
-      );
-      setModalIsOpen(true);
-      return;
-    } else {
-      // Prepare recipients and values arrays
-      var recipients = [];
-      var values = [];
-      for (let i = 0; i < props.listData.length; i++) {
-        recipients.push(props.listData[i]["address"]);
-        values.push(props.listData[i]["value"]);
-      }
-      console.log(values);
-      // Check if token is approved
+    var recipients = [];
+    var values = [];
+    for (let i = 0; i < props.listData.length; i++) {
+      recipients.push(props.listData[i]["address"]);
+      values.push(props.listData[i]["value"]);
+    }
+    console.log(values);
 
-      const isTokenApproved = await approveToken(
-        props.totalERC20,
-        props.customTokenAddress,
-        chainId
-      );
+    const isTokenApproved = await approveToken(
+      props.totalERC20,
+      props.customTokenAddress,
+      chainId
+    );
 
-      if (isTokenApproved) {
-        try {
-          const con = await smartDisperseInstance(chainId);
-          // Execute token transfer
-          const txsendPayment = await con.disperseToken(
-            props.customTokenAddress,
-            recipients,
-            values
-          );
+    if (isTokenApproved) {
+      try {
+        const con = await smartDisperseInstance(chainId);
 
-          const receipt = await txsendPayment.wait();
-          let blockExplorerURL = await getExplorer();
-          props.setLoading(false);
-          setMessage(
-            <div
-              className={textStyle.Link}
-              dangerouslySetInnerHTML={{
-                __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank">here</a> for details.`,
-              }}
-            />
-          );
-          // console.log("modal opening");
-          setModalIsOpen(true);
-          setSuccess(true);
-          // console.log("success is true");
-          // props.setListData([]);
-        } catch (e) {
-          props.setLoading(false);
-          console.log("error", e);
-          setMessage("Transaction Rejected");
-          setModalIsOpen(true);
-          return;
+        const txsendPayment = await con.disperseToken(
+          props.customTokenAddress,
+          recipients,
+          values
+        );
+
+        const receipt = await txsendPayment.wait();
+        let blockExplorerURL = await getExplorer();
+
+        setMessage(
+          <div
+            className={textStyle.Link}
+            dangerouslySetInnerHTML={{
+              __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank">here</a> for details.`,
+            }}
+          />
+        );
+        // console.log("modal opening");
+        setExecutionStatusmodal(true);
+        setSuccess(true);
+        // console.log("success is true");
+        // props.setListData([]);
+      } catch (e) {
+        if (e.code === 4001) {
+          // User denied transaction signature
+          console.log("User denied transaction signature.");
+        } else {
+          // Other errors
+          console.log("An error occurred: " + err.message);
         }
-      } else {
-        props.setLoading(false);
-        setMessage("Approval Rejected");
-        setModalIsOpen(true);
+        console.log("error", e);
+        setMessage("Transaction Rejected");
+        setExecutionStatusmodal(true);
         return;
       }
+    } else {
+      setMessage("Approval Rejected");
+      setExecutionStatusmodal(true);
+      return;
     }
   };
 
@@ -177,97 +157,90 @@ function ExecuteToken(props) {
       {" "}
       <button
         id={textStyle.greenbackground}
-        className={textStyle.sendbutton}
+        className={`${textStyle.sendbutton} `}
         onClick={() => {
           execute();
         }}
-        disabled={props.loading}
+        disabled={!props.suffecientBalance}
       >
-        {props.loading ? (
-          <div>
-            <Modal
-              className={textStyle.popupforpayment}
-              isOpen={paymentmodal}
-              onRequestClose={() => setPaymentmodal(false)}
-              contentLabel="Error Modal"
-            >
-              <h2>Please wait...</h2>
-              <Image src={bggif.src} alt="not found" width={150} height={150} />
-              <p>We are securely processing your payment.</p>
-            </Modal>
-          </div>
-        ) : (
-          "Begin Payment"
-        )}
+        <>
+          {props.suffecientBalance ? "Begin payment" : "Insufficient balance"}
+        </>
       </button>
-      {/* Modal for displaying transaction status */}
+      <div>
+        <Modal
+          className={textStyle.popupforpayment}
+          isOpen={loaderModal}
+          onRequestClose={() => setLoadermodal(false)}
+          contentLabel="Error Modal"
+        >
+          <h2>Please wait...</h2>
+          <Image src={bggif.src} alt="not found" width={150} height={150} />
+          <p>We are securely processing your payment.</p>
+        </Modal>
+      </div>
       <Modal
         className={textStyle.popupforpayment}
-        isOpen={isModalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        isOpen={executionStatusmodal}
+        onRequestClose={() => setExecutionStatusmodal(false)}
         contentLabel="Error Modal"
       >
-        {message ? (
-          <>
-            <h2>
-              {success
-                ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
-                : "Something went Wrong..."}
-            </h2>
-            <div>
-              {success ? (
+        <>
+          <h2>
+            {success
+              ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
+              : "Something went Wrong..."}
+          </h2>
+          <div>
+            {success ? (
+              <div>
+                <Image
+                  src={completegif}
+                  alt="not found"
+                  width={150}
+                  height={150}
+                />
+                <p>{message}</p>
+
                 <div>
-                  <Image
-                    src={completegif}
-                    alt="not found"
-                    width={150}
-                    height={150}
-                  />
-                  <p>{message}</p>
-                  <div>
-                    Why not extend the excitement? Invite your friends and
-                    followers on Twitter to join in the joy. Broadcast your
-                    seamless experience to the world. Click the tweet button
-                    below and spread the cheer instantly! 🌐✨
-                  </div>
+                  Why not extend the excitement? Invite your friends and
+                  followers on Twitter to join in the joy. Broadcast your
+                  seamless experience to the world. Click the tweet button below
+                  and spread the cheer instantly! 🌐✨
                 </div>
-              ) : (
-                <div>
-                  <Image
-                    src={oopsimage}
-                    alt="not found"
-                    width={150}
-                    height={150}
-                  />
-                </div>
-              )}
-            </div>
-            <p>{success ? "" : "Please Try again"}</p>
-            <p className={textStyle.errormessagep}>{limitexceed}</p>
-            <div className={textStyle.divtocenter}>
+              </div>
+            ) : (
+              <div>
+                <Image
+                  src={oopsimage}
+                  alt="not found"
+                  width={150}
+                  height={150}
+                />
+              </div>
+            )}
+          </div>
+          <p>{success ? "" : "Please Try again"}</p>
+
+          <div className={textStyle.divtocenter}>
+            {success ? (
               <button style={{ margin: "0px 5px" }} onClick={sendTweet}>
                 Tweet Now &nbsp; <FontAwesomeIcon icon={faPaperPlane} />
               </button>
-              <button
-                style={{ margin: "0px 5px" }}
-                onClick={() => {
-                  setModalIsOpen(false);
-                  props.setListData([]);
-                }}
-              >
-                Close &nbsp; <FontAwesomeIcon icon={faX} />
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <h2>Notice</h2>
-            {/* <p>{alertMessage}</p> */}
-            <div className={textStyle.divtocenter}>
-              <button onClick={() => setModalIsOpen(false)}>Close</button>
-            </div>
-          </>
-        )}
+            ) : (
+              ""
+            )}
+            <button
+              style={{ margin: "0px 5px" }}
+              onClick={() => {
+                setExecutionStatusmodal(false);
+                props.setListData([]);
+              }}
+            >
+              Close &nbsp; <FontAwesomeIcon icon={faX} />
+            </button>
+          </div>
+        </>
       </Modal>
     </div>
   );

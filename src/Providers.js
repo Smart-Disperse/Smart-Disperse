@@ -10,6 +10,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import Navbar from "./Components/Navbar/Navbar";
+// import { scrollSepolia } from "wagmi/chains";
 const { wallets } = getDefaultWallets();
 
 const modeTestnet = {
@@ -138,8 +139,8 @@ const scrollSepolia = {
     symbol: "ETH",
   },
   rpcUrls: {
-    public: { http: ["https://rpc.ankr.com/scroll_sepolia_testnet"] },
-    default: { http: ["https://rpc.ankr.com/scroll_sepolia_testnet"] },
+    public: { http: ["https://scroll-sepolia.blockpi.network/v1/rpc/public"] },
+    default: { http: ["https://scroll-sepolia.blockpi.network/v1/rpc/public"] },
   },
 };
 const sepolia = {

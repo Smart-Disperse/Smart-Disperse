@@ -27,12 +27,11 @@ const ConfettiScript = () => (
 
 function ExecuteEth(props) {
   const [message, setMessage] = useState("");
-  const [isModalIsOpen, setModalIsOpen] = useState(false);
+  const [executionStatusmodal, setExecutionStatusmodal] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [paymentmodal, setPaymentmodal] = useState(false);
+  const [loaderModal, setLoadermodal] = useState(false);
   const [limitexceed, setLimitexceed] = useState(null);
   const [tweetModalIsOpen, setTweetModalIsOpen] = useState(false); // New state for tweet modal
-  const [showmsg, setshowmsg] = useState(false);
   const chainId = useChainId();
 
   const sendTweet = () => {
@@ -45,58 +44,38 @@ function ExecuteEth(props) {
   };
 
   const execute = async () => {
-    setPaymentmodal(true);
-    props.setLoading(true);
+    setLoadermodal(true);
+    var recipients = [];
+    var values = [];
+    for (let i = 0; i < props.listData.length; i++) {
+      recipients.push(props.listData[i]["address"]);
+      values.push(props.listData[i]["value"]);
+    }
 
-    if (!props.ethBalance.gt(props.totalEth)) {
-      props.setLoading(false);
-      setLimitexceed("Insufficient ETH balance");
-      setshowmsg(true);
+    try {
+      const con = await smartDisperseInstance(chainId);
+      console.log(recipients, values, props.totalEth);
+      const txsendPayment = await con.disperseEther(recipients, values, {
+        value: props.totalEth,
+      });
+
+      const receipt = await txsendPayment.wait();
+      console.log(receipt);
+      let blockExplorerURL = await getExplorer();
       setMessage(
-        `Current ETH Balance is ${(+ethers.utils.formatEther(
-          props.ethBalance
-        )).toFixed(
-          9
-        )}ETH & your Total Sending ETH Amount is ${(+ethers.utils.formatEther(
-          props.totalEth
-        )).toFixed(9)} ETH `
+        <div
+          className={textStyle.Link}
+          dangerouslySetInnerHTML={{
+            __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank "   style={{ color: "white", textDecoration: "none" }}>here</a> for details.`,
+          }}
+        />
       );
-      setModalIsOpen(true);
-      return;
-    } else {
-      var recipients = [];
-      var values = [];
-      for (let i = 0; i < props.listData.length; i++) {
-        recipients.push(props.listData[i]["address"]);
-        values.push(props.listData[i]["value"]);
-      }
-
-      try {
-        const con = await smartDisperseInstance(chainId);
-        const txsendPayment = await con.disperseEther(recipients, values, {
-          value: props.totalEth,
-        });
-
-        const receipt = await txsendPayment.wait();
-        props.setLoading(false);
-
-        let blockExplorerURL = await getExplorer();
-        setMessage(
-          <div
-            className={textStyle.Link}
-            dangerouslySetInnerHTML={{
-              __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank "   style={{ color: "white", textDecoration: "none" }}>here</a> for details.`,
-            }}
-          />
-        );
-        setModalIsOpen(true);
-        setSuccess(true);
-      } catch (error) {
-        props.setLoading(false);
-        setMessage(`Transaction cancelled.`);
-        setModalIsOpen(true);
-        setSuccess(false);
-      }
+      setExecutionStatusmodal(true);
+      setSuccess(true);
+    } catch (error) {
+      setMessage(error);
+      setExecutionStatusmodal(true);
+      setSuccess(false);
     }
   };
 
@@ -153,100 +132,90 @@ function ExecuteEth(props) {
       {" "}
       <button
         id={textStyle.greenbackground}
-        className={`${textStyle.sendbutton} ${showmsg && textStyle.blurbutton}`}
+        className={`${textStyle.sendbutton} `}
         onClick={() => {
           execute();
         }}
-        disabled={showmsg}
+        disabled={!props.suffecientBalance}
       >
-        {props.loading ? (
-          <div>
-            <Modal
-              className={textStyle.popupforpayment}
-              isOpen={paymentmodal}
-              onRequestClose={() => setPaymentmodal(false)}
-              contentLabel="Error Modal"
-            >
-              <h2>Please wait...</h2>
-              <Image src={bggif.src} alt="not found" width={150} height={150} />
-              <p>We are securely processing your payment.</p>
-            </Modal>
-          </div>
-        ) : (
-          <>{showmsg ? "Begin payment" : "Insufficient ETH balance"}</>
-        )}
+        <>
+          {props.suffecientBalance ? "Begin payment" : "Insufficient balance"}
+        </>
       </button>
+      <div>
+        <Modal
+          className={textStyle.popupforpayment}
+          isOpen={loaderModal}
+          onRequestClose={() => setLoadermodal(false)}
+          contentLabel="Error Modal"
+        >
+          <h2>Please wait...</h2>
+          <Image src={bggif.src} alt="not found" width={150} height={150} />
+          <p>We are securely processing your payment.</p>
+        </Modal>
+      </div>
       <Modal
         className={textStyle.popupforpayment}
-        isOpen={isModalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        isOpen={executionStatusmodal}
+        onRequestClose={() => setExecutionStatusmodal(false)}
         contentLabel="Error Modal"
       >
-        {true ? (
-          <>
-            <h2>
-              {success
-                ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
-                : "Something went Wrong..."}
-            </h2>
-            <div>
-              {success ? (
-                <div>
-                  <Image
-                    src={completegif}
-                    alt="not found"
-                    width={150}
-                    height={150}
-                  />
-                  <p>{message}</p>
+        <>
+          <h2>
+            {success
+              ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
+              : "Something went Wrong..."}
+          </h2>
+          <div>
+            {success ? (
+              <div>
+                <Image
+                  src={completegif}
+                  alt="not found"
+                  width={150}
+                  height={150}
+                />
+                <p>{message}</p>
 
-                  <div>
-                    Why not extend the excitement? Invite your friends and
-                    followers on Twitter to join in the joy. Broadcast your
-                    seamless experience to the world. Click the tweet button
-                    below and spread the cheer instantly! 🌐✨
-                  </div>
-                </div>
-              ) : (
                 <div>
-                  <Image
-                    src={oopsimage}
-                    alt="not found"
-                    width={150}
-                    height={150}
-                  />
+                  Why not extend the excitement? Invite your friends and
+                  followers on Twitter to join in the joy. Broadcast your
+                  seamless experience to the world. Click the tweet button below
+                  and spread the cheer instantly! 🌐✨
                 </div>
-              )}
-            </div>
-            <p>{success ? "" : "Please Try again"}</p>
-            <p className={textStyle.errormessagep}>{limitexceed}</p>
-            <div className={textStyle.divtocenter}>
-              {success ? (
-                <button style={{ margin: "0px 5px" }} onClick={sendTweet}>
-                  Tweet Now &nbsp; <FontAwesomeIcon icon={faPaperPlane} />
-                </button>
-              ) : (
-                ""
-              )}
-              <button
-                style={{ margin: "0px 5px" }}
-                onClick={() => {
-                  setModalIsOpen(false);
-                  props.setListData([]);
-                }}
-              >
-                Close &nbsp; <FontAwesomeIcon icon={faX} />
+              </div>
+            ) : (
+              <div>
+                <Image
+                  src={oopsimage}
+                  alt="not found"
+                  width={150}
+                  height={150}
+                />
+              </div>
+            )}
+          </div>
+          <p>{success ? "" : "Please Try again"}</p>
+
+          <div className={textStyle.divtocenter}>
+            {success ? (
+              <button style={{ margin: "0px 5px" }} onClick={sendTweet}>
+                Tweet Now &nbsp; <FontAwesomeIcon icon={faPaperPlane} />
               </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <h2>Notice</h2>
-            <div className={textStyle.divtocenter}>
-              <button onClick={() => setModalIsOpen(false)}>Close</button>
-            </div>
-          </>
-        )}
+            ) : (
+              ""
+            )}
+            <button
+              style={{ margin: "0px 5px" }}
+              onClick={() => {
+                setExecutionStatusmodal(false);
+                props.setListData([]);
+              }}
+            >
+              Close &nbsp; <FontAwesomeIcon icon={faX} />
+            </button>
+          </div>
+        </>
       </Modal>
     </div>
   );

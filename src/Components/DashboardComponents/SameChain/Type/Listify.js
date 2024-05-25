@@ -57,17 +57,15 @@ function Listify({
 
   const handleValueInputChange = (e) => {
     const { name, value } = e.target;
+
+    // Regular expression to allow numeric and decimal values
     const validInputRegex = /^\d*\.?\d*$/;
 
-    // if (validInputRegex.test(value)) {
-      if (validator.isNumeric(value) || value == '') {
+    if (validInputRegex.test(value)) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
       }));
-      setValidInput(true); // Input is valid
-    } else {
-      setValidInput(false); // Input is invalid
     }
   };
 
@@ -298,7 +296,7 @@ function Listify({
             placeholder="0x9b4716573622751e7F6a56da251D054b6BBa4B00"
             onChange={handleReceiverAddressChange}
           />
-           {!validInput && <p style={{ color: 'red' }}>Invalid input</p>}
+          {!validInput && <p style={{ color: "red" }}>Invalid input</p>}
         </div>
         <div className={listStyle.inputflexlist}>
           <label>Enter Token Amount: </label>
