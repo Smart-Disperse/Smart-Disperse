@@ -125,8 +125,10 @@ function SendToken({
   For fetching the Exchnage rate of ETH to USD to display value in USD
   */
   useEffect(() => {
-    console.log("................................................................")
-    console.log(destinationchainName)
+    console.log(
+      "................................................................"
+    );
+    console.log(destinationchainName);
     const fetchExchangeRate = async () => {
       try {
         const response = await fetch(
@@ -175,7 +177,7 @@ function SendToken({
       setERC20Balance(tokenDetails.balance);
       setTokenLoaded(true);
     } else {
-      toast.error("Token details not found")
+      toast.error("Token details not found");
       throw new Error("Token details not found"); // Throw error if token details are not found
     }
   };
@@ -288,7 +290,6 @@ function SendToken({
 
   useEffect(() => {
     calculateRemaining();
-
   }, [totalERC20]);
 
   const calculateRemaining = () => {
@@ -329,13 +330,12 @@ function SendToken({
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(
-
       () => {
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);
         }, 2000); // Reset the copy status after 2 seconds
-        toast.success("Token Address Copied Successfully!")
+        toast.success("Token Address Copied Successfully!");
       },
       (err) => {
         console.error("Unable to copy to clipboard:", err);
@@ -343,44 +343,41 @@ function SendToken({
     );
   };
 
+  function ChainDropdown({ chains, selectedChain, onChange, rowId }) {
+    const handleChainChange = (event) => {
+      onChange(rowId, event.target.value); // Call the parent component's onChange function with the rowId and selected chain
+    };
+
+    return (
+      <select value={selectedChain} onChange={handleChainChange}>
+        {/* Render options based on the chain names */}
+        {Object.values(chains).map((chain) => (
+          <option key={chain.chainName} value={chain.chainName}>
+            {chain.chainName}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
+  const [selectedChain, setSelectedChain] = useState(null);
+  const [selectedChains, setSelectedChains] = useState(
+    Array(listData.length).fill(destinationchainName)
+  );
   
 
-
-function ChainDropdown({ chains, selectedChain, onChange, rowId }) {
-  const handleChainChange = (event) => {
-    onChange(rowId, event.target.value); // Call the parent component's onChange function with the rowId and selected chain
+  // Function to handle dropdown change
+  const handleChainChange = (index, event) => {
+    const newSelectedChains = [...selectedChains];
+    newSelectedChains[index] = event.target.value;
+    setSelectedChains(newSelectedChains);
+    console.log(newSelectedChains); // Print the updated array to the console
   };
-
-  return (
-    <select value={selectedChain} onChange={handleChainChange}>
-      {/* Render options based on the chain names */}
-      {Object.values(chains).map((chain) => (
-        <option key={chain.chainName} value={chain.chainName}>
-          {chain.chainName}
-        </option>
-      ))}
-    </select>
-  );
-}
-
-
-
-
-
-// Inside SendToken component
-// State for selected chain
-const [selectedChain, setSelectedChain] = useState(null);
-
-// Function to handle dropdown change
-const handleChainChange = (event) => {
-  setSelectedChain(event.target.value);
-  console.log(selectedChain)
-};
-
-// When initializing the selectedChain state, set it to the chainName
-useEffect(() => {
-  setSelectedChain(destinationchainName);
-}, [destinationchainName]);
+  
+  // When initializing the selectedChain state, set it to the chainName
+  useEffect(() => {
+    setSelectedChain(destinationchainName);
+  }, [destinationchainName]);
   return (
     <>
       <>
@@ -466,9 +463,8 @@ useEffect(() => {
                           {`${tokenAddress.slice(0, 7)}...${tokenAddress.slice(
                             -4
                           )}`}{" "}
-                          
                           <FontAwesomeIcon
-                          className={textStyle.copyicon}
+                            className={textStyle.copyicon}
                             onClick={() => copyToClipboard(tokenAddress)}
                             icon={faCopy}
                           />
@@ -555,121 +551,125 @@ useEffect(() => {
                     </tr>
                   </thead>
                   <tbody>
-                    {listData.length > 0
-                      ? listData.map((data, index) => (
-                          <tr key={index}>
-                            <td
-                              id={textStyle.fontsize10px}
-                              style={{ letterSpacing: "1px", padding: "8px" }}
-                            >
-                             {`${data.address.slice(0, 7)}...${data.address.slice(
-                            -4
-                          )}`}
-                            </td>
-                            <td
-                              id={textStyle.fontsize10px}
-                              style={{ letterSpacing: "1px", padding: "8px" }}
-                            >
-                              {data.label ? (
-                                data.label
-                              ) : (
-                                <>
-                                  <input
-                                    type="text"
-                                    value={labels[index] ? labels[index] : ""}
-                                    style={{
-                                      borderRadius: "8px",
-                                      padding: "10px",
-                                      color: "white",
-                                      border: "1px solid #8D37FB",
-                                      background: "transparent",
-                                    }}
-                                    onChange={(e) => {
-                                      const inputValue = e.target.value;
-                                      if (
-                                        inputValue === "" &&
-                                        e.key !== "Enter"
-                                      ) {
-                                        setErrorMessage("Enter Label");
-                                      } else {
-                                        setErrorMessage("Press Enter to submit label");
-                                      }
-  
-                                      const regex = /^[a-zA-Z]*$/;
-  
-                                      if (
-                                        regex.test(inputValue) &&
-                                        inputValue.length <= 10
-                                      ) {
-                                        setLabelValues(index, inputValue);
-                                      }
-                                    }}
-                                    onKeyDown={(e) => {
-                                      if (e.key === "Enter") {
-                                        onAddLabel(index, data.address);
-                                      }
-                                    }}
-                                  />
-                                {errorMessage && <p style={{ color: 'red', margin: "0px", fontSize:"13px"}}>{errorMessage}</p>}
-                                </>
-                              )}
-                            </td>
-                            <td
-                              id={textStyle.fontsize10px}
-                              style={{ padding: "8px" }}
-                            >
-                              <div
-                                id={textStyle.fontsize10px}
-                                style={{
-                                  width: "fit-content",
-                                  margin: "0 auto",
-                                  background:
-                                    "transparent",
-                                  color: "#00FBFB",
-                                  borderRadius: "10px",
-                                  padding: "10px 10px",
-                                  border:"1px solid #00FBFB",
-                                  fontSize: "12px",
-                                  letterSpacing: "1px",
-                                }}
+  {listData.length > 0
+    ? listData.map((data, index) => (
+        <tr key={index}>
+          <td
+            id={textStyle.fontsize10px}
+            style={{ letterSpacing: "1px", padding: "8px" }}
+          >
+            {`${data.address.slice(0, 7)}...${data.address.slice(-4)}`}
+          </td>
+          <td
+            id={textStyle.fontsize10px}
+            style={{ letterSpacing: "1px", padding: "8px" }}
+          >
+            {data.label ? (
+              data.label
+            ) : (
+              <>
+                <input
+                  type="text"
+                  value={labels[index] ? labels[index] : ""}
+                  style={{
+                    borderRadius: "8px",
+                    padding: "10px",
+                    color: "white",
+                    border: "1px solid #8D37FB",
+                    background: "transparent",
+                  }}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    if (inputValue === "" && e.key !== "Enter") {
+                      setErrorMessage("Enter Label");
+                    } else {
+                      setErrorMessage("Press Enter to submit label");
+                    }
 
-                              >
-                                {(+ethers.utils.formatUnits(
-                                  data.value,
-                                  tokenDetails.decimal
-                                )).toFixed(4)}{" "}
-                                {tokenDetails.symbol}
-                              </div>
-                            </td>
-                            <td
-                              id={textStyle.fontsize10px}
-                              style={{ padding: "8px" }}
-                            >
-                              {/* {destinationchainName} */}
-                              {/* <ChainDropdown chains={allchains} selectedChain={selectedChain} onChange={handleChainChange} /> */}
-                              <select value={selectedChain} onChange={handleChainChange}>
-  {/* Render options based on the chain names */}
-  {Object.values(allchains).map(chain => (
-    <option key={chain.chainName} value={chain.chainName}>
-      {chain.chainName}
-    </option>
-  ))}
-</select>
-                              </td>
-                            <td
-                              style={{ letterSpacing: "1px", padding: "8px" }}
-                            >
-                              <button
-                                className={textStyle.deletebutton}
-                                onClick={() => handleDeleteRow(index)}
-                              >
-                                <FontAwesomeIcon icon={faTrashAlt} />
-                              </button>
-                            </td>
-                          </tr>
-                        ))
-                      : null}
-                  </tbody>
+                    const regex = /^[a-zA-Z]*$/;
+
+                    if (regex.test(inputValue) && inputValue.length <= 10) {
+                      setLabelValues(index, inputValue);
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      onAddLabel(index, data.address);
+                    }
+                  }}
+                />
+                {errorMessage && (
+                  <p
+                    style={{
+                      color: "red",
+                      margin: "0px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {errorMessage}
+                  </p>
+                )}
+              </>
+            )}
+          </td>
+          <td
+            id={textStyle.fontsize10px}
+            style={{ padding: "8px" }}
+          >
+            <div
+              id={textStyle.fontsize10px}
+              style={{
+                width: "fit-content",
+                margin: "0 auto",
+                background: "transparent",
+                color: "#00FBFB",
+                borderRadius: "10px",
+                padding: "10px 10px",
+                border: "1px solid #00FBFB",
+                fontSize: "12px",
+                letterSpacing: "1px",
+              }}
+            >
+              {(+ethers.utils.formatUnits(
+                data.value,
+                tokenDetails.decimal
+              )).toFixed(4)}{" "}
+              {tokenDetails.symbol}
+            </div>
+          </td>
+          <td
+            id={textStyle.fontsize10px}
+            style={{ padding: "8px" }}
+          >
+            <select
+              value={selectedChains[index] || data.destinationChainName}
+              onChange={(e) => handleChainChange(index, e)}
+            >
+              {Object.values(allchains).map((chain) => (
+                <option
+                  key={chain.chainName}
+                  value={chain.chainName}
+                >
+                  {chain.chainName}
+                </option>
+              ))}
+            </select>
+          </td>
+          <td
+            style={{ letterSpacing: "1px", padding: "8px" }}
+          >
+            <button
+              className={textStyle.deletebutton}
+              onClick={() => handleDeleteRow(index)}
+            >
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </button>
+          </td>
+        </tr>
+      ))
+    : null}
+</tbody>
+
                 </table>
               </div>
             </div>
@@ -699,8 +699,8 @@ useEffect(() => {
                       Total Amount({tokenDetails.symbol})
                     </th>
                     <th className={textStyle.accountsummaryth}>
-                    Estimated Gas Price <FontAwesomeIcon icon={faGasPump} />
-                  </th>
+                      Estimated Gas Price <FontAwesomeIcon icon={faGasPump} />
+                    </th>
                     <th className={textStyle.accountsummaryth}>Your Balance</th>
                     <th className={textStyle.accountsummaryth}>
                       Remaining Balance
@@ -720,25 +720,26 @@ useEffect(() => {
                       </div>
                     </td>
                     <td id={textStyle.fontsize10px}>
-                    {" "}
-                    <div
-                      id={textStyle.fontsize10px}
-                      style={{
-                        width: "fit-content",
-                        margin: "0 auto",
-                        color: "white",
-                        borderRadius: "10px",
-                        padding: "10px 10px",
-                        fontSize: "12px",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      {showestimatedgasprice ? 
-                    (+ethers.utils.formatEther((showestimatedgasprice))).toFixed(6)
-                    :null
-                      }
-                    </div>
-                  </td>
+                      {" "}
+                      <div
+                        id={textStyle.fontsize10px}
+                        style={{
+                          width: "fit-content",
+                          margin: "0 auto",
+                          color: "white",
+                          borderRadius: "10px",
+                          padding: "10px 10px",
+                          fontSize: "12px",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        {showestimatedgasprice
+                          ? (+ethers.utils.formatEther(
+                              showestimatedgasprice
+                            )).toFixed(6)
+                          : null}
+                      </div>
+                    </td>
                     <td id={textStyle.fontsize10px}>
                       <div
                         id="font-size-10px"
@@ -777,7 +778,7 @@ useEffect(() => {
                             remaining < 0
                               ? "1px solid red"
                               : "1px solid  #00FBFB",
-                          color: remaining < 0 ? "red" : "#00FBFB" ,
+                          color: remaining < 0 ? "red" : "#00FBFB",
                           borderRadius: "10px",
                           padding: "10px 10px",
                           fontSize: "12px",
