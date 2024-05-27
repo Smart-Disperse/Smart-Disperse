@@ -28,6 +28,7 @@ import { fetchUserLabels } from "@/Helpers/FetchUserLabels";
 import CrossChainTransfer from "../Execute/CrossChainTransfer";
 import loaderimg from "@/Assets/loader.gif";
 import loadjson from "@/Assets/tokenload.json";
+import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
 
 function SendToken({
   activeTab,
@@ -342,6 +343,44 @@ function SendToken({
     );
   };
 
+  
+
+
+function ChainDropdown({ chains, selectedChain, onChange, rowId }) {
+  const handleChainChange = (event) => {
+    onChange(rowId, event.target.value); // Call the parent component's onChange function with the rowId and selected chain
+  };
+
+  return (
+    <select value={selectedChain} onChange={handleChainChange}>
+      {/* Render options based on the chain names */}
+      {Object.values(chains).map((chain) => (
+        <option key={chain.chainName} value={chain.chainName}>
+          {chain.chainName}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+
+
+
+
+// Inside SendToken component
+// State for selected chain
+const [selectedChain, setSelectedChain] = useState(null);
+
+// Function to handle dropdown change
+const handleChainChange = (event) => {
+  setSelectedChain(event.target.value);
+  console.log(selectedChain)
+};
+
+// When initializing the selectedChain state, set it to the chainName
+useEffect(() => {
+  setSelectedChain(destinationchainName);
+}, [destinationchainName]);
   return (
     <>
       <>
@@ -605,7 +644,18 @@ function SendToken({
                             <td
                               id={textStyle.fontsize10px}
                               style={{ padding: "8px" }}
-                            >{destinationchainName}</td>
+                            >
+                              {/* {destinationchainName} */}
+                              {/* <ChainDropdown chains={allchains} selectedChain={selectedChain} onChange={handleChainChange} /> */}
+                              <select value={selectedChain} onChange={handleChainChange}>
+  {/* Render options based on the chain names */}
+  {Object.values(allchains).map(chain => (
+    <option key={chain.chainName} value={chain.chainName}>
+      {chain.chainName}
+    </option>
+  ))}
+</select>
+                              </td>
                             <td
                               style={{ letterSpacing: "1px", padding: "8px" }}
                             >
