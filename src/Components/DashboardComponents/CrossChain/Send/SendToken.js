@@ -84,6 +84,7 @@ function SendToken({
   const [finalchainSelectors, setFinalchainSelectors] = useState(
     Array(listData.length).fill("")
   );
+  const [uniqueReceiverAddresses, setUniqueReceiverAddresses] = useState([]);
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -386,6 +387,12 @@ function SendToken({
     console.log("Unique Final Chain Selectors:", uniqueFinalchainSelectors);
     // Group addresses and amounts by chain selector and print the 2D arrays
     printGroupedAddressesAndAmounts(newSelectedChains);
+
+    const receiverAddresses = newSelectedChains.map(chainName => {
+      return chainDetails.destinationChains[chainName]?.receiverAddress || "Address not found";
+  });
+  const uniqueReceiverAddresses = [...new Set(receiverAddresses)];
+  console.log("Unique Receiver Addresses:", uniqueReceiverAddresses);
   };
 
   // create 2d array for address & amount according to its chain selector values
@@ -413,6 +420,9 @@ function SendToken({
     printGroupedAddressesAndAmounts(selectedDestinationfinalChains);
   }, [listData, destinationchainName]);
 
+  
+
+  
   return (
     <>
       <>

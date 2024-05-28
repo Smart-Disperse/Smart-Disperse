@@ -23,7 +23,7 @@ function CrossChain({ activeTab }) {
   const [chainSelector, setChainSelector] = useState("");
   const [receivingChainAddress, setReceivingChainAddress] = useState("");
   const [tokenAddress, setTokenAddress] = useState("");
-const [destinationchainName, setdestinationchainName] = useState("");
+  const [destinationchainName, setdestinationchainName] = useState("");
   const chainId = useChainId();
 
   const getChainsForDropDown = () => {
@@ -48,8 +48,8 @@ const [destinationchainName, setdestinationchainName] = useState("");
     setSelectedToken("");
     const selectedChainName = e.target.value;
     console.log(selectedChainName);
-setdestinationchainName(selectedChainName);
-console.log(destinationchainName);
+    setdestinationchainName(selectedChainName);
+    console.log(destinationchainName);
     const chainDetails = allchains[chainId];
     const selectedChain = chainDetails.destinationChains[selectedChainName];
     console.log(selectedChain);
