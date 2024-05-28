@@ -20,8 +20,8 @@ function CrossChain({ activeTab }) {
     useState(null);
   const [tokenOptions, setTokenOptions] = useState([]);
   const [SelectedToken, setSelectedToken] = useState(null);
-  const [chainSelector, setChainSelector] = useState("");
-  const [receivingChainAddress, setReceivingChainAddress] = useState("");
+  const [chainSelector, setChainSelector] = useState([]);
+  const [receivingChainAddress, setReceivingChainAddress] = useState([]);
   const [tokenAddress, setTokenAddress] = useState("");
   const [destinationchainName, setdestinationchainName] = useState("");
   const chainId = useChainId();
@@ -53,9 +53,7 @@ function CrossChain({ activeTab }) {
     const chainDetails = allchains[chainId];
     const selectedChain = chainDetails.destinationChains[selectedChainName];
     console.log(selectedChain);
-
     setSelectedDestinationChain(selectedChainName);
-
     if (selectedChain) {
       const tokenOptions = Object.entries(selectedChain.tokens).map(
         ([key, value]) => (
@@ -65,8 +63,12 @@ function CrossChain({ activeTab }) {
         )
       );
       console.log(tokenOptions);
-      setChainSelector(selectedChain.chainSelector);
-      setReceivingChainAddress(selectedChain.receiverAddress);
+      const chainSelectorArray = Array.isArray(selectedChain.chainSelector) ? selectedChain.chainSelector : [selectedChain.chainSelector];
+      console.log("array of chainselector",chainSelectorArray);
+      // setChainSelector(chainSelectorArray);
+      const ReceiverAddressArray = Array.isArray(selectedChain.receiverAddress) ? selectedChain.receiverAddress : [selectedChain.receiverAddress]
+      console.log("array of ReceiverAddress",ReceiverAddressArray);
+      // setReceivingChainAddress(ReceiverAddressArray);
       setTokenOptions(tokenOptions);
     } else {
       setTokenOptions([]);
@@ -143,6 +145,8 @@ function CrossChain({ activeTab }) {
             destinationchainName={destinationchainName}
             chainSelector={chainSelector}
             receivingChainAddress={receivingChainAddress}
+            setReceivingChainAddress={setReceivingChainAddress}
+            setChainSelector={setChainSelector}
           />
         </div>
       </div>

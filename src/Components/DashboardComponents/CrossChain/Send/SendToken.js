@@ -36,7 +36,9 @@ function SendToken({
   listData,
   setListData,
   tokenAddress,
+  setChainSelector,
   chainSelector,
+  setReceivingChainAddress,
   destinationchainName,
   receivingChainAddress,
 }) {
@@ -63,7 +65,8 @@ function SendToken({
   const [Istokenloading, setIstokenloading] = useState(false);
   const { tkloadimg } = loadjson;
   const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
-
+const [RecipientAddressarray, setRecipientaddressarray] = useState([])
+const [RecipientAmountarray, setRecipientamountarray] = useState([])
   const defaultTokenDetails = {
     name: null,
     symbol: null,
@@ -370,8 +373,6 @@ function SendToken({
   const handleDestinationFinalChainChange = (index) => (e) => {
     const selectedChainName = e.target.value;
     console.log(`Selected chain name: ${selectedChainName}`);
-
-    // Update the state for the selected chain
     const newSelectedChains = [...selectedDestinationfinalChains];
     newSelectedChains[index] = selectedChainName;
     setSelectedDestinationfinalChains(newSelectedChains);
@@ -382,24 +383,21 @@ function SendToken({
     newFinalchainSelectors[index] = finalchainSelector;
     setFinalchainSelectors(newFinalchainSelectors);
     console.log(newFinalchainSelectors);
-    // Print unique chain selectors
     const uniqueFinalchainSelectors = [...new Set(newFinalchainSelectors)];
     console.log("Unique Final Chain Selectors:", uniqueFinalchainSelectors);
-    // Group addresses and amounts by chain selector and print the 2D arrays
+    setChainSelector(uniqueFinalchainSelectors)
     printGroupedAddressesAndAmounts(newSelectedChains);
-
     const receiverAddresses = newSelectedChains.map(chainName => {
       return chainDetails.destinationChains[chainName]?.receiverAddress || "Address not found";
   });
   const uniqueReceiverAddresses = [...new Set(receiverAddresses)];
   console.log("Unique Receiver Addresses:", uniqueReceiverAddresses);
+  setReceivingChainAddress(uniqueReceiverAddresses)
   };
 
-  // create 2d array for address & amount according to its chain selector values
   const printGroupedAddressesAndAmounts = (chainNames) => {
     const addressGroups = {};
     const amountGroups = {};
-
     listData.forEach((data, index) => {
       const chainName = chainNames[index];
       if (!addressGroups[chainName]) {
@@ -409,18 +407,18 @@ function SendToken({
       addressGroups[chainName].push(data.address);
       amountGroups[chainName].push(data.value);
     });
-
     const addressArray = Object.values(addressGroups);
     const amountArray = Object.values(amountGroups);
     console.log("Grouped Addresses Array:", addressArray);
+    setRecipientaddressarray(addressArray)
     console.log("Grouped Amounts Array:", amountArray);
+    setRecipientamountarray(amountArray)
   };
 
   useEffect(() => {
     printGroupedAddressesAndAmounts(selectedDestinationfinalChains);
   }, [listData, destinationchainName]);
 
-  
 
   
   return (
@@ -866,8 +864,10 @@ function SendToken({
               tokenDetails={tokenDetails}
               setshowestimatedgasprice={setshowestimatedgasprice}
               tokenAddress={tokenAddress}
+              RecipientAddressarray={RecipientAddressarray}
               chainSelector={chainSelector}
               receivingChainAddress={receivingChainAddress}
+              RecipientAmountarray={RecipientAmountarray}
             />
           ) : null}
         </div>

@@ -8,28 +8,28 @@ const allchains = {
         tokens: {
           usdc: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
         },
-        receiverAddress: "0x510D3ed32DEDe97Bca3391154EfFf15c058170f1",
+        receiverAddress: "0xc1527e883791043996cC445a1f0A004Ab9F6B48a",
       },
       baseSepolia: {
         chainSelector: "10344971235874465080",
         tokens: {
           usdc: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
         },
-        receiverAddress: "0x92E96BF48ed9364284556B6400c3E6367c50aC33",
+        receiverAddress: "0x31CB776486812C8d24cF04e6A124f263e9CCA4e0",
       },
       arbSepolia: {
         chainSelector: "3478487238524512106",
         tokens: {
           usdc: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
         },
-        receiverAddress: "0x07C918C364d175629410DA3df7de4637eA0bc851",
+        receiverAddress: "0x1859E66C6FCF273d7c37A049A79165Ef54F24B95",
       },
       amoy: {
         chainSelector: "16281711391670634445",
         tokens: {
           usdc: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
         },
-        receiverAddress: "0xc3A8870A459a7a8160611B126750C5F50C38997C",
+        receiverAddress: "0x82ba4A0Eb6c0c706fF0e803207122C7168F34537",
       },
     },
     chainSelector: "16015286601757825753",
@@ -43,28 +43,28 @@ const allchains = {
         tokens: {
           usdc: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
         },
-        receiverAddress: "0x17711e4Dd37b4680FEEd3Bb85A6520A285E51192",
+        receiverAddress: "0x147914414C2F1dbAA3EAe6E16F0423d2A8b2E6Bb",
       },
       baseSepolia: {
         chainSelector: "10344971235874465080",
         tokens: {
           usdc: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
         },
-        receiverAddress: "0x92E96BF48ed9364284556B6400c3E6367c50aC33",
+        receiverAddress: "0x31CB776486812C8d24cF04e6A124f263e9CCA4e0",
       },
       arbSepolia: {
         chainSelector: "3478487238524512106",
         tokens: {
           usdc: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
         },
-        receiverAddress: "0x07C918C364d175629410DA3df7de4637eA0bc851",
+        receiverAddress: "0x1859E66C6FCF273d7c37A049A79165Ef54F24B95",
       },
       amoy: {
         chainSelector: "16281711391670634445",
         tokens: {
           usdc: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
         },
-        receiverAddress: "0xc3A8870A459a7a8160611B126750C5F50C38997C",
+        receiverAddress: "0x82ba4A0Eb6c0c706fF0e803207122C7168F34537",
       },
     },
     chainSelector: "5224473277236331295",
@@ -78,21 +78,21 @@ const allchains = {
         tokens: {
           usdc: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
         },
-        receiverAddress: "0x17711e4Dd37b4680FEEd3Bb85A6520A285E51192",
+        receiverAddress: "0x147914414C2F1dbAA3EAe6E16F0423d2A8b2E6Bb",
       },
       opSepolia: {
         chainSelector: "5224473277236331295",
         tokens: {
           usdc: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
         },
-        receiverAddress: "0x510D3ed32DEDe97Bca3391154EfFf15c058170f1",
+        receiverAddress: "0xc1527e883791043996cC445a1f0A004Ab9F6B48a",
       },
       arbSepolia: {
         chainSelector: "3478487238524512106",
         tokens: {
           usdc: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
         },
-        receiverAddress: "0x07C918C364d175629410DA3df7de4637eA0bc851",
+        receiverAddress: "0x1859E66C6FCF273d7c37A049A79165Ef54F24B95",
       },
     },
 logourl:"",
@@ -107,21 +107,21 @@ chainSelector: "10344971235874465080",
         tokens: {
           usdc: "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d",
         },
-        receiverAddress: "0x17711e4Dd37b4680FEEd3Bb85A6520A285E51192",
+        receiverAddress: "0x147914414C2F1dbAA3EAe6E16F0423d2A8b2E6Bb",
       },
       opSepolia: {
         chainSelector: "5224473277236331295",
         tokens: {
           usdc: "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d",
         },
-        receiverAddress: "0x510D3ed32DEDe97Bca3391154EfFf15c058170f1",
+        receiverAddress: "0xc1527e883791043996cC445a1f0A004Ab9F6B48a",
       },
       baseSepolia: {
         chainSelector: "10344971235874465080",
         tokens: {
           usdc: "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d",
         },
-        receiverAddress: "0x92E96BF48ed9364284556B6400c3E6367c50aC33",
+        receiverAddress: "0x31CB776486812C8d24cF04e6A124f263e9CCA4e0",
       },
     },
     chainSelector: "3478487238524512106",
@@ -135,14 +135,14 @@ chainSelector: "10344971235874465080",
         tokens: {
           usdc: "0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582",
         },
-        receiverAddress: "0x17711e4Dd37b4680FEEd3Bb85A6520A285E51192",
+        receiverAddress: "0x147914414C2F1dbAA3EAe6E16F0423d2A8b2E6Bb",
       },
       opSepolia: {
         chainSelector: "5224473277236331295",
         tokens: {
           usdc: "0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582",
         },
-        receiverAddress: "0x510D3ed32DEDe97Bca3391154EfFf15c058170f1",
+        receiverAddress: "0xc1527e883791043996cC445a1f0A004Ab9F6B48a",
       },
     },
     chainSelector: "16281711391670634445",
