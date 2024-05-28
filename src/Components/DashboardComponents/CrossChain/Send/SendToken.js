@@ -77,6 +77,13 @@ function SendToken({
   const [tokenDetails, setTokenDetails] =
     useState(defaultTokenDetails); /*Details of the selected token to be sent*/
   const chainId = useChainId();
+  const [destinationFinalChainsOptions, setDestinationFinalChainsOptions] =
+    useState([]);
+  const [selectedDestinationfinalChains, setSelectedDestinationfinalChains] =
+    useState(Array(listData.length).fill(destinationchainName));
+  const [finalchainSelectors, setFinalchainSelectors] = useState(
+    Array(listData.length).fill("")
+  );
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -127,10 +134,6 @@ function SendToken({
   For fetching the Exchnage rate of ETH to USD to display value in USD
   */
   useEffect(() => {
-    console.log(
-      "................................................................"
-    );
-    console.log(destinationchainName);
     const fetchExchangeRate = async () => {
       try {
         const response = await fetch(
@@ -346,15 +349,6 @@ function SendToken({
   };
 
   // ------------------- Chain Drop down code ------------------------
-  const [destinationFinalChainsOptions, setDestinationFinalChainsOptions] =
-    useState([]);
-  const [destinationfinalchainName, setdestinationfinalchainName] =
-    useState("");
-  const [selectedDestinationfinalChains, setSelectedDestinationfinalChains] =
-    useState(Array(listData.length).fill(""));
-  const [finalchainSelectors, setFinalchainSelectors] = useState(
-    Array(listData.length).fill("")
-  );
   const getChainsForFinalDropDown = () => {
     const chainDetails = allchains[chainId];
     console.log(chainDetails);
@@ -380,22 +374,45 @@ function SendToken({
     const newSelectedChains = [...selectedDestinationfinalChains];
     newSelectedChains[index] = selectedChainName;
     setSelectedDestinationfinalChains(newSelectedChains);
-
-    // Update the state for the finalchainSelector
     const chainDetails = allchains[chainId];
     const selectedChain = chainDetails.destinationChains[selectedChainName];
     const finalchainSelector = selectedChain.chainSelector;
-
     const newFinalchainSelectors = [...finalchainSelectors];
     newFinalchainSelectors[index] = finalchainSelector;
     setFinalchainSelectors(newFinalchainSelectors);
-
-    // Create a unique array of finalchainSelectors
+    console.log(newFinalchainSelectors);
+    // Print unique chain selectors
     const uniqueFinalchainSelectors = [...new Set(newFinalchainSelectors)];
-
-    // Print the unique array
-    console.log(uniqueFinalchainSelectors);
+    console.log("Unique Final Chain Selectors:", uniqueFinalchainSelectors);
+    // Group addresses and amounts by chain selector and print the 2D arrays
+    printGroupedAddressesAndAmounts(newSelectedChains);
   };
+
+  // create 2d array for address & amount according to its chain selector values
+  const printGroupedAddressesAndAmounts = (chainNames) => {
+    const addressGroups = {};
+    const amountGroups = {};
+
+    listData.forEach((data, index) => {
+      const chainName = chainNames[index];
+      if (!addressGroups[chainName]) {
+        addressGroups[chainName] = [];
+        amountGroups[chainName] = [];
+      }
+      addressGroups[chainName].push(data.address);
+      amountGroups[chainName].push(data.value);
+    });
+
+    const addressArray = Object.values(addressGroups);
+    const amountArray = Object.values(amountGroups);
+    console.log("Grouped Addresses Array:", addressArray);
+    console.log("Grouped Amounts Array:", amountArray);
+  };
+
+  useEffect(() => {
+    printGroupedAddressesAndAmounts(selectedDestinationfinalChains);
+  }, [listData, destinationchainName]);
+
   return (
     <>
       <>
