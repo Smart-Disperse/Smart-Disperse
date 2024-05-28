@@ -29,6 +29,7 @@ import CrossChainTransfer from "../Execute/CrossChainTransfer";
 import loaderimg from "@/Assets/loader.gif";
 import loadjson from "@/Assets/tokenload.json";
 import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
+import { useChainId } from "wagmi";
 
 function SendToken({
   activeTab,
@@ -75,6 +76,7 @@ function SendToken({
   const [allAddresses, setAllAddresses] = useState([]);
   const [tokenDetails, setTokenDetails] =
     useState(defaultTokenDetails); /*Details of the selected token to be sent*/
+  const chainId = useChainId();
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -343,41 +345,57 @@ function SendToken({
     );
   };
 
-  function ChainDropdown({ chains, selectedChain, onChange, rowId }) {
-    const handleChainChange = (event) => {
-      onChange(rowId, event.target.value); // Call the parent component's onChange function with the rowId and selected chain
-    };
-
-    return (
-      <select value={selectedChain} onChange={handleChainChange}>
-        {/* Render options based on the chain names */}
-        {Object.values(chains).map((chain) => (
-          <option key={chain.chainName} value={chain.chainName}>
-            {chain.chainName}
-          </option>
-        ))}
-      </select>
-    );
-  }
-
-  const [selectedChain, setSelectedChain] = useState(null);
-  const [selectedChains, setSelectedChains] = useState(
-    Array(listData.length).fill(destinationchainName)
+  // ------------------- Chain Drop down code ------------------------
+  const [destinationFinalChainsOptions, setDestinationFinalChainsOptions] =
+    useState([]);
+  const [destinationfinalchainName, setdestinationfinalchainName] =
+    useState("");
+  const [selectedDestinationfinalChains, setSelectedDestinationfinalChains] =
+    useState(Array(listData.length).fill(""));
+  const [finalchainSelectors, setFinalchainSelectors] = useState(
+    Array(listData.length).fill("")
   );
-  
-
-  // Function to handle dropdown change
-  const handleChainChange = (index, event) => {
-    const newSelectedChains = [...selectedChains];
-    newSelectedChains[index] = event.target.value;
-    setSelectedChains(newSelectedChains);
-    console.log(newSelectedChains); // Print the updated array to the console
+  const getChainsForFinalDropDown = () => {
+    const chainDetails = allchains[chainId];
+    console.log(chainDetails);
+    const options = Object.entries(chainDetails.destinationChains).map(
+      ([name]) => (
+        <option key={name} value={name}>
+          {name}
+        </option>
+      )
+    );
+    setDestinationFinalChainsOptions(options);
   };
-  
-  // When initializing the selectedChain state, set it to the chainName
+
   useEffect(() => {
-    setSelectedChain(destinationchainName);
-  }, [destinationchainName]);
+    getChainsForFinalDropDown();
+  }, [address]);
+
+  const handleDestinationFinalChainChange = (index) => (e) => {
+    const selectedChainName = e.target.value;
+    console.log(`Selected chain name: ${selectedChainName}`);
+
+    // Update the state for the selected chain
+    const newSelectedChains = [...selectedDestinationfinalChains];
+    newSelectedChains[index] = selectedChainName;
+    setSelectedDestinationfinalChains(newSelectedChains);
+
+    // Update the state for the finalchainSelector
+    const chainDetails = allchains[chainId];
+    const selectedChain = chainDetails.destinationChains[selectedChainName];
+    const finalchainSelector = selectedChain.chainSelector;
+
+    const newFinalchainSelectors = [...finalchainSelectors];
+    newFinalchainSelectors[index] = finalchainSelector;
+    setFinalchainSelectors(newFinalchainSelectors);
+
+    // Create a unique array of finalchainSelectors
+    const uniqueFinalchainSelectors = [...new Set(newFinalchainSelectors)];
+
+    // Print the unique array
+    console.log(uniqueFinalchainSelectors);
+  };
   return (
     <>
       <>
@@ -551,125 +569,134 @@ function SendToken({
                     </tr>
                   </thead>
                   <tbody>
-  {listData.length > 0
-    ? listData.map((data, index) => (
-        <tr key={index}>
-          <td
-            id={textStyle.fontsize10px}
-            style={{ letterSpacing: "1px", padding: "8px" }}
-          >
-            {`${data.address.slice(0, 7)}...${data.address.slice(-4)}`}
-          </td>
-          <td
-            id={textStyle.fontsize10px}
-            style={{ letterSpacing: "1px", padding: "8px" }}
-          >
-            {data.label ? (
-              data.label
-            ) : (
-              <>
-                <input
-                  type="text"
-                  value={labels[index] ? labels[index] : ""}
-                  style={{
-                    borderRadius: "8px",
-                    padding: "10px",
-                    color: "white",
-                    border: "1px solid #8D37FB",
-                    background: "transparent",
-                  }}
-                  onChange={(e) => {
-                    const inputValue = e.target.value;
-                    if (inputValue === "" && e.key !== "Enter") {
-                      setErrorMessage("Enter Label");
-                    } else {
-                      setErrorMessage("Press Enter to submit label");
-                    }
+                    {listData.length > 0
+                      ? listData.map((data, index) => (
+                          <tr key={index}>
+                            <td
+                              id={textStyle.fontsize10px}
+                              style={{ letterSpacing: "1px", padding: "8px" }}
+                            >
+                              {`${data.address.slice(
+                                0,
+                                7
+                              )}...${data.address.slice(-4)}`}
+                            </td>
+                            <td
+                              id={textStyle.fontsize10px}
+                              style={{ letterSpacing: "1px", padding: "8px" }}
+                            >
+                              {data.label ? (
+                                data.label
+                              ) : (
+                                <>
+                                  <input
+                                    type="text"
+                                    value={labels[index] ? labels[index] : ""}
+                                    style={{
+                                      borderRadius: "8px",
+                                      padding: "10px",
+                                      color: "white",
+                                      border: "1px solid #8D37FB",
+                                      background: "transparent",
+                                    }}
+                                    onChange={(e) => {
+                                      const inputValue = e.target.value;
+                                      if (
+                                        inputValue === "" &&
+                                        e.key !== "Enter"
+                                      ) {
+                                        setErrorMessage("Enter Label");
+                                      } else {
+                                        setErrorMessage(
+                                          "Press Enter to submit label"
+                                        );
+                                      }
 
-                    const regex = /^[a-zA-Z]*$/;
+                                      const regex = /^[a-zA-Z]*$/;
 
-                    if (regex.test(inputValue) && inputValue.length <= 10) {
-                      setLabelValues(index, inputValue);
-                    }
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      onAddLabel(index, data.address);
-                    }
-                  }}
-                />
-                {errorMessage && (
-                  <p
-                    style={{
-                      color: "red",
-                      margin: "0px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {errorMessage}
-                  </p>
-                )}
-              </>
-            )}
-          </td>
-          <td
-            id={textStyle.fontsize10px}
-            style={{ padding: "8px" }}
-          >
-            <div
-              id={textStyle.fontsize10px}
-              style={{
-                width: "fit-content",
-                margin: "0 auto",
-                background: "transparent",
-                color: "#00FBFB",
-                borderRadius: "10px",
-                padding: "10px 10px",
-                border: "1px solid #00FBFB",
-                fontSize: "12px",
-                letterSpacing: "1px",
-              }}
-            >
-              {(+ethers.utils.formatUnits(
-                data.value,
-                tokenDetails.decimal
-              )).toFixed(4)}{" "}
-              {tokenDetails.symbol}
-            </div>
-          </td>
-          <td
-            id={textStyle.fontsize10px}
-            style={{ padding: "8px" }}
-          >
-            <select
-              value={selectedChains[index] || data.destinationChainName}
-              onChange={(e) => handleChainChange(index, e)}
-            >
-              {Object.values(allchains).map((chain) => (
-                <option
-                  key={chain.chainName}
-                  value={chain.chainName}
-                >
-                  {chain.chainName}
-                </option>
-              ))}
-            </select>
-          </td>
-          <td
-            style={{ letterSpacing: "1px", padding: "8px" }}
-          >
-            <button
-              className={textStyle.deletebutton}
-              onClick={() => handleDeleteRow(index)}
-            >
-              <FontAwesomeIcon icon={faTrashAlt} />
-            </button>
-          </td>
-        </tr>
-      ))
-    : null}
-</tbody>
-
+                                      if (
+                                        regex.test(inputValue) &&
+                                        inputValue.length <= 10
+                                      ) {
+                                        setLabelValues(index, inputValue);
+                                      }
+                                    }}
+                                    onKeyDown={(e) => {
+                                      if (e.key === "Enter") {
+                                        onAddLabel(index, data.address);
+                                      }
+                                    }}
+                                  />
+                                  {errorMessage && (
+                                    <p
+                                      style={{
+                                        color: "red",
+                                        margin: "0px",
+                                        fontSize: "13px",
+                                      }}
+                                    >
+                                      {errorMessage}
+                                    </p>
+                                  )}
+                                </>
+                              )}
+                            </td>
+                            <td
+                              id={textStyle.fontsize10px}
+                              style={{ padding: "8px" }}
+                            >
+                              <div
+                                id={textStyle.fontsize10px}
+                                style={{
+                                  width: "fit-content",
+                                  margin: "0 auto",
+                                  background: "transparent",
+                                  color: "#00FBFB",
+                                  borderRadius: "10px",
+                                  padding: "10px 10px",
+                                  border: "1px solid #00FBFB",
+                                  fontSize: "12px",
+                                  letterSpacing: "1px",
+                                }}
+                              >
+                                {(+ethers.utils.formatUnits(
+                                  data.value,
+                                  tokenDetails.decimal
+                                )).toFixed(4)}{" "}
+                                {tokenDetails.symbol}
+                              </div>
+                            </td>
+                            <td
+                              id={textStyle.fontsize10px}
+                              style={{ padding: "8px" }}
+                            >
+                              <select
+                                id={textStyle.blockchainChains}
+                                onChange={handleDestinationFinalChainChange(
+                                  index
+                                )}
+                                value={selectedDestinationfinalChains[index]}
+                              >
+                                <option value="">
+                                  Select destination chain
+                                </option>
+                                {destinationFinalChainsOptions}
+                              </select>
+                            </td>
+                            <td
+                              style={{ letterSpacing: "1px", padding: "8px" }}
+                            >
+                              <button
+                                className={textStyle.deletebutton}
+                                onClick={() => handleDeleteRow(index)}
+                              >
+                                <FontAwesomeIcon icon={faTrashAlt} />
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      : null}
+                  </tbody>
                 </table>
               </div>
             </div>
