@@ -17,6 +17,7 @@ import {
 } from "@/Helpers/GetSentTransactions";
 import { useAccount, useChainId } from "wagmi";
 import popup from "@/Components/Dashboard/popupTable.module.css";
+import { getCrossChainTransactions } from "@/Helpers/CrosschainHelpers/GetCrossChainTransactions";
 
 function History() {
   const { address } = useAccount();
@@ -46,6 +47,15 @@ function History() {
   // const [selectedToken, setSelectedToken] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+
+
+  // ***************  FETCHING TRANSACTION DATA FROM GetCrossChainTransactions  *****************
+  const fetchCrossChainTransactions = async () => {
+    const data = await getCrossChainTransactions(address, chainId);
+    console.log("Tx data: ", data);
+  }
+  fetchCrossChainTransactions();
 
   // /............sorting label function ............./
   const sortLabels = () => {
@@ -220,7 +230,6 @@ function History() {
     setFilteredTransactions(filtered);
   }, [startDate, endDate]);
   useEffect(() => {
-    console.log("fetchinggg");
     const fetchData = async () => {
       // setIsLoading(true);
       try {
