@@ -8,6 +8,7 @@ import { useAccount } from "wagmi";
 import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
 import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
 import { useChainId } from "wagmi";
+import connectStyle from "@/Components/ConnectButton/connect.module.css";
 
 function CrossChain({ activeTab }) {
   // const [isSendingEth, setIsSendingEth] = useState(true);
@@ -27,21 +28,43 @@ function CrossChain({ activeTab }) {
   const chainId = useChainId();
 
   const getChainsForDropDown = () => {
-    const chainDetails = allchains[chainId];
-    console.log(chainDetails);
-    const options = Object.entries(chainDetails.destinationChains).map(
-      ([name]) => (
-        <option key={name} value={name}>
-          {name}
-        </option>
-      )
-    );
-    setDestinationChainsOptions(options);
+    try {
+      const chainDetails = allchains[chainId];
+      if (!chainDetails) {
+        throw new Error(`Chain details for chainId ${chainId} are undefined.`);
+      }
+
+      console.log(chainDetails);
+      const options = Object.entries(chainDetails.destinationChains).map(
+        ([name,details]) => (
+          <option key={name} value={name}>
+            {console.log(details.iconUrl)}
+            <div>
+
+            <img
+            src={details.iconUrl}
+            alt={name}
+            className={connectStyle.logo}
+            />
+            {name}
+            </div>
+          </option>
+        )
+      );
+      setDestinationChainsOptions(options);
+    } catch (error) {
+      console.error(error.message);
+      setDestinationChainsOptions([
+        <option key="connect" value="">
+          Connect to network
+        </option>,
+      ]);
+    }
   };
 
   useEffect(() => {
     getChainsForDropDown();
-  }, [address]);
+  }, [address, chainId]);
 
   const handleDestinationChainChange = (e) => {
     setTokenAddress("");
@@ -63,11 +86,15 @@ function CrossChain({ activeTab }) {
         )
       );
       console.log(tokenOptions);
-      const chainSelectorArray = Array.isArray(selectedChain.chainSelector) ? selectedChain.chainSelector : [selectedChain.chainSelector];
-      console.log("array of chainselector",chainSelectorArray);
+      const chainSelectorArray = Array.isArray(selectedChain.chainSelector)
+        ? selectedChain.chainSelector
+        : [selectedChain.chainSelector];
+      console.log("array of chainselector", chainSelectorArray);
       // setChainSelector(chainSelectorArray);
-      const ReceiverAddressArray = Array.isArray(selectedChain.receiverAddress) ? selectedChain.receiverAddress : [selectedChain.receiverAddress]
-      console.log("array of ReceiverAddress",ReceiverAddressArray);
+      const ReceiverAddressArray = Array.isArray(selectedChain.receiverAddress)
+        ? selectedChain.receiverAddress
+        : [selectedChain.receiverAddress];
+      console.log("array of ReceiverAddress", ReceiverAddressArray);
       // setReceivingChainAddress(ReceiverAddressArray);
       setTokenOptions(tokenOptions);
     } else {

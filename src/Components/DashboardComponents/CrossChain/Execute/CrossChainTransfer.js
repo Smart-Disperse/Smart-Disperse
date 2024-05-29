@@ -48,21 +48,19 @@ function CrossChainTransfer(props) {
   useEffect(() => {
     const calculateGasFees = async () => {
       console.log("calculating gas fees");
-      var recipients = [];
-      var values = [];
-      for (let i = 0; i < props.listData.length; i++) {
-        recipients.push(props.listData[i]["address"]);
-        values.push(props.listData[i]["value"]);
-      }
+      const paymentReceivers = props.RecipientAddressarray;
+      const amounts = props.RecipientAmountarray;
+      const paymentData = {
+        paymentReceivers: paymentReceivers,
+        amounts: amounts,
+      };
       const con = await smartDisperseCrossChainInstance(chainId);
       try {
         const estimatedfees = await con.getEstimatedFees(
           props.chainSelector,
           props.receivingChainAddress,
-          recipients,
-          values,
-          props.tokenAddress,
-          props.totalERC20
+          paymentData,
+          props.tokenAddress
         );
         console.log("estimated fees:", estimatedfees);
         props.setshowestimatedgasprice(estimatedfees);
@@ -72,7 +70,7 @@ function CrossChainTransfer(props) {
     };
 
     calculateGasFees();
-  }, [props.totalERC20]);
+  }, [props.totalERC20,props.RecipientAmountarray]);
 
   const execute = async () => {
     setPaymentmodal(true);
@@ -155,7 +153,7 @@ function CrossChainTransfer(props) {
           <div
             className={textStyle.Link}
             dangerouslySetInnerHTML={{
-              __html: `Your Transaction was successful. Visit <a href="https://${blockExplorerURL}/tx/${receipt.transactionHash}" target="_blank "   style={{ color: "white", textDecoration: "none" }}>here</a> for details.`,
+              __html: `Your Transaction was successful. Visit <a href="https://ccip.chain.link/tx/${receipt.transactionHash}" target="_blank "   style={{ color: "white", textDecoration: "none" }}>here</a> for details.`,
             }}
           />
         );

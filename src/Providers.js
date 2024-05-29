@@ -64,6 +64,7 @@ const Base = {
 };
 
 const baseSepolia = {
+  dropdownchainName:"baseSepolia",
   id: 84532,
   name: "Base Sepolia",
   network: "Base Sepolia",
@@ -80,6 +81,7 @@ const baseSepolia = {
   },
 };
 const optimism = {
+
   id: 10,
   name: "OP Mainnet",
   network: "OP Mainnet",
@@ -96,6 +98,7 @@ const optimism = {
   },
 };
 const optimismSepolia = {
+  dropdownchainName:"opSepolia",
   id: 11155420,
   name: "OP Sepolia",
   network: "OP Sepolia",
@@ -128,6 +131,7 @@ const scroll = {
   },
 };
 const scrollSepolia = {
+
   id: 534351,
   name: "Scroll Sepolia",
   network: "scrollSepolia",
@@ -144,6 +148,7 @@ const scrollSepolia = {
   },
 };
 const sepolia = {
+  dropdownchainName:"sepolia",
   id: 11155111,
   name: "Sepolia",
   network: "Sepolia",
@@ -161,6 +166,7 @@ const sepolia = {
 };
 
 const arbitrumSepolia = {
+  dropdownchainName:"arbSepolia",
   id: 421614,
   name: "Arbitrum Sepolia",
   network: "ArbitrumSepolia",
@@ -182,6 +188,7 @@ const arbitrumSepolia = {
 };
 
 const polygonAmoy = {
+  dropdownchainName:"amoy",
   id: 80002,
   name: "Polygon Amoy",
   network: "Amoy",

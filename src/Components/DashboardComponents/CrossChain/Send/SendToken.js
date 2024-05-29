@@ -354,21 +354,31 @@ const [RecipientAmountarray, setRecipientamountarray] = useState([])
 
   // ------------------- Chain Drop down code ------------------------
   const getChainsForFinalDropDown = () => {
-    const chainDetails = allchains[chainId];
-    console.log(chainDetails);
-    const options = Object.entries(chainDetails.destinationChains).map(
-      ([name]) => (
-        <option key={name} value={name}>
-          {name}
-        </option>
-      )
-    );
-    setDestinationFinalChainsOptions(options);
+    try {
+      const chainDetails = allchains[chainId];
+      if (!chainDetails) {
+        throw new Error(`Chain details for chainId ${chainId} are undefined.`);
+      }
+  
+      console.log(chainDetails);
+      const options = Object.entries(chainDetails.destinationChains).map(
+        ([name]) => (
+          <option key={name} value={name}>
+            {name}
+          </option>
+        )
+      );
+      setDestinationFinalChainsOptions(options);
+    } catch (error) {
+      console.error(error.message);
+      setDestinationFinalChainsOptions([]); // Optionally clear the options or set to default
+    }
   };
+  
 
   useEffect(() => {
     getChainsForFinalDropDown();
-  }, [address]);
+  }, [address,chainId]);
 
   const handleDestinationFinalChainChange = (index) => (e) => {
     const selectedChainName = e.target.value;
