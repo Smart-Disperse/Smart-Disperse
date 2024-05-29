@@ -35,7 +35,7 @@ function CrossChainTransfer(props) {
   const [limitexceed, setLimitexceed] = useState(null);
   const [tweetModalIsOpen, setTweetModalIsOpen] = useState(false); // New state for tweet modal
   const chainId = useChainId();
-const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
+  const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
   const sendTweet = () => {
     console.log("tweeting");
     const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz?utm_source=twitter_tweet&utm_medium=social&utm_campaign=smart_disperse&utm_id=002 and simplify your crypto transfers today!`;
@@ -65,16 +65,14 @@ const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
           props.totalERC20
         );
         console.log("estimated fees:", estimatedfees);
-        props.setshowestimatedgasprice(estimatedfees)
+        props.setshowestimatedgasprice(estimatedfees);
       } catch (error) {
         console.log("error:", error);
       }
     };
-  
+
     calculateGasFees();
-  
   }, [props.totalERC20]);
-  
 
   const execute = async () => {
     setPaymentmodal(true);
@@ -96,20 +94,18 @@ const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
       setModalIsOpen(true);
       return;
     } else {
-      var recipients = [];
-      var values = [];
-      for (let i = 0; i < props.listData.length; i++) {
-        recipients.push(props.listData[i]["address"]);
-        values.push(props.listData[i]["value"]);
-      }
+      // var recipients = props.listData.map((data) => [data["address"]]);
+      // var values = props.listData.map((data) => [data["value"]]);
 
-      console.log(recipients);
-      console.log(values);
+      // console.log(recipients);
+      // console.log(values);
       console.log(props.tokenAddress);
       console.log(props.chainSelector);
       console.log(props.receivingChainAddress);
-      console.log(props.totalERC20);
-      
+      // console.log(props.totalERC20);
+      console.log(props.RecipientAddressarray)
+      console.log(props.RecipientAmountarray)
+
       const con = await smartDisperseCrossChainInstance(chainId);
       console.log(chainId);
       try {
@@ -124,33 +120,35 @@ const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
       } catch (error) {
         console.log("error:", error);
       }
+      const paymentReceivers = props.RecipientAddressarray;
+      const amounts = props.RecipientAmountarray;
+      const paymentData = {
+        paymentReceivers: paymentReceivers,
+        amounts: amounts,
+      };
       try {
         const estimatedfees = await con.getEstimatedFees(
           props.chainSelector,
           props.receivingChainAddress,
-          recipients,
-          values,
-          props.tokenAddress,
-          props.totalERC20
+          paymentData,
+          props.tokenAddress
         );
-        console.log("estimated fees:",estimatedfees);
-        console.log(values);
+        console.log("estimated fees:", estimatedfees);
         console.log(props.totalERC20);
         console.log("Transaction Started");
         const txsendPayment = await con.sendMessagePayNative(
           props.chainSelector,
           props.receivingChainAddress,
-          recipients,
-          values,
+          paymentData,
           props.tokenAddress,
-          props.totalERC20,
           {
             value: estimatedfees,
           }
         );
         console.log("Transaction Successful");
         const receipt = await txsendPayment.wait();
-        props.setLoading(false);
+        console.log(receipt)
+         props.setLoading(false);
 
         let blockExplorerURL = await getExplorer();
         setMessage(
@@ -167,7 +165,7 @@ const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
         props.setLoading(false)
       } catch (error) {
         props.setLoading(false);
-        console.log("error",error)
+        console.log("error", error);
         setMessage(`Transaction cancelled.`);
         setModalIsOpen(true);
         setSuccess(false);
@@ -179,7 +177,7 @@ const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
     if (success) {
       const count = 500,
         defaults = {
-          origin: { y: 0.7 }
+          origin: { y: 0.7 },
         };
 
       function fire(particleRatio, opts) {
@@ -260,8 +258,8 @@ const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
         {message ? (
           <>
             <h2>
-              {success ?
-               "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
+              {success
+                ? "Woo-hoo! All your transactions have been successfully completed with just one click! 🚀"
                 : "Something went Wrong..."}
             </h2>
             <div>

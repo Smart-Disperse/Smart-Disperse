@@ -29,13 +29,16 @@ import CrossChainTransfer from "../Execute/CrossChainTransfer";
 import loaderimg from "@/Assets/loader.gif";
 import loadjson from "@/Assets/tokenload.json";
 import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
+import { useChainId } from "wagmi";
 
 function SendToken({
   activeTab,
   listData,
   setListData,
   tokenAddress,
+  setChainSelector,
   chainSelector,
+  setReceivingChainAddress,
   destinationchainName,
   receivingChainAddress,
 }) {
@@ -62,7 +65,8 @@ function SendToken({
   const [Istokenloading, setIstokenloading] = useState(false);
   const { tkloadimg } = loadjson;
   const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
-
+const [RecipientAddressarray, setRecipientaddressarray] = useState([])
+const [RecipientAmountarray, setRecipientamountarray] = useState([])
   const defaultTokenDetails = {
     name: null,
     symbol: null,
@@ -75,6 +79,15 @@ function SendToken({
   const [allAddresses, setAllAddresses] = useState([]);
   const [tokenDetails, setTokenDetails] =
     useState(defaultTokenDetails); /*Details of the selected token to be sent*/
+  const chainId = useChainId();
+  const [destinationFinalChainsOptions, setDestinationFinalChainsOptions] =
+    useState([]);
+  const [selectedDestinationfinalChains, setSelectedDestinationfinalChains] =
+    useState(Array(listData.length).fill(destinationchainName));
+  const [finalchainSelectors, setFinalchainSelectors] = useState(
+    Array(listData.length).fill("")
+  );
+  const [uniqueReceiverAddresses, setUniqueReceiverAddresses] = useState([]);
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -125,8 +138,6 @@ function SendToken({
   For fetching the Exchnage rate of ETH to USD to display value in USD
   */
   useEffect(() => {
-    console.log("................................................................")
-    console.log(destinationchainName)
     const fetchExchangeRate = async () => {
       try {
         const response = await fetch(
@@ -175,7 +186,7 @@ function SendToken({
       setERC20Balance(tokenDetails.balance);
       setTokenLoaded(true);
     } else {
-      toast.error("Token details not found")
+      toast.error("Token details not found");
       throw new Error("Token details not found"); // Throw error if token details are not found
     }
   };
@@ -288,7 +299,6 @@ function SendToken({
 
   useEffect(() => {
     calculateRemaining();
-
   }, [totalERC20]);
 
   const calculateRemaining = () => {
@@ -329,13 +339,12 @@ function SendToken({
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(
-
       () => {
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);
         }, 2000); // Reset the copy status after 2 seconds
-        toast.success("Token Address Copied Successfully!")
+        toast.success("Token Address Copied Successfully!");
       },
       (err) => {
         console.error("Unable to copy to clipboard:", err);
@@ -343,44 +352,75 @@ function SendToken({
     );
   };
 
-  
-
-
-function ChainDropdown({ chains, selectedChain, onChange, rowId }) {
-  const handleChainChange = (event) => {
-    onChange(rowId, event.target.value); // Call the parent component's onChange function with the rowId and selected chain
+  // ------------------- Chain Drop down code ------------------------
+  const getChainsForFinalDropDown = () => {
+    const chainDetails = allchains[chainId];
+    console.log(chainDetails);
+    const options = Object.entries(chainDetails.destinationChains).map(
+      ([name]) => (
+        <option key={name} value={name}>
+          {name}
+        </option>
+      )
+    );
+    setDestinationFinalChainsOptions(options);
   };
 
-  return (
-    <select value={selectedChain} onChange={handleChainChange}>
-      {/* Render options based on the chain names */}
-      {Object.values(chains).map((chain) => (
-        <option key={chain.chainName} value={chain.chainName}>
-          {chain.chainName}
-        </option>
-      ))}
-    </select>
-  );
-}
+  useEffect(() => {
+    getChainsForFinalDropDown();
+  }, [address]);
+
+  const handleDestinationFinalChainChange = (index) => (e) => {
+    const selectedChainName = e.target.value;
+    console.log(`Selected chain name: ${selectedChainName}`);
+    const newSelectedChains = [...selectedDestinationfinalChains];
+    newSelectedChains[index] = selectedChainName;
+    setSelectedDestinationfinalChains(newSelectedChains);
+    const chainDetails = allchains[chainId];
+    const selectedChain = chainDetails.destinationChains[selectedChainName];
+    const finalchainSelector = selectedChain.chainSelector;
+    const newFinalchainSelectors = [...finalchainSelectors];
+    newFinalchainSelectors[index] = finalchainSelector;
+    setFinalchainSelectors(newFinalchainSelectors);
+    console.log(newFinalchainSelectors);
+    const uniqueFinalchainSelectors = [...new Set(newFinalchainSelectors)];
+    console.log("Unique Final Chain Selectors:", uniqueFinalchainSelectors);
+    setChainSelector(uniqueFinalchainSelectors)
+    printGroupedAddressesAndAmounts(newSelectedChains);
+    const receiverAddresses = newSelectedChains.map(chainName => {
+      return chainDetails.destinationChains[chainName]?.receiverAddress || "Address not found";
+  });
+  const uniqueReceiverAddresses = [...new Set(receiverAddresses)];
+  console.log("Unique Receiver Addresses:", uniqueReceiverAddresses);
+  setReceivingChainAddress(uniqueReceiverAddresses)
+  };
+
+  const printGroupedAddressesAndAmounts = (chainNames) => {
+    const addressGroups = {};
+    const amountGroups = {};
+    listData.forEach((data, index) => {
+      const chainName = chainNames[index];
+      if (!addressGroups[chainName]) {
+        addressGroups[chainName] = [];
+        amountGroups[chainName] = [];
+      }
+      addressGroups[chainName].push(data.address);
+      amountGroups[chainName].push(data.value);
+    });
+    const addressArray = Object.values(addressGroups);
+    const amountArray = Object.values(amountGroups);
+    console.log("Grouped Addresses Array:", addressArray);
+    setRecipientaddressarray(addressArray)
+    console.log("Grouped Amounts Array:", amountArray);
+    setRecipientamountarray(amountArray)
+  };
+
+  useEffect(() => {
+    printGroupedAddressesAndAmounts(selectedDestinationfinalChains);
+  }, [listData, destinationchainName]);
 
 
-
-
-
-// Inside SendToken component
-// State for selected chain
-const [selectedChain, setSelectedChain] = useState(null);
-
-// Function to handle dropdown change
-const handleChainChange = (event) => {
-  setSelectedChain(event.target.value);
-  console.log(selectedChain)
-};
-
-// When initializing the selectedChain state, set it to the chainName
-useEffect(() => {
-  setSelectedChain(destinationchainName);
-}, [destinationchainName]);
+  
   return (
     <>
       <>
@@ -466,9 +506,8 @@ useEffect(() => {
                           {`${tokenAddress.slice(0, 7)}...${tokenAddress.slice(
                             -4
                           )}`}{" "}
-                          
                           <FontAwesomeIcon
-                          className={textStyle.copyicon}
+                            className={textStyle.copyicon}
                             onClick={() => copyToClipboard(tokenAddress)}
                             icon={faCopy}
                           />
@@ -562,9 +601,10 @@ useEffect(() => {
                               id={textStyle.fontsize10px}
                               style={{ letterSpacing: "1px", padding: "8px" }}
                             >
-                             {`${data.address.slice(0, 7)}...${data.address.slice(
-                            -4
-                          )}`}
+                              {`${data.address.slice(
+                                0,
+                                7
+                              )}...${data.address.slice(-4)}`}
                             </td>
                             <td
                               id={textStyle.fontsize10px}
@@ -592,11 +632,13 @@ useEffect(() => {
                                       ) {
                                         setErrorMessage("Enter Label");
                                       } else {
-                                        setErrorMessage("Press Enter to submit label");
+                                        setErrorMessage(
+                                          "Press Enter to submit label"
+                                        );
                                       }
-  
+
                                       const regex = /^[a-zA-Z]*$/;
-  
+
                                       if (
                                         regex.test(inputValue) &&
                                         inputValue.length <= 10
@@ -610,7 +652,17 @@ useEffect(() => {
                                       }
                                     }}
                                   />
-                                {errorMessage && <p style={{ color: 'red', margin: "0px", fontSize:"13px"}}>{errorMessage}</p>}
+                                  {errorMessage && (
+                                    <p
+                                      style={{
+                                        color: "red",
+                                        margin: "0px",
+                                        fontSize: "13px",
+                                      }}
+                                    >
+                                      {errorMessage}
+                                    </p>
+                                  )}
                                 </>
                               )}
                             </td>
@@ -623,16 +675,14 @@ useEffect(() => {
                                 style={{
                                   width: "fit-content",
                                   margin: "0 auto",
-                                  background:
-                                    "transparent",
+                                  background: "transparent",
                                   color: "#00FBFB",
                                   borderRadius: "10px",
                                   padding: "10px 10px",
-                                  border:"1px solid #00FBFB",
+                                  border: "1px solid #00FBFB",
                                   fontSize: "12px",
                                   letterSpacing: "1px",
                                 }}
-
                               >
                                 {(+ethers.utils.formatUnits(
                                   data.value,
@@ -645,17 +695,19 @@ useEffect(() => {
                               id={textStyle.fontsize10px}
                               style={{ padding: "8px" }}
                             >
-                              {/* {destinationchainName} */}
-                              {/* <ChainDropdown chains={allchains} selectedChain={selectedChain} onChange={handleChainChange} /> */}
-                              <select value={selectedChain} onChange={handleChainChange}>
-  {/* Render options based on the chain names */}
-  {Object.values(allchains).map(chain => (
-    <option key={chain.chainName} value={chain.chainName}>
-      {chain.chainName}
-    </option>
-  ))}
-</select>
-                              </td>
+                              <select
+                                id={textStyle.blockchainChains}
+                                onChange={handleDestinationFinalChainChange(
+                                  index
+                                )}
+                                value={selectedDestinationfinalChains[index]}
+                              >
+                                <option value="">
+                                  Select destination chain
+                                </option>
+                                {destinationFinalChainsOptions}
+                              </select>
+                            </td>
                             <td
                               style={{ letterSpacing: "1px", padding: "8px" }}
                             >
@@ -699,8 +751,8 @@ useEffect(() => {
                       Total Amount({tokenDetails.symbol})
                     </th>
                     <th className={textStyle.accountsummaryth}>
-                    Estimated Gas Price <FontAwesomeIcon icon={faGasPump} />
-                  </th>
+                      Estimated Gas Price <FontAwesomeIcon icon={faGasPump} />
+                    </th>
                     <th className={textStyle.accountsummaryth}>Your Balance</th>
                     <th className={textStyle.accountsummaryth}>
                       Remaining Balance
@@ -720,25 +772,26 @@ useEffect(() => {
                       </div>
                     </td>
                     <td id={textStyle.fontsize10px}>
-                    {" "}
-                    <div
-                      id={textStyle.fontsize10px}
-                      style={{
-                        width: "fit-content",
-                        margin: "0 auto",
-                        color: "white",
-                        borderRadius: "10px",
-                        padding: "10px 10px",
-                        fontSize: "12px",
-                        letterSpacing: "1px",
-                      }}
-                    >
-                      {showestimatedgasprice ? 
-                    (+ethers.utils.formatEther((showestimatedgasprice))).toFixed(6)
-                    :null
-                      }
-                    </div>
-                  </td>
+                      {" "}
+                      <div
+                        id={textStyle.fontsize10px}
+                        style={{
+                          width: "fit-content",
+                          margin: "0 auto",
+                          color: "white",
+                          borderRadius: "10px",
+                          padding: "10px 10px",
+                          fontSize: "12px",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        {showestimatedgasprice
+                          ? (+ethers.utils.formatEther(
+                              showestimatedgasprice
+                            )).toFixed(6)
+                          : null}
+                      </div>
+                    </td>
                     <td id={textStyle.fontsize10px}>
                       <div
                         id="font-size-10px"
@@ -777,7 +830,7 @@ useEffect(() => {
                             remaining < 0
                               ? "1px solid red"
                               : "1px solid  #00FBFB",
-                          color: remaining < 0 ? "red" : "#00FBFB" ,
+                          color: remaining < 0 ? "red" : "#00FBFB",
                           borderRadius: "10px",
                           padding: "10px 10px",
                           fontSize: "12px",
@@ -811,8 +864,10 @@ useEffect(() => {
               tokenDetails={tokenDetails}
               setshowestimatedgasprice={setshowestimatedgasprice}
               tokenAddress={tokenAddress}
+              RecipientAddressarray={RecipientAddressarray}
               chainSelector={chainSelector}
               receivingChainAddress={receivingChainAddress}
+              RecipientAmountarray={RecipientAmountarray}
             />
           ) : null}
         </div>
