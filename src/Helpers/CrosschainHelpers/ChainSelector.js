@@ -26,7 +26,7 @@ const allchains = {
         tokens: {
           usdc: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
         },
-        receiverAddress: "0x1859E66C6FCF273d7c37A049A79165Ef54F24B95",
+        receiverAddress: "0x49Ecf740b68473191569a2308Bf34a3F56CE5923",
         iconUrl:
     "https://gateway.lighthouse.storage/ipfs/QmVbtAexzRc2ReSWWyw2Ft7wwkKzsagqnfz3PNfxwM9NMM",
       },
@@ -35,7 +35,7 @@ const allchains = {
         tokens: {
           usdc: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
         },
-        receiverAddress: "0x82ba4A0Eb6c0c706fF0e803207122C7168F34537",
+        receiverAddress: "0xB886ec515BB2BEf33508561804C144BA785b876c",
         iconUrl:
         "https://gateway.lighthouse.storage/ipfs/QmUjiVLiprjXMPceS7r51XNGu277meEkhtWhvH59D2XhzR",
       },
@@ -69,7 +69,7 @@ const allchains = {
         tokens: {
           usdc: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
         },
-        receiverAddress: "0x1859E66C6FCF273d7c37A049A79165Ef54F24B95",
+        receiverAddress: "0x49Ecf740b68473191569a2308Bf34a3F56CE5923",
         iconUrl:
     "https://gateway.lighthouse.storage/ipfs/QmVbtAexzRc2ReSWWyw2Ft7wwkKzsagqnfz3PNfxwM9NMM",
       },
@@ -78,7 +78,7 @@ const allchains = {
         tokens: {
           usdc: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
         },
-        receiverAddress: "0x82ba4A0Eb6c0c706fF0e803207122C7168F34537",
+        receiverAddress: "0xB886ec515BB2BEf33508561804C144BA785b876c",
         iconUrl:
         "https://gateway.lighthouse.storage/ipfs/QmUjiVLiprjXMPceS7r51XNGu277meEkhtWhvH59D2XhzR",
       },
@@ -113,7 +113,7 @@ const allchains = {
         tokens: {
           usdc: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
         },
-        receiverAddress: "0x1859E66C6FCF273d7c37A049A79165Ef54F24B95",
+        receiverAddress: "0x49Ecf740b68473191569a2308Bf34a3F56CE5923",
         iconUrl:
     "https://gateway.lighthouse.storage/ipfs/QmVbtAexzRc2ReSWWyw2Ft7wwkKzsagqnfz3PNfxwM9NMM",
       },

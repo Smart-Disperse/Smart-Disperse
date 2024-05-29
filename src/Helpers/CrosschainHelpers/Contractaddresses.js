@@ -25,7 +25,7 @@ const crossContracts = {
     chainName: "baseSepolia",
   },
   421614: {
-    address: "0x1859E66C6FCF273d7c37A049A79165Ef54F24B95",
+    address: "0x49Ecf740b68473191569a2308Bf34a3F56CE5923",
     description: "SMART_DISPERSE_ADDRESS_TEST_ARBITRUM_SEPOLIA",
     "block-explorer": "https://sepolia.arbiscan.io",
     Abi: SmartDisperseCrossChain,
@@ -33,7 +33,7 @@ const crossContracts = {
     chainName: "arbSepolia",
   },
   80002: {
-    address: "0x82ba4A0Eb6c0c706fF0e803207122C7168F34537",
+    address: "0xB886ec515BB2BEf33508561804C144BA785b876c",
     description: "SMART_DISPERSE_ADDRESS_TEST_POLYGON_AMOY",
     "block-explorer": "https://amoy.polygonscan.com",
     Abi: SmartDisperseCrossChain,
