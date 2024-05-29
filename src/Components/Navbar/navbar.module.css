@@ -1,17 +1,18 @@
 .divtoflexlogoconnectwallet {
   display: flex;
   justify-content: space-between;
-  margin: 0px 50px;
+  /* margin: 0px 50px; */
+  width: 100%;
   align-items: center;
   color: white;
-  position: relative;
+  position: absolute;
   z-index: 2;
 }
-.navbarMain {
+/* .navbarMain {
   position: absolute;
   width: 100%;
   top: -12px;
-}
+} */
 .smartlogportal {
   width: 300px;
   height: auto;
@@ -26,6 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  padding: 0px 10px 0px 0px;
 }
 .toggle {
   --width: 90px;
@@ -69,12 +71,12 @@
 }
 
 .toggle input:checked + .slider {
-  background: #2B285445;
-  border: 0.5px solid #00FFFF;
+  background: #2b285445;
+  border: 0.5px solid #00ffff;
 }
 .toggle input:not(:checked) + .slider {
-  background:#2B285445;
-  border: 0.5px solid #00FFFF;
+  background: #2b285445;
+  border: 0.5px solid #00ffff;
 }
 
 .toggle input:checked + .slider::before {
@@ -96,7 +98,7 @@
   content: attr(data-off);
   position: absolute;
   right: 12px;
-  color: #00FFFFB2;
+  color: #00ffffb2;
   opacity: 1;
   transition: all 0.4s ease-in-out;
 }
@@ -105,7 +107,7 @@
   content: attr(data-on);
   position: absolute;
   left: 12px;
-  color: #00FFFFB2;
+  color: #00ffffb2;
   opacity: 0;
   transition: all 0.4s ease-in-out;
 }
