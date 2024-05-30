@@ -15,6 +15,10 @@ import {
   faArrowDown,
   faArrowUp,
   faCircleCheck,
+  faMagnifyingGlass,
+  faMagnifyingGlassChart,
+  faShare,
+  faShuffle,
 } from "@fortawesome/free-solid-svg-icons";
 import SameChain from "../DashboardComponents/SameChain/SameChain";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
@@ -395,18 +399,23 @@ function Samechaindashboard() {
   }, [address, chainId]);
   return (
     <div className={samechainStyle.maindivofdashboard} key={render}>
-      {/* <div style={{ position: "relative" }}>
-        <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
-        <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
-      </div> */}
       <div>
         <div className={samechainStyle.stickyIcon}>
+          <a href="/cross-chain" className={samechainStyle.Instagra}>
+          <FontAwesomeIcon icon={faShare} /> <div>Cross Dashboard</div>
+          </a>
+        </div>
+        <div className={samechainStyle.stickyIcon1}>
+          <a href="/same-analysis" className={samechainStyle.Instagra}>
+            <FontAwesomeIcon icon={faMagnifyingGlassChart} /> <div>Analysis Spent</div>
+          </a>
+        </div>
+        <div className={samechainStyle.stickyIcon2}>
           <a href="/all-user-lists" className={samechainStyle.Instagram}>
             <FontAwesomeIcon icon={faUser} /> <div>Manage Labels</div>
           </a>
         </div>
       </div>
-      {/* <div className={samechainStyle.samedashmainm}> */}
       <div
         className={`${samechainStyle["samedashmainm"]} ${
           errorModalIsOpen ? `${homeStyle["blurbackground"]}` : ""
