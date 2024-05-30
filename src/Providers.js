@@ -10,6 +10,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import Navbar from "./Components/Navbar/Navbar";
+import { usePathname } from "next/navigation";
 // import { scrollSepolia } from "wagmi/chains";
 const { wallets } = getDefaultWallets();
 
@@ -206,6 +207,7 @@ const polygonAmoy = {
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
 export function Providers({ children }) {
+  const path = usePathname();
   const chains = [
     modeMainnet,
     scroll,
@@ -227,13 +229,13 @@ export function Providers({ children }) {
     ssr: true,
   });
   const queryClient = new QueryClient();
-
+  const isHome = path === "/";
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>
           <>
-            <Navbar />
+            {!isHome ? <Navbar /> : null}
             {children}
           </>
         </RainbowKitProvider>

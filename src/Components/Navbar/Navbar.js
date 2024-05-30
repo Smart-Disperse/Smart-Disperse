@@ -82,7 +82,6 @@ function Navbar() {
               </label>
             )}
             <ConnectButtonCustom isMainnet={isMainnet} />
-           
           </div>
         )}
       </div>

@@ -7,7 +7,7 @@ export const LoadToken = async (customTokenAddress, address) => {
   if (ethereum && customTokenAddress !== "") {
     const provider = new ethers.providers.Web3Provider(ethereum);
     await provider.ready; // added beacuse token was not getting loaded for the first time
-    const signer = provider.getSigner();
+    const signer = await provider.getSigner();
 
     try {
       const erc20 = new ethers.Contract(
