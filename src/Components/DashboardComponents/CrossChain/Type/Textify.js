@@ -4,7 +4,6 @@ import { isValidAddress } from "@/Helpers/ValidateInput.js";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 import { useAccount } from "wagmi";
-import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
 
 function Textify({
   listData,
@@ -19,18 +18,14 @@ function Textify({
   const [focusedSuggestionIndex, setFocusedSuggestionIndex] = useState(-1); // Define focusedSuggestionIndex state variable
   const textareaRef = useRef(null);
   const [suggestionItemHeight, setSuggestionItemHeight] = useState(0);
-  const [chainSuggestions, setChainSuggestions] = useState([]); 
-  const [focusedChainSuggestionIndex, setFocusedChainSuggestionIndex] = useState(-1);
   const dropdownRef = useRef(null);
-  const chainDropdownRef = useRef(null);
   const { address } = useAccount();
 
   const handleInputChange = (e) => {
     const { value } = e.target;
     setTextValue(value);
-  
-    if (value.includes('@')) {
-      const searchTerm = value.split('@').pop().split(' ')[0].toLowerCase();
+    if (value.includes("@")) {
+      const searchTerm = value.split("@").pop().toLowerCase();
       const filteredSuggestions = allNames?.filter((name) =>
         name.toLowerCase().includes(searchTerm)
       );
@@ -38,36 +33,8 @@ function Textify({
     } else {
       setSuggestions([]);
     }
-  
-    if (value.includes('#')) {
-      const searchTerm = value.split('#').pop().split(' ')[0].toLowerCase();
-      const filteredChainSuggestions = Object.values(allchains)
-        .map(chain => chain.chainName)
-        .filter(chainName => chainName.toLowerCase().includes(searchTerm));
-      setChainSuggestions(filteredChainSuggestions);
-    } else {
-      setChainSuggestions([]);
-    }
-  
     parseText(value);
   };
-  
-  const handleChainClick = (chainName) => {
-    const cursorPosition = textareaRef.current.selectionStart;
-    const textBeforeCursor = textValue.substring(0, cursorPosition);
-    const textAfterCursor = textValue.substring(cursorPosition);
-  
-    const hashtagPosition = textBeforeCursor.lastIndexOf('#');
-    const newText =
-      textBeforeCursor.substring(0, hashtagPosition + 1) +
-      chainName +
-      textAfterCursor;
-  
-    setTextValue(newText);
-    setChainSuggestions([]);
-    textareaRef.current.focus();
-  };
-  
   const handleSuggestionClick = (suggestion) => {
     const cursorPosition = textareaRef.current.selectionStart;
     const textBeforeCursor = textValue.substring(0, cursorPosition);
@@ -179,31 +146,29 @@ function Textify({
     await setListData(updatedRecipients);
   };
 
-   const handleKeyDown = (e) => {
-    if (e.key === "#") {
-      if (chainDropdownRef.current) {
-        chainDropdownRef.current.focus();
-      }
-    }
-  
+  const handleKeyDown = (e) => {
     if (e.key === "ArrowUp" || e.key === "ArrowDown") {
       e.preventDefault();
-      const newIndex = focusedChainSuggestionIndex + (e.key === "ArrowUp" ? -1 : 1);
+      const newIndex = focusedSuggestionIndex + (e.key === "ArrowUp" ? -1 : 1);
 
-      if (newIndex >= 0 && newIndex < chainSuggestions.length) {
-        setFocusedChainSuggestionIndex(newIndex);
-        const dropdownElement = chainDropdownRef.current;
+      if (
+        newIndex >= 0 && newIndex < suggestions.length ? suggestions.length : 0
+      ) {
+        setFocusedSuggestionIndex(newIndex);
+
+        // Calculate the scroll position
+        const dropdownElement = dropdownRef.current;
         const scrollTop = newIndex * suggestionItemHeight;
         dropdownElement.scrollTop = scrollTop;
       }
-    } else if (e.key === "Enter" && focusedChainSuggestionIndex !== -1) {
-      if (textValue.includes("#")) {
-        e.preventDefault();
-        handleChainClick(chainSuggestions[focusedChainSuggestionIndex]);
+    } else if (e.key === "Enter" && focusedSuggestionIndex !== -1) {
+      // Check if "@" is present in the input text
+      if (textValue.includes("@")) {
+        e.preventDefault(); // Prevent the default Enter behavior
+        handleSuggestionClick(suggestions[focusedSuggestionIndex]);
       }
     }
   };
-
 
   useEffect(() => {
     // Calculate suggestion item height when suggestions change
@@ -252,7 +217,6 @@ function Textify({
                 spellCheck="false"
                 value={textValue}
                 onChange={handleInputChange}
-                onKeyDown={handleKeyDown} // Attach the handleKeyDown event handler
                 style={{
                   width: "100%",
                   minHeight: "125px",
@@ -274,38 +238,29 @@ function Textify({
                   className={textStyle.dropdown}
                   style={{ maxHeight: "200px", overflowY: "auto" }}
                 >
-                  {/* Suggestion items */}
-                </div>
-              )}
-              {chainSuggestions?.length > 0 && (
-                <div
-                  ref={chainDropdownRef}
-                  className={textStyle.dropdown}
-                  style={{ maxHeight: "200px", overflowY: "auto" }}
-                >
-                  {chainSuggestions.map((chain, index) => (
+                  {suggestions.map((suggestion, index) => (
                     <div
                       key={index}
                       className={`${textStyle.dropdownItem} ${
-                        index === focusedChainSuggestionIndex
+                        index === focusedSuggestionIndex
                           ? textStyle.dropdownItemActive
                           : ""
                       }`}
-                      onClick={() => handleChainClick(chain)}
-                      onMouseEnter={() => setFocusedChainSuggestionIndex(index)}
-                      onMouseLeave={() => setFocusedChainSuggestionIndex(-1)}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      onMouseEnter={() => handleSuggestionMouseEnter(index)}
+                      onMouseLeave={handleSuggestionMouseLeave}
                       style={{
                         background:
-                          index === focusedChainSuggestionIndex
+                          index === focusedSuggestionIndex
                             ? "#8f00ff"
                             : "white",
                         color:
-                          index === focusedChainSuggestionIndex
+                          index === focusedSuggestionIndex
                             ? "white"
                             : "#8f00ff",
                       }}
                     >
-                      {chain}
+                      {suggestion}
                     </div>
                   ))}
                 </div>
