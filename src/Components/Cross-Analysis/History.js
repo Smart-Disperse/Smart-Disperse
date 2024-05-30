@@ -18,6 +18,8 @@ import {
 import { useAccount, useChainId } from "wagmi";
 import popup from "@/Components/Dashboard/popupTable.module.css";
 import { getCrossChainTransactions } from "@/Helpers/CrosschainHelpers/GetCrossChainTransactions";
+import  chainNameMapping  from "@/Helpers/CrosschainHelpers/ChainNameMapping";
+import { LoadTokenForAnalysis } from "@/Helpers/LoadToken";
 
 function History() {
   const { address } = useAccount();
@@ -58,6 +60,13 @@ function History() {
   useEffect(() => {
     fetchCrossChainTransactions();
   }, [address, chainId]);
+
+
+  /*...............Load Token Symbol for Display */
+  const loadTokenForDisplay = async(tokenAddr) => {
+    const tokenDetails = await LoadTokenForAnalysis(tokenAddr);
+    return tokenDetails.symbol;
+  }
 
   // /............sorting label function ............./
   const sortLabels = () => {
@@ -292,6 +301,10 @@ function History() {
     }));
   };
 
+//   useEffect(() => {
+// console.log("checking chain name log",chainNameMapping)
+//   },[])
+
   return (
     <div className={histroyStyle.maindivofhisotry}>
       <div className={histroyStyle.searchtablediv}>
@@ -334,8 +347,8 @@ function History() {
                 <option value="Select" className={histroyStyle.chainOptions}>
                   Select
                 </option>
-                <option value="Eth" className={histroyStyle.chainOptions}>
-                  ETH
+                <option value="USDC" className={histroyStyle.chainOptions}>
+                  USDC
                 </option>
 
                 {tokenListOfUser.length > 0
@@ -359,15 +372,15 @@ function History() {
                   <thead>
                     <tr className={popup.row}>
                       <th className={popup.column1}>Sender</th>
-                      <th className={popup.column2}>Token</th>
-                      <th className={popup.column3}>Amount   
+                      <th className={popup.column2}>Destination Chain</th>
+                      <th className={popup.column3}>Token</th>
+                      <th className={popup.column4}>Amount   
                       {/* {expandedRows[index] ? (
                                   <FontAwesomeIcon icon={faArrowUp} />
                                 ) : (
                                   <FontAwesomeIcon icon={faArrowDown} />
                                 )} */}
                                 </th>
-                      <th className={popup.column4}>Destination Chain</th>
                       <th className={popup.column5}>Fees</th>
                       <th className={popup.column6}>Transaction Hash</th>
                       <th className={popup.column7}>
@@ -423,18 +436,19 @@ function History() {
                           )}`}
                               </td>
                               <td className={popup.column2}>
-                                {/* {transaction.tokenAddress} */}
-                                {`${transaction.tokenAddress.slice(0, 7)}...${transaction.tokenAddress.slice(
-                            -4
-                          )}`}
+                                {console.log(chainNameMapping)}
+                                {chainNameMapping && chainNameMapping[transaction.destinationChainSelector]?.chainName || "Unknown Chain"}
                               </td>
+
+
+
                               <td className={popup.column3}>
-                                {transaction.tokenAmount}
+                                {loadTokenForDisplay(transaction.tokenAddress)}
                               </td>
                               <td className={popup.column4}>
-                              
-                                polygon
+                                {transaction.tokenAmount}
                               </td>
+                              
                               <td className={popup.column5}>
                                 {transaction.fees}
                               </td>
