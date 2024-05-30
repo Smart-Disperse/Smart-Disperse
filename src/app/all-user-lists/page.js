@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Displayallusers from "./Displayallusers";
 import Loading from "../loading";
+import history from "@/Components/Same-Analysis/history.module.css";
 
 function Page() {
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ function Page() {
   }, []);
 
   return typeof window !== "undefined" ? (
-    <div>{loading ? <Loading /> : <Displayallusers />}</div>
+    <div className={history.maindiv}>{loading ? <Loading /> : <Displayallusers />}</div>
   ) : null;
 }
 

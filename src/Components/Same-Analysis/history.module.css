@@ -2,17 +2,33 @@
   width: 70%;
   margin: 0 auto;
   padding-top: 180px;
+
 }
 
 .searchinputbox:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
+.searchinputbox::placeholder {
+  color: rgba(255, 255, 255, 0.569);
+}
 .searchinputbox {
   border: none;
   background: none;
   padding-left: 20px;
+  width: 100%;
+  color: white;
   font-size: 15px;
+}
+
+.maindiv{
+  background: var(--background);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  min-height: 100vh;
+
 }
 
 .searchdiv {
@@ -28,6 +44,7 @@
     rgba(84, 56, 165, 0.38) 98.57%
   );
   border-radius: 203px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .searchicon {
@@ -116,6 +133,17 @@
   padding: 5px;
 }
 
+.filterdiv{
+  display: flex;
+  align-items: center;
+
+}
+
+.labeldate{
+  display: flex;
+  flex-direction: column;
+}
+
 .eachtdintable {
   padding: 11px;
   font-weight: 300;
@@ -133,6 +161,7 @@
   border-radius: 154px;
   padding: 12px 25px;
   background: transparent;
+  color: white;
 }
 
 .dropdown option {

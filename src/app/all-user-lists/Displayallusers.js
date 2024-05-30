@@ -175,6 +175,7 @@ function Displayallusers() {
                   <tbody>
                     {usersData?.map((user, index) => (
                       <tr
+                    style={{background:"#ffffff1a"}}
                         key={index}
                         className={
                           index % 2 === 0
@@ -268,10 +269,11 @@ function Displayallusers() {
           )}
           <div className={displayuser.buttondivgoback}>
             <Link className={displayuser.gobackbtn} href={"/same-chain"}>
-              <FontAwesomeIcon icon={faArrowLeft} /> Go to Same Chain Dashboard
+              <FontAwesomeIcon icon={faArrowLeft} />&nbsp;&nbsp; Same Chain 
+              
             </Link>{" "}
             <Link className={displayuser.gobackbtn} href={"/cross-chain"}>
-              Go to Cross Chain Dashboard{" "}
+               Cross Chain {" "}&nbsp;&nbsp;
               <FontAwesomeIcon icon={faArrowRight} />
             </Link>{" "}
           </div>
