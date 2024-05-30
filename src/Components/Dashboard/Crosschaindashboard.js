@@ -14,7 +14,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import homeStyle from "@/Components/Homepage/landingpage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faShare, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import {
   getERC20Transactions,
@@ -25,6 +25,14 @@ import { ethers } from "ethers";
 import notnx from "../../Assets/nodata.png";
 import contracts from "@/Helpers/ContractAddresses";
 import CrossChain from "../DashboardComponents/CrossChain/CrossChain";
+import {
+  faArrowDown,
+  faArrowUp,
+  faCircleCheck,
+  faMagnifyingGlass,
+  faMagnifyingGlassChart,
+  faShuffle,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Crosschaindashboard() {
   const [activeTab, setActiveTab] = useState("text"); //default tab is textify
@@ -292,20 +300,23 @@ function Crosschaindashboard() {
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
-      {/* <div style={{ position: "relative" }}>
-        <Image className={samechainStyle.dashbgImg1} src={img3} alt="none" />
-        <Image className={samechainStyle.dashbgImg2} src={img4} alt="none" />
-      </div> */}
-      <div>
-        <button
-          onClick={() => router.push("/all-user-lists")}
-          title="View your contact"
-          className={samechainStyle.displayuserlistbtn}
-        >
-          <FontAwesomeIcon icon={faUser} />
-        </button>
+   <div>
+        <div className={samechainStyle.stickyIcon}>
+          <a href="/same-chain" className={samechainStyle.Instagra}>
+          <FontAwesomeIcon icon={faShare} /> <div>Same Dashboard</div>
+          </a>
+        </div>
+        <div className={samechainStyle.stickyIcon1}>
+          <a href="/cross-analysis" className={samechainStyle.Instagra}>
+            <FontAwesomeIcon icon={faMagnifyingGlassChart} /> <div>Analysis Spent</div>
+          </a>
+        </div>
+        <div className={samechainStyle.stickyIcon2}>
+          <a href="/all-user-lists" className={samechainStyle.Instagram}>
+            <FontAwesomeIcon icon={faUser} /> <div>Manage Labels</div>
+          </a>
+        </div>
       </div>
-      {/* <div className={samechainStyle.samedashmainm}> */}
       <div
         className={`${samechainStyle["samedashmainm"]} ${
           errorModalIsOpen ? `${homeStyle["blurbackground"]}` : ""

@@ -1,6 +1,214 @@
 .maindivofhisotry {
   width: 70%;
   margin: 0 auto;
+  padding-top: 180px;
+}
+
+.searchinputbox:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.searchinputbox {
+  border: none;
+  background: none;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.searchdiv {
+  width: 100%;
+  padding: 10px 0px;
+  color: white;
+  border: 1.16px solid #6e58ae;
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(
+    90.16deg,
+    rgba(125, 69, 215, 0.38) 0.06%,
+    rgba(84, 56, 165, 0.38) 98.57%
+  );
+  border-radius: 203px;
+}
+
+.searchicon {
+  width: 15px;
+  height: 15px;
+  color: white;
+  border: none;
+  border-radius: 70px;
+}
+.searchbtn {
+  border: none;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  width: 30px;
+  background: linear-gradient(111.11deg, #b659ff 11.51%, #6977ff 84.76%);
+  align-items: center;
+  justify-content: center;
+  margin-right: 7px;
+}
+
+.tableandheadingdiv {
+  border-radius: 20px;
+  margin-top: 30px;
+}
+
+.tablediv1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.maintablediv {
+  color: white;
+  border: none;
+  margin-top: 30px;
+  padding: 20px;
+}
+.Nodata {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  justify-content: center;
+  align-items: center;
+}
+.headingdiv {
+  font-weight: 300;
+  font-size: 25px;
+  color: #00ffff;
+  letter-spacing: 2px;
+}
+
+.dateInput {
+  border: none;
+  box-shadow: 0px 4px 17.8px 0px rgba(0, 0, 0, 0.18) inset;
+  color: white;
+  background: #694a8c;
+  border-radius: 154px;
+  padding: 15px;
+  margin: 5px;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.tokenSelect {
+  border: none;
+  background: blue;
+  color: white;
+  border-radius: 21px;
+  padding: 5px;
+  margin: 5px;
+  font-weight: 900;
+}
+
+.tablediv {
+  padding: 10px;
+}
+
+.theadintable {
+  color: white;
+  background-color: blue;
+  font-weight: 900;
+  font-size: 15px;
+  padding: 5px;
+}
+
+.eachtdintable {
+  padding: 11px;
+  font-weight: 300;
+  font-size: 13px;
+  border-top: 1px solid rgba(0, 0, 0, 0.229);
+}
+
+.transactionTable {
+  width: 100%;
+  height: auto;
+}
+.dropdown {
+  border: 1px solid rgba(255, 255, 255, 1);
+  box-shadow: 0px 4px 17.8px 0px rgba(0, 0, 0, 0.18) inset;
+  border-radius: 154px;
+  padding: 12px 25px;
+  background: transparent;
+}
+
+.dropdown option {
+  background: #00ffff;
+  color: black;
+}
+
+.dropdown option:focus {
+  background: red;
+  color: black;
+}
+
+@media only screen and (max-width: 1025px) {
+  .maindivofhisotry {
+    margin: 130px 150px;
+  }
+}
+
+/* Additional CSS for expandable rows */
+.popup .innerTable {
+  width: 100%;
+  background-color: #2a2a2a;
+  color: white;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.popup .innerTable th,
+.popup .innerTable td {
+  padding: 10px;
+  border: 1px solid #444;
+}
+
+.popup .row {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup .row:hover {
+  background-color: #444;
+}
+
+.popup .column1,
+.popup .column2,
+.popup .column3,
+.popup .column4,
+.popup .column5,
+.popup .column6,
+.popup .column7 {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  color: white;
+}
+
+.popup .head th {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.popup .content {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.popup .btnhoverpointer {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+
+
+/*.maindivofhisotry {
+  width: 70%;
+  margin: 0 auto;
   margin-top: 50px;
 }
 
@@ -148,4 +356,5 @@
   .maindivofhisotry {
     margin: 130px 150px;
   }
-}
+} */
+ 
