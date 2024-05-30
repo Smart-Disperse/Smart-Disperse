@@ -20,6 +20,7 @@ import popup from "@/Components/Dashboard/popupTable.module.css";
 import { getCrossChainTransactions } from "@/Helpers/CrosschainHelpers/GetCrossChainTransactions";
 import  chainNameMapping  from "@/Helpers/CrosschainHelpers/ChainNameMapping";
 import { LoadTokenForAnalysis } from "@/Helpers/LoadToken";
+import { ethers } from "ethers";
 
 function History() {
   const { address } = useAccount();
@@ -62,7 +63,7 @@ function History() {
   }, [address, chainId]);
 
 
-  /*...............Load Token Symbol for Display */
+  /*...............Load Token Symbol for Display ................................. */
   const loadTokenForDisplay = async(tokenAddr) => {
     const tokenDetails = await LoadTokenForAnalysis(tokenAddr);
     return tokenDetails.symbol;
@@ -381,7 +382,7 @@ function History() {
                                   <FontAwesomeIcon icon={faArrowDown} />
                                 )} */}
                                 </th>
-                      <th className={popup.column5}>Fees</th>
+                      <th className={popup.column5}>Fees (ETH)</th>
                       <th className={popup.column6}>Transaction Hash</th>
                       <th className={popup.column7}>
                         Date
@@ -450,7 +451,7 @@ function History() {
                               </td>
                               
                               <td className={popup.column5}>
-                                {transaction.fees}
+                               {(+ethers.utils.formatEther(transaction.fees)).toFixed(4)}
                               </td>
                               <td className={popup.column6}>
                               {`${transaction.transactionHash.slice(0, 7)}...${transaction.transactionHash.slice(
