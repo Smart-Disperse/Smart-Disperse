@@ -20,6 +20,7 @@ import { useChainId, useNetwork } from "wagmi";
 import { smartDisperseCrossChainInstance } from "@/Helpers/CrosschainHelpers/ContractInstance";
 import crossContracts from "@/Helpers/CrosschainHelpers/Contractaddresses";
 import { approveToken } from "@/Helpers/CrosschainHelpers/CrossApproveToken";
+import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
 
 const ConfettiScript = () => (
   <Head>
@@ -35,7 +36,7 @@ function CrossChainTransfer(props) {
   const [limitexceed, setLimitexceed] = useState(null);
   const [tweetModalIsOpen, setTweetModalIsOpen] = useState(false); // New state for tweet modal
   const chainId = useChainId();
-  const [showestimatedgasprice, setshowestimatedgasprice] = useState("");
+
   const sendTweet = () => {
     console.log("tweeting");
     const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz?utm_source=twitter_tweet&utm_medium=social&utm_campaign=smart_disperse&utm_id=002 and simplify your crypto transfers today!`;
@@ -47,22 +48,67 @@ function CrossChainTransfer(props) {
 
   useEffect(() => {
     const calculateGasFees = async () => {
-      console.log("calculating gas fees");
-      var recipients = [];
-      var values = [];
-      for (let i = 0; i < props.listData.length; i++) {
-        recipients.push(props.listData[i]["address"]);
-        values.push(props.listData[i]["value"]);
+      const mergedData = {};
+      props.listData.forEach((item, index) => {
+        const chainName = props.selectedDestinationfinalChains[index]?.name;
+        if (chainName) {
+          const receiverAddress =
+            allchains[chainId]["destinationChains"][chainName].receiverAddress;
+          const chainSelector =
+            allchains[chainId]["destinationChains"][chainName].chainSelector;
+
+          if (!mergedData[chainName]) {
+            mergedData[chainName] = {
+              receiverAddress,
+              chainSelector,
+              list: [],
+            };
+          }
+
+          mergedData[chainName].list.push(item);
+        }
+      });
+
+      console.log(mergedData);
+      const receiverAddresses = [];
+      const chainSelectors = [];
+      const amounts = [];
+      const addresses = [];
+
+      for (const chainName in mergedData) {
+        if (Object.hasOwnProperty.call(mergedData, chainName)) {
+          const chainData = mergedData[chainName];
+          receiverAddresses.push(chainData.receiverAddress);
+          chainSelectors.push(chainData.chainSelector);
+
+          // Extracting amounts and addresses
+          const amountArr = [];
+          const addressArr = [];
+          chainData.list.forEach((item) => {
+            amountArr.push(item.value);
+            addressArr.push(item.address);
+          });
+          amounts.push(amountArr);
+          addresses.push(addressArr);
+        }
       }
+
+      console.log(" Chain Selectors:", chainSelectors);
+      console.log(" Receiver Addresses:", receiverAddresses);
+      console.log(" Amounts:", amounts);
+      console.log(" Addresses:", addresses);
+      console.log(props.tokenAddress);
       const con = await smartDisperseCrossChainInstance(chainId);
+      const paymentData = {
+        paymentReceivers: addresses,
+        amounts: amounts,
+      };
       try {
         const estimatedfees = await con.getEstimatedFees(
-          props.chainSelector,
-          props.receivingChainAddress,
-          recipients,
-          values,
-          props.tokenAddress,
-          props.totalERC20
+          chainSelectors,
+          receiverAddresses,
+          paymentData,
+          props.tokenAddress
         );
         console.log("estimated fees:", estimatedfees);
         props.setshowestimatedgasprice(estimatedfees);
@@ -92,22 +138,63 @@ function CrossChainTransfer(props) {
       setExecutionStatusmodal(true);
       return;
     } else {
-      // var recipients = props.listData.map((data) => [data["address"]]);
-      // var values = props.listData.map((data) => [data["value"]]);
+      console.log(props.listData, props.selectedDestinationfinalChains);
 
-      // console.log(recipients);
-      // console.log(values);
+      const mergedData = {};
+      props.listData.forEach((item, index) => {
+        const chainName = props.selectedDestinationfinalChains[index]?.name;
+        if (chainName) {
+          const receiverAddress =
+            allchains[chainId]["destinationChains"][chainName].receiverAddress;
+          const chainSelector =
+            allchains[chainId]["destinationChains"][chainName].chainSelector;
+
+          if (!mergedData[chainName]) {
+            mergedData[chainName] = {
+              receiverAddress,
+              chainSelector,
+              list: [],
+            };
+          }
+
+          mergedData[chainName].list.push(item);
+        }
+      });
+
+      console.log(mergedData);
+      const receiverAddresses = [];
+      const chainSelectors = [];
+      const amounts = [];
+      const addresses = [];
+
+      for (const chainName in mergedData) {
+        if (Object.hasOwnProperty.call(mergedData, chainName)) {
+          const chainData = mergedData[chainName];
+          receiverAddresses.push(chainData.receiverAddress);
+          chainSelectors.push(chainData.chainSelector);
+
+          // Extracting amounts and addresses
+          const amountArr = [];
+          const addressArr = [];
+          chainData.list.forEach((item) => {
+            amountArr.push(item.value);
+            addressArr.push(item.address);
+          });
+          amounts.push(amountArr);
+          addresses.push(addressArr);
+        }
+      }
+
+      console.log(" Chain Selectors:", chainSelectors);
+      console.log(" Receiver Addresses:", receiverAddresses);
+      console.log(" Amounts:", amounts);
+      console.log(" Addresses:", addresses);
       console.log(props.tokenAddress);
-      console.log(props.chainSelector);
-      console.log(props.receivingChainAddress);
-      // console.log(props.totalERC20);
-      console.log(props.RecipientAddressarray);
-      console.log(props.RecipientAmountarray);
+      console.log(props.totalERC20);
 
       const con = await smartDisperseCrossChainInstance(chainId);
       console.log(chainId);
       try {
-        console.log("checking token");
         const isTokenApproved = await approveToken(
           props.totalERC20,
           props.tokenAddress,
@@ -118,16 +205,15 @@ function CrossChainTransfer(props) {
       } catch (error) {
         console.log("error:", error);
       }
-      const paymentReceivers = props.RecipientAddressarray;
-      const amounts = props.RecipientAmountarray;
+
       const paymentData = {
-        paymentReceivers: paymentReceivers,
+        paymentReceivers: addresses,
         amounts: amounts,
       };
       try {
         const estimatedfees = await con.getEstimatedFees(
-          props.chainSelector,
-          props.receivingChainAddress,
+          chainSelectors,
+          receiverAddresses,
           paymentData,
           props.tokenAddress
         );
@@ -135,8 +221,8 @@ function CrossChainTransfer(props) {
         console.log(props.totalERC20);
         console.log("Transaction Started");
         const txsendPayment = await con.sendMessagePayNative(
-          props.chainSelector,
-          props.receivingChainAddress,
+          chainSelectors,
+          receiverAddresses,
           paymentData,
           props.tokenAddress,
           {
@@ -213,7 +299,7 @@ function CrossChainTransfer(props) {
   }, [success]);
 
   const getExplorer = async () => {
-    return crossContracts[chainId]["block-explorer"];
+    return "ccip.chain.link";
   };
 
   return (

@@ -381,7 +381,8 @@
   max-height: 280px;
   border-radius: 20px;
   border: 1px solid #8d37fb;
-  overflow: auto;
+  overflow: visible;
+  overflow-x: scroll;
 }
 #tableresponsive {
   margin: 25px;
@@ -428,7 +429,7 @@
 }
 .popupforpayment button {
   background: rgb(0, 255, 239);
-  border:none;
+  border: none;
   border-radius: 5px;
   color: black;
   cursor: pointer;
@@ -450,18 +451,17 @@
   width: 200px; /* Adjust width as needed */
   padding: 8px;
   font-size: 16px;
-  color: #00FBFB;
+  color: #00fbfb;
   border: none;
   border-radius: 15px;
-  background: #8D37FB;
- 
+  background: #8d37fb;
 }
 
 /* Style for select options */
 #blockchainChains option {
   font-size: 16px;
   /* background:linear-gradient(90deg, rgba(68, 9, 205, 0.432) 0%, rgba(140, 62, 250, 0.417) 100%); */
-  border: 1px solid #19F26F;
+  border: 1px solid #19f26f;
   background-color: #0f042c;
   color: white;
 }
@@ -683,7 +683,6 @@
   .scrollabletablecontainer {
     margin: 5px 0px;
     max-height: 280px;
-    overflow: auto;
   }
   .sendbutton {
     background: linear-gradient(

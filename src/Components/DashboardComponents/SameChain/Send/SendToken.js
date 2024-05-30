@@ -693,7 +693,15 @@ function SendToken({ activeTab, listData, setListData }) {
                           <td id={textStyle.fontsize10px}>
                             <div
                               id="font-size-10px"
-                              className={textStyle.textAccSum}
+                              style={{
+                                width: "fit-content",
+                                margin: "0 auto",
+                                color: "white",
+                                borderRadius: "10px",
+
+                                letterSpacing: "1px",
+                              }}
+                              // className={textStyle.textAccSum}
                             >
                               {totalERC20
                                 ? (+ethers.utils.formatUnits(
