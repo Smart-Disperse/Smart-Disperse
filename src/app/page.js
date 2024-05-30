@@ -541,7 +541,7 @@ export default function Home({ children }) {
                     Blockchain
                   </div>
                   <div className={home.buttongetstart}>
-                    <Link href="http://app.smartdisperse.xyz/cross-chain">
+                    <Link href="http://smartdisperse.xyz/cross-chain">
                       <button className={home.getstartbtn}>Start now ➔</button>
                     </Link>
                   </div>
@@ -555,7 +555,7 @@ export default function Home({ children }) {
                     and Accessibility
                   </div>
                   <div className={home.buttongetstart}>
-                    <Link href="http://app.smartdisperse.xyz/same-chain">
+                    <Link href="http://smartdisperse.xyz/same-chain">
                       <button className={home.getstartbtn}>Start now ➔</button>
                     </Link>
                   </div>

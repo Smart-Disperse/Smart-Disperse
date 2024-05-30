@@ -47,6 +47,7 @@
   font-size: 3.5rem;
   animation: fadeInUp 1s ease-out forwards;
   opacity: 0;
+  text-align: left;
 }
 @keyframes fadeInUp {
   0% {
@@ -90,6 +91,7 @@
   font-size: 15px;
   font-weight: 300;
   line-height: 1.5em;
+  text-align: left;
 }
 
 .hLaunchMain {
