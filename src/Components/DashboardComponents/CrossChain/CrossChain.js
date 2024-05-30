@@ -36,17 +36,16 @@ function CrossChain({ activeTab }) {
 
       console.log(chainDetails);
       const options = Object.entries(chainDetails.destinationChains).map(
-        ([name,details]) => (
+        ([name, details]) => (
           <option key={name} value={name}>
             {console.log(details.iconUrl)}
             <div>
-
-            <img
-            src={details.iconUrl}
-            alt={name}
-            className={connectStyle.logo}
-            />
-            {name}
+              <img
+                src={details.iconUrl}
+                alt={name}
+                className={connectStyle.logo}
+              />
+              {name}
             </div>
           </option>
         )
