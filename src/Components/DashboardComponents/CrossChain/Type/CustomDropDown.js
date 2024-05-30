@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import dropDownStyles from "./CustomDropdown.module.css";
+import dropDownStyles from "./CustomDropDown.module.css";
 
 function CustomDropdown({
   options,
