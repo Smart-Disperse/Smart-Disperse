@@ -19,6 +19,7 @@ import { useAccount, useChainId } from "wagmi";
 import popup from "@/Components/Dashboard/popupTable.module.css";
 import { getCrossChainTransactions } from "@/Helpers/CrosschainHelpers/GetCrossChainTransactions";
 import  chainNameMapping  from "@/Helpers/CrosschainHelpers/ChainNameMapping";
+import { LoadTokenForAnalysis } from "@/Helpers/LoadToken";
 
 function History() {
   const { address } = useAccount();
@@ -59,6 +60,13 @@ function History() {
   useEffect(() => {
     fetchCrossChainTransactions();
   }, [address, chainId]);
+
+
+  /*...............Load Token Symbol for Display */
+  const loadTokenForDisplay = async(tokenAddr) => {
+    const tokenDetails = await LoadTokenForAnalysis(tokenAddr);
+    return tokenDetails.symbol;
+  }
 
   // /............sorting label function ............./
   const sortLabels = () => {
@@ -339,8 +347,8 @@ function History() {
                 <option value="Select" className={histroyStyle.chainOptions}>
                   Select
                 </option>
-                <option value="Eth" className={histroyStyle.chainOptions}>
-                  ETH
+                <option value="USDC" className={histroyStyle.chainOptions}>
+                  USDC
                 </option>
 
                 {tokenListOfUser.length > 0
@@ -434,12 +442,8 @@ function History() {
 
 
 
-                              <td className={popup.column3}>    
-                                {/* {transaction.tokenAddress} */}
-                                {`${transaction.tokenAddress.slice(0, 7)}...${transaction.tokenAddress.slice(
-                            -4
-                          )}`}
-                          
+                              <td className={popup.column3}>
+                                {loadTokenForDisplay(transaction.tokenAddress)}
                               </td>
                               <td className={popup.column4}>
                                 {transaction.tokenAmount}
