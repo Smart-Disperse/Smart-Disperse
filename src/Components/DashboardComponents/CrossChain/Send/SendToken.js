@@ -30,17 +30,14 @@ import loaderimg from "@/Assets/loader.gif";
 import loadjson from "@/Assets/tokenload.json";
 import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
 import { useChainId } from "wagmi";
+import CustomDropdown from "../Type/CustomDropDown";
 
 function SendToken({
   activeTab,
   listData,
   setListData,
   tokenAddress,
-  setChainSelector,
-  chainSelector,
-  setReceivingChainAddress,
-  destinationchainName,
-  receivingChainAddress,
+  selectedDestinationChain,
 }) {
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const [errormsg, setErrormsg] = useState("");
@@ -80,12 +77,27 @@ function SendToken({
   const [destinationFinalChainsOptions, setDestinationFinalChainsOptions] =
     useState([]);
   const [selectedDestinationfinalChains, setSelectedDestinationfinalChains] =
-    useState(Array(listData.length).fill(destinationchainName));
+    useState(new Array(listData.length).fill(selectedDestinationChain));
   const [finalchainSelectors, setFinalchainSelectors] = useState(
     Array(listData.length).fill("")
   );
   const [uniqueReceiverAddresses, setUniqueReceiverAddresses] = useState([]);
   const [suffecientBalance, setSuffecientBalance] = useState(true);
+
+  useEffect(() => {
+    setSelectedDestinationfinalChains((prevChains) => {
+      // Create a copy of the previous array
+      const updatedChains = [...prevChains];
+      // Ensure the updated array has the correct length
+      for (let i = 0; i < listData.length; i++) {
+        // Only update the index if it doesn't already have a value
+        if (updatedChains[i] === undefined || updatedChains[i] === null) {
+          updatedChains[i] = selectedDestinationChain;
+        }
+      }
+      return updatedChains;
+    });
+  }, [listData.length, selectedDestinationChain]);
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -184,8 +196,9 @@ function SendToken({
       setERC20Balance(tokenDetails.balance);
       setTokenLoaded(true);
     } else {
-      toast.error("Token details not found");
-      throw new Error("Token details not found"); // Throw error if token details are not found
+      // toast.error("Token details not found");
+      console.log("error-Token not found");
+      // Throw error if token details are not found
     }
   };
 
@@ -357,11 +370,10 @@ function SendToken({
 
       console.log(chainDetails);
       const options = Object.entries(chainDetails.destinationChains).map(
-        ([name]) => (
-          <option key={name} value={name}>
-            {name}
-          </option>
-        )
+        ([name, details]) => ({
+          name,
+          iconUrl: details.iconUrl,
+        })
       );
       setDestinationFinalChainsOptions(options);
     } catch (error) {
@@ -372,59 +384,72 @@ function SendToken({
 
   useEffect(() => {
     getChainsForFinalDropDown();
-  }, [address, chainId]);
+  }, [address, chainId, selectedDestinationChain]);
 
-  const handleDestinationFinalChainChange = (index) => (e) => {
-    const selectedChainName = e.target.value;
-    console.log(`Selected chain name: ${selectedChainName}`);
-    const newSelectedChains = [...selectedDestinationfinalChains];
-    newSelectedChains[index] = selectedChainName;
-    setSelectedDestinationfinalChains(newSelectedChains);
-    const chainDetails = allchains[chainId];
-    const selectedChain = chainDetails.destinationChains[selectedChainName];
-    const finalchainSelector = selectedChain.chainSelector;
-    const newFinalchainSelectors = [...finalchainSelectors];
-    newFinalchainSelectors[index] = finalchainSelector;
-    setFinalchainSelectors(newFinalchainSelectors);
-    console.log(newFinalchainSelectors);
-    const uniqueFinalchainSelectors = [...new Set(newFinalchainSelectors)];
-    console.log("Unique Final Chain Selectors:", uniqueFinalchainSelectors);
-    setChainSelector(uniqueFinalchainSelectors);
-    printGroupedAddressesAndAmounts(newSelectedChains);
-    const receiverAddresses = newSelectedChains.map((chainName) => {
-      return (
-        chainDetails.destinationChains[chainName]?.receiverAddress ||
-        "Address not found"
-      );
+  const handleDestinationFinalChainChange = (selectedChain, index) => {
+    console.log(selectedChain);
+    // setSelectedDestinationfinalChains(selectedChain);
+    setSelectedDestinationfinalChains((prevChains) => {
+      // Create a copy of the previous array
+      const updatedChains = [...prevChains];
+      // Update the specific index
+      updatedChains[index] = selectedChain;
+      return updatedChains;
     });
-    const uniqueReceiverAddresses = [...new Set(receiverAddresses)];
-    console.log("Unique Receiver Addresses:", uniqueReceiverAddresses);
-    setReceivingChainAddress(uniqueReceiverAddresses);
+
+    console.log(listData);
+
+    // const selectedChainName = e.target.value;
+    // console.log(`Selected chain name: ${selectedChainName}`);
+    // const newSelectedChains = [...selectedDestinationfinalChains];
+    // newSelectedChains[index] = selectedChainName;
+    // setSelectedDestinationfinalChains(newSelectedChains);
+    // console.log(newSelectedChains);
+    // const chainDetails = allchains[chainId];
+    // const selectedChain = chainDetails.destinationChains[selectedChainName];
+    // const finalchainSelector = selectedChain.chainSelector;
+    // const newFinalchainSelectors = [...finalchainSelectors];
+    // newFinalchainSelectors[index] = finalchainSelector;
+    // setFinalchainSelectors(newFinalchainSelectors);
+    // console.log(newFinalchainSelectors);
+    // const uniqueFinalchainSelectors = [...new Set(newFinalchainSelectors)];
+    // console.log("Unique Final Chain Selectors:", uniqueFinalchainSelectors);
+    // setChainSelector(uniqueFinalchainSelectors);
+    // printGroupedAddressesAndAmounts(newSelectedChains);
+    // const receiverAddresses = newSelectedChains.map((chainName) => {
+    //   return (
+    //     chainDetails.destinationChains[chainName]?.receiverAddress ||
+    //     "Address not found"
+    //   );
+    // });
+    // const uniqueReceiverAddresses = [...new Set(receiverAddresses)];
+    // console.log("Unique Receiver Addresses:", uniqueReceiverAddresses);
+    // setReceivingChainAddress(uniqueReceiverAddresses);
   };
 
-  const printGroupedAddressesAndAmounts = (chainNames) => {
-    const addressGroups = {};
-    const amountGroups = {};
-    listData.forEach((data, index) => {
-      const chainName = chainNames[index];
-      if (!addressGroups[chainName]) {
-        addressGroups[chainName] = [];
-        amountGroups[chainName] = [];
-      }
-      addressGroups[chainName].push(data.address);
-      amountGroups[chainName].push(data.value);
-    });
-    const addressArray = Object.values(addressGroups);
-    const amountArray = Object.values(amountGroups);
-    console.log("Grouped Addresses Array:", addressArray);
-    setRecipientaddressarray(addressArray);
-    console.log("Grouped Amounts Array:", amountArray);
-    setRecipientamountarray(amountArray);
-  };
+  // const printGroupedAddressesAndAmounts = (chainNames) => {
+  //   const addressGroups = {};
+  //   const amountGroups = {};
+  //   listData.forEach((data, index) => {
+  //     const chainName = chainNames[index];
+  //     if (!addressGroups[chainName]) {
+  //       addressGroups[chainName] = [];
+  //       amountGroups[chainName] = [];
+  //     }
+  //     addressGroups[chainName].push(data.address);
+  //     amountGroups[chainName].push(data.value);
+  //   });
+  //   const addressArray = Object.values(addressGroups);
+  //   const amountArray = Object.values(amountGroups);
+  //   console.log("Grouped Addresses Array:", addressArray);
+  //   setRecipientaddressarray(addressArray);
+  //   console.log("Grouped Amounts Array:", amountArray);
+  //   setRecipientamountarray(amountArray);
+  // };
 
-  useEffect(() => {
-    printGroupedAddressesAndAmounts(selectedDestinationfinalChains);
-  }, [listData, destinationchainName]);
+  // useEffect(() => {
+  //   printGroupedAddressesAndAmounts(selectedDestinationfinalChains);
+  // }, [listData, destinationchainName]);
 
   return (
     <>
@@ -535,6 +560,7 @@ function SendToken({
               ) : null}
             </div>
           )}
+          {isTokenLoaded ? renderComponent(activeTab) : null}
           {listData.length > 0 ? (
             <div>
               <div className={textStyle.tablecontainer}>
@@ -700,7 +726,7 @@ function SendToken({
                                 id={textStyle.fontsize10px}
                                 style={{ padding: "8px" }}
                               >
-                                <select
+                                {/* <select
                                   id={textStyle.blockchainChains}
                                   onChange={handleDestinationFinalChainChange(
                                     index
@@ -711,7 +737,17 @@ function SendToken({
                                     Select destination chain
                                   </option>
                                   {destinationFinalChainsOptions}
-                                </select>
+                                </select> */}
+
+                                <CustomDropdown
+                                  options={destinationFinalChainsOptions}
+                                  onSelect={handleDestinationFinalChainChange}
+                                  selectedValue={
+                                    selectedDestinationfinalChains[index]
+                                  }
+                                  placeholder="Select destination chain"
+                                  index={index}
+                                />
                               </td>
                               <td
                                 style={{ letterSpacing: "1px", padding: "8px" }}
@@ -862,7 +898,6 @@ function SendToken({
               </div>
             </div>
           ) : null}
-          {isTokenLoaded ? renderComponent(activeTab) : null}
           <div>
             {listData.length > 0 ? (
               <CrossChainTransfer
@@ -873,10 +908,7 @@ function SendToken({
                 tokenDetails={tokenDetails}
                 setshowestimatedgasprice={setshowestimatedgasprice}
                 tokenAddress={tokenAddress}
-                RecipientAddressarray={RecipientAddressarray}
-                chainSelector={chainSelector}
-                receivingChainAddress={receivingChainAddress}
-                RecipientAmountarray={RecipientAmountarray}
+                selectedDestinationfinalChains={selectedDestinationfinalChains}
                 suffecientBalance={suffecientBalance}
               />
             ) : null}

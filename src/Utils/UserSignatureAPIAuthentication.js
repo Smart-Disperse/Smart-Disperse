@@ -66,7 +66,8 @@ const storeToken = async (token) => {
   const cookie = new Cookies();
   try {
     const expiryDate = new Date();
-    expiryDate.setHours(expiryDate.getHours() + 2); // 1 hour * 60 minutes * 60 seconds * 1000 milliseconds
+    expiryDate.setHours(expiryDate.getHours() + 24); // 24 hours
+    // 1 hour * 60 minutes * 60 seconds * 1000 milliseconds
     cookie.set("jwt_token", token, { expires: expiryDate });
     return true;
   } catch (e) {
