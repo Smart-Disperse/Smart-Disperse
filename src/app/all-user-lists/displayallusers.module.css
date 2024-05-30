@@ -13,12 +13,14 @@
 }
 .gobackbtn {
   /* background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%); */
-  border: none;
+  border: 1px solid white;
   padding: 8px;
-  font-weight: 700;
+  font-weight: 200;
   margin: 5px 10px;
   width: 100%;
-  border-radius: 5px;
+  text-decoration: none;
+color: white;
+  border-radius: 10px;
 }
 
 .refreshbtn:hover {
@@ -41,7 +43,8 @@
   justify-content: space-between;
 }
 .maindivofdashboard {
-  background: var(--background1);
+  font-family: "poppins" !important;
+  background: var(--background);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -62,6 +65,8 @@
   flex-shrink: 0;
   position: absolute;
   left: -13%;
+  font-family: "poppins" !important;
+  font-weight: 100;
   right: 24%;
 }
 .dashbgImg2 {
@@ -83,7 +88,9 @@
 .titledivdashboard h3 {
   padding-top: -5px;
   padding-bottom: 15px;
-  border-bottom: 1px solid white;
+  font-weight: 200;
+  font-family: "poppins" !important;
+  /* border-bottom: 1px solid white; */
   letter-spacing: 1.5px;
   font-size: 15px;
 }
@@ -91,6 +98,9 @@
   letter-spacing: 1.5px;
   font-size: 2.2rem;
   margin: 0px;
+  font-weight: 300;
+  font-family: "poppins" !important;
+  
 }
 .imagesinthis img {
   border-radius: 5px;
@@ -102,8 +112,11 @@
   margin: 0 auto;
 }
 .displaytable {
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   width: 100%;
+  padding: 0px;
+  border: 1px solid white;
+  border-radius: 27px;
 }
 
 .displayheader {
@@ -112,15 +125,15 @@
   font-weight: bold;
   padding: 10px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .displayheader:first-child {
-  border-radius: 25px 0px 0px 25px;
+  border-radius: 25px 0px 0px 0px;
 }
 
 .displayheader:last-child {
-  border-radius: 0px 25px 25px 0px;
+  border-radius: 0px 25px 0px 0px;
 }
 
 .displaycell {
@@ -247,7 +260,7 @@
   .titledivdashboard h3 {
     padding-top: -5px;
     padding-bottom: 15px;
-    border-bottom: 1px solid white;
+    /* border-bottom: 1px solid white; */
     letter-spacing: 1.5px;
     font-size: 12px;
   }

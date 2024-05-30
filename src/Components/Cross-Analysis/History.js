@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import histroyStyle from "./history.module.css";
+import histroyStyle from "@/Components/Same-Analysis/history.module.css";
 import {
   faArrowDown,
   faArrowUp,
