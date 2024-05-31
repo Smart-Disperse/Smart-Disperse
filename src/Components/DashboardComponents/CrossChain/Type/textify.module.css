@@ -242,7 +242,7 @@
     rgba(24, 26, 83, 1) 47%,
     rgba(46, 13, 90, 1) 100%
   );
-  color: #ca86ff;
+  /* color: #ca86ff; */
   font-weight: 200;
   letter-spacing: 1.04px;
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
@@ -257,7 +257,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 40px 0px inset;
+  /* box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 40px 0px inset; */
 }
 
 .titleloadtokensametext {
@@ -271,6 +271,7 @@
   padding: 5px 0px;
   font-size: 12px;
 }
+
 .titleloadtokensametext h2 {
   /* color: #8f00ff; */
   font-weight: 700;
@@ -331,7 +332,7 @@
   font-size: 12px;
 }
 .titleforaccountsummarytextsame h2 {
-  color: #8f00ff;
+  /* color: #8f00ff; */
 
   font-weight: 700;
   letter-spacing: 1.04px;

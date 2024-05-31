@@ -109,6 +109,7 @@ function CrossChain({ activeTab }) {
             <div id="send-eth" className={textStyle.sendethdiv}>
               {/* Dropdown of chains */}
               <CustomDropdown
+              className={textStyle.dropdownbtn}
                 options={destinationChainsOptions}
                 onSelect={handleDestinationChainChange}
                 selectedValue={selectedDestinationChain}
