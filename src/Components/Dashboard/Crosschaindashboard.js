@@ -326,7 +326,7 @@ function Crosschaindashboard() {
           <div className={samechainStyle.imagesinthis}></div>
           <h1 className={samechainStyle.headingofsamechain}>Effortless Token Distribution</h1>
           <h3 className={samechainStyle.dashpera}>
-            Disperse Your Tokens to CHAINs and Other Networks, Embracing
+            Disperse Your Tokens to chains and Other Networks, Embracing
             Multi-Network Distribution
           </h3>
         </div>

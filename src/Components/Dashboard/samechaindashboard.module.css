@@ -204,31 +204,25 @@
   border-radius: 5px;
   width: -webkit-fill-available;
 }
-/* textarea:focus {
-  outline: none;
-}
-textarea::-webkit-scrollbar-thumb {
-  background-color: white;
-} */
 
-/* textarea::-webkit-scrollbar-track {
-  background-color: linear-gradient(111deg, #b659ff 11.51%, #6977ff 84.76%);
-}
-textarea::-webkit-scrollbar {
-  width: 5px;
-} */
 .menubardashboard button:hover {
   animation: btnn-hover 2s infinite;
 }
 
 @keyframes btnn-hover {
-  /* Define slower animation for hover state */
   100% {
     box-shadow: 2px 2px 15.7px 3px #00FFFFB2 inset;
     color: #00ffff;
   }
 
 }
+
+.menubardashboard button.active {
+  color: white;
+  border:none;
+  box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 40px 0px inset;
+background-color: #00ffff;
+} 
 .menubardashboard button {
   font-size: 18px;
   font-style: normal;
@@ -247,12 +241,7 @@ textarea::-webkit-scrollbar {
   margin: 0px 5px;
 }
 
-.menubardashboard button.active {
-  color: white;
-  border:none;
-  box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 40px 0px inset;
-background-color: #00ffff;
-} 
+
 /* .menubardashboard button.active {
   color: white;
   border:none;
