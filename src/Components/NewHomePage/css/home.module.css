@@ -1,19 +1,3 @@
-.homeParent {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(180deg, rgb(23 23 72) 0%, rgb(56 13 105) 100%);
-  min-height: 100vh;
-  background-repeat: no-repeat;
-  --sb-track-color: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.2) 0%,
-      rgba(0, 0, 0, 0.2) 100%
-    ),
-    #9272f7;
-  --sb-thumb-color: #00ffff;
-  --sb-size: 6px;
-  margin: 0px;
-  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-}
 .homeMain1 {
   flex-direction: column;
   /* min-height: 100vh; */
@@ -22,6 +6,9 @@
   background-image: url("../assests/Group.svg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+.bgMain {
+  background: linear-gradient(180deg, rgb(23 23 72) 0%, rgb(56 13 105) 100%);
 }
 .sec1 {
   margin: 0px auto;
@@ -43,21 +30,9 @@
   background-clip: text;
   margin: 0px;
   letter-spacing: 2px;
-  font-weight: 300;
+  font-weight: 700;
+  padding-bottom: 1rem;
   font-size: 3.5rem;
-  animation: fadeInUp 1s ease-out forwards;
-  opacity: 0;
-  text-align: left;
-}
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .titleSame2 {
@@ -80,18 +55,15 @@
   width: 100%;
 }
 .peraSame {
-  margin-top: 20px;
   letter-spacing: 1px;
   color: #d8d8d8;
   padding: 5px 0px;
   font-weight: 500;
   width: 60%;
-  animation: fadeInUp 1s ease-out forwards;
-  opacity: 0;
-  font-size: 15px;
+
+  font-size: 1rem;
   font-weight: 300;
   line-height: 1.5em;
-  text-align: left;
 }
 
 .hLaunchMain {
@@ -198,7 +170,7 @@
 }
 .box1Pera {
   color: #d8d8d8;
-  text-align: left;
+  text-align: justify;
   letter-spacing: -0.005em;
   margin-bottom: 0%;
   font-size: 0.875em;
@@ -236,8 +208,8 @@
 .card {
   width: 300px;
   height: 240px;
+  border: 1px solid rgb(23 23 72);
   border-radius: 20px;
-  border-left-color: rgb(23 23 72);
   margin: 10px 15px;
   display: flex;
   cursor: pointer;
@@ -252,7 +224,6 @@
 }
 
 .card:hover {
-  animation: cardHover 0.2s;
   background: linear-gradient(
     180deg,
     rgba(22, 16, 32, 0) 0%,
@@ -262,24 +233,7 @@
   box-shadow: 0px 4px 120.8px 0px #9f53ff8c inset;
   backdrop-filter: blur(3px);
 }
-@keyframes cardHover {
-  /* Define slower animation for hover state */
-  0% {
-    background: initial;
-    border: initial;
-    box-shadow: initial;
-  }
-  100% {
-    background: linear-gradient(
-      180deg,
-      rgba(22, 16, 32, 0) 0%,
-      rgba(37, 35, 59, 0.9) 100%
-    );
-    border: 1px solid #9272f7;
-    box-shadow: 0px 4px 120.8px 0px #9f53ff8c inset;
-    backdrop-filter: blur(3px);
-  }
-}
+
 .card:hover .cardImg1 {
   border: 1px solid;
   border-image-source: linear-gradient(
@@ -309,11 +263,13 @@
   /* border: 1px solid white; */
   width: 100%;
   height: auto;
+  text-align: left;
   border-radius: 10px;
   object-fit: cover;
 }
 .cardimage img {
   width: 30px;
+  text-align: left;
   height: auto;
   background: linear-gradient(139.17deg, #27253e 18.33%, #101421 86.09%);
   border-radius: 50px;
@@ -323,6 +279,7 @@
   font-size: 13px;
   font-weight: 200;
   margin: 14px 0px;
+  text-align: left;
   display: -webkit-box;
   -webkit-line-clamp: 4; /* Number of lines to show */
   -webkit-box-orient: vertical;
@@ -335,6 +292,7 @@
 .cardcontent1 {
   margin: 7px 0px;
   font-size: 20px;
+  text-align: left;
   font-weight: 600;
   letter-spacing: 1px;
 }
@@ -462,6 +420,7 @@
   height: 40px;
   z-index: 5;
   border-radius: 50%;
+  background: black;
   position: absolute;
   box-shadow: 0 1px 5px 2px rgba(161, 161, 161, 0.39);
   top: 0%;
@@ -532,35 +491,15 @@
 }
 
 .cardofgetstart:hover {
-  animation: btnn-hover 0.2s;
   background: linear-gradient(
     180deg,
     rgba(105, 119, 255, 0.9) 0%,
     rgba(37, 35, 59, 0.9) 100%
   );
-  border: 1px solid #9272f7;
+  /* border: 1px solid #9272f7; */
   box-shadow: 0px 4px 120.8px 0px #3b7dffab inset;
 }
-.cardcontainer {
-  min-height: fit-content;
-}
-@keyframes btnn-hover {
-  /* Define slower animation for hover state */
-  0% {
-    background: initial;
-    border: initial;
-    box-shadow: initial;
-  }
-  100% {
-    background: linear-gradient(
-      180deg,
-      rgba(105, 119, 255, 0.9) 0%,
-      rgba(37, 35, 59, 0.9) 100%
-    );
-    border: 1px solid #9272f7;
-    box-shadow: 0px 4px 120.8px 0px #3b7dffab inset;
-  }
-}
+
 .cardofgetstart:hover button {
   box-shadow: 0px 2.85px 11.63px 0px #9272f7 inset;
   border: 0.71px solid #ffffff;
@@ -575,10 +514,10 @@
 .cardofgetstart {
   width: 300px;
   cursor: pointer;
+  border: 1px solid #9272f7;
   height: 230px;
   border-radius: 20px;
-
-  border: 1px solid black;
+  border: none;
   color: white;
   margin: 10px 15px;
   display: flex;
@@ -769,7 +708,7 @@ p.right {
   font-weight: 200;
   letter-spacing: 1px;
   margin: 0px;
-  margin-left: 240px;
+  margin-left: 100px;
   padding: 10px 20px;
   border-radius: 10px;
 }

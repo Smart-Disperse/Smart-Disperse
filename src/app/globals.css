@@ -7,23 +7,20 @@
   --background1: #00000000;
 }
 body {
-  font-family: "Poppins" !important;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center !important;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(180deg, rgb(23 23 72) 0%, rgb(56 13 105) 100%);
+  min-height: 100vh;
+  background-repeat: no-repeat;
   --sb-track-color: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.2) 0%,
       rgba(0, 0, 0, 0.2) 100%
     ),
-    #7c49f9;
-  --sb-thumb-color: #ffffff;
-  --sb-size: 5px;
-
-  text-align: center !important;
+    #9272f7;
+  --sb-thumb-color: white;
+  --sb-size: 6px;
+  margin: 0px;
   scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-  background-color: #000000;
 }
 
 body::-webkit-scrollbar {
