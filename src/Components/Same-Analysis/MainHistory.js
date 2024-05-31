@@ -11,12 +11,12 @@ function MainHistory() {
         <div>
         <div className={samechainStyle.stickyIcon}>
           <a href="/same-chain" className={samechainStyle.Instagra}>
-          <FontAwesomeIcon icon={faShare} /> <div>Cross Dashboard</div>
+          <FontAwesomeIcon icon={faShare} /> <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cross Chain</div>
           </a>
         </div>
         <div className={samechainStyle.stickyIcon1}>
           <a href="/cross-chain" className={samechainStyle.Instagra}>
-            <FontAwesomeIcon icon={faShare} /> <div>Same Dashboard</div>
+            <FontAwesomeIcon icon={faShare} /> <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Same Chain</div>
           </a>
         </div>
         <div className={samechainStyle.stickyIcon2}>

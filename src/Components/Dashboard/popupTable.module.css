@@ -188,22 +188,22 @@
 .column7 {
   margin: 0;
   padding: 13px;
-  text-align: center;
+  /* text-align: center; */
   vertical-align: middle;
   font-weight: 300;
   font-size: 12px;
   /* color: rgba(0, 0, 0, 1); */
 }
 .column1 {
-  border-radius: 5px 0px 0px 5px;
-  align-items: center;
+  width: auto;
+  border-radius: 5px 0px 0px 0px;
+  /* align-items: center; */
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .column2 {
-  width: 11%;
+  width: 15%;
 }
 .column3 {
   width: 15%;
@@ -218,10 +218,11 @@
   width: 15%;
 }
 .column7 {
+  width:auto;
+
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 0px 5px 0px 0px;
 }
 .head .row {
   background-color: #ffffff;

@@ -402,12 +402,12 @@ function Samechaindashboard() {
       <div>
         <div className={samechainStyle.stickyIcon}>
           <a href="/cross-chain" className={samechainStyle.Instagra}>
-          <FontAwesomeIcon icon={faShare} /> <div>Cross Dashboard</div>
+          <FontAwesomeIcon icon={faShare} /> <div>Cross chain</div>
           </a>
         </div>
         <div className={samechainStyle.stickyIcon1}>
           <a href="/same-analysis" className={samechainStyle.Instagra}>
-            <FontAwesomeIcon icon={faMagnifyingGlassChart} /> <div>Analysis Spent</div>
+            <FontAwesomeIcon icon={faMagnifyingGlassChart} /> <div> Spent Analysis</div>
           </a>
         </div>
         <div className={samechainStyle.stickyIcon2}>
