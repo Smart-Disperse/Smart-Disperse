@@ -471,7 +471,7 @@ function SendToken({
                         fontSize: "20px",
                         margin: "0px",
                         letterSpacing: "1px",
-                        fontWeight: "100",
+                        fontWeight: "300",
                       }}
                     >
                       Token Details
@@ -507,7 +507,7 @@ function SendToken({
                             style={{ letterSpacing: "1px" }}
                             className={textStyle.tableTh}
                           >
-                            Address
+                           Token Address
                           </th>
                           <th
                             style={{ letterSpacing: "1px" }}
@@ -776,7 +776,7 @@ function SendToken({
                     padding: "10px",
                     letterSpacing: "1px",
                     fontSize: "20px",
-                    fontWeight: "700",
+                    fontWeight: "300",
                   }}
                 >
                   Account Summary

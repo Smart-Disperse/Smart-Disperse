@@ -1,3 +1,8 @@
+.dropdownHeader:hover {
+  color: #8D37FB;
+  background: white;
+  border: 1px solid #8D37FB;
+}
 .dropdown {
   position: relative;
   display: inline-block;
@@ -7,7 +12,8 @@
 .dropdownHeader {
   padding: 10px;
   border: 1px solid #9747ff;
-  background-color: #9747ff;
+  background: rgb(141,55,251);
+background: linear-gradient(342deg, rgba(141,55,251,1) 0%, rgba(55,75,251,1) 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,8 +37,9 @@
   position: absolute;
   top: 110%;
   left: 0;
-  border: 1px solid #9747ff;
-  background-color: #9747ff;
+  width: -webkit-fill-available;
+  background: #2b2854;
+  border: 0.5px solid #00ffff;
   z-index: 1000;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
@@ -44,8 +51,12 @@
   padding: 10px;
   display: flex;
   align-items: center;
+  border: 0.5px solid #00ffff;
+  border-radius: 5px;
 }
 
 .dropdownItem:hover {
-  background-color: #9747ff;
+  background-color: white;
+  color: #8D37FB;
+  border-radius: 7px;
 }

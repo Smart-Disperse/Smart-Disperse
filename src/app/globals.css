@@ -3,8 +3,8 @@
   --background1: url("../Assets/dashboard-bg.webp");
 }
 .dark {
-  --background: #00000000;
-  --background1: #00000000;
+  --background: url("../Assets/Homepage-bg.webp");
+  --background1: url("../Assets/Homepage-bg.webp");
 }
 body {
   color: rgb(var(--foreground-rgb));
