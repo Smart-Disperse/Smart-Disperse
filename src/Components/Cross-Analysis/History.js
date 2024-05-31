@@ -431,7 +431,6 @@ function History() {
                           <React.Fragment key={index}>
                             <tr className={popup.row} onClick={() => toggleRowExpansion(index)}>
                               <td className={popup.column1}>
-                                {/* {transaction.sender} */}
                                 {`${transaction.sender.slice(0, 7)}...${transaction.sender.slice(
                             -4
                           )}`}
@@ -440,8 +439,6 @@ function History() {
                                 {console.log(chainNameMapping)}
                                 {chainNameMapping && chainNameMapping[transaction.destinationChainSelector]?.chainName || "Unknown Chain"}
                               </td>
-
-
 
                               <td className={popup.column3}>
                                 {loadTokenForDisplay(transaction.tokenAddress)}
@@ -471,6 +468,7 @@ function History() {
                                       <tr>
                                         <th>Recipient</th>
                                         <th>Amount</th>
+                                        <th>Token Symbol</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -478,6 +476,7 @@ function History() {
                                         <tr key={i}>
                                           <td>{recipientData.recipient}</td>
                                           <td>{recipientData.amount}</td>
+                                          <td>USDC</td>
                                         </tr>
                                       ))}
                                     </tbody>

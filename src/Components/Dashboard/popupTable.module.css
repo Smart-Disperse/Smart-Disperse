@@ -175,6 +175,7 @@
 .head .column5,
 .head .column6,
 .head .column7 {
+  text-align: center;
   font-weight: 400;
   font-size: 13px;
   letter-spacing: 1px;
@@ -224,6 +225,9 @@
   align-items: center;
   border-radius: 0px 5px 0px 0px;
 }
+.row:hover{
+  background-color: #8f00ff3d;
+}
 .head .row {
   background-color: #ffffff;
   width: 100%;
@@ -238,7 +242,15 @@
   background-color: #e4ff30;
   color: #101010;
 } */
-
+.innerTable{
+  border: 1px solid #ffffff61;
+  width: 100%;
+  font-size: 12px;
+  /* border-radius: 34px; */
+  background: #f0f8ff2e;
+  text-align: justify;
+  padding: 12px;
+}
 @media only screen and (max-width: 1024px) {
   .MainPopup {
     width: 520px;
