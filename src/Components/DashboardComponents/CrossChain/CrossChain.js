@@ -90,7 +90,7 @@ function CrossChain({ activeTab }) {
                 letterSpacing: "1px",
                 fontSize: "20px",
                 margin: "0px",
-                fontWeight: "200",
+                fontWeight: "300",
               }}
             >
               Choose Your Token, Define Your Destination

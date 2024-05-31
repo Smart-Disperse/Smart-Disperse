@@ -31,6 +31,7 @@ import loadjson from "@/Assets/tokenload.json";
 import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
 import { useChainId } from "wagmi";
 import CustomDropdown from "../Type/CustomDropDown";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 function SendToken({
   activeTab,
@@ -457,7 +458,7 @@ function SendToken({
         <>
           {" "}
           {Istokenloading ? (
-            <div>
+            <div className={textStyle.loaderdiv}>
               <Image src={loaderimg} alt="none" width={150} height={100} />
             </div>
           ) : (
@@ -470,6 +471,7 @@ function SendToken({
                         padding: "10px",
                         fontSize: "20px",
                         margin: "0px",
+                        textAlign:"center",
                         letterSpacing: "1px",
                         fontWeight: "300",
                       }}
@@ -573,7 +575,8 @@ function SendToken({
                       padding: "10px",
                       letterSpacing: "1px",
                       fontSize: "20px",
-                      fontWeight: "700",
+                      fontWeight: "300",
+                      textAlign:"center",
                     }}
                   >
                     Your Transaction Lineup
@@ -777,6 +780,7 @@ function SendToken({
                     letterSpacing: "1px",
                     fontSize: "20px",
                     fontWeight: "300",
+                    textAlign:"center",
                   }}
                 >
                   Account Summary
@@ -915,7 +919,10 @@ function SendToken({
           </div>
         </>
       ) : (
-        "Please connect your wallet to proceed"
+        <div style={{textAlign:"center"}}>
+        Please connect your wallet to proceed
+        </div>
+        
       )}
 
       <>
