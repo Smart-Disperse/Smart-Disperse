@@ -10,7 +10,7 @@ import "./carousel.css";
 import Link from "next/link";
 import { Tooltip, Button } from "@nextui-org/react";
 
-const TWEEN_FACTOR_BASE = 0.2;
+
 
 const Carousel = (props) => {
   const { slides, options } = props;
