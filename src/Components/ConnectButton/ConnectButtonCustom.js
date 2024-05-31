@@ -7,7 +7,7 @@ import connectStyle from "../ConnectButton/connect.module.css";
 import Image from "next/image";
 import Cookies from "universal-cookie";
 import metamask from "../../Assets/metamask.svg";
-import {Tooltip, Button} from "@nextui-org/react";
+import { Tooltip, Button } from "@nextui-org/react";
 import {
   faArrowRightFromBracket,
   faCopy,
@@ -26,7 +26,10 @@ const ConnectButtonCustom = ({ isMainnet }) => {
     "foreground",
   ];
   const [isAccountModalOpen, setAccountModalOpen] = useState(false); // Modal for account info
-  const [isCopied, setIsCopied] = useState( false); /*/* Indicates if the address has been copied to clipboard */
+  const [isCopied, setIsCopied] =
+    useState(
+      false
+    ); /*/* Indicates if the address has been copied to clipboard */
   const { disconnect } = useDisconnect(); // Disconnect button functionality
   const modalRef = useRef(); /*/ Reference to the HTML element of the modal */
   const cookie = new Cookies();
@@ -70,7 +73,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);
-        }, 2000); 
+        }, 2000);
       },
       (err) => {
         console.error("Unable to copy to clipboard:", err);
@@ -127,12 +130,10 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                   style={{ display: "flex", gap: 10, alignItems: "center" }}
                   className={connectStyle.CMain}
                 >
-                  <div>
-                    <SwitchChain
-                      isMainnet={isMainnet}
-                      closeAccountModal={handleHoverConnectChain}
-                    />
-                  </div>
+                  <SwitchChain
+                    isMainnet={isMainnet}
+                    closeAccountModal={handleHoverConnectChain}
+                  />
 
                   <button
                     onClick={modelOpen}
@@ -174,22 +175,28 @@ const ConnectButtonCustom = ({ isMainnet }) => {
                             0,
                             7
                           )}...${account.address.slice(-4)}`}</span>
-                          
-                            <Tooltip content="Copy" className={connectStyle.tooltip}>
+
+                          <Tooltip
+                            content="Copy"
+                            className={connectStyle.tooltip}
+                          >
                             <FontAwesomeIcon
-                            icon={faCopy}
-                            onClick={() => copyToClipboard(account.address)}
-                            className={connectStyle.iconCopy}
-                            color="white"
-                          />
-                            </Tooltip>
-                            <Tooltip content="LogOut" className={connectStyle.tooltip}>
-                          <FontAwesomeIcon
-                            icon={faArrowRightFromBracket}
-                            onClick={handleDisConnect}
-                            color="white"
-                            className={connectStyle.iconCopy}
-                          />
+                              icon={faCopy}
+                              onClick={() => copyToClipboard(account.address)}
+                              className={connectStyle.iconCopy}
+                              color="white"
+                            />
+                          </Tooltip>
+                          <Tooltip
+                            content="LogOut"
+                            className={connectStyle.tooltip}
+                          >
+                            <FontAwesomeIcon
+                              icon={faArrowRightFromBracket}
+                              onClick={handleDisConnect}
+                              color="white"
+                              className={connectStyle.iconCopy}
+                            />
                           </Tooltip>
                         </button>
 

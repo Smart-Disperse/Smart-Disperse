@@ -21,7 +21,13 @@ function SwitchChain({ isMainnet, closeAccountModal }) {
 
   const isCrosschainPage = path === "/cross-chain";
 
-  const availableChains = [11155111, 11155420, 84532, 421614, 80002];
+  const isSamePage = path === "/same-chain";
+
+  const crossChainAvailableChains = [11155111, 11155420, 84532, 421614, 80002];
+
+  const sameCahinAvailableChains = [
+    11155111, 534351, 11155420, 919, 84532, 10, 8453, 534352, 34443,
+  ];
 
   let displayChains = isMainnet
     ? chains.filter((chain) => mainnetChains.includes(chain.id))
@@ -29,7 +35,12 @@ function SwitchChain({ isMainnet, closeAccountModal }) {
 
   if (isCrosschainPage) {
     displayChains = displayChains.filter((chain) =>
-      availableChains.includes(chain.id)
+      crossChainAvailableChains.includes(chain.id)
+    );
+  }
+  if (isSamePage) {
+    displayChains = displayChains.filter((chain) =>
+      sameCahinAvailableChains.includes(chain.id)
     );
   }
 
@@ -72,6 +83,7 @@ function SwitchChain({ isMainnet, closeAccountModal }) {
               alt={`${chain.name} icon`}
               className={connectStyle.logo}
             />
+            <span className={connectStyle.chainName}>{chain.name}</span>
           </>
         ) : (
           <FontAwesomeIcon
@@ -110,6 +122,17 @@ function SwitchChain({ isMainnet, closeAccountModal }) {
                 </div>
               </button>
             ))}
+            {isMainnet && displayChains.length === 0 && isCrosschainPage ? (
+              <>
+                <button className={connectStyle.networkoption}>
+                  <div className={connectStyle.icon2}>
+                    <div className={connectStyle.netName}>
+                      Mainnet will be available soon
+                    </div>
+                  </div>
+                </button>
+              </>
+            ) : null}
           </div>
         )}
       </div>
