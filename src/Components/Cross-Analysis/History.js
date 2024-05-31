@@ -18,19 +18,20 @@ import {
 import { useAccount, useChainId } from "wagmi";
 import popup from "@/Components/Dashboard/popupTable.module.css";
 import { getCrossChainTransactions } from "@/Helpers/CrosschainHelpers/GetCrossChainTransactions";
-import  chainNameMapping  from "@/Helpers/CrosschainHelpers/ChainNameMapping";
+import chainNameMapping from "@/Helpers/CrosschainHelpers/ChainNameMapping";
 import { LoadTokenForAnalysis } from "@/Helpers/LoadToken";
 import { ethers } from "ethers";
 
 function History() {
   const { address } = useAccount();
   const chainId = useChainId();
-  const [render, setRender] = useState(1);
+
   const [selectedToken, setSelectedToken] = useState("Eth");
   const [tokenListOfUser, setTokenListOfUser] = useState([]);
   const [transactionData, setTransactionData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [dataNotFound, setDataNotFound] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(false);
+
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [sortingByAmount, setSortingByAmount] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -38,7 +39,8 @@ function History() {
   const [isCopiedHash, setIsCopiedHash] = useState(false);
   const [sortingByLabel, setSortingByLabel] = useState(false);
   const [sortingByDate, setSortingByDate] = useState(false);
-  const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] = useState(false);
+  const [isCopiedAddressIndexHash, setIsCopiedAddressIndexHash] =
+    useState(false);
   const [transactions, setTransactions] = useState(filteredTransactions);
   const [explorerUrl, setExplorerUrl] = useState("Eth");
   const inputRef1 = useRef();
@@ -62,12 +64,11 @@ function History() {
     fetchCrossChainTransactions();
   }, [address, chainId]);
 
-
   /*...............Load Token Symbol for Display ................................. */
-  const loadTokenForDisplay = async(tokenAddr) => {
+  const loadTokenForDisplay = async (tokenAddr) => {
     const tokenDetails = await LoadTokenForAnalysis(tokenAddr);
     return tokenDetails.symbol;
-  }
+  };
 
   // /............sorting label function ............./
   const sortLabels = () => {
@@ -80,7 +81,7 @@ function History() {
     setFilteredTransactions(sortedTransactions);
     setSortingByLabel(true);
   };
-  
+
   const dortLabels = () => {
     const sortedTransactions = [...filteredTransactions].sort((a, b) => {
       if (!a.label || !b.label) {
@@ -193,10 +194,16 @@ function History() {
   };
 
   const handleSearch = (searchQuery) => {
+    setSearchLoading(true);
     var filtered = transactionData;
     filtered = transactionData.filter(
       (transaction) =>
-        transaction.recipientsData.some(recipient => recipient.recipient.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1) ||
+        transaction.recipientsData.some(
+          (recipient) =>
+            recipient.recipient
+              .toLowerCase()
+              .indexOf(searchQuery.toLowerCase()) !== -1
+        ) ||
         transaction.transactionHash
           .toLowerCase()
           .indexOf(searchQuery.toLowerCase()) !== -1
@@ -204,6 +211,7 @@ function History() {
 
     setFilteredTransactions(filtered);
     calculateTotalAmount(filtered);
+    setSearchLoading(false);
   };
 
   const calculateTotalAmount = async (transactions) => {
@@ -274,37 +282,17 @@ function History() {
           const userTokens = await getERC20Tokens(address, chainId);
           console.log("usertokens", userTokens);
           setTokenListOfUser(userTokens);
-          setIsLoading(false);
-          setDataNotFound(false);
         } else {
-          setDataNotFound(true);
         }
-        setIsLoading(false);
       } catch (error) {
         console.log("error", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData(address);
   }, [address, selectedToken]);
-
-  useEffect(() => {
-    if (address) {
-      setRender((prev) => prev + 1);
-    }
-  }, [address, chainId]);
-
-  // Toggle row expansion
-  const toggleRowExpansion = (index) => {
-    setExpandedRows(prevState => ({
-      ...prevState,
-      [index]: !prevState[index]
-    }));
-  };
-
-//   useEffect(() => {
-// console.log("checking chain name log",chainNameMapping)
-//   },[])
 
   return (
     <div className={histroyStyle.maindivofhisotry}>
@@ -375,13 +363,14 @@ function History() {
                       <th className={popup.column1}>Sender</th>
                       <th className={popup.column2}>Destination Chain</th>
                       <th className={popup.column3}>Token</th>
-                      <th className={popup.column4}>Amount   
-                      {/* {expandedRows[index] ? (
+                      <th className={popup.column4}>
+                        Amount
+                        {/* {expandedRows[index] ? (
                                   <FontAwesomeIcon icon={faArrowUp} />
                                 ) : (
                                   <FontAwesomeIcon icon={faArrowDown} />
                                 )} */}
-                                </th>
+                      </th>
                       <th className={popup.column5}>Fees (ETH)</th>
                       <th className={popup.column6}>Transaction Hash</th>
                       <th className={popup.column7}>
@@ -422,70 +411,58 @@ function History() {
                 <div style={{ position: "relative", top: "100px" }}>
                   Fetching transaction History...
                 </div>
-              ) : filteredTransactions && filteredTransactions.length > 0 ? (
+              ) : (
                 <div className={popup.content}>
                   <table className={popup.table}>
                     <tbody>
-                      {filteredTransactions.length > 0 ? (
+                      {!searchLoading &&
+                      filteredTransactions &&
+                      filteredTransactions.length > 0 ? (
                         filteredTransactions.map((transaction, index) => (
-                          <React.Fragment key={index}>
-                            <tr className={popup.row} onClick={() => toggleRowExpansion(index)}>
-                              <td className={popup.column1}>
-                                {/* {transaction.sender} */}
-                                {`${transaction.sender.slice(0, 7)}...${transaction.sender.slice(
-                            -4
-                          )}`}
-                              </td>
-                              <td className={popup.column2}>
-                                {console.log(chainNameMapping)}
-                                {chainNameMapping && chainNameMapping[transaction.destinationChainSelector]?.chainName || "Unknown Chain"}
-                              </td>
+                          <tr className={popup.row} key={index}>
+                            <td className={popup.column1}>
+                              {`${transaction.sender.slice(
+                                0,
+                                7
+                              )}...${transaction.sender.slice(-4)}`}
+                            </td>
+                            <td className={popup.column2}>
+                              {(chainNameMapping &&
+                                chainNameMapping[
+                                  transaction.destinationChainSelector
+                                ]?.chainName) ||
+                                "Unknown Chain"}
+                            </td>
 
+                            <td className={popup.column3}>
+                              {loadTokenForDisplay(transaction.tokenAddress)}
+                            </td>
+                            <td className={popup.column4}>
+                              {transaction.tokenAmount}
+                            </td>
 
-
-                              <td className={popup.column3}>
-                                {loadTokenForDisplay(transaction.tokenAddress)}
-                              </td>
-                              <td className={popup.column4}>
-                                {transaction.tokenAmount}
-                              </td>
-                              
-                              <td className={popup.column5}>
-                               {(+ethers.utils.formatEther(transaction.fees)).toFixed(4)}
-                              </td>
-                              <td className={popup.column6}>
-                              {`${transaction.transactionHash.slice(0, 7)}...${transaction.transactionHash.slice(
-                            -4
-                          )}`}
-                                {/* {transaction.transactionHash} */}
-                              </td>
-                              <td className={popup.column7}>
-                                {transaction.blockTimestamp}
-                              </td>
-                            </tr>
-                            {expandedRows[index] && (
-                              <tr>
-                                <td colSpan="7">
-                                  <table className={popup.innerTable}>
-                                    <thead>
-                                      <tr>
-                                        <th>Recipient</th>
-                                        <th>Amount</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {transaction.recipientsData.map((recipientData, i) => (
-                                        <tr key={i}>
-                                          <td>{recipientData.recipient}</td>
-                                          <td>{recipientData.amount}</td>
-                                        </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-                            )}
-                          </React.Fragment>
+                            <td className={popup.column5}>
+                              {(+ethers.utils.formatEther(
+                                transaction.fees
+                              )).toFixed(4)}
+                            </td>
+                            <td className={popup.column6}>
+                              <a
+                                href={`https://ccip.chain.link/tx/${transaction.transactionHash}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ color: "white" }}
+                              >
+                                {`${transaction.transactionHash.slice(
+                                  0,
+                                  7
+                                )}...${transaction.transactionHash.slice(-4)}`}
+                              </a>
+                            </td>
+                            <td className={popup.column7}>
+                              {transaction.blockTimestamp}
+                            </td>
+                          </tr>
                         ))
                       ) : (
                         <div
@@ -505,10 +482,6 @@ function History() {
                     </tbody>
                   </table>
                 </div>
-              ) : dataNotFound ? (
-                <div className={popup.Nodata}>No transactions found.</div>
-              ) : (
-                <div className={popup.Nodata}>No data found</div>
               )}
             </div>
           </div>
@@ -519,4 +492,3 @@ function History() {
 }
 
 export default History;
-

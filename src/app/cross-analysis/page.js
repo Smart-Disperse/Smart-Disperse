@@ -3,7 +3,11 @@ import MainHistory from "@/Components/Cross-Analysis/MainHistory";
 import React from "react";
 
 function page() {
-  return <MainHistory />;
+  return (
+    <div>
+      <MainHistory />
+    </div>
+  );
 }
 
 export default page;
