@@ -474,9 +474,9 @@ export default function Home({ children }) {
                   </span>
                   <p className={home.bottom}>
                     Select Transactions Type
-                    <div style={{ color: "white" }}>
+                    <span style={{ color: "white" }}>
                       (same-chain/cross-chain ){" "}
-                    </div>
+                    </span>
                   </p>
                 </article>
 

@@ -17,6 +17,7 @@ body {
       rgba(0, 0, 0, 0.2) 100%
     ),
     #9272f7;
+  text-align: center;
   --sb-thumb-color: white;
   --sb-size: 6px;
   margin: 0px;

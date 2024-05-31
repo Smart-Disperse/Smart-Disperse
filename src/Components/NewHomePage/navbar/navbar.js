@@ -13,7 +13,7 @@ function Navbar() {
         </Link>
       </div>
       <div>
-        <Link href="http://smartdisperse.xyz/cross-chain" target="blank">
+        <Link href="/cross-chain" target="blank">
           <button className={navStyle.launchapp}>LAUNCH APP</button>
         </Link>
       </div>
