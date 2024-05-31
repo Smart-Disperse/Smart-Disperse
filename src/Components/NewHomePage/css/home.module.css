@@ -382,6 +382,14 @@
     transform: rotateZ(360deg);
   }
 }
+@keyframes logoRotate {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(-360deg);
+  }
+}
 .mainlogo {
   background-color: rgba(236, 81, 104, 0);
   border-radius: 50%;
@@ -468,6 +476,11 @@
   bottom: auto;
   right: auto;
   left: 0%;
+  animation: logoRotate 15s linear infinite;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
 }
 .logoinner.base {
   top: auto;

@@ -16,7 +16,14 @@
   box-shadow: 0px 4px 17.8px 0px #0000002e inset;
   text-shadow: 5px 2px 20px #00ffffa8;
 }
-
+.chainName {
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-family: "Poppins";
+  color: #00ffffb2;
+  text-shadow: 5px 2px 20px #00ffffa8;
+}
 .connectwallet:hover {
   background: white;
   color: #9747ff;
@@ -61,18 +68,22 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
-  padding: 12px 20px;
+  padding: 15.5px 20px;
+
   border-radius: 30px;
   border: 0.5px solid #00ffff;
   background: #2b285445;
 
-  width: 80px;
+  /* width: 80px; */
   font-weight: 700;
   font-size: 17px;
   letter-spacing: 1px;
   cursor: pointer;
   color: transparent;
   line-height: none !important;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
 .connectchain:hover {
@@ -81,6 +92,10 @@
   background: white;
   text-shadow: none;
   border: 0.5px solid #9747ff;
+}
+
+.connectchain:hover .chainName {
+  color: #9747ff;
 }
 .logo {
   background: white;
@@ -151,13 +166,14 @@
   background: white;
   color: #9747ff;
   border-bottom: 1px solid #9747ff;
+  border-radius: 5px;
 }
-.tooltip{
+.tooltip {
   color: #00ffff;
   background: #1c1b1b85;
   border-radius: 10px;
-padding: 5px 15px;
-backdrop-filter: blur(10px);
+  padding: 5px 15px;
+  backdrop-filter: blur(10px);
 }
 .icon2 {
   display: flex;
