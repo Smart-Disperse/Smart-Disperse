@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import dropDownStyles from "./CustomDropDown.module.css";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 function CustomDropdown({
   options,
@@ -30,11 +32,33 @@ function CustomDropdown({
     };
   }, []);
 
+  const driverObj = driver({
+    overlayColor: "#00000094",
+    // popoverClass: ` ${samechainStyle.driverpopover01}`,
+    showProgress: true,
+    steps: [
+      {
+        element: "#finaldropdown",
+        popover: {
+          title: "Textify",
+          description:
+            "Effortlessly input recipient addresses and amounts in one line with Textify, whether through copy-paste or direct entry",
+          side: "right",
+          align: "start",
+        },
+      },
+    ],
+  });
+
+  const handleTokendropdown = () => {
+    setIsOpen(true)
+    // driverObj.drive();
+  }
   return (
     <div className={dropDownStyles.dropdown} ref={dropdownRef}>
       <div
         className={dropDownStyles.dropdownHeader}
-        onClick={() => setIsOpen(true)}
+        onClick={handleTokendropdown}
       >
         {console.log(selectedValue)}
         {selectedValue ? (

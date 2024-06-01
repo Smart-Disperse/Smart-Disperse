@@ -163,7 +163,8 @@
 .buttontoaddformdata {
   cursor: pointer;
   padding: 10px 25px;
-    background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%);
+    /* background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%); */
+    background-color: #49058e91;
   color: white;
   border-radius: 63px;
   margin: 0px 20px;

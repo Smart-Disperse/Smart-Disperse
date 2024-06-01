@@ -36,6 +36,16 @@ function ExecuteEth(props) {
   const [tweetModalIsOpen, setTweetModalIsOpen] = useState(false); // New state for tweet modal
   const chainId = useChainId();
 
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
   const sendTweet = () => {
     console.log("tweeting");
     const tweetContent = `Just used @SmartDisperse to transfer to multiple accounts simultaneously across the same chain! Transferring to multiple accounts simultaneously has never been easier. Check out Smart Disperse at https://smartdisperse.xyz?utm_source=twitter_tweet&utm_medium=social&utm_campaign=smart_disperse&utm_id=002 and simplify your crypto transfers today!`;
@@ -146,7 +156,11 @@ function ExecuteEth(props) {
       </button>
       <div>
         <Modal
-        
+          style={{
+            overlay: {
+              backgroundColor: "transparent"
+            },
+          }}
           className={textStyle.popupforpayment}
           isOpen={loaderModal}
           onRequestClose={() => setLoadermodal(false)}
@@ -158,6 +172,11 @@ function ExecuteEth(props) {
         </Modal>
       </div>
       <Modal
+       style={{
+        overlay: {
+          backgroundColor: "transparent"
+        },
+      }}
         className={textStyle.popupforpayment}
         isOpen={executionStatusmodal}
         onRequestClose={() => setExecutionStatusmodal(false)}

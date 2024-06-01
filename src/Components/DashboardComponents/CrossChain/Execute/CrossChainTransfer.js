@@ -319,6 +319,11 @@ function CrossChainTransfer(props) {
       </button>
       <div>
         <Modal
+         style={{
+          overlay: {
+            backgroundColor: "transparent"
+          },
+        }}
           className={textStyle.popupforpayment}
           isOpen={loaderModal}
           onRequestClose={() => setLoadermodal(false)}
@@ -330,6 +335,11 @@ function CrossChainTransfer(props) {
         </Modal>
       </div>
       <Modal
+       style={{
+        overlay: {
+          backgroundColor: "transparent"
+        },
+      }}
         className={textStyle.popupforpayment}
         isOpen={executionStatusmodal}
         onRequestClose={() => setExecutionStatusmodal(false)}

@@ -171,6 +171,11 @@ function ExecuteToken(props) {
       </button>
       <div>
         <Modal
+         style={{
+          overlay: {
+            backgroundColor: "transparent"
+          },
+        }}
           className={textStyle.popupforpayment}
           isOpen={loaderModal}
           onRequestClose={() => setLoadermodal(false)}
@@ -182,6 +187,11 @@ function ExecuteToken(props) {
         </Modal>
       </div>
       <Modal
+       style={{
+        overlay: {
+          backgroundColor: "transparent"
+        },
+      }}
         className={textStyle.popupforpayment}
         isOpen={executionStatusmodal}
         onRequestClose={() => setExecutionStatusmodal(false)}

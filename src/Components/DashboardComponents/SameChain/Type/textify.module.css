@@ -143,9 +143,9 @@
 }
 .sendbutton {
   background: #0000;
-  border: 1px solid #fff;
+  border: 0.5px solid #00ffff;
   border-radius: 40px;
-  color: #fff;
+  color: #00ffff;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -255,6 +255,10 @@
 background-color: transparent;
   backdrop-filter: blur(30.5px);
   margin: 50px 0px;
+}
+
+.popupbg{
+  background-color: yellow;
 }
 
 .titleforlinupsametext h2 {
@@ -428,6 +432,7 @@ color: #CA86FF;
     border: none;
 }
 .popupforpayment {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   /* From https://css.glass */
 background: rgba(80, 3, 132, 0.61);
 border-radius: 16px;
@@ -682,9 +687,9 @@ backdrop-filter: blur(19.5px);
   }
   .sendbutton {
     background: #0000;
-    border: 1px solid #fff;
+    border: 0.5px solid #00ffff;
     border-radius: 40px;
-    color: #fff;
+    color: #00ffff;
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;

@@ -432,7 +432,7 @@ function Samechaindashboard() {
         <div className={samechainStyle.maindivforalloptiondashboard}>
           <div className={samechainStyle.menubardashboard}>
             <button
-              id="text"
+            
               className={activeTab === "text" ? `${samechainStyle.active}` : ""}
               onClick={() => setActiveTab("text")}
               data-bs-toggle="tooltip"

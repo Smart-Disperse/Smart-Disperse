@@ -32,6 +32,8 @@ import allchains from "@/Helpers/CrosschainHelpers/ChainSelector";
 import { useChainId } from "wagmi";
 import CustomDropdown from "../Type/CustomDropDown";
 import { text } from "@fortawesome/fontawesome-svg-core";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 function SendToken({
   activeTab,
@@ -99,6 +101,32 @@ function SendToken({
       return updatedChains;
     });
   }, [listData.length, selectedDestinationChain]);
+
+ 
+   
+  // const driverObj = driver({
+  //   overlayColor: "#00000094",
+  //   // popoverClass: ` ${samechainStyle.driverpopover01}`,
+  //   showProgress: true,
+  //   steps: [
+  //     {
+  //       element: "#finaldropdown",
+  //       popover: {
+  //         title: "Textify",
+  //         description:
+  //           "Effortlessly input recipient addresses and amounts in one line with Textify, whether through copy-paste or direct entry",
+  //         side: "right",
+  //         align: "start",
+  //       },
+  //     },
+  //   ],
+  // });
+
+  // useEffect(()=>{
+  //   if(listData > 0 {
+  //     driverObj.drive();
+  //   })
+  // },[])
 
   const renderComponent = (tab) => {
     switch (tab) {
@@ -176,7 +204,9 @@ function SendToken({
     const updatedList = [...listData];
     updatedList.splice(index, 1);
     setListData(updatedList);
+    toast.success("Transaction deleted successfully")
   };
+
 
   // Function to load token details
   const loadTokenDetails = async (_tokenAddress) => {
@@ -379,7 +409,7 @@ function SendToken({
       setDestinationFinalChainsOptions(options);
     } catch (error) {
       console.error(error.message);
-      setDestinationFinalChainsOptions([]); 
+      setDestinationFinalChainsOptions([]);
     }
   };
 
@@ -399,10 +429,7 @@ function SendToken({
     });
 
     console.log(listData);
-
   };
-
- 
 
   return (
     <>
@@ -411,7 +438,7 @@ function SendToken({
           {" "}
           {Istokenloading ? (
             <div className={textStyle.loaderdiv}>
-              <Image src={loaderimg} alt="none" width={150} height={100} />
+              <div className={textStyle.loader}></div>
             </div>
           ) : (
             <div>
@@ -423,7 +450,7 @@ function SendToken({
                         padding: "10px",
                         fontSize: "20px",
                         margin: "0px",
-                        textAlign:"center",
+                        textAlign: "center",
                         letterSpacing: "1px",
                         fontWeight: "300",
                       }}
@@ -461,7 +488,7 @@ function SendToken({
                             style={{ letterSpacing: "1px" }}
                             className={textStyle.tableTh}
                           >
-                           Token Address
+                            Token Address
                           </th>
                           <th
                             style={{ letterSpacing: "1px" }}
@@ -528,7 +555,7 @@ function SendToken({
                       letterSpacing: "1px",
                       fontSize: "20px",
                       fontWeight: "300",
-                      textAlign:"center",
+                      textAlign: "center",
                     }}
                   >
                     Your Transaction Lineup
@@ -678,6 +705,7 @@ function SendToken({
                                 </div>
                               </td>
                               <td
+                             
                                 id={textStyle.fontsize10px}
                                 style={{ padding: "8px" }}
                               >
@@ -695,6 +723,7 @@ function SendToken({
                                 </select> */}
 
                                 <CustomDropdown
+                                   id="text"
                                   options={destinationFinalChainsOptions}
                                   onSelect={handleDestinationFinalChainChange}
                                   selectedValue={
@@ -732,7 +761,7 @@ function SendToken({
                     letterSpacing: "1px",
                     fontSize: "20px",
                     fontWeight: "300",
-                    textAlign:"center",
+                    textAlign: "center",
                   }}
                 >
                   Account Summary
@@ -871,10 +900,9 @@ function SendToken({
           </div>
         </>
       ) : (
-        <div style={{textAlign:"center"}}>
-        Please connect your wallet to proceed
+        <div style={{ textAlign: "center" }}>
+          Please connect your wallet to proceed
         </div>
-        
       )}
 
       <>
