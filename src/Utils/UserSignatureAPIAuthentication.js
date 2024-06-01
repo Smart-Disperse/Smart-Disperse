@@ -2,20 +2,8 @@ import Cookies from "universal-cookie";
 import jwt from "jsonwebtoken";
 import { ethers } from "ethers";
 
-export const createSign = async (address) => {
+export const createSign = async (address, signature, message) => {
   try {
-    const { ethereum } = window;
-    if (!ethereum) {
-      throw new Error("Metamask is not installed, please install!");
-    }
-
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const signer = provider.getSigner();
-    const message =
-      "Sign this message to add labels to the address for easier access. This signature is for security purposes, ensuring that your labels are securely linked to your address and not accessible by others.";
-
-    const signature = await signer.signMessage(message);
-
     const jwtToken = await decodeSignature(signature, message, address);
 
     if (jwtToken === null) {

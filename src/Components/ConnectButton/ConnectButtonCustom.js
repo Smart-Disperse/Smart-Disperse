@@ -36,7 +36,7 @@ const ConnectButtonCustom = ({ isMainnet }) => {
 
   const handleDisConnect = () => {
     // Function that handles the click on the disconnect button
-    toast.success("Disconneted!");
+
     disconnect();
     cookie.set("jwt_token", null);
     setAccountModalOpen(false);
@@ -100,6 +100,9 @@ const ConnectButtonCustom = ({ isMainnet }) => {
           account &&
           chain &&
           (!authenticationStatus || authenticationStatus === "authenticated");
+        {
+          console.log("connected", connected);
+        }
         return (
           <div
             {...(!ready && {

@@ -5,6 +5,7 @@ import home from "../Components/NewHomePage/css/home.module.css";
 import "../Components/NewHomePage/css/chain.css";
 import user from "../Components/NewHomePage/assests/2.svg";
 import { Fade } from "react-reveal";
+import { useInView } from "react-intersection-observer";
 import {
   faLink,
   faMagnifyingGlassChart,
@@ -37,8 +38,59 @@ const OPTIONS = { loop: true, duration: 30 };
 const SLIDE_COUNT = 5;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
+const steps = [
+  {
+    icon: faWallet,
+    position: { left: "56%", top: "-2%" },
+    text: "Connect Wallet",
+    className: "bottom",
+  },
+  {
+    icon: faLink,
+    position: { right: " -9.5%", top: "17%" },
+    text: "Select Chain",
+    className: "left",
+  },
+  {
+    icon: faShuffle,
+    position: { left: "68%", top: "44%" },
+    text: "Select Transactions Type (same-chain/cross-chain)",
+    className: "bottom",
+  },
+  {
+    icon: faRectangleList,
+    position: { left: "32%", top: "44.5%" },
+    text: "List your transactions",
+    className: "top",
+  },
+  {
+    icon: faUser,
+    position: { left: "-10.5%", top: "68%" },
+    text: "Verify the Recipient address & amount",
+    className: "right",
+  },
+  {
+    icon: faShare,
+    position: { left: "21%", top: "93%" },
+    text: "Send Transactions",
+    className: "bottom",
+  },
+  {
+    icon: faMagnifyingGlassChart,
+    position: { left: "53%", top: "93%" },
+    text: "View History of Transactions",
+    className: "top",
+  },
+];
 export default function Home({ children }) {
-  
+  const [containerRef, containerInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1, // Adjust based on when you want to trigger the animation
+  });
+
+  const stepRefs = steps.map(() =>
+    useInView({ triggerOnce: true, threshold: 0.1 })
+  );
   return (
     <main className={home.homeParent}>
       <section className={home.homeMain1}>
@@ -433,7 +485,7 @@ export default function Home({ children }) {
         </div>
       </section>
 
-      <section className={home.sec4Main}>
+      {/* <section className={home.sec4Main}>
         <Fade duration={1500} delay={100}>
           <div className={home.snakeSection}>
             <div className={home.divheadertag}>
@@ -544,6 +596,58 @@ export default function Home({ children }) {
             </div>
           </div>
         </Fade>
+      </section> */}
+      <section className={home.sec4Main} ref={containerRef}>
+        {containerInView && (
+          <Fade duration={1500} delay={100}>
+            <div className={home.snakeSection}>
+              <div className={home.divheadertag}>
+                <h3 className={home.chains}>SmartDisperse Walkthrough</h3>
+              </div>
+              <div className={home.container}>
+                <div className={`${home.stepWrapper} ${home.moveLine}`}>
+                  {steps.map((step, index) => {
+                    const [ref, inView] = stepRefs[index];
+                    return (
+                      <article
+                        key={index}
+                        className={`${home.lineStep} ${
+                          home[`lineStep${index + 1}`]
+                        }`}
+                        style={step.position}
+                        ref={ref}
+                      >
+                        {inView && (
+                          <Fade duration={1500} delay={100}>
+                            <span className={home.num}>
+                              <FontAwesomeIcon icon={step.icon} />
+                            </span>
+                            <p className={home[step.className]}>{step.text}</p>
+                          </Fade>
+                        )}
+                      </article>
+                    );
+                  })}
+                  <svg
+                    width="100%"
+                    viewBox="0 0 1156 608"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      className={home.path}
+                      d="m560.30957,10.588011c0,0 438.0947,1.90476 439.04708,1.90476c0.95238,0 144.57857,-1.02912 143.80934,137.14269c-0.76923,138.17181 -116.81095,142.30859 -131.61967,143.8923c-14.80873,1.58372 -840.41472,-0.71429 -860.5941,0.71429c-20.17938,1.42858 -148.4991,6.80903 -146.83244,147.05973c1.66666,140.2507 129.52365,152.14266 129.33243,151.27321c0.19122,0.86945 815.268425,2.687632 951.42748,0"
+                      opacity="0.5"
+                      strokeWidth="2"
+                      stroke="#2567d1"
+                      strokeDasharray="10 10"
+                      fill="none"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </Fade>
+        )}
       </section>
       <section className={home.sec3Main}>
         <div className={home.sec5Title}>Get started now</div>
@@ -561,7 +665,7 @@ export default function Home({ children }) {
                     <div className={home.buttongetstart}>
                       <Link
                         href="http://smartdisperse.xyz/cross-chain"
-                        target="blank"
+                        target="_blank"
                       >
                         <button className={home.getstartbtn}>
                           Start now ➔
@@ -582,7 +686,7 @@ export default function Home({ children }) {
                     <div className={home.buttongetstart}>
                       <Link
                         href="http://smartdisperse.xyz/same-chain"
-                        target="blank"
+                        target="_blank"
                       >
                         <button className={home.getstartbtn}>
                           Start now ➔
@@ -604,7 +708,7 @@ export default function Home({ children }) {
                       <div>
                         <Link
                           href="https://smart-disperse.gitbook.io/smart-disperse/"
-                          target="blank"
+                          target="_blank"
                         >
                           <button className={home.getstartbtn}>
                             Start now ➔
