@@ -38,6 +38,7 @@ const SLIDE_COUNT = 5;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 export default function Home({ children }) {
+  
   return (
     <main className={home.homeParent}>
       <section className={home.homeMain1}>
@@ -448,7 +449,7 @@ export default function Home({ children }) {
                     {" "}
                     <FontAwesomeIcon
                       icon={faWallet}
-                      style={{ fontSize: "10px" }}
+                      
                     />
                   </span>
                   <p className={home.bottom}>Connect Wallet</p>
@@ -456,7 +457,7 @@ export default function Home({ children }) {
 
                 <article
                   className={`${home.lineStep} ${home.lineStep2}`}
-                  style={{ right: " -9.5%", top: "17%" }}
+                  style={{ right: " -9.5%", top: "17%" ,}}
                 >
                   <span className={home.num}>
                     {" "}
@@ -485,7 +486,7 @@ export default function Home({ children }) {
                   style={{ left: "32%", top: "44.5%" }}
                 >
                   <span className={home.num}>
-                    <FontAwesomeIcon icon={faRectangleList} />
+                    <FontAwesomeIcon icon={faRectangleList} className={home.svg}/>
                   </span>
                   <p className={home.top}>List your transactions</p>
                 </article>

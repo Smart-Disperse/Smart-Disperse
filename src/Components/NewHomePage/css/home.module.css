@@ -30,6 +30,7 @@
   background-clip: text;
   margin: 0px;
   letter-spacing: 2px;
+  text-align: left;
   font-weight: 700;
   padding-bottom: 1rem;
   font-size: 3.5rem;
@@ -45,6 +46,7 @@
   background-clip: text;
   margin: 0px;
   letter-spacing: 2px;
+  text-align: left;
   font-weight: 300;
   font-size: 3.5rem;
 }
@@ -60,7 +62,7 @@
   padding: 5px 0px;
   font-weight: 500;
   width: 60%;
-
+text-align: left;
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.5em;
@@ -179,6 +181,7 @@
 }
 .sec2Div {
   padding-bottom: 30px;
+  text-align: left;
 }
 
 /* .......sec3.... */
@@ -187,6 +190,7 @@
   margin-bottom: 30px !important;
   width: 80%;
   margin: 0px auto;
+  text-align: left;
 }
 .usecaseMain {
   padding: 70px 0px;
@@ -556,7 +560,9 @@
   margin-bottom: 200px;
   position: relative;
 }
-
+.svg{
+  height: auto;
+}
 .lineStep {
   text-align: center;
   max-width: 250px;
@@ -564,12 +570,12 @@
 }
 
 .num {
-  padding: 10px;
+  padding: 15px;
   color: #fff;
   border-radius: 100px;
   display: inline-block;
   width: 30px;
-  height: auto;
+  height: 30px;
   cursor: pointer;
   text-align: center;
   background: linear-gradient(180deg, #9272f7 0%, #4c3698 100%);
@@ -578,7 +584,9 @@
   /* background: #ab00ff; */
   transition: scale 0.5s;
 }
-
+.num svg{
+  height: auto !important;
+}
 /* Adjusted CSS for 'p' selector */
 p.snakeText {
   width: 250px;
@@ -687,6 +695,7 @@ p.right {
   flex-direction: column;
   align-items: center;
 }
+
 
 @keyframes show-step-item {
   from {
