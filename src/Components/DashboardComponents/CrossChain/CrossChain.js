@@ -17,7 +17,8 @@ function CrossChain({ activeTab }) {
   const [tokenOptions, setTokenOptions] = useState([]);
   const [selectedToken, setSelectedToken] = useState(null);
   const [tokenAddress, setTokenAddress] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState("");
+  
   const chainId = useChainId();
 
   const getChainsForDropDown = () => {
@@ -59,6 +60,7 @@ function CrossChain({ activeTab }) {
     console.log(selectedChainDetails);
 
     if (selectedChainDetails) {
+      setErrorMessage("");
       const tokenOptions = Object.entries(selectedChainDetails.tokens).map(
         ([key, value]) => ({
           name: key,
@@ -75,8 +77,14 @@ function CrossChain({ activeTab }) {
   };
 
   const handleDestinationTokenChange = (selectedToken) => {
-    setSelectedToken(selectedToken);
-    setTokenAddress(selectedToken.address);
+    if (!selectedDestinationChain) {
+      setErrorMessage("Please select a destination chain first.");
+    } else {
+      setSelectedToken(selectedToken);
+      setTokenAddress(selectedToken.address);
+      setErrorMessage(""); // Clear error message when a token is selected
+    }
+ 
   };
 
   return (
@@ -127,6 +135,12 @@ function CrossChain({ activeTab }) {
                 placeholder="Select token"
               />
             </div>
+            {errorMessage && (
+  <div className={textStyle.errorMessage}>
+    {errorMessage}
+  </div>
+)}
+
           </div>
 
           <SendToken

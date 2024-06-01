@@ -76,7 +76,12 @@ function CustomDropdown({
       </div>
       {isOpen && (
         <div className={dropDownStyles.dropdownList}>
-          {options.map((option) => (
+        {options.length === 0 ? (
+          <div className={dropDownStyles.dropdownItem}>
+           Please select destination chain first
+          </div>
+        ) : (
+          options.map((option) => (
             <div
               key={option.name}
               className={dropDownStyles.dropdownItem}
@@ -89,8 +94,10 @@ function CustomDropdown({
               />
               {option.name}
             </div>
-          ))}
-        </div>
+          ))
+        )}
+      </div>
+      
       )}
     </div>
   );

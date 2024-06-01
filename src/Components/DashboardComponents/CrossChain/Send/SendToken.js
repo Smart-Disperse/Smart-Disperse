@@ -591,6 +591,9 @@ function SendToken({
                           style={{ letterSpacing: "1px", padding: "8px" }}
                         >
                           Destination Chain
+                          <div style={{fontSize:"10px"}}>
+                            (Select Multiple Destination Chains for Each Recipient here)
+                            </div>
                         </th>
                         {/* <th
                       className={textStyle.fontsize12px}

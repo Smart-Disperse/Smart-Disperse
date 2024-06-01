@@ -300,15 +300,17 @@ function Crosschaindashboard() {
 
   return (
     <div className={samechainStyle.maindivofdashboard}>
-   <div>
+      <div>
         <div className={samechainStyle.stickyIcon}>
           <a href="/same-chain" className={samechainStyle.Instagra}>
-          <FontAwesomeIcon icon={faShare} /> <div>Same Chain</div>
+            <FontAwesomeIcon icon={faShare} />{" "}
+            <div> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Same Chain</div>
           </a>
         </div>
         <div className={samechainStyle.stickyIcon1}>
           <a href="/cross-analysis" className={samechainStyle.Instagra}>
-            <FontAwesomeIcon icon={faMagnifyingGlassChart} /> <div> Spent Analysis</div>
+            <FontAwesomeIcon icon={faMagnifyingGlassChart} />{" "}
+            <div> Spent Analysis</div>
           </a>
         </div>
         <div className={samechainStyle.stickyIcon2}>
@@ -324,7 +326,9 @@ function Crosschaindashboard() {
       >
         <div className={samechainStyle.titledivdashboard}>
           <div className={samechainStyle.imagesinthis}></div>
-          <h1 className={samechainStyle.headingofsamechain}>Effortless Token Distribution</h1>
+          <h1 className={samechainStyle.headingofsamechain}>
+            Effortless Token Distribution
+          </h1>
           <h3 className={samechainStyle.dashpera}>
             Disperse Your Tokens to chains and Other Networks, Embracing
             Multi-Network Distribution
@@ -380,10 +384,7 @@ function Crosschaindashboard() {
           display: "flex",
           justifyContent: "center",
         }}
-      >
-       
-       
-      </div>
+      ></div>
       <Footer />
     </div>
   );
