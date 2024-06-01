@@ -616,6 +616,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  background-color: #1bff76;
   height: 100%;
   display: flex;
   justify-content: center;

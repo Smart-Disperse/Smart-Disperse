@@ -7,7 +7,7 @@ import { ethers } from "ethers";
 import Modal from "react-modal";
 import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
-import bggif from "@/Assets/bp.gif";
+import bggif from "@/Assets/tnxloader.gif";
 import completegif from "@/Assets/complete.gif";
 import confetti from "canvas-confetti";
 import Head from "next/head";
@@ -15,7 +15,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faPaperPlane,
+  faXTwitter,
   faX,
+  faRightLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { useChainId, useNetwork } from "wagmi";
 
@@ -144,6 +146,7 @@ function ExecuteEth(props) {
       </button>
       <div>
         <Modal
+        
           className={textStyle.popupforpayment}
           isOpen={loaderModal}
           onRequestClose={() => setLoadermodal(false)}
@@ -200,7 +203,7 @@ function ExecuteEth(props) {
           <div className={textStyle.divtocenter}>
             {success ? (
               <button style={{ margin: "0px 5px" }} onClick={sendTweet}>
-                Tweet Now &nbsp; <FontAwesomeIcon icon={faPaperPlane} />
+                Tweet Now &nbsp; <FontAwesomeIcon icon={faRightLong} />
               </button>
             ) : (
               ""

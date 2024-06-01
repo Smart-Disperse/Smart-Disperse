@@ -136,6 +136,7 @@ function SendToken({ activeTab, listData, setListData }) {
     const updatedList = [...listData];
     updatedList.splice(index, 1);
     setListData(updatedList);
+    toast.success("Transaction Deleted Successfully")
   };
 
   // Function to load token details
@@ -416,7 +417,7 @@ function SendToken({ activeTab, listData, setListData }) {
                       justifyContent: "space-between",
                       alignItems: "center",
                       padding: "10px",
-                      border: "1px solid #ddd",
+                      // border: "1px solid #ddd",
                     }}
                   >
                     <table className={textStyle.tabletextlist}>
@@ -535,7 +536,8 @@ function SendToken({ activeTab, listData, setListData }) {
                                       padding: "8px",
                                     }}
                                   >
-                                    {data.address}
+                                   {data.address.substr(0, 3)}...
+                                {data.address.substr(-5)}
                                   </td>
                                   <td
                                     id={textStyle.fontsize10px}
@@ -557,12 +559,21 @@ function SendToken({ activeTab, listData, setListData }) {
                                             borderRadius: "8px",
                                             padding: "10px",
                                             color: "white",
-                                            border: "none",
-                                            background:
-                                              "linear-gradient(90deg, rgba(97, 39, 193, .58) .06%, rgba(63, 47, 110, .58) 98.57%)",
+                                            border: "1px solid #8D37FB",
+                                            background: "transparent",
                                           }}
                                           onChange={(e) => {
                                             const inputValue = e.target.value;
+                                            if (
+                                              inputValue === "" &&
+                                              e.key !== "Enter"
+                                            ) {
+                                              setErrorMessage("Enter Label");
+                                            } else {
+                                              setErrorMessage(
+                                                "Press Enter to submit label"
+                                              );
+                                            }
                                             // Regular expression to allow only alphanumeric characters without spaces
                                             const regex = /^[a-zA-Z0-9]*$/;
                                             if (
@@ -578,12 +589,17 @@ function SendToken({ activeTab, listData, setListData }) {
                                             }
                                           }}
                                         />
-                                        {/* <input
-                                    type="button"
-                                    onClick={(e) => {
-                                      onAddLabel(index, data.address);
-                                    }}
-                                  /> */}
+                                        {errorMessage && (
+                                      <p
+                                        style={{
+                                          color: "red",
+                                          margin: "0px",
+                                          fontSize: "13px",
+                                        }}
+                                      >
+                                        {errorMessage}
+                                      </p>
+                                    )}
                                       </>
                                     )}
                                   </td>
@@ -596,9 +612,9 @@ function SendToken({ activeTab, listData, setListData }) {
                                       style={{
                                         width: "fit-content",
                                         margin: "0 auto",
-                                        background:
-                                          "linear-gradient(269deg, #0FF 2.32%, #1BFF76 98.21%)",
-                                        color: "black",
+                                        background: "transparent",
+                                    color: "#00FBFB",
+                                    border: "1px solid #00FBFB",
                                         borderRadius: "10px",
                                         padding: "10px 10px",
                                         fontSize: "12px",

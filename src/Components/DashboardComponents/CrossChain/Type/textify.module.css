@@ -235,6 +235,10 @@
   margin: 50px 0px;
 }
 
+.Overlay {
+  background-color: #007bff !important;
+}
+
 .titleforlinupsametext h2 {
   background: rgb(24, 26, 83);
   background: linear-gradient(
@@ -259,6 +263,11 @@
   align-items: center;
   /* box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 40px 0px inset; */
 }
+.loaderdiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .titleloadtokensametext {
   border-radius: 47px 47px 0px 0px;
@@ -269,6 +278,7 @@
     rgba(46, 13, 90, 1) 100%
   );
   padding: 5px 0px;
+  text-align: center;
   font-size: 12px;
 }
 
@@ -404,11 +414,11 @@
   padding: 5px 0;
 }
 .popupforpayment {
-  background: linear-gradient(
-    94.24deg,
-    rgb(117 81 230 / 70%) 2.41%,
-    rgb(50 0 113 / 85%) 98.65%
-  );
+background: rgba(80, 3, 132, 0.61);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(19.5px);
+-webkit-backdrop-filter: blur(19.5px);
   border-radius: 30px;
   box-shadow: 0 0 10px #0000001a;
   color: #fff;
@@ -429,10 +439,10 @@
   text-align: center;
 }
 .popupforpayment button {
-  background: rgb(0, 255, 239);
-  border: none;
   border-radius: 5px;
-  color: black;
+  border-width: 0.5px solid #00ffff;
+  background: #07070e45;
+  color: #00ffff;
   cursor: pointer;
   font-weight: 700;
   padding: 15px 20px;
@@ -440,11 +450,14 @@
   cursor: pointer;
 }
 .popupforpayment button:hover {
-  border: none;
+  border: 1px solid #B47DFC;
   color: #070707;
   /* font-weight: 750; */
   /* padding: 13px 18px; */
-  background: linear-gradient(269deg, #0ff 2.32%, #1bff76 98.21%);
+  background: white;
+  color: #B47DFC;
+  
+
 }
 
 /* ....cross chain */
