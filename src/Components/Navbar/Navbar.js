@@ -7,7 +7,7 @@ import ConnectButtonCustom from "../ConnectButton/ConnectButtonCustom";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import Cookies from "universal-cookie";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 import { usePathname } from "next/navigation";
 import { createSign } from "@/Utils/UserSignatureAPIAuthentication";
 
@@ -17,6 +17,7 @@ function Navbar() {
   const cookie = new Cookies();
   const [isMainnet, setIsMainnet] = useState(true);
   const path = usePathname();
+  const chainId = useChainId();
 
   const isHome = path === "/";
 

@@ -12,6 +12,7 @@ function SwitchChain({ isMainnet, closeAccountModal }) {
   const { chain } = useAccount();
   const path = usePathname();
 
+  const [isMounted, setIsMounted] = useState(false);
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false); // State for modal visibility
 
   const { chains, error, isLoading, pendingChainId, switchChain } =
@@ -47,14 +48,19 @@ function SwitchChain({ isMainnet, closeAccountModal }) {
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const buttonRef = useRef(null);
+  useEffect(() => {
+    setIsMounted(true); // This ensures the component is mounted before using the router
+  }, []);
 
   const handleButtonClick = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleOptionClick = (networkId) => {
-    switchChain({ chainId: networkId });
-    setDropdownVisible(false);
+  const handleOptionClick = async (networkId) => {
+    if (isMounted) {
+      switchChain({ chainId: networkId });
+      setDropdownVisible(false);
+    }
   };
 
   useEffect(() => {
