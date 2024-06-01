@@ -108,7 +108,7 @@ function SendEth({ activeTab, listData, setListData }) {
     const updatedList = [...listData];
     updatedList.splice(index, 1);
     setListData(updatedList);
-    toast.success("Transaction Deleted Successfully")
+    toast.success("Transaction Deleted Successfully");
   };
 
   /*
@@ -199,7 +199,7 @@ function SendEth({ activeTab, listData, setListData }) {
         toast.warn("Name Already Exist! Please Enter Unique Name.");
         setErrormsg(result.error);
       } else {
-        if (result.success) {
+        if (result.message === "Success") {
           toast.success("Label Added successfully");
         }
       }
@@ -258,7 +258,7 @@ function SendEth({ activeTab, listData, setListData }) {
                     style={{ padding: "30px 20px" }}
                   >
                     <thead className={textStyle.tableheadertextlist}>
-                    <tr className={textStyle.tableTr}>
+                      <tr className={textStyle.tableTr}>
                         <th
                           className={textStyle.fontsize12px}
                           style={{ letterSpacing: "1px", padding: "8px" }}
@@ -301,7 +301,7 @@ function SendEth({ activeTab, listData, setListData }) {
                       {listData.length > 0
                         ? listData.map((data, index) => (
                             <tr
-                            className={textStyle.tableTr}
+                              className={textStyle.tableTr}
                               style={{ borderBottom: "1px solid #ffffff61" }}
                               key={index}
                             >

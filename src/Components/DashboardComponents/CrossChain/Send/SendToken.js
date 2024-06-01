@@ -102,8 +102,6 @@ function SendToken({
     });
   }, [listData.length, selectedDestinationChain]);
 
- 
-   
   // const driverObj = driver({
   //   overlayColor: "#00000094",
   //   // popoverClass: ` ${samechainStyle.driverpopover01}`,
@@ -204,9 +202,8 @@ function SendToken({
     const updatedList = [...listData];
     updatedList.splice(index, 1);
     setListData(updatedList);
-    toast.success("Transaction deleted successfully")
+    toast.success("Transaction deleted successfully");
   };
-
 
   // Function to load token details
   const loadTokenDetails = async (_tokenAddress) => {
@@ -280,8 +277,7 @@ function SendToken({
         toast.warn("Name Already Exist! Please Enter Unique Name.");
         setErrormsg(result.error);
       } else {
-        if (result.success) {
-          alert("Added to MongoDB");
+        if (result.message === "Success") {
           toast.success("Label Added successfully");
         }
       }
@@ -290,23 +286,20 @@ function SendToken({
       setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
-
-    const { names, addresses } = await fetchUserLabels();
-    console.log(names, addresses);
+    const { allNames, allAddress } = await fetchUserLabels(address);
 
     const updatedListData = await listData.map((item) => {
       if (
         (item.label === undefined || item.label === "") &&
-        addresses.includes(item.address)
+        allAddress.includes(item.address)
       ) {
-        const index = addresses.indexOf(item.address);
+        const index = allAddress.indexOf(item.address);
         console.log(index);
-        item.label = names[index];
+        item.label = allNames[index];
       }
       return item;
     });
-
-    console.log(updatedListData);
+    await fetchUserDetails();
     await setListData(updatedListData);
   };
 
@@ -591,9 +584,10 @@ function SendToken({
                           style={{ letterSpacing: "1px", padding: "8px" }}
                         >
                           Destination Chain
-                          <div style={{fontSize:"10px"}}>
-                            (Select Multiple Destination Chains for Each Recipient here)
-                            </div>
+                          <div style={{ fontSize: "10px" }}>
+                            (Select Multiple Destination Chains for Each
+                            Recipient here)
+                          </div>
                         </th>
                         {/* <th
                       className={textStyle.fontsize12px}
@@ -708,7 +702,6 @@ function SendToken({
                                 </div>
                               </td>
                               <td
-                             
                                 id={textStyle.fontsize10px}
                                 style={{ padding: "8px" }}
                               >
@@ -726,7 +719,7 @@ function SendToken({
                                 </select> */}
 
                                 <CustomDropdown
-                                   id="text"
+                                  id="text"
                                   options={destinationFinalChainsOptions}
                                   onSelect={handleDestinationFinalChainChange}
                                   selectedValue={

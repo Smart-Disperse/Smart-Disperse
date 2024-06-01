@@ -136,7 +136,7 @@ function SendToken({ activeTab, listData, setListData }) {
     const updatedList = [...listData];
     updatedList.splice(index, 1);
     setListData(updatedList);
-    toast.success("Transaction Deleted Successfully")
+    toast.success("Transaction Deleted Successfully");
   };
 
   // Function to load token details
@@ -219,8 +219,7 @@ function SendToken({ activeTab, listData, setListData }) {
         toast.warn("Name Already Exist! Please Enter Unique Name.");
         setErrormsg(result.error);
       } else {
-        if (result.success) {
-          alert("Added to MongoDB");
+        if (result.message === "Success") {
           toast.success("Label Added successfully");
         }
       }
@@ -536,8 +535,8 @@ function SendToken({ activeTab, listData, setListData }) {
                                       padding: "8px",
                                     }}
                                   >
-                                   {data.address.substr(0, 3)}...
-                                {data.address.substr(-5)}
+                                    {data.address.substr(0, 3)}...
+                                    {data.address.substr(-5)}
                                   </td>
                                   <td
                                     id={textStyle.fontsize10px}
@@ -590,16 +589,16 @@ function SendToken({ activeTab, listData, setListData }) {
                                           }}
                                         />
                                         {errorMessage && (
-                                      <p
-                                        style={{
-                                          color: "red",
-                                          margin: "0px",
-                                          fontSize: "13px",
-                                        }}
-                                      >
-                                        {errorMessage}
-                                      </p>
-                                    )}
+                                          <p
+                                            style={{
+                                              color: "red",
+                                              margin: "0px",
+                                              fontSize: "13px",
+                                            }}
+                                          >
+                                            {errorMessage}
+                                          </p>
+                                        )}
                                       </>
                                     )}
                                   </td>
@@ -613,8 +612,8 @@ function SendToken({ activeTab, listData, setListData }) {
                                         width: "fit-content",
                                         margin: "0 auto",
                                         background: "transparent",
-                                    color: "#00FBFB",
-                                    border: "1px solid #00FBFB",
+                                        color: "#00FBFB",
+                                        border: "1px solid #00FBFB",
                                         borderRadius: "10px",
                                         padding: "10px 10px",
                                         fontSize: "12px",
