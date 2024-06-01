@@ -64,7 +64,7 @@ function SameChain({ activeTab }) {
           >
             <div id="send-eth" className={textStyle.sendethdiv}>
               <button
-                id={isSendingEth ? textStyle.truee : textStyle.falsee}
+                // id={isSendingEth ? textStyle.truee : textStyle.falsee}
                 className={textStyle.buttontoaddformdata}
                 onClick={handleSendEthbuttonClick}
               >
@@ -76,10 +76,12 @@ function SameChain({ activeTab }) {
               <div style={{ margin: "10px 0px" }}>OR</div>
 
               <button
+                id={isSendingToken ? textStyle.truee : textStyle.falsee}
+               
                 style={{
                   backgroundColor: isSendingToken ? "" : " white",
                   color: isSendingToken ? "" : "white",
-                  border: "none",
+                  // border: "none",
                 }}
                 className={textStyle.buttontoaddformdataunload}
                 onClick={() => handleImporttokenbuttonClick()}

@@ -379,7 +379,7 @@ function SendToken({
       setDestinationFinalChainsOptions(options);
     } catch (error) {
       console.error(error.message);
-      setDestinationFinalChainsOptions([]); // Optionally clear the options or set to default
+      setDestinationFinalChainsOptions([]); 
     }
   };
 
@@ -400,57 +400,9 @@ function SendToken({
 
     console.log(listData);
 
-    // const selectedChainName = e.target.value;
-    // console.log(`Selected chain name: ${selectedChainName}`);
-    // const newSelectedChains = [...selectedDestinationfinalChains];
-    // newSelectedChains[index] = selectedChainName;
-    // setSelectedDestinationfinalChains(newSelectedChains);
-    // console.log(newSelectedChains);
-    // const chainDetails = allchains[chainId];
-    // const selectedChain = chainDetails.destinationChains[selectedChainName];
-    // const finalchainSelector = selectedChain.chainSelector;
-    // const newFinalchainSelectors = [...finalchainSelectors];
-    // newFinalchainSelectors[index] = finalchainSelector;
-    // setFinalchainSelectors(newFinalchainSelectors);
-    // console.log(newFinalchainSelectors);
-    // const uniqueFinalchainSelectors = [...new Set(newFinalchainSelectors)];
-    // console.log("Unique Final Chain Selectors:", uniqueFinalchainSelectors);
-    // setChainSelector(uniqueFinalchainSelectors);
-    // printGroupedAddressesAndAmounts(newSelectedChains);
-    // const receiverAddresses = newSelectedChains.map((chainName) => {
-    //   return (
-    //     chainDetails.destinationChains[chainName]?.receiverAddress ||
-    //     "Address not found"
-    //   );
-    // });
-    // const uniqueReceiverAddresses = [...new Set(receiverAddresses)];
-    // console.log("Unique Receiver Addresses:", uniqueReceiverAddresses);
-    // setReceivingChainAddress(uniqueReceiverAddresses);
   };
 
-  // const printGroupedAddressesAndAmounts = (chainNames) => {
-  //   const addressGroups = {};
-  //   const amountGroups = {};
-  //   listData.forEach((data, index) => {
-  //     const chainName = chainNames[index];
-  //     if (!addressGroups[chainName]) {
-  //       addressGroups[chainName] = [];
-  //       amountGroups[chainName] = [];
-  //     }
-  //     addressGroups[chainName].push(data.address);
-  //     amountGroups[chainName].push(data.value);
-  //   });
-  //   const addressArray = Object.values(addressGroups);
-  //   const amountArray = Object.values(amountGroups);
-  //   console.log("Grouped Addresses Array:", addressArray);
-  //   setRecipientaddressarray(addressArray);
-  //   console.log("Grouped Amounts Array:", amountArray);
-  //   setRecipientamountarray(amountArray);
-  // };
-
-  // useEffect(() => {
-  //   printGroupedAddressesAndAmounts(selectedDestinationfinalChains);
-  // }, [listData, destinationchainName]);
+ 
 
   return (
     <>

@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import { approveToken } from "@/Helpers/ApproveToken";
 import Image from "next/image";
 import oopsimage from "@/Assets/oops.webp";
-import bggif from "@/Assets/bp.gif";
+import bggif from "@/Assets/tnxloader.gif";
 import completegif from "@/Assets/complete.gif";
 import confetti from "canvas-confetti";
 import Head from "next/head";
@@ -15,7 +15,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faPaperPlane,
+  faRightLong,
   faX,
+  faXTwitter
 } from "@fortawesome/free-solid-svg-icons";
 import { useAccount, useChainId, useNetwork } from "wagmi";
 
@@ -225,7 +227,7 @@ function ExecuteToken(props) {
           <div className={textStyle.divtocenter}>
             {success ? (
               <button style={{ margin: "0px 5px" }} onClick={sendTweet}>
-                Tweet Now &nbsp; <FontAwesomeIcon icon={faPaperPlane} />
+                Tweet Now &nbsp; <FontAwesomeIcon icon={faRightLong} />
               </button>
             ) : (
               ""
