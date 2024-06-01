@@ -8,14 +8,14 @@ function Navbar() {
   return (
     <div className={navStyle.navMain}>
       <div>
-        <Link href="/">
+        <a href="/">
           <Image className={navStyle.logo} src={logo} alt="not foundd" />
-        </Link>
+        </a>
       </div>
       <div>
-        <Link href="/cross-chain" target="blank">
+        <a href="/cross-chain" target="_blank">
           <button className={navStyle.launchapp}>LAUNCH APP</button>
-        </Link>
+        </a>
       </div>
     </div>
   );

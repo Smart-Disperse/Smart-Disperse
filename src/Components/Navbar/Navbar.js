@@ -7,7 +7,7 @@ import ConnectButtonCustom from "../ConnectButton/ConnectButtonCustom";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import Cookies from "universal-cookie";
-import { useAccount, useChainId } from "wagmi";
+import { useAccount, useChainId, useSignMessage } from "wagmi";
 import { usePathname } from "next/navigation";
 import { createSign } from "@/Utils/UserSignatureAPIAuthentication";
 
@@ -16,6 +16,8 @@ function Navbar() {
   const { theme, setTheme } = useTheme();
   const cookie = new Cookies();
   const [isMainnet, setIsMainnet] = useState(true);
+  const { signMessageAsync } = useSignMessage();
+
   const path = usePathname();
   const chainId = useChainId();
 
@@ -42,12 +44,21 @@ function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (isConnected && !isHome) {
-      const jwtToken = cookie.get("jwt_token");
+    const handleAuth = async () => {
+      if (address && !isHome) {
+        const jwtToken = cookie.get("jwt_token");
 
-      if (jwtToken === undefined || jwtToken === null) {
-        createSign(address);
+        if (jwtToken === undefined || jwtToken === null) {
+          const message =
+            "Sign this message to add labels to the address for easier access. This signature is for security purposes, ensuring that your labels are securely linked to your address and not accessible by others.";
+          const signature = await signMessageAsync({ message });
+          createSign(address, signature, message);
+        }
       }
+    };
+
+    if (isConnected) {
+      handleAuth();
     }
   }, [isConnected]);
 
