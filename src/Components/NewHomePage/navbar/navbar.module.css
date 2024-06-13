@@ -1,12 +1,74 @@
 .navMain {
+ position: fixed;
+ z-index: 50; 
+ width: 100%;
+ top: 0;
+}
+.navFixed{
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 2rem;
+ 
+  transition: background-color 0.3s ease;
+  backdrop-filter: blur(20px);
+}
+.navScrolled {
+ background-color:transparent;
+ 
+ box-shadow: rgba(0, 0, 0, 0.208) 0px 2px 4px, rgba(0, 0, 0, 0.203) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.navSub{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0px 40px;
+}
+.navDiv{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+ 
+}
+.navDiv a{
+  text-decoration: none;
+}
+.navTab{
+  gap: .125rem;
+    border-radius: .75rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    font-size: .875rem;
+    color: white;
+    letter-spacing: 0.7px;
+    display: inline-block;
+    position: relative;
+    
+}
+.navTab::after{
+  background: none repeat scroll 0 0 transparent;
+  bottom: -5px;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #fff;
+  transition: width 0.5s ease 0s, left 0.5s ease 0s;
+  width: 0;
+}
+.navTab:hover::after{
+left: 0;
+  width: 100%;
 }
 .logo {
-  width: 300px;
+  width: 280px;
   height: auto;
+  transition: transform 0.3s ease; /* Smooth transition for scaling */
+}
+.logo:hover {
+  transform: scale(1.1); /* Scale up the logo on hover */
 }
 .launchapp {
   background: #ffffff;
@@ -21,13 +83,16 @@
   font-weight: 500;
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.15s;
+  transition-duration: 0.3s;
 }
 .launchapp:hover {
   border: none;
   border: 1px solid #00ffff;
   box-shadow: 0px 4px 17.8px 0px #00ffffa6;
   transform: translate(0) rotate(0) skewX(0) skewY(0) scaleX(1.04) scaleY(1.04);
+}
+.appMain{
+  width: 280px;
 }
 @media only screen and (max-width: 600px) {
   .logo {

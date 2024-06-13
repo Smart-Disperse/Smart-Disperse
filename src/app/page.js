@@ -338,12 +338,7 @@ export default function Home({ children }) {
           </div>
         </div>
       </section>
-      <Fade bottom duration={1000} distance="20px">
-        <section className={home.sec2Main}>
-          <div className={home.sec2Title}>Our Milestones</div>
-          <Carousel slides={SLIDES} options={OPTIONS} />
-        </section>
-      </Fade>
+    
       <Fade bottom duration={1000} distance="20px">
         <section className={home.sec2Main}>
           <div className={home.sec2Div}>
