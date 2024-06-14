@@ -2,6 +2,7 @@ import React from "react";
 import milestone from "./milestone.module.css";
 import milestoneImg from "../../Assets/version.svg";
 import Image from "next/image";
+import Footer from "@/Components/Footer/Footer";
 function page() {
   return (
     <div className={milestone.container}>
@@ -10,7 +11,7 @@ function page() {
       </div>
       <div>
         <ul className={milestone.ulMain}>
-        <li className={milestone.LiMain}>
+          <li className={milestone.LiMain}>
             <aside className={milestone.aside}>
               <div className={milestone.asideLeft}>
                 <div className={milestone.asideHeader}>🏆 Our Goal</div>
@@ -24,7 +25,8 @@ function page() {
               </div>
               <h2 className={milestone.subHeader}>Smart Disperse</h2>
               <div className={milestone.subPera}>
-                Alice can send Native and ERC20 token to multiple users on the same chain within one transaction 
+                Alice can send Native and ERC20 token to multiple users on the
+                same chain within one transaction
               </div>
             </div>
             <div></div>
@@ -43,7 +45,8 @@ function page() {
               </div>
               <h2 className={milestone.subHeader}>Milestone 0 Title</h2>
               <div className={milestone.subPera}>
-                Alice can send Native and ERC20 token to multiple users on the same chain within one transaction 
+                Alice can send Native and ERC20 token to multiple users on the
+                same chain within one transaction
               </div>
             </div>
             <div></div>
@@ -62,10 +65,16 @@ function page() {
               </div>
               <h2 className={milestone.subHeader}>Milestone 2 Title</h2>
               <div className={milestone.subPera}>
-                Alice can transfer both native and ERC20 tokens. for native token, Alice will provide ETH to the contract and that eth will be converted into WETh and bridged to the destination chain. after receiving on destination chain it will be converted to ETH again and disperse. this all will be done in one transaction.
+                Alice can transfer both native and ERC20 tokens. for native
+                token, Alice will provide ETH to the contract and that eth will
+                be converted into WETh and bridged to the destination chain.
+                after receiving on destination chain it will be converted to ETH
+                again and disperse. this all will be done in one transaction.
               </div>
               <div className={milestone.subPera}>
-                Alice knows the desired chain of alice and bob and can send funds to bob and charlie on the destination chain as well as the source chain in one transaction.
+                Alice knows the desired chain of alice and bob and can send
+                funds to bob and charlie on the destination chain as well as the
+                source chain in one transaction.
               </div>
             </div>
             <div></div>
@@ -132,6 +141,7 @@ function page() {
           </li> */}
         </ul>
       </div>
+      <Footer />
     </div>
   );
 }
