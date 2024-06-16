@@ -34,6 +34,7 @@ import arbitrum from "../Components/NewHomePage/assests/arbitrum.webp";
 import Footer from "../Components/NewHomePage/footer/footer";
 import Carousel from "../Components/NewHomePage/milsestone/carousel";
 import Link from "next/link";
+import spinner from "../Assets/spinner.gif"
 const OPTIONS = { loop: true, duration: 30 };
 const SLIDE_COUNT = 5;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
@@ -98,7 +99,8 @@ export default function Home({ children }) {
         <div className={home.sec1}>
           <Fade bottom duration={1000} distance="20px">
             <div className={home.colLeft}>
-              <div className={home.titleSame1}>Cross-Chain Made Simple</div>
+              <div className={home.titleSame1}>Cross-Chain </div>
+              <div className={home.titleSame1}>Made Simple</div>
               <div className={home.peraSame}>
                 Smart-Disperse Powerd by CCIP revolutionizes token transfers
                 with advanced features for seamless cross-chain
@@ -112,59 +114,13 @@ export default function Home({ children }) {
           <div className={home.chainCircle}>
             <div className={home.outerWrapper}>
               <Image
-                src={outer}
+                src={spinner}
                 style={{ width: "100%", height: "100%" }}
                 alt="none"
                 className={home.outercircle}
               />
             </div>
-            <div className={home.logoWrapper}>
-              <div className={home.mainlogo}>
-                <div className={home.logodiv}>
-                  <Image src={iconLogo} width={100} height={100} alt="none" />
-                </div>
-              </div>
-            </div>
-            <div className={home.MidWrapper}>
-              <Image src={middle} alt="none" className={home.midcircle} />
-            </div>
-            <div className={home.innerWrapper}>
-              <Image
-                src={inner}
-                alt="none"
-                className={`${home.innercircle} `}
-              />
-              <Image
-                src={base}
-                alt="none"
-                className={`${home.base} ${home.logoinner}`}
-              />
-              <Image
-                src={eth}
-                alt="none"
-                className={`${home.eth} ${home.logoinner}`}
-              />
-              <Image
-                src={optimism}
-                alt="none"
-                className={`${home.optimism} ${home.logoinner}`}
-              />
-              <Image
-                src={mode}
-                alt="none"
-                className={`${home.mode} ${home.logoinner}`}
-              />
-              <Image
-                src={scrolll}
-                alt="none"
-                className={`${home.scrolll} ${home.logoinner}`}
-              />
-              <Image
-                src={arbitrum}
-                alt="none"
-                className={`${home.tron} ${home.logoinner}`}
-              />
-            </div>
+          
           </div>
         </div>
         <div className={home.chainTitle}>Supported Chains</div>
