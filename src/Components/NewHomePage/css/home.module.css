@@ -1111,6 +1111,9 @@ p.right {
   .sec2Main {
     margin-top: 12% !important;
   }
+  .sec3Main {
+    margin-top: 65px !important;
+  }
   .flexContent {
     max-width: 20rem;
   }
@@ -1121,6 +1124,7 @@ p.right {
     font-size: 1.3rem;
     letter-spacing: 0.5px;
     line-height: 6vh;
+    text-align: center;
   }
   .cardofgetstart {
     width: 250px;
@@ -1130,8 +1134,9 @@ p.right {
     letter-spacing: 0.5px;
   }
   .peraSame {
-    font-size: 12px;
+    font-size: 13px;
     padding-top: 15px;
+    text-align: center;
     margin-top: 0px;
   }
   .hLaunch {
@@ -1146,7 +1151,7 @@ p.right {
     margin-top: 1px;
   }
   .sec2Title {
-    font-size: 1.3rem;
+    font-size: 2rem;
     text-align: center;
   }
   .sec2Pera {
@@ -1168,13 +1173,15 @@ p.right {
     padding: 15px;
   }
   .cardcontent1 {
-    font-size: 15px;
+    font-size: 1rem;
   }
   .card {
     width: 250px;
+    height: 200px;
   }
   .cardcontent2 {
-    font-size: 10px;
+    font-size: 13px;
+    font-weight: 300;
   }
   .gridContent {
     flex-direction: column;
@@ -1230,7 +1237,7 @@ p.right {
     padding-right: 2rem;
   }
   .colLeft {
-    width: 80%;
+    width: 90%;
     text-align: center;
   }
   .titleSame1 {
@@ -1238,5 +1245,6 @@ p.right {
   }
   .sec2Pera {
     text-align: center;
+    font-size: 13px;
   }
 }

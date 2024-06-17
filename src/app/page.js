@@ -83,6 +83,7 @@ const steps = [
     className: "top",
   },
 ];
+
 export default function Home({ children }) {
   const [containerRef, containerInView] = useInView({
     triggerOnce: true,
@@ -437,7 +438,7 @@ export default function Home({ children }) {
                       fill="none"
                     />
                   </svg>
-                  <div className="end"></div>
+                  <div className="end" id="endStep"></div>
                 </div>
               </div>
             </div>
