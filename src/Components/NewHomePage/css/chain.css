@@ -15,11 +15,7 @@
   margin: 0px 0px;
   box-shadow: 0 0 100px 5px #00ffff30;
   user-select: none;
-  background: linear-gradient(
-    90deg,
-    rgba(135, 52, 240, 0.71) 9.97%,
-    #141240 100%
-  );
+  background: transparent;
   gap: var(--gap);
 }
 

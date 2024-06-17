@@ -33,7 +33,7 @@
   background-clip: text;
   margin: 0px;
   letter-spacing: 2px;
-  /* line-height: 9vh; */
+  line-height: 8vh;
   text-align: left;
   font-weight: 600;
   /* padding-bottom: 1rem; */
@@ -64,9 +64,10 @@
   letter-spacing: 1px;
   color: #d8d8d8;
   padding: 15px 0px;
+  padding-top: 30px;
   font-weight: 500;
   width: 68%;
-text-align: left;
+  text-align: left;
   font-size: 13px;
   font-weight: 300;
   line-height: 1.5em;
@@ -132,7 +133,7 @@ text-align: left;
 .gridContentMain {
   z-index: 5;
   width: 100%;
-  max-width: 72em;
+  max-width: 75em;
   margin-top: 2em;
   margin-left: auto;
   margin-right: auto;
@@ -141,7 +142,7 @@ text-align: left;
   position: relative;
 }
 .gridContent {
-  grid-column-gap: 1.5em;
+  grid-column-gap: 4.5em;
   grid-row-gap: 1.5em;
   align-items: flex-start;
   display: flex;
@@ -174,7 +175,29 @@ text-align: left;
   text-align: left;
   display: block;
 }
-.box1Pera {
+.box1Pera1 {
+  color: #d8d8d8;
+  text-align: justify;
+  letter-spacing: -0.005em;
+  margin-bottom: 0%;
+  font-size: 0.875em;
+  /* width: 65%; */
+  font-weight: 300;
+  line-height: 150%;
+  text-align: left;
+}
+.box1Pera2 {
+  color: #d8d8d8;
+  text-align: justify;
+  letter-spacing: -0.005em;
+  /* width: 65%; */
+  margin-bottom: 0%;
+  font-size: 0.875em;
+  font-weight: 300;
+  line-height: 150%;
+  text-align: left;
+}
+.box1Pera3 {
   color: #d8d8d8;
   text-align: justify;
   letter-spacing: -0.005em;
@@ -183,23 +206,18 @@ text-align: left;
   font-weight: 300;
   line-height: 150%;
   text-align: left;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Number of lines to show */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  white-space: normal;
 }
 .sec2Div {
-  padding-bottom: 30px;
+  padding-bottom: 40px;
   text-align: left;
+  max-width: 75rem;
+  margin: 0 auto;
 }
 
 /* .......sec3.... */
 .sec3Main {
   margin-top: 90px !important;
-  margin-bottom: 30px !important;
+  margin-bottom: 40px !important;
   width: 80%;
   margin: 0px auto;
   text-align: left;
@@ -269,7 +287,14 @@ text-align: left;
   max-width: 75em;
 }
 .aboutBox {
-  margin-left: 70px;
+  margin-left: 50px;
+  width: 150px;
+  height: auto;
+}
+.aboutBoxFast {
+  margin-left: 50px;
+  width: 125px;
+  height: auto;
 }
 
 .imageincard {
@@ -293,7 +318,7 @@ text-align: left;
 }
 .cardcontent2 {
   font-size: 13px;
-  font-weight: 200;
+  font-weight: 300;
   margin: 14px 0px;
   text-align: left;
   display: -webkit-box;
@@ -416,9 +441,9 @@ text-align: left;
 .chainCircle {
   justify-content: center;
   align-items: center;
-  width: 40%;
-  height:40%;
- display: flex;
+  width: 37%;
+  height: 37%;
+  display: flex;
   position: relative;
 }
 .flexContent {
@@ -529,7 +554,7 @@ text-align: left;
   box-shadow: 0px 4px 120.8px 0px #3b7dffab inset;
 }
 
-.cardofgetstart:hover button {
+.cardofgetstart button:hover {
   box-shadow: 0px 2.85px 11.63px 0px #9272f7 inset;
   border: 0.71px solid #ffffff;
   background: #0e1210cc;
@@ -572,7 +597,7 @@ text-align: left;
   margin-bottom: 200px;
   position: relative;
 }
-.svg{
+.svg {
   height: auto;
 }
 .lineStep {
@@ -596,7 +621,7 @@ text-align: left;
   /* background: #ab00ff; */
   transition: scale 0.5s;
 }
-.num svg{
+.num svg {
   height: auto !important;
 }
 /* Adjusted CSS for 'p' selector */
@@ -618,19 +643,22 @@ p.top {
   bottom: 50px;
   left: -110px;
   color: white;
+  font-size: 14px;
   letter-spacing: 1px;
 }
 
 p.bottom {
   left: -110px;
   color: white;
+  font-size: 14px;
   letter-spacing: 1px;
 }
 
 p.left {
   width: 200px;
-  right: 34px;
-  top: -17px;
+  right: 25px;
+  position: relative;
+  font-size: 14px;
   color: white;
   letter-spacing: 1px;
 }
@@ -638,6 +666,7 @@ p.left {
 p.right {
   width: 200px;
   left: 34px;
+  font-size: 13px;
   top: -17px;
   color: white;
   letter-spacing: 1px;
@@ -664,24 +693,36 @@ p.right {
 
 .moveLine .lineStep1 {
   animation-delay: 0.4s;
+  top: -20px !important;
 }
 .moveLine .lineStep2 {
   animation-delay: 0.8s;
+  right: -23% !important;
+  display: flex;
+  align-items: center;
 }
 .moveLine .lineStep3 {
   animation-delay: 1.2s;
+  top: 42% !important;
 }
 .moveLine .lineStep4 {
   animation-delay: 1.6s;
+  top: 42% !important;
 }
 .moveLine .lineStep5 {
   animation-delay: 2s;
+  display: flex;
+  flex-direction: row-reverse;
+  left: -23.5% !important;
+  top: 68%;
 }
 .moveLine .lineStep6 {
   animation-delay: 2.4s;
+  top: 90% !important;
 }
 .moveLine .lineStep7 {
   animation-delay: 2.8s;
+  top: 90% !important;
 }
 .moveLine .lineStep8 {
   animation-delay: 3.2s;
@@ -707,7 +748,6 @@ p.right {
   flex-direction: column;
   align-items: center;
 }
-
 
 @keyframes show-step-item {
   from {
@@ -739,7 +779,7 @@ p.right {
   );
   color: white;
   font-size: 15px;
-  font-weight: 200;
+  font-weight: 300;
   letter-spacing: 1px;
   margin: 0px;
   margin-left: 100px;
@@ -811,7 +851,7 @@ p.right {
     font-size: 13px;
   }
   .cardcontent2 {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 200;
     margin: 14px 0px;
     display: -webkit-box;

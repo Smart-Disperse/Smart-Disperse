@@ -15,8 +15,8 @@ import {
   faUser,
   faWallet,
 } from "@fortawesome/free-solid-svg-icons";
-import b from "../Components/NewHomePage/assests/2.webp";
-import c from "../Components/NewHomePage/assests/3.webp";
+import fast from "../Components/NewHomePage/assests/fast.png";
+import secure from "../Components/NewHomePage/assests/secure.png";
 import box1 from "../Components/NewHomePage/assests/box1.webp";
 import box2 from "../Components/NewHomePage/assests/box2.webp";
 import box3 from "../Components/NewHomePage/assests/box3.webp";
@@ -34,7 +34,7 @@ import arbitrum from "../Components/NewHomePage/assests/arbitrum.webp";
 import Footer from "../Components/NewHomePage/footer/footer";
 import Carousel from "../Components/NewHomePage/milsestone/carousel";
 import Link from "next/link";
-import spinner from "../Assets/spinner.gif"
+import spinner from "../Assets/spinner.gif";
 const OPTIONS = { loop: true, duration: 30 };
 const SLIDE_COUNT = 5;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
@@ -120,7 +120,6 @@ export default function Home({ children }) {
                 className={home.outercircle}
               />
             </div>
-          
           </div>
         </div>
         <div className={home.chainTitle}>Supported Chains</div>
@@ -294,7 +293,7 @@ export default function Home({ children }) {
           </div>
         </div>
       </section>
-    
+
       <Fade bottom duration={1000} distance="20px">
         <section className={home.sec2Main}>
           <div className={home.sec2Div}>
@@ -309,51 +308,34 @@ export default function Home({ children }) {
             <div className={home.gridContent}>
               <div className={home.gridBox1}>
                 <div className={home.gridImg}>
-                  <Image
-                    src={b}
-                    alt="none"
-                    width={100}
-                    height={100}
-                    className={home.aboutBox}
-                  />
+                  <Image src={fast} alt="none" className={home.aboutBoxFast} />
                 </div>
                 <h6>Fast</h6>
-                <div className={home.box1Pera}>
-                  SmartDisperse prioritizes speed by analyzing the best routes
-                  for your token transfers across chains.
+                <div className={home.box1Pera1}>
+                  Store preferred chains and tokens on the blockchain, reducing
+                  effort and ensuring beneficial, frequent token transfers.
                 </div>
               </div>
               <div className={home.gridBox1}>
                 <div className={home.gridImg}>
-                  <Image
-                    src={c}
-                    alt="none"
-                    width={100}
-                    height={100}
-                    className={home.aboutBox}
-                  />
+                  <Image src={secure} alt="none" className={home.aboutBox} />
                 </div>
                 <h6>Secure</h6>
-                <div className={home.box1Pera}>
+                <div className={home.box1Pera2}>
                   Built on CCIP, SmartDisperse inherits robust security
-                  features, ensuring support in case of any issues.
+                  features, ensuring comprehensive support and assistance in
+                  case of any issues
                 </div>
               </div>
               <div className={home.gridBox1}>
                 <div className={home.gridImg}>
-                  <Image
-                    src={user}
-                    alt="none"
-                    width={100}
-                    height={100}
-                    className={home.aboutBox}
-                  />
+                  <Image src={user} alt="none" className={home.aboutBox} />
                 </div>
                 <h6>User Friendly</h6>
-                <div className={home.box1Pera}>
-                  You can store your preferred chains and tokens directly on the
-                  blockchain, reducing effort and ensuring tokens are sent to
-                  the chains you use most or that are most beneficial to you
+                <div className={home.box1Pera3}>
+                  SmartDisperse prioritizes speed and efficiency by analyzing
+                  and selecting the best possible routes for your token
+                  transfers across chains.
                 </div>
               </div>
             </div>
@@ -380,11 +362,9 @@ export default function Home({ children }) {
                   <div className={home.cardcontent}>
                     <div className={home.cardcontent1}>Dispersing prize </div>
                     <div className={home.cardcontent2}>
-                      Send prize amounts to multiple addresses in their
-                      preferred tokens and chains. Even if you don’t hold the
-                      specific tokens, SmartDisperse will swap them for the
-                      recipients’ preferred tokens, saving time and gas fees,
-                      and enhancing user satisfaction.
+                      SmartDisperse sends prizes to multiple addresses in
+                      preferred tokens, swapping if necessary, saving time and
+                      fees.
                     </div>
                   </div>
                 </div>
@@ -402,10 +382,9 @@ export default function Home({ children }) {
                   <div className={home.cardcontent}>
                     <div className={home.cardcontent1}>Sending Gas</div>
                     <div className={home.cardcontent2}>
-                      If an address holds ERC-20 tokens but lacks gas,
-                      SmartDisperse allows you to acquire the needed gas by
-                      sending it from a different chain to your preferred chain,
-                      facilitating smooth transactions.
+                      If an address lacks gas for ERC-20 tokens, SmartDisperse
+                      helps acquire it from another chain, ensuring smooth
+                      transactions
                     </div>
                   </div>
                 </div>
@@ -425,8 +404,9 @@ export default function Home({ children }) {
                       Multi-Wallet Transfers
                     </div>
                     <div className={home.cardcontent2}>
-                      Easily send funds to multiple wallets at once,
-                      streamlining transactions for a variety of use cases.
+                      Easily send funds to multiple wallets at once, effectively
+                      streamlining transactions and catering to a diverse range
+                      of use cases seamlessly.
                     </div>
                   </div>
                 </div>
