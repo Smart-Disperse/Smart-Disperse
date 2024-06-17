@@ -125,169 +125,141 @@ export default function Home({ children }) {
         <div className={home.chainTitle}>Supported Chains</div>
         <div className={home.wrapper}>
           <div className="marquee">
-            <div className="marqueegroup">
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/646ceb33c9240a54fa0c0161_Base.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Base
+            <div className="marqueAnimation">
+              <div className="marqueegroup">
+                <Link
+                  className="marqueFlex"
+                  href="https://www.base.org/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/646ceb33c9240a54fa0c0161_Base.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Base</span>
+                </Link>
+                <Link
+                  className="marqueFlex"
+                  href="https://www.mode.network/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/65e09ab37ff439cc89a664e5_Mode%20Network.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Mode</span>
+                </Link>
+                <Link
+                  className="marqueFlex"
+                  href="https://scroll.io/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/646ceb35bd74dc737a9116e7_Scroll.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Scroll</span>
+                </Link>
+                <Link
+                  className="marqueFlex"
+                  href="https://www.optimism.io/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/64606d96c0388563ae674a42_Optimism.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Optimism</span>
+                </Link>
+                <Link
+                  className="marqueFlex"
+                  href="https://ethereum.org/en/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/64606d95c004d57477b749e5_Ethereum.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Ethereum</span>
+                </Link>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/65e09ab37ff439cc89a664e5_Mode%20Network.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Mode
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/646ceb35bd74dc737a9116e7_Scroll.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Scroll
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/64606d96c0388563ae674a42_Optimism.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Optimism
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/64606d95c004d57477b749e5_Ethereum.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Ethereum
-              </div>
-            </div>
 
-            <div aria-hidden="true" className="marqueegroup">
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/646ceb33c9240a54fa0c0161_Base.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Base
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/65e09ab37ff439cc89a664e5_Mode%20Network.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Mode
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/646ceb35bd74dc737a9116e7_Scroll.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Scroll
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/64606d96c0388563ae674a42_Optimism.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Optimism
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  color: "white",
-                }}
-              >
-                <Image
-                  src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/64606d95c004d57477b749e5_Ethereum.svg"
-                  width={80}
-                  height={100}
-                  className="ChainImg"
-                ></Image>
-                Ethereum
+              <div aria-hidden="true" className="marqueegroup">
+                <Link
+                  className="marqueFlex"
+                  href="https://www.base.org/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/646ceb33c9240a54fa0c0161_Base.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Base</span>
+                </Link>
+                <Link
+                  className="marqueFlex"
+                  href="https://www.mode.network/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/65e09ab37ff439cc89a664e5_Mode%20Network.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Mode</span>
+                </Link>
+                <Link
+                  className="marqueFlex"
+                  href="https://scroll.io/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/646ceb35bd74dc737a9116e7_Scroll.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Scroll</span>
+                </Link>
+                <Link
+                  className="marqueFlex"
+                  href="https://www.optimism.io/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/64606d96c0388563ae674a42_Optimism.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Optimism</span>
+                </Link>
+                <Link
+                  className="marqueFlex"
+                  href="https://ethereum.org/en/"
+                  target="/blank"
+                >
+                  <Image
+                    src="https://assets-global.website-files.com/63996d8b3c061af402fa0609/64606d95c004d57477b749e5_Ethereum.svg"
+                    width={80}
+                    height={100}
+                    className="ChainImg"
+                  ></Image>
+                  <span className="chainText">Ethereum</span>
+                </Link>
               </div>
             </div>
           </div>
@@ -344,7 +316,7 @@ export default function Home({ children }) {
       </Fade>
       <section className={home.sec3Main}>
         <div className={home.sec2Div}>
-          <div className={home.sec2Title}>USECASE</div>
+          <div className={home.sec2Title}>Usecase</div>
         </div>
         <div className={home.outerdivofusecases}>
           <div className={home.cardcontainer}>
@@ -416,127 +388,17 @@ export default function Home({ children }) {
         </div>
       </section>
 
-      {/* <section className={home.sec4Main}>
-        <Fade duration={1500} delay={100}>
-          <div className={home.snakeSection}>
-            <div className={home.divheadertag}>
-              <h3 className={home.chains}>SmartDisperse Walkthrough</h3>
-            </div>
-            <div className={home.container}>
-              <div className={`${home.stepWrapper} ${home.moveLine}`}>
-                <article
-                  className={`${home.lineStep} ${home.lineStep1}`}
-                  style={{ left: "56%", top: "-2%" }}
-                >
-                  <span className={home.num}>
-                    {" "}
-                    <FontAwesomeIcon
-                      icon={faWallet}
-                      
-                    />
-                  </span>
-                  <p className={home.bottom}>Connect Wallet</p>
-                </article>
-
-                <article
-                  className={`${home.lineStep} ${home.lineStep2}`}
-                  style={{ right: " -9.5%", top: "17%" ,}}
-                >
-                  <span className={home.num}>
-                    {" "}
-                    <FontAwesomeIcon icon={faLink} />
-                  </span>
-                  <p className={home.left}>Select Chain</p>
-                </article>
-                <article
-                  className={`${home.lineStep} ${home.lineStep3}`}
-                  style={{ left: "68%", top: "44%" }}
-                >
-                  <span className={home.num}>
-                    {" "}
-                    <FontAwesomeIcon icon={faShuffle} />
-                  </span>
-                  <p className={home.bottom}>
-                    Select Transactions Type
-                    <span style={{ color: "white" }}>
-                      (same-chain/cross-chain ){" "}
-                    </span>
-                  </p>
-                </article>
-
-                <article
-                  className={`${home.lineStep} ${home.lineStep4}`}
-                  style={{ left: "32%", top: "44.5%" }}
-                >
-                  <span className={home.num}>
-                    <FontAwesomeIcon icon={faRectangleList} className={home.svg}/>
-                  </span>
-                  <p className={home.top}>List your transactions</p>
-                </article>
-
-                <article
-                  className={`${home.lineStep} ${home.lineStep5}`}
-                  style={{ left: "-10.5%", top: "68%" }}
-                >
-                  <span className={home.num}>
-                    {" "}
-                    <FontAwesomeIcon icon={faUser} />
-                  </span>
-                  <p className={home.right}>
-                    Verify the Recipient address & amount
-                  </p>
-                </article>
-
-                <article
-                  className={`${home.lineStep} ${home.lineStep6}`}
-                  style={{ left: "21%", top: "93%" }}
-                >
-                  <span className={home.num}>
-                    <FontAwesomeIcon icon={faShare} />
-                  </span>
-                  <p className={home.bottom}>Send Transactions</p>
-                </article>
-
-                <article
-                  className={`${home.lineStep} ${home.lineStep7}`}
-                  style={{ left: "53%", top: "93%" }}
-                >
-                  <span className={home.num}>
-                    {" "}
-                    <FontAwesomeIcon icon={faMagnifyingGlassChart} />
-                  </span>
-                  <p className={home.top}>View History of Transactions</p>
-                </article>
-
-                <svg
-                  width="100%"
-                  viewBox="0 0 1156 608"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    className={home.path}
-                    d="m560.30957,10.588011c0,0 438.0947,1.90476 439.04708,1.90476c0.95238,0 144.57857,-1.02912 143.80934,137.14269c-0.76923,138.17181 -116.81095,142.30859 -131.61967,143.8923c-14.80873,1.58372 -840.41472,-0.71429 -860.5941,0.71429c-20.17938,1.42858 -148.4991,6.80903 -146.83244,147.05973c1.66666,140.2507 129.52365,152.14266 129.33243,151.27321c0.19122,0.86945 815.268425,2.687632 951.42748,0"
-                    opacity="0.5"
-                    strokeWidth="2"
-                    stroke="#2567d1"
-                    stroke-dasharray="10 10"
-                    fill="none"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </Fade>
-      </section> */}
       <section className={home.sec4Main} ref={containerRef}>
         {containerInView && (
           <Fade duration={1500} delay={100}>
             <div className={home.snakeSection}>
-              <div className={home.divheadertag}>
-                <h3 className={home.chains}>SmartDisperse Walkthrough</h3>
+              <div className={home.sec2Div}>
+                <div className={home.sec2Title}>SmartDisperse Walkthrough</div>
               </div>
+
               <div className={home.container}>
                 <div className={`${home.stepWrapper} ${home.moveLine}`}>
+                  <div className="start"></div>
                   {steps.map((step, index) => {
                     const [ref, inView] = stepRefs[index];
                     return (
@@ -559,6 +421,7 @@ export default function Home({ children }) {
                       </article>
                     );
                   })}
+
                   <svg
                     width="100%"
                     viewBox="0 0 1156 608"
@@ -574,6 +437,7 @@ export default function Home({ children }) {
                       fill="none"
                     />
                   </svg>
+                  <div className="end"></div>
                 </div>
               </div>
             </div>
@@ -581,7 +445,9 @@ export default function Home({ children }) {
         )}
       </section>
       <section className={home.sec3Main}>
-        <div className={home.sec5Title}>Get started now</div>
+        <div className={home.sec2Div}>
+          <div className={home.sec2Title}>get Started Now</div>
+        </div>
         <div className={home.outerdivofusecases}>
           <div className={home.cardcontainer}>
             <div className={home.cardGet}>

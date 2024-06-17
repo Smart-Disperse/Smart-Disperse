@@ -31,10 +31,11 @@
   background-image: linear-gradient(135deg, #fff 38%, #828282);
   -webkit-background-clip: text;
   background-clip: text;
+  text-align: left;
   margin: 0px;
   letter-spacing: 2px;
   line-height: 8vh;
-  text-align: left;
+
   font-weight: 600;
   /* padding-bottom: 1rem; */
   font-size: 3.5rem;
@@ -112,13 +113,14 @@
   margin-bottom: 40px;
 }
 .sec2Title {
-  color: #ffffff;
+  color: #00ffff;
   font-weight: 300;
-  font-size: 2rem;
-  letter-spacing: 1px;
+  font-size: 2.5rem;
+  /* letter-spacing: 1px; */
+  text-transform: capitalize;
 }
 .sec2Main {
-  margin-top: 8% !important;
+  margin-top: 90px !important;
   margin-bottom: 30px !important;
   width: 80%;
   margin: 0px auto;
@@ -134,9 +136,7 @@
   z-index: 5;
   width: 100%;
   max-width: 75em;
-  margin-top: 2em;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 40px auto;
   padding-left: 0;
   padding-right: 0;
   position: relative;
@@ -161,7 +161,7 @@
   justify-content: flex-start;
   margin-bottom: 1.5em;
   display: flex;
-  transition: scale 0.5s;
+  transition: scale 3s;
 }
 
 .gridBox1 h6 {
@@ -208,7 +208,6 @@
   text-align: left;
 }
 .sec2Div {
-  padding-bottom: 40px;
   text-align: left;
   max-width: 75rem;
   margin: 0 auto;
@@ -244,7 +243,7 @@
   height: 240px;
   border: 1px solid rgb(23 23 72);
   border-radius: 20px;
-  margin: 10px 15px;
+  margin: 10px 0px;
   display: flex;
   cursor: pointer;
   color: white;
@@ -281,18 +280,17 @@
 .cards {
   display: flex;
   flex-direction: row;
-  margin: 0 auto;
+  margin: 30px auto;
   width: 100%;
+  justify-content: space-between;
   align-items: center;
   max-width: 75em;
 }
 .aboutBox {
-  margin-left: 50px;
   width: 150px;
   height: auto;
 }
 .aboutBoxFast {
-  margin-left: 50px;
   width: 125px;
   height: auto;
 }
@@ -527,20 +525,20 @@
 }
 /* ........sec5........ */
 .sec5Title {
-  text-align: center;
+  text-align: left;
   font-weight: 300;
   font-size: 2rem;
   letter-spacing: 1px;
-  color: white;
+  color: #00ffff;
 }
 .cardGet {
   display: flex;
   flex-direction: row;
   max-width: 75em;
   justify-content: space-between;
-  margin: 0 auto;
-  align-items: center;
   margin: 30px auto;
+  align-items: center;
+
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -573,7 +571,7 @@
   border-radius: 20px;
   border: none;
   color: white;
-  margin: 10px 15px;
+  margin: 10px 0px;
   display: flex;
   flex-direction: column;
   padding: 15px 25px;
@@ -619,7 +617,7 @@
   line-height: 40px;
   font-weight: bold;
   /* background: #ab00ff; */
-  transition: scale 0.5s;
+  transition: scale 2s;
 }
 .num svg {
   height: auto !important;
@@ -787,7 +785,7 @@ p.right {
   border-radius: 10px;
 }
 .sec4Main {
-  margin-top: 150px !important;
+  margin-top: 90px !important;
   margin-bottom: 30px !important;
   width: 80%;
   margin: 0px auto;
@@ -962,7 +960,6 @@ p.right {
     width: 85%;
   }
   .aboutBox {
-    margin-left: 50px;
     width: 70px;
     height: 70px;
   }
@@ -1096,6 +1093,24 @@ p.right {
   }
 }
 @media only screen and (max-width: 425px) {
+  .box1Pera1 {
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .box1Pera2 {
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .box1Pera3 {
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .sec2Main {
+    margin-top: 12% !important;
+  }
   .flexContent {
     max-width: 20rem;
   }
@@ -1105,6 +1120,7 @@ p.right {
   .titleSame1 {
     font-size: 1.3rem;
     letter-spacing: 0.5px;
+    line-height: 6vh;
   }
   .cardofgetstart {
     width: 250px;
@@ -1114,16 +1130,20 @@ p.right {
     letter-spacing: 0.5px;
   }
   .peraSame {
-    font-size: 10px;
-    margin-top: 12px;
+    font-size: 12px;
+    padding-top: 15px;
+    margin-top: 0px;
   }
   .hLaunch {
     padding: 10px 30px;
     font-size: 12px;
   }
+  .colLeft {
+    width: 95%;
+  }
   .chainTitle {
-    font-size: 1rem;
-    margin-top: 50px;
+    font-size: 1.5rem;
+    margin-top: 1px;
   }
   .sec2Title {
     font-size: 1.3rem;
@@ -1140,7 +1160,6 @@ p.right {
     left: 31%;
   }
   .aboutBox {
-    margin-left: 20px;
     width: 50px;
     height: 50px;
   }
@@ -1161,9 +1180,12 @@ p.right {
     flex-direction: column;
   }
   .aboutBox {
-    width: 80px;
-    height: 80px;
-    margin-left: 0px;
+    width: 100px;
+    height: 100px;
+  }
+  .aboutBoxFast {
+    width: 100px;
+    height: 100px;
   }
   .gridImg {
     justify-content: center;
@@ -1198,6 +1220,14 @@ p.right {
   }
   .sec1 {
     flex-direction: column;
+    margin: 0px auto;
+    /* margin-top: 130px; */
+    display: inline-flex;
+    padding-top: 100px;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
   .colLeft {
     width: 80%;
