@@ -24,7 +24,7 @@ function SendEth({ activeTab, listData, setListData }) {
   const [remaining, setRemaining] = useState(null); // store remaining amount after deducting already sent value
   const [ethBalance, setEthBalance] = useState(null); // store user's Ether balance
   const { address } = useAccount(); /*/gather account data for current user */
-
+  const [addressLabelMap, setAddressLabelMap] = useState([]);
   const [labels, setLabels] = useState([]);
   const [allNames, setAllNames] = useState([]);
   const [allAddresses, setAllAddresses] = useState([]);
@@ -104,6 +104,7 @@ function SendEth({ activeTab, listData, setListData }) {
     }
   };
 
+  
   const handleDeleteRow = (index) => {
     const updatedList = [...listData];
     updatedList.splice(index, 1);
@@ -179,21 +180,37 @@ function SendEth({ activeTab, listData, setListData }) {
     setLabels(updatedLabels);
   };
 
+  const handleAddressChange = (e, index) => {
+    const newAddress = e.target.value;
+    const updatedListData = [...listData];
+    updatedListData[index].address = newAddress;
+  
+    const existingEntry = addressLabelMap.find(entry => entry.address.toLowerCase() === newAddress.toLowerCase());
+    if (existingEntry) {
+      updatedListData[index].label = existingEntry.label;
+    } else {
+      updatedListData[index].label = "";
+    }
+  
+    setListData(updatedListData);
+    console.log("Updated List Data:", updatedListData);
+  };
+  
+
   const onAddLabel = async (index, recipientAddress) => {
     const userData = {
       userid: address,
       name: labels[index],
       address: recipientAddress.toLowerCase(),
     };
-
+  
     try {
       let result = await fetch(`api/all-user-data?address=${address}`, {
         method: "POST",
         body: JSON.stringify(userData),
       });
-
+  
       result = await result.json();
-      // console.log(result);
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
         toast.warn("Name Already Exist! Please Enter Unique Name.");
@@ -207,24 +224,44 @@ function SendEth({ activeTab, listData, setListData }) {
       setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
+  
+    const newEntry = {
+      address: recipientAddress.toLowerCase(),
+      label: labels[index],
+    };
+  
+    setAddressLabelMap(prevMap => {
+      const existingIndex = prevMap.findIndex(entry => entry.address === newEntry.address);
+      if (existingIndex !== -1) {
+        const updatedMap = [...prevMap];
+        updatedMap[existingIndex] = newEntry;
+        return updatedMap;
+      } else {
+        return [...prevMap, newEntry];
+      }
+    });
+  
     const { allNames, allAddress } = await fetchUserLabels(address);
-    console.log(allNames, allAddress);
-
+  
     const updatedListData = await listData.map((item) => {
       if (
         (item.label === undefined || item.label === "") &&
         allAddress.includes(item.address.toLowerCase())
       ) {
         const index = allAddress.indexOf(item.address.toLowerCase());
-        // console.log(index);
         item.label = allNames[index];
       }
       return item;
     });
+  
     await fetchUserDetails();
     await setListData(updatedListData);
+  
+    // Log the updated address-label mapping
+    console.log("Address-Label Mapping:", addressLabelMap);
   };
-
+  
+  
   useEffect(() => {
     calculateRemaining();
   });
@@ -246,7 +283,7 @@ function SendEth({ activeTab, listData, setListData }) {
                       padding: "10px",
                       letterSpacing: "1px",
                       fontSize: "20px",
-                      fontWeight: "200",
+                      fontWeight: "300",
                     }}
                   >
                     Your Transaction Lineup
@@ -283,6 +320,7 @@ function SendEth({ activeTab, listData, setListData }) {
                         >
                           Amount(USD)
                         </th>
+                        
                         {/* <th
                       className={textStyle.fontsize12px}
                       style={{ letterSpacing: "1px", padding: "8px" }}
@@ -459,7 +497,7 @@ function SendEth({ activeTab, listData, setListData }) {
                       padding: "10px",
                       letterSpacing: "1px",
                       fontSize: "20px",
-                      fontWeight: "200",
+                      fontWeight: "300",
                     }}
                   >
                     Account Summary

@@ -328,7 +328,7 @@ function SendToken({ activeTab, listData, setListData }) {
                 fontSize: "20px",
                 margin: "0px",
                 letterSpacing: "1px",
-                fontWeight: "100",
+                fontWeight: "300",
               }}
             >
               Load Your Token
@@ -404,7 +404,7 @@ function SendToken({ activeTab, listData, setListData }) {
                         fontSize: "20px",
                         margin: "0px",
                         letterSpacing: "1px",
-                        fontWeight: "100",
+                        fontWeight: "300",
                       }}
                     >
                       Token Details
@@ -677,7 +677,7 @@ function SendToken({ activeTab, listData, setListData }) {
                         padding: "10px",
                         letterSpacing: "1px",
                         fontSize: "20px",
-                        fontWeight: "700",
+                        fontWeight: "300",
                       }}
                     >
                       Account Summary

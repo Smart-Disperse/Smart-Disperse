@@ -1,7 +1,62 @@
+.tutorialcards {
+  border: 1px solid #8d37fb;
+  padding: 15px;
+  width: auto;
+  height: 101px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.tutorialcardscontainer {
+  padding: 21px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.subtextintutorial {
+  font-weight: 100;
+  font-size: 10px;
+  text-align: center;
+}
+
+.contentincard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.iconintutorial {
+  color: #00fbfb;
+  border-radius: 27px;
+  padding: 5px;
+  border: 1px solid #00fbfb;
+}
+
+.slider {
+  overflow: hidden;
+  height: 0;
+  transition: height 0.4s ease-in-out;
+}
+
+.sliderOpen {
+  height: auto; /* This will be set dynamically with JavaScript */
+}
+
+.contents {
+  background: transparent;
+  color: white;
+  padding: 10px;
+  margin: 0;
+}
 .Link a:-webkit-any-link {
   color: white;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.tutorialheading:hover {
+  cursor: pointer;
 }
 .textAccSum {
   width: max-content;
@@ -10,19 +65,17 @@
   margin: 0 auto;
   background: transparent;
   color: black;
-
   padding: 10px 10px;
   transform: translate(-50%, -50%);
   animation: zoomAnimation 5s infinite alternate;
 }
 
-#yeserror{
-  
+#yeserror {
   border: 1px solid red;
 }
 
-#noerror{
-  border: 1px solid #9D79FF;
+#noerror {
+  border: 1px solid #9d79ff;
 }
 
 .dropdownItem {
@@ -84,15 +137,21 @@
 }
 
 #truee {
-  background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(68, 9, 205, 0.73) 0%,
+    rgba(140, 62, 250, 0.73) 100%
+  );
   color: white;
 }
 #truee:hover {
-  background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(68, 9, 205, 0.73) 0%,
+    rgba(140, 62, 250, 0.73) 100%
+  );
   color: white;
 }
-
-
 
 .driverpopover01 {
   color: white !important;
@@ -155,14 +214,14 @@
   text-align: center;
 }
 
-.blurbutton{
+.blurbutton {
   filter: blur(3px); /* Apply blur effect */
-  pointer-events: none; 
+  pointer-events: none;
   color: red;
 }
 .sendbutton:hover {
   border: none;
-  color: #8D37FB;
+  color: #8d37fb;
   background: #fff !important;
   box-shadow: 0px 0px 14px 0px #fff;
 }
@@ -178,17 +237,16 @@
 }
 
 .tableheadertextlist {
-  background-color: #8D37FB;
+  background-color: #8d37fb;
 }
 .tableheadertextlist .tableTr {
   font-size: 15px;
 }
 .tabletextlist {
   width: 100%;
-  border: 1px solid #8D37FB;
+  border: 1px solid #8d37fb;
   border-radius: 20px;
   overflow: hidden;
-
 }
 .tabletextlist .tableTr {
   font-size: 16px;
@@ -207,7 +265,7 @@
   letter-spacing: 1px;
   padding: 8px;
 }
-.entertokenaddress{
+.entertokenaddress {
   display: flex;
   justify-content: center;
 }
@@ -216,7 +274,7 @@
   /* margin: 5px 0px; */
   border-collapse: collapse;
   overflow: hidden;
-  border-radius: 20px !important; 
+  border-radius: 20px !important;
 }
 
 .tablecontainer table {
@@ -243,7 +301,8 @@
 
 .divtocoversametextdiv {
   border-radius: 47px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   backdrop-filter: blur(30.5px);
   margin: 50px 0px;
   border: 1px solid #fff;
@@ -252,20 +311,29 @@
   border-radius: 47px;
   border: none;
   /* border: 1px solid #fff; */
-background-color: transparent;
+  background-color: transparent;
   backdrop-filter: blur(30.5px);
   margin: 50px 0px;
 }
 
-.popupbg{
+.popupbg {
   background-color: yellow;
 }
 
 .titleforlinupsametext h2 {
-  color: #CA86FF;
-  background: rgb(24,26,83);
-  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);  font-weight: 700;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  color: #ca86ff;
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   letter-spacing: 1.04px;
   font-size: 15px;
   margin: 0px;
@@ -274,14 +342,22 @@ background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 .titleloadtokensametext {
   border-radius: 47px 47px 0px 0px;
-  background: rgb(24,26,83);
-background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
-color: #CA86FF;
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
+  color: #ca86ff;
 
   padding: 5px 0px;
   font-size: 12px;
@@ -295,7 +371,7 @@ color: #CA86FF;
 }
 #backgroundgreen:hover {
   box-shadow: rgb(255 255 255 / 72%) 1px 1px 18px 0px inset;
-  border: 1px solid ;
+  border: 1px solid;
 }
 #backgroundgreen {
   cursor: pointer;
@@ -310,7 +386,7 @@ color: #CA86FF;
 }
 .titlesametexttextarea {
   font-weight: 100;
-  color: #CA86FF;
+  color: #ca86ff;
 
   font-size: 12px;
 }
@@ -321,25 +397,42 @@ color: #CA86FF;
   box-shadow: 0px 0px 29px 0px rgba(255, 255, 255, 0.25);
 }
 .titlesametexttextarea {
-  background: rgb(24,26,83);
-  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
   font-weight: 100;
   line-height: 154.1%;
   letter-spacing: 1.04px;
   padding: 5px 0px;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 .accountsummarycrosschain {
   margin-top: 80px;
 }
 .titleforaccountsummarytextsame {
-  background: rgb(24,26,83);
-  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);  font-weight: 700;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   font-size: 12px;
 }
 .titleforaccountsummarytextsame h2 {
-  color:  #CA86FF;
+  color: #ca86ff;
   font-weight: 700;
   letter-spacing: 1.04px;
   margin: 0px;
@@ -359,7 +452,11 @@ color: #CA86FF;
 }
 .buttontoaddformdata {
   border: none;
-  background: linear-gradient(90deg, rgba(102, 43, 187, 0.37) 0%, rgba(62, 18, 124, 0.37) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(102, 43, 187, 0.37) 0%,
+    rgba(62, 18, 124, 0.37) 100%
+  );
   border-radius: 63px;
   color: #fff;
   font-size: 17px;
@@ -369,11 +466,15 @@ color: #CA86FF;
 }
 .buttontoaddformdata:hover {
   box-shadow: rgb(255 255 255 / 72%) 1px 1px 18px 0px inset;
-  border: 1px solid ;
+  border: 1px solid;
 }
 
 .buttontoaddformdataunload {
-  background: linear-gradient(90deg, rgba(102, 43, 187, 0.37) 0%, rgba(62, 18, 124, 0.37) 100%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(102, 43, 187, 0.37) 0%,
+    rgba(62, 18, 124, 0.37) 100%
+  ) !important;
   border: none;
   border-radius: 63px;
   color: #fff;
@@ -396,7 +497,7 @@ color: #CA86FF;
   background: #555;
 }
 .scrollabletablecontainer {
-  border: 1px solid #8D37FB;
+  border: 1px solid #8d37fb;
   border-radius: 20px;
   margin: 25px;
   max-height: 280px;
@@ -421,24 +522,38 @@ color: #CA86FF;
 .accountsummarycreatetitle,
 .selectloadtoke-title,
 .viewaddressdivtitle {
-  background: rgb(24,26,83);
-  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
   font-size: 12px;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   padding: 5px 0;
 }
-.buttontaddformdataunload{
-    background: linear-gradient(90deg, rgba(68, 9, 205, 0.73) 0%, rgba(140, 62, 250, 0.73) 100%);
-    border: none;
+.buttontaddformdataunload {
+  background: linear-gradient(
+    90deg,
+    rgba(68, 9, 205, 0.73) 0%,
+    rgba(140, 62, 250, 0.73) 100%
+  );
+  border: none;
 }
 .popupforpayment {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   /* From https://css.glass */
-background: rgba(80, 3, 132, 0.61);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(19.5px);
--webkit-backdrop-filter: blur(19.5px);
+  background: rgba(80, 3, 132, 0.61);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(19.5px);
+  -webkit-backdrop-filter: blur(19.5px);
   border-radius: 30px;
   box-shadow: 0 0 10px #0000001a;
   color: #fff;
@@ -461,7 +576,11 @@ backdrop-filter: blur(19.5px);
 .popupforpayment button {
   /* From https://css.glass */
   border: 0.5px solid #00ffff;
-  background: linear-gradient(90deg, rgba(22, 14, 42, 0.73) 0%, rgba(21, 14, 41, 0.73) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(22, 14, 42, 0.73) 0%,
+    rgba(21, 14, 41, 0.73) 100%
+  );
   color: #00ffff;
   border-radius: 5px;
   cursor: pointer;
@@ -471,9 +590,9 @@ backdrop-filter: blur(19.5px);
   cursor: pointer;
 }
 .popupforpayment button:hover {
-  border: 1px solid #B47DFC;
+  border: 1px solid #b47dfc;
   background: white;
-  color: #B47DFC;
+  color: #b47dfc;
 }
 
 .pmessage {
@@ -701,12 +820,12 @@ backdrop-filter: blur(19.5px);
     text-align: center;
   }
   .popupforpayment {
-   /* From https://css.glass */
-background: rgba(80, 3, 132, 0.61);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(19.5px);
--webkit-backdrop-filter: blur(19.5px);
+    /* From https://css.glass */
+    background: rgba(80, 3, 132, 0.61);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(19.5px);
+    -webkit-backdrop-filter: blur(19.5px);
     border-radius: 30px;
     box-shadow: 0 0 10px #0000001a;
     color: #fff;
