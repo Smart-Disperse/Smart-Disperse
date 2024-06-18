@@ -21,7 +21,7 @@
   padding-right: 7rem;
 }
 .colLeft {
-  width: 40%;
+  width: 50%;
 }
 .titleSame1 {
   z-index: 1;
@@ -34,11 +34,10 @@
   text-align: left;
   margin: 0px;
   letter-spacing: 2px;
-  line-height: 9vh;
 
   font-weight: 500;
   /* padding-bottom: 1rem; */
-  font-size: 4.5rem;
+  font-size: 4rem;
 }
 
 .titleSame2 {
@@ -109,8 +108,8 @@
   font-size: 2.5rem;
   letter-spacing: 2px;
   text-align: center;
-  margin-top: 70px;
-  margin-bottom: 40px;
+
+  margin-bottom: 90px;
 }
 .sec2Title {
   color: #00ffff;
@@ -121,7 +120,7 @@
 }
 .sec2Main {
   margin-top: 90px !important;
-  margin-bottom: 30px !important;
+
   width: 80%;
   margin: 0px auto;
 }
@@ -216,7 +215,7 @@
 /* .......sec3.... */
 .sec3Main {
   margin-top: 90px !important;
-  margin-bottom: 40px !important;
+
   width: 80%;
   margin: 0px auto;
   text-align: left;
@@ -280,7 +279,7 @@
 .cards {
   display: flex;
   flex-direction: row;
-  margin: 30px auto;
+  margin: 40px auto;
   width: 100%;
   justify-content: space-between;
   align-items: center;
@@ -537,7 +536,7 @@
   flex-direction: row;
   max-width: 75em;
   justify-content: space-between;
-  margin: 30px auto;
+  margin: 40px auto;
   align-items: center;
 
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -587,7 +586,7 @@
 /* .snake section........ */
 .container {
   max-width: 960px;
-  margin: 0 auto;
+  margin: 40px auto;
   position: relative;
 }
 
@@ -693,6 +692,7 @@ p.right {
 .moveLine .lineStep1 {
   animation-delay: 0.4s;
   top: -20px !important;
+  left: 44% !important;
 }
 .moveLine .lineStep2 {
   animation-delay: 0.8s;
@@ -787,7 +787,7 @@ p.right {
 }
 .sec4Main {
   margin-top: 90px !important;
-  margin-bottom: 30px !important;
+
   width: 80%;
   margin: 0px auto;
 }

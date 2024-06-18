@@ -408,7 +408,6 @@ export default function Home({ children }) {
 
                 <div className={home.container}>
                   <div className={`${home.stepWrapper} ${home.moveLine}`}>
-                    <div className="start"></div>
                     {steps.map((step, index) => {
                       const [ref, inView] = stepRefs[index];
                       return (
@@ -449,7 +448,6 @@ export default function Home({ children }) {
                         fill="none"
                       />
                     </svg>
-                    <div className="end" id="endStep"></div>
                   </div>
                 </div>
               </div>
