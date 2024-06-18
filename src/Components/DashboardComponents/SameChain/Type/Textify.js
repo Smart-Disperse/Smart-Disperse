@@ -30,20 +30,18 @@ function Textify({
   const textareaRef = useRef(null);
   const [suggestionItemHeight, setSuggestionItemHeight] = useState(0);
   const dropdownRef = useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const { address } = useAccount();
 
   useEffect(() => {
     const firstVisit = Cookies.get('firstVisit');
     if (firstVisit === undefined) {
-      // First time visiting the site
       setIsOpen(true);
-      Cookies.set('firstVisit', 'false', { expires: 365 }); // Set the cookie to expire in 1 year
+      Cookies.set('firstVisit', 'false', { expires: 365 }); 
     } else {
       setIsOpen(false);
     }
   }, []);
-  
   const triggerSlide = () => {
     setIsOpen(!isOpen);
   };
@@ -224,78 +222,7 @@ function Textify({
     <div>
       <div className={textStyle.divtocoversametextdi}>
         <div>
-          <div id="textify-input" className={textStyle.textlistdiv}>
-            <div className={textStyle.titlesametexttextarea}>
-              <h2
-                style={{
-                  padding: "10px",
-                  fontSize: "20px",
-                  margin: "0px",
-                  letterSpacing: "1px",
-                  fontWeight: "300",
-                }}
-              >
-                Enter Recipients and Amount (enter one address and amount on
-                each line, supports any format)
-              </h2>
-            </div>
-            <div id="tt" style={{ position: "relative", height: "150px" }}>
-              <textarea
-                ref={textareaRef}
-                spellCheck="false"
-                value={textValue}
-                onChange={handleInputChange}
-                style={{
-                  width: "100%",
-                  minHeight: "125px",
-                  padding: "10px",
-                  border: "none",
-                  background: "#e6e6fa",
-                  color: "black",
-                  fontSize: "16px",
-                  fontFamily: "Arial, sans-serif",
-                  boxSizing: "border-box",
-                  resize: "vertical",
-                }}
-                className={textStyle.textareaInput}
-                placeholder="@Justin/0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421"
-              ></textarea>
-              {suggestions?.length > 0 && (
-                <div
-                  ref={dropdownRef}
-                  className={textStyle.dropdown}
-                  style={{ maxHeight: "200px", overflowY: "auto" }}
-                >
-                  {suggestions.map((suggestion, index) => (
-                    <div
-                      key={index}
-                      className={`${textStyle.dropdownItem} ${
-                        index === focusedSuggestionIndex
-                          ? textStyle.dropdownItemActive
-                          : ""
-                      }`}
-                      onClick={() => handleSuggestionClick(suggestion)}
-                      onMouseEnter={() => handleSuggestionMouseEnter(index)}
-                      onMouseLeave={handleSuggestionMouseLeave}
-                      style={{
-                        background:
-                          index === focusedSuggestionIndex
-                            ? "#8f00ff"
-                            : "white",
-                        color:
-                          index === focusedSuggestionIndex
-                            ? "white"
-                            : "#8f00ff",
-                      }}
-                    >
-                      {suggestion}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          <div>
+        <div>
             <div
               className={textStyle.titlesametexttextarea}
               onClick={triggerSlide}
@@ -376,6 +303,78 @@ function Textify({
               </div>
             ) : null}
           </div>
+          <div id="textify-input" className={textStyle.textlistdiv}>
+            <div className={textStyle.titlesametexttextarea}>
+              <h2
+                style={{
+                  padding: "10px",
+                  fontSize: "20px",
+                  margin: "0px",
+                  letterSpacing: "1px",
+                  fontWeight: "300",
+                }}
+              >
+                Enter Recipients and Amount (enter one address and amount on
+                each line, supports any format)
+              </h2>
+            </div>
+            <div id="tt" style={{ position: "relative", height: "150px" }}>
+              <textarea
+                ref={textareaRef}
+                spellCheck="false"
+                value={textValue}
+                onChange={handleInputChange}
+                style={{
+                  width: "100%",
+                  minHeight: "125px",
+                  padding: "10px",
+                  border: "none",
+                  background: "#e6e6fa",
+                  color: "black",
+                  fontSize: "16px",
+                  fontFamily: "Arial, sans-serif",
+                  boxSizing: "border-box",
+                  resize: "vertical",
+                }}
+                className={textStyle.textareaInput}
+                placeholder="@Justin/0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421"
+              ></textarea>
+              {suggestions?.length > 0 && (
+                <div
+                  ref={dropdownRef}
+                  className={textStyle.dropdown}
+                  style={{ maxHeight: "200px", overflowY: "auto" }}
+                >
+                  {suggestions.map((suggestion, index) => (
+                    <div
+                      key={index}
+                      className={`${textStyle.dropdownItem} ${
+                        index === focusedSuggestionIndex
+                          ? textStyle.dropdownItemActive
+                          : ""
+                      }`}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      onMouseEnter={() => handleSuggestionMouseEnter(index)}
+                      onMouseLeave={handleSuggestionMouseLeave}
+                      style={{
+                        background:
+                          index === focusedSuggestionIndex
+                            ? "#8f00ff"
+                            : "white",
+                        color:
+                          index === focusedSuggestionIndex
+                            ? "white"
+                            : "#8f00ff",
+                      }}
+                    >
+                      {suggestion}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+         
           <div
             style={{
               display: "flex",
