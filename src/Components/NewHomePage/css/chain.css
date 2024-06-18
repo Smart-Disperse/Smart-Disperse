@@ -13,7 +13,7 @@
   display: flex;
   overflow: hidden;
   margin: 0px 0px;
-  box-shadow: 0px 0px 18.8px 3px #00ffffa6;
+  box-shadow: 0 0 100px 5px #00ffff30;
   user-select: none;
   background: linear-gradient(
     90deg,

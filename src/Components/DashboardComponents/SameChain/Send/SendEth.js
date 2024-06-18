@@ -283,7 +283,7 @@ function SendEth({ activeTab, listData, setListData }) {
                       padding: "10px",
                       letterSpacing: "1px",
                       fontSize: "20px",
-                      fontWeight: "200",
+                      fontWeight: "300",
                     }}
                   >
                     Your Transaction Lineup
@@ -497,7 +497,7 @@ function SendEth({ activeTab, listData, setListData }) {
                       padding: "10px",
                       letterSpacing: "1px",
                       fontSize: "20px",
-                      fontWeight: "200",
+                      fontWeight: "300",
                     }}
                   >
                     Account Summary

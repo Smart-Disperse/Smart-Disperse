@@ -1,0 +1,137 @@
+.container {
+  padding: 0 3rem;
+  padding-top: 100px;
+}
+.TitleDiv {
+  padding-top: 3rem;
+  padding-bottom: 0rem;
+}
+.header {
+  margin: 0px;
+  font-weight: 600;
+  font-size: 4rem;
+  letter-spacing: -0.05em;
+  text-align: start;
+  -webkit-text-fill-color: transparent;
+  background-color: #fafafa;
+  background-image: linear-gradient(90deg, #ffffff 0%, #999999 56.7%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.ulMain {
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  list-style: none;
+}
+.LiMain {
+  padding-left: 10rem;
+  padding-top: 4rem;
+  position: relative;
+}
+.aside {
+  display: block;
+  height: 90%;
+  width: 10rem;
+  padding-top: 2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.asideLeft {
+  padding-bottom: 1.5rem;
+  z-index: 10;
+  top: 6rem;
+  position: sticky;
+  display: flex;
+  align-items: center;
+}
+.asideHeader {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 1;
+  letter-spacing: 1px;
+  color: #00ffff;
+}
+.asideBorder {
+  width: 2px;
+  height: calc(100% + 24px);
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  right: 3px;
+  background-color: #999999;
+}
+.asideDot {
+  border-radius: 0.5rem;
+  background-color: aqua;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.ContainerRight {
+  padding-left: 3rem;
+}
+.RightMain {
+  margin-top: 0;
+}
+.Img {
+  max-width: 100%;
+  height: auto;
+}
+.subHeader {
+  font-size: 2rem;
+  margin: 0;
+  color: white;
+  font-weight: 700;
+  text-align: start;
+  margin: 10px 0px;
+  letter-spacing: 1px;
+}
+.subPera {
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: 300;
+  margin: 0;
+  padding-bottom: 5px;
+  color: white;
+  text-align: start;
+}
+@media only screen and (max-width: 425px) {
+  .container {
+    padding: 0 1rem;
+  }
+  .aside {
+    display: block;
+    height: 90%;
+    width: 8rem;
+    padding-top: 2rem;
+    position: absolute;
+    top: 0;
+    left: -50px;
+  }
+  .asideHeader {
+    font-size: 12px;
+  }
+  .LiMain {
+    padding-left: 4rem;
+    padding-top: 1rem;
+    position: relative;
+  }
+  .subHeader {
+    font-size: 1rem;
+  }
+  .subPera {
+    font-size: 12px;
+  }
+  .TitleDiv {
+    padding-top: 7rem;
+  }
+  .header {
+    font-size: 3rem;
+  }
+}

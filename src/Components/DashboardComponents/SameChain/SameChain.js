@@ -46,7 +46,7 @@ function SameChain({ activeTab }) {
                 letterSpacing: "1px",
                 fontSize: "20px",
                 margin: "0px",
-                fontWeight: "200",
+                fontWeight: "300",
               }}
             >
               Select or Import Token you want to Disperse

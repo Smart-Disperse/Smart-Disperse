@@ -1,33 +1,268 @@
 .navMain {
+  position: fixed;
+  z-index: 50;
+  width: 100%;
+  top: 0;
+}
+.navFixed {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 5rem;
+
+  transition: background-color 0.3s ease;
+  backdrop-filter: blur(20px);
+}
+.navFixed2 {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 2rem;
+}
+.navScrolled {
+  background-color: transparent;
+
+  box-shadow: rgba(0, 0, 0, 0.208) 0px 2px 4px,
+    rgba(0, 0, 0, 0.203) 0px 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.navSub {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0px 40px;
+}
+.navDiv {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.navDiv a {
+  text-decoration: none;
+}
+.navTab {
+  gap: 0.125rem;
+  border-radius: 0.75rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+  color: white;
+  letter-spacing: 0.7px;
+  display: inline-block;
+  position: relative;
+}
+.navTab::after {
+  background: none repeat scroll 0 0 transparent;
+  bottom: -5px;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #fff;
+  transition: width 0.5s ease 0s, left 0.5s ease 0s;
+  width: 0;
+}
+.navTab:hover::after {
+  left: 0;
+  width: 100%;
 }
 .logo {
-  width: 300px;
+  width: 250px;
   height: auto;
+  transition: transform 0.3s ease; /* Smooth transition for scaling */
+}
+.logo:hover {
+  transform: scale(1.1); /* Scale up the logo on hover */
 }
 .launchapp {
   background: #ffffff;
   border: 1px solid #00ffff;
   box-shadow: 0px 4px 17.8px 0px #0000002e inset;
   border-radius: 30px;
-  padding: 15px 30px;
+  padding: 13px 30px;
   color: #1c1b1b;
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: 1px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.15s;
+  transition-duration: 0.3s;
 }
 .launchapp:hover {
   border: none;
   border: 1px solid #00ffff;
   box-shadow: 0px 4px 17.8px 0px #00ffffa6;
   transform: translate(0) rotate(0) skewX(0) skewY(0) scaleX(1.04) scaleY(1.04);
+}
+.appMain {
+  width: 280px;
+}
+.divtoflexlogoconnectwallet {
+  display: flex;
+  justify-content: space-between;
+  /* margin: 0px 50px; */
+
+  padding: 1rem 0;
+  align-items: center;
+  color: white;
+  position: absolute;
+  z-index: 2;
+}
+.navbarMain {
+  position: relative;
+  width: 100%;
+  top: -12px;
+}
+
+.smartlogportal {
+  width: 250px;
+  height: auto;
+  transition: transform 0.3s ease; /* Smooth transition for scaling */
+}
+.smartlogportal:hover {
+  transform: scale(1.1); /* Scale up the logo on hover */
+}
+#changeMode {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.connectwalletbuttondiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0px 10px 0px 0px;
+}
+.toggle {
+  --width: 90px;
+  --height: calc(var(--width) / 3);
+  right: 10px;
+  position: relative;
+  display: inline-block;
+  width: var(--width);
+  height: var(--height);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  border-radius: var(--height);
+  cursor: pointer;
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle .slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--height);
+  background-color: #ccc;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle .slider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--height));
+  height: calc(var(--height));
+  border-radius: calc(var(--height) / 2);
+  background-color: white;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked + .slider {
+  background: #2b285445;
+  border: 0.5px solid #00ffff;
+}
+.toggle input:not(:checked) + .slider {
+  background: #2b285445;
+  border: 0.5px solid #00ffff;
+}
+
+.toggle input:checked + .slider::before {
+  transform: translateX(calc(var(--width) - var(--height)));
+}
+
+.toggle .labels {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  font-family: sans-serif;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::after {
+  content: attr(data-off);
+  position: absolute;
+  right: 12px;
+  color: #00ffffb2;
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle .labels::before {
+  content: attr(data-on);
+  position: absolute;
+  left: 12px;
+  color: #00ffffb2;
+  opacity: 0;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle input:checked ~ .labels::after {
+  opacity: 0;
+}
+
+.toggle input:checked ~ .labels::before {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 1024px) {
+  .divtoflexlogoconnecwallet img {
+    width: 250px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .divtoflexlogoconnectwallet {
+    margin: 0px !important;
+  }
+  .smartlogportal {
+    height: auto;
+    width: 255px;
+  }
+
+  .connectwallet {
+    padding: 7px 27px;
+    font-size: 10px;
+  }
+
+  .connectwalletbuttondiv {
+    font-size: 12px;
+    padding: 11px 4px;
+  }
+  #changeMode {
+    margin-left: 1rem;
+  }
+
+  .connectwalletbuttondiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
 }
 @media only screen and (max-width: 600px) {
   .logo {
@@ -39,16 +274,108 @@
     font-size: 12px;
   }
 }
+@media only screen and (max-width: 500px) {
+  .smartlogportal {
+    height: auto;
+    width: 150px;
+  }
+
+  .connectwallet {
+    padding: 7px !important;
+    font-size: 10px !important;
+  }
+}
+@media only screen and (max-width: 525px) {
+  .footerouterdiv {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  }
+  .disconnect {
+    width: 150px;
+  }
+  .disconnect span {
+    font-size: 12px !important;
+  }
+  .dropdown {
+    width: 150px !important;
+  }
+  .dropdown span {
+    font-size: 12px !important;
+  }
+  .disconnect-main {
+    position: absolute;
+    top: 50px;
+    right: 58px;
+    padding: 30px 0px;
+    width: 200px;
+  }
+  .divtoflexlogoconnectwallet {
+    display: flex;
+    margin: 0px !important;
+    justify-content: space-between;
+  }
+  .toggle {
+    display: none;
+  }
+  .smartlogportal {
+    height: auto;
+    width: 200px;
+  }
+  #changeMode {
+    margin-left: 7px;
+    height: 25px;
+    width: 25px;
+  }
+  .connectwallet {
+    padding: 12px 27px;
+    font-size: 10px;
+  }
+}
+
 @media only screen and (max-width: 425px) {
   .logo {
     width: 200px;
     height: auto;
   }
   .launchapp {
-    padding: 10px 20px;
+    padding: 10px 20px !important;
     font-size: 10px;
   }
-  .navMain {
-    margin: 0 10px;
+
+  .navFixed2 {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 1rem;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .smartlogportal {
+    height: 60px !important;
+    width: 180px !important;
+  }
+  .toggle {
+    display: none;
+  }
+  .divtoflexlogoconnectwallet {
+    margin: 10px !important;
+  }
+  #changeMode {
+    width: 20px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+}
+@media only screen and (max-width: 325px) {
+  #changeMode {
+    margin-left: 0rem !important;
+  }
+  .toggle {
+    display: none;
   }
 }

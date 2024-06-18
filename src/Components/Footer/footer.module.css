@@ -10,15 +10,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0px 20px;
   text-align: "center";
   color: white;
-  padding: 0px 0px;
+  padding-left: 4rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+
   font-size: 15px;
 }
 .footericon {
   margin: 0px 3px;
   transition: transform 0.3s ease;
+}
+@media only screen and (max-width: 1024px) {
+  .footercopyrightText {
+    font-size: 15px;
+  }
 }
 @media only screen and (max-width: 768px) {
   .footerouterdiv {
@@ -29,22 +37,16 @@
     margin: 0px;
   }
   .footercopyrightText {
-    display: none;
+    font-size: 13px;
   }
 }
 @media only screen and (max-width: 525px) {
   .footerouterdiv {
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     padding: 5px 0px;
     margin: 0px;
-  }
-  .footercopyrightText {
-    display: none;
-  }
-  .footericon {
-    display: none;
   }
 }

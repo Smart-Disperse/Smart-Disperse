@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import navStyle from "../Navbar/navbar.module.css";
+import navStyle from "../NewHomePage/navbar/navbar.module.css";
 import smartlogo from "../../Assets/logo.png";
 import ConnectButtonCustom from "../ConnectButton/ConnectButtonCustom";
 import Image from "next/image";
@@ -63,39 +63,36 @@ function Navbar() {
   }, [isConnected]);
 
   return (
-    <div className={navStyle.navbarMain}>
-      <div className={navStyle.divtoflexlogoconnectwallet}>
-        <div>
+    <div className={navStyle.navMain}>
+      <div className={navStyle.navFixed2}>
+        <div className={navStyle.navSub}>
           <Link href="/">
-            <Image
-              className={navStyle.smartlogportal}
-              src={smartlogo}
-              alt="not foundd"
-            />
+            <Image className={navStyle.logo} src={smartlogo} alt="not foundd" />
           </Link>
+
+          {isHome ? (
+            <></>
+          ) : (
+            <div className={navStyle.connectwalletbuttondiv}>
+              {isConnected && (
+                <label className={navStyle.toggle}>
+                  <input
+                    type="checkbox"
+                    onChange={handelMainnet}
+                    checked={isMainnet}
+                  />
+                  <span className={navStyle.slider}></span>
+                  <span
+                    className={navStyle.labels}
+                    data-on="Mainnet"
+                    data-off="TestNet"
+                  ></span>
+                </label>
+              )}
+              <ConnectButtonCustom isMainnet={isMainnet} />
+            </div>
+          )}
         </div>
-        {isHome ? (
-          <></>
-        ) : (
-          <div className={navStyle.connectwalletbuttondiv}>
-            {isConnected && (
-              <label className={navStyle.toggle}>
-                <input
-                  type="checkbox"
-                  onChange={handelMainnet}
-                  checked={isMainnet}
-                />
-                <span className={navStyle.slider}></span>
-                <span
-                  className={navStyle.labels}
-                  data-on="Mainnet"
-                  data-off="TestNet"
-                ></span>
-              </label>
-            )}
-            <ConnectButtonCustom isMainnet={isMainnet} />
-          </div>
-        )}
       </div>
     </div>
   );

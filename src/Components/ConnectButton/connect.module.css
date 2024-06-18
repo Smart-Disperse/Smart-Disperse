@@ -200,9 +200,10 @@
 }
 @media only screen and (max-width: 768px) {
   .connectchain {
-    width: 150px;
+    width: 95px;
     font-size: 12px;
-    padding: 16px 10px;
+    padding: 13px 10px;
+    justify-content: center;
   }
   .connectaccount {
     width: 150px;
@@ -269,9 +270,30 @@
     padding: 5px;
   }
 }
+@media only screen and (max-width: 425px) {
+  .connectaccount {
+    width: 120px !important;
+  }
+  .disconnectmain {
+    position: absolute;
+    top: 65px;
+    left: -102px;
+    padding: 0px 0px;
+  }
+  .disconnect {
+    width: 250px;
+  }
+}
 @media only screen and (max-width: 375px) {
   .connectaccount {
     width: 120px !important;
+  }
+  .disconnectmain {
+    position: absolute;
+    top: 60px;
+    left: -102px;
+    padding: 0px 0px;
+    width: 200px;
   }
 }
 @media only screen and (max-width: 320px) {
