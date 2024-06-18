@@ -718,10 +718,12 @@ p.right {
 .moveLine .lineStep6 {
   animation-delay: 2.4s;
   top: 90% !important;
+  left: 33% !important;
 }
 .moveLine .lineStep7 {
   animation-delay: 2.8s;
   top: 90% !important;
+  left: 83% !important;
 }
 .moveLine .lineStep8 {
   animation-delay: 3.2s;
