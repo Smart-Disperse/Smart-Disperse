@@ -63,7 +63,7 @@ function Navbar() {
   }, [isConnected]);
 
   return (
-    <div className={navStyle.navMain}>
+    <div className={navStyle.navMainDash}>
       <div className={navStyle.navFixed2}>
         <div className={navStyle.navSub}>
           <Link href="/">

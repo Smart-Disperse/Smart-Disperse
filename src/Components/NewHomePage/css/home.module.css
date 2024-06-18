@@ -31,10 +31,11 @@
   background-image: linear-gradient(135deg, #fff 38%, #828282);
   -webkit-background-clip: text;
   background-clip: text;
+  text-align: left;
   margin: 0px;
   letter-spacing: 2px;
-  /* line-height: 9vh; */
-  text-align: left;
+  line-height: 8vh;
+
   font-weight: 600;
   /* padding-bottom: 1rem; */
   font-size: 3.5rem;
@@ -64,9 +65,10 @@
   letter-spacing: 1px;
   color: #d8d8d8;
   padding: 15px 0px;
+  padding-top: 30px;
   font-weight: 500;
   width: 68%;
-text-align: left;
+  text-align: left;
   font-size: 13px;
   font-weight: 300;
   line-height: 1.5em;
@@ -103,21 +105,22 @@ text-align: left;
 
 .chainTitle {
   font-weight: 300;
-  color: #ffffff;
-  font-size: 2rem;
+  color: #00ffff;
+  font-size: 2.5rem;
   letter-spacing: 2px;
   text-align: center;
   margin-top: 70px;
   margin-bottom: 40px;
 }
 .sec2Title {
-  color: #ffffff;
+  color: #00ffff;
   font-weight: 300;
-  font-size: 2rem;
-  letter-spacing: 1px;
+  font-size: 2.5rem;
+  /* letter-spacing: 1px; */
+  text-transform: capitalize;
 }
 .sec2Main {
-  margin-top: 8% !important;
+  margin-top: 90px !important;
   margin-bottom: 30px !important;
   width: 80%;
   margin: 0px auto;
@@ -132,16 +135,14 @@ text-align: left;
 .gridContentMain {
   z-index: 5;
   width: 100%;
-  max-width: 72em;
-  margin-top: 2em;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 75em;
+  margin: 40px auto;
   padding-left: 0;
   padding-right: 0;
   position: relative;
 }
 .gridContent {
-  grid-column-gap: 1.5em;
+  grid-column-gap: 4.5em;
   grid-row-gap: 1.5em;
   align-items: flex-start;
   display: flex;
@@ -160,7 +161,7 @@ text-align: left;
   justify-content: flex-start;
   margin-bottom: 1.5em;
   display: flex;
-  transition: scale 0.5s;
+  transition: scale 3s;
 }
 
 .gridBox1 h6 {
@@ -174,7 +175,29 @@ text-align: left;
   text-align: left;
   display: block;
 }
-.box1Pera {
+.box1Pera1 {
+  color: #d8d8d8;
+  text-align: justify;
+  letter-spacing: -0.005em;
+  margin-bottom: 0%;
+  font-size: 0.875em;
+  /* width: 65%; */
+  font-weight: 300;
+  line-height: 150%;
+  text-align: left;
+}
+.box1Pera2 {
+  color: #d8d8d8;
+  text-align: justify;
+  letter-spacing: -0.005em;
+  /* width: 65%; */
+  margin-bottom: 0%;
+  font-size: 0.875em;
+  font-weight: 300;
+  line-height: 150%;
+  text-align: left;
+}
+.box1Pera3 {
   color: #d8d8d8;
   text-align: justify;
   letter-spacing: -0.005em;
@@ -183,23 +206,17 @@ text-align: left;
   font-weight: 300;
   line-height: 150%;
   text-align: left;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Number of lines to show */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  white-space: normal;
 }
 .sec2Div {
-  padding-bottom: 30px;
   text-align: left;
+  max-width: 75rem;
+  margin: 0 auto;
 }
 
 /* .......sec3.... */
 .sec3Main {
   margin-top: 90px !important;
-  margin-bottom: 30px !important;
+  margin-bottom: 40px !important;
   width: 80%;
   margin: 0px auto;
   text-align: left;
@@ -226,7 +243,7 @@ text-align: left;
   height: 240px;
   border: 1px solid rgb(23 23 72);
   border-radius: 20px;
-  margin: 10px 15px;
+  margin: 10px 0px;
   display: flex;
   cursor: pointer;
   color: white;
@@ -263,13 +280,19 @@ text-align: left;
 .cards {
   display: flex;
   flex-direction: row;
-  margin: 0 auto;
+  margin: 30px auto;
   width: 100%;
+  justify-content: space-between;
   align-items: center;
   max-width: 75em;
 }
 .aboutBox {
-  margin-left: 70px;
+  width: 150px;
+  height: auto;
+}
+.aboutBoxFast {
+  width: 125px;
+  height: auto;
 }
 
 .imageincard {
@@ -293,7 +316,7 @@ text-align: left;
 }
 .cardcontent2 {
   font-size: 13px;
-  font-weight: 200;
+  font-weight: 300;
   margin: 14px 0px;
   text-align: left;
   display: -webkit-box;
@@ -416,9 +439,9 @@ text-align: left;
 .chainCircle {
   justify-content: center;
   align-items: center;
-  width: 40%;
-  height:40%;
- display: flex;
+  width: 37%;
+  height: 37%;
+  display: flex;
   position: relative;
 }
 .flexContent {
@@ -502,20 +525,20 @@ text-align: left;
 }
 /* ........sec5........ */
 .sec5Title {
-  text-align: center;
-  font-weight: 200;
+  text-align: left;
+  font-weight: 300;
   font-size: 2rem;
   letter-spacing: 1px;
-  color: white;
+  color: #00ffff;
 }
 .cardGet {
   display: flex;
   flex-direction: row;
   max-width: 75em;
   justify-content: space-between;
-  margin: 0 auto;
-  align-items: center;
   margin: 30px auto;
+  align-items: center;
+
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -529,7 +552,7 @@ text-align: left;
   box-shadow: 0px 4px 120.8px 0px #3b7dffab inset;
 }
 
-.cardofgetstart:hover button {
+.cardofgetstart button:hover {
   box-shadow: 0px 2.85px 11.63px 0px #9272f7 inset;
   border: 0.71px solid #ffffff;
   background: #0e1210cc;
@@ -548,7 +571,7 @@ text-align: left;
   border-radius: 20px;
   border: none;
   color: white;
-  margin: 10px 15px;
+  margin: 10px 0px;
   display: flex;
   flex-direction: column;
   padding: 15px 25px;
@@ -572,7 +595,7 @@ text-align: left;
   margin-bottom: 200px;
   position: relative;
 }
-.svg{
+.svg {
   height: auto;
 }
 .lineStep {
@@ -594,9 +617,9 @@ text-align: left;
   line-height: 40px;
   font-weight: bold;
   /* background: #ab00ff; */
-  transition: scale 0.5s;
+  transition: scale 2s;
 }
-.num svg{
+.num svg {
   height: auto !important;
 }
 /* Adjusted CSS for 'p' selector */
@@ -618,19 +641,22 @@ p.top {
   bottom: 50px;
   left: -110px;
   color: white;
+  font-size: 14px;
   letter-spacing: 1px;
 }
 
 p.bottom {
   left: -110px;
   color: white;
+  font-size: 14px;
   letter-spacing: 1px;
 }
 
 p.left {
   width: 200px;
-  right: 34px;
-  top: -17px;
+  right: 25px;
+  position: relative;
+  font-size: 14px;
   color: white;
   letter-spacing: 1px;
 }
@@ -638,6 +664,7 @@ p.left {
 p.right {
   width: 200px;
   left: 34px;
+  font-size: 13px;
   top: -17px;
   color: white;
   letter-spacing: 1px;
@@ -664,24 +691,36 @@ p.right {
 
 .moveLine .lineStep1 {
   animation-delay: 0.4s;
+  top: -20px !important;
 }
 .moveLine .lineStep2 {
   animation-delay: 0.8s;
+  right: -23% !important;
+  display: flex;
+  align-items: center;
 }
 .moveLine .lineStep3 {
   animation-delay: 1.2s;
+  top: 42% !important;
 }
 .moveLine .lineStep4 {
   animation-delay: 1.6s;
+  top: 42% !important;
 }
 .moveLine .lineStep5 {
   animation-delay: 2s;
+  display: flex;
+  flex-direction: row-reverse;
+  left: -23.5% !important;
+  top: 68%;
 }
 .moveLine .lineStep6 {
   animation-delay: 2.4s;
+  top: 90% !important;
 }
 .moveLine .lineStep7 {
   animation-delay: 2.8s;
+  top: 90% !important;
 }
 .moveLine .lineStep8 {
   animation-delay: 3.2s;
@@ -707,7 +746,6 @@ p.right {
   flex-direction: column;
   align-items: center;
 }
-
 
 @keyframes show-step-item {
   from {
@@ -739,7 +777,7 @@ p.right {
   );
   color: white;
   font-size: 15px;
-  font-weight: 200;
+  font-weight: 300;
   letter-spacing: 1px;
   margin: 0px;
   margin-left: 100px;
@@ -747,7 +785,7 @@ p.right {
   border-radius: 10px;
 }
 .sec4Main {
-  margin-top: 150px !important;
+  margin-top: 90px !important;
   margin-bottom: 30px !important;
   width: 80%;
   margin: 0px auto;
@@ -811,7 +849,7 @@ p.right {
     font-size: 13px;
   }
   .cardcontent2 {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 200;
     margin: 14px 0px;
     display: -webkit-box;
@@ -922,7 +960,6 @@ p.right {
     width: 85%;
   }
   .aboutBox {
-    margin-left: 50px;
     width: 70px;
     height: 70px;
   }
@@ -1056,6 +1093,27 @@ p.right {
   }
 }
 @media only screen and (max-width: 425px) {
+  .box1Pera1 {
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .box1Pera2 {
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .box1Pera3 {
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .sec2Main {
+    margin-top: 12% !important;
+  }
+  .sec3Main {
+    margin-top: 65px !important;
+  }
   .flexContent {
     max-width: 20rem;
   }
@@ -1065,6 +1123,8 @@ p.right {
   .titleSame1 {
     font-size: 1.3rem;
     letter-spacing: 0.5px;
+    line-height: 6vh;
+    text-align: center;
   }
   .cardofgetstart {
     width: 250px;
@@ -1074,19 +1134,24 @@ p.right {
     letter-spacing: 0.5px;
   }
   .peraSame {
-    font-size: 10px;
-    margin-top: 12px;
+    font-size: 13px;
+    padding-top: 15px;
+    text-align: center;
+    margin-top: 0px;
   }
   .hLaunch {
     padding: 10px 30px;
     font-size: 12px;
   }
+  .colLeft {
+    width: 95%;
+  }
   .chainTitle {
-    font-size: 1rem;
-    margin-top: 50px;
+    font-size: 1.5rem;
+    margin-top: 1px;
   }
   .sec2Title {
-    font-size: 1.3rem;
+    font-size: 2rem;
     text-align: center;
   }
   .sec2Pera {
@@ -1100,7 +1165,6 @@ p.right {
     left: 31%;
   }
   .aboutBox {
-    margin-left: 20px;
     width: 50px;
     height: 50px;
   }
@@ -1109,21 +1173,26 @@ p.right {
     padding: 15px;
   }
   .cardcontent1 {
-    font-size: 15px;
+    font-size: 1rem;
   }
   .card {
     width: 250px;
+    height: 200px;
   }
   .cardcontent2 {
-    font-size: 10px;
+    font-size: 13px;
+    font-weight: 300;
   }
   .gridContent {
     flex-direction: column;
   }
   .aboutBox {
-    width: 80px;
-    height: 80px;
-    margin-left: 0px;
+    width: 100px;
+    height: 100px;
+  }
+  .aboutBoxFast {
+    width: 100px;
+    height: 100px;
   }
   .gridImg {
     justify-content: center;
@@ -1158,9 +1227,17 @@ p.right {
   }
   .sec1 {
     flex-direction: column;
+    margin: 0px auto;
+    /* margin-top: 130px; */
+    display: inline-flex;
+    padding-top: 100px;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
   .colLeft {
-    width: 80%;
+    width: 90%;
     text-align: center;
   }
   .titleSame1 {
@@ -1168,5 +1245,6 @@ p.right {
   }
   .sec2Pera {
     text-align: center;
+    font-size: 13px;
   }
 }

@@ -10,19 +10,44 @@
 }
 
 .marquee {
-  display: flex;
   overflow: hidden;
   margin: 0px 0px;
   box-shadow: 0 0 100px 5px #00ffff30;
   user-select: none;
-  background: linear-gradient(
-    90deg,
-    rgba(135, 52, 240, 0.71) 9.97%,
-    #141240 100%
-  );
+  background: transparent;
   gap: var(--gap);
 }
-
+.marqueFlex {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  text-decoration: none;
+}
+.marqueFlex:hover .chainText {
+  color: aqua;
+}
+.start {
+  background: white;
+  width: 15px;
+  position: absolute;
+  top: 1px;
+  right: 51%;
+  height: 15px;
+  border-radius: 100%;
+}
+.end {
+  background: white;
+  width: 15px;
+  position: absolute;
+  bottom: 12px;
+  left: 93%;
+  height: 15px;
+  border-radius: 100%;
+}
+.chainText {
+  text-decoration: none;
+}
 .marqueegroup {
   flex-shrink: 0;
   display: flex;
@@ -32,11 +57,17 @@
   justify-content: space-around;
   gap: var(--gap);
   min-width: 100%;
-  animation: scroll-x var(--duration) linear infinite;
 }
-
+.marqueAnimation {
+  animation: scroll-x var(--duration) linear infinite;
+  animation-play-state: running;
+  display: flex;
+}
+.marqueAnimation:hover {
+  animation-play-state: paused; /* Pause animation on hover */
+}
 @media (prefers-reduced-motion: reduce) {
-  .marqueegroup {
+  .marqueAnimation {
     animation-play-state: paused;
   }
 }
@@ -76,7 +107,9 @@
     transform: translateY(var(--scroll-end));
   }
 }
-
+.marquee--reverse .marqueegroup:hover {
+  animation-play-state: paused;
+}
 /* Element styles */
 Image {
   display: grid;
@@ -190,5 +223,8 @@ Image {
   .ChainImg {
     width: 50px;
     height: auto;
+  }
+  .chainText {
+    font-size: 15px;
   }
 }
