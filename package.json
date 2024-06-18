@@ -27,6 +27,7 @@
     "ethers": "^5.7.2",
     "framer-motion": "^11.2.9",
     "graphql": "^16.8.1",
+    "gsap": "^3.12.5",
     "install": "^0.13.0",
     "jose": "^5.2.3",
     "jsonwebtoken": "^8.5.1",

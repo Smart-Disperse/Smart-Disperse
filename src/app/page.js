@@ -417,6 +417,7 @@ export default function Home({ children }) {
                               <FontAwesomeIcon icon={step.icon} />
                             </span>
                             <p className={home[step.className]}>{step.text}</p>
+                           
                           </Fade>
                         )}
                       </article>

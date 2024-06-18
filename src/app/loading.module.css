@@ -108,32 +108,39 @@
   opacity: 0.8;
 }
 .glitch:before {
-  animation: glitch-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-  color: #B47DFC;
+  animation: glitch-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both
+    infinite;
+  color: #b47dfc;
   z-index: -1;
 }
 .glitch:after {
-  animation: glitch-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
-  color: #56E3BD;
+  animation: glitch-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both
+    infinite;
+  color: #56e3bd;
   z-index: -2;
 }
 @keyframes glitch-color {
   0% {
-     transform: translate(0);
+    transform: translate(0);
   }
   20% {
-     transform: translate(-3px, 3px);
+    transform: translate(-3px, 3px);
   }
   40% {
-     transform: translate(-3px, -3px);
+    transform: translate(-3px, -3px);
   }
   60% {
-     transform: translate(3px, 3px);
+    transform: translate(3px, 3px);
   }
   80% {
-     transform: translate(3px, -3px);
+    transform: translate(3px, -3px);
   }
   to {
-     transform: translate(0);
+    transform: translate(0);
   }
+}
+.loadingMain {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
 }
