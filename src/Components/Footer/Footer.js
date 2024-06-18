@@ -18,7 +18,7 @@ function Footer() {
         className={footerStyle.footercopyright}
         style={{
           display: "flex",
-
+          gap: "0.5rem",
           margin: "10px 30px",
           justifyContent: "space-evenly",
           alignItems: "stretch",
