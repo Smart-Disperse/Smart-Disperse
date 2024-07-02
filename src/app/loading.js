@@ -4,7 +4,7 @@ export default function Loading() {
     <div className={loaderStyle.loadingMain}>
       <div className={loaderStyle.glitchWrapper}>
         <div className={loaderStyle.glitch} data-glitch="SmartDisperse">
-          SmartDisperse
+          SmartDisperse....
         </div>
       </div>
     </div>

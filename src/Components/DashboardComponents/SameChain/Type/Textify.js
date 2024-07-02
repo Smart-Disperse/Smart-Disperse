@@ -7,9 +7,12 @@ import { useAccount } from "wagmi";
 import {
   faChevronDown,
   faChevronUp,
+  faCirclePlus,
   faClipboardList,
   faDollarSign,
   faDoorOpen,
+  faHandHoldingDollar,
+  faMagnifyingGlass,
   faPen,
   faTag,
   faUserLarge,
@@ -119,7 +122,7 @@ function Textify({
     const resolveRegex = /@(\w+)\s/g;
     let newTextValue = textValue.replace(resolveRegex, (match, name) => {
       const index = allNames.indexOf(name);
-      if (index !== -1) {
+      if (index !== -1) { 
         if (allAddresses[index]) {
           return allAddresses[index] + " ";
         }
@@ -266,7 +269,7 @@ function Textify({
                       </div>
                       <div className={textStyle.tutorialcards}>
                         <li className={textStyle.contentincard}>
-                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faDollarSign} />
+                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faHandHoldingDollar} />
 
                           <div style={{color:"#00FBFB", fontWeight:"300"}}>Currency Indicator</div>
                           <div className={textStyle.subtextintutorial}>
@@ -277,7 +280,7 @@ function Textify({
                       </div>
                       <div className={textStyle.tutorialcards}>
                         <li className={textStyle.contentincard}>
-                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faTag} />
+                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faMagnifyingGlass} />
 
                           <div style={{color:"#00FBFB", fontWeight:"300"}}>Label Lookup</div> 
                           <div className={textStyle.subtextintutorial}>
@@ -288,7 +291,7 @@ function Textify({
                       </div>
                       <div className={textStyle.tutorialcards}>
                         <li className={textStyle.contentincard}>
-                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faClipboardList} />
+                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faCirclePlus} />
 
                           <div style={{color:"#00FBFB", fontWeight:"300"}}>Label Assignment</div>
                           <div className={textStyle.subtextintutorial}>

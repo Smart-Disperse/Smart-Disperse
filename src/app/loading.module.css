@@ -91,7 +91,7 @@
 }
 .glitch {
   position: relative;
-  font-size: 67px;
+  font-size: 60px;
   font-weight: 700;
   line-height: 1.2;
   color: #fff;
@@ -140,7 +140,14 @@
   }
 }
 .loadingMain {
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 425px) {
+  .glitch {
+    font-size: 25px;
+  }
 }

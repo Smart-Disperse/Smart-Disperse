@@ -22,6 +22,7 @@ function Navbar() {
   const chainId = useChainId();
 
   const isHome = path === "/";
+  const isMilestone = path === "/milestone";
 
   const handelMainnet = () => {
     setIsMainnet(!isMainnet);
@@ -70,7 +71,7 @@ function Navbar() {
             <Image className={navStyle.logo} src={smartlogo} alt="not foundd" />
           </Link>
 
-          {isHome ? (
+          {isHome || isMilestone ? (
             <></>
           ) : (
             <div className={navStyle.connectwalletbuttondiv}>
