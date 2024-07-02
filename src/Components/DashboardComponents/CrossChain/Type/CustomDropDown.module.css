@@ -1,7 +1,7 @@
 .dropdownHeader:hover {
-  color: #8D37FB;
+  color: #8d37fb;
   background: white;
-  border: 1px solid #8D37FB;
+  /* border: 1px solid #8d37fb; */
 }
 .dropdown {
   position: relative;
@@ -11,12 +11,16 @@
 
 .dropdownHeader {
   padding: 10px;
-  border: 1px solid #9747ff;
-  background: rgb(141,55,251);
-background: linear-gradient(342deg, rgba(141,55,251,1) 0%, rgba(55,75,251,1) 100%);
+  /* border: 1px solid #9747ff; */
+  background: rgb(141, 55, 251);
+  background: linear-gradient(
+    342deg,
+    rgba(141, 55, 251, 1) 0%,
+    rgba(55, 75, 251, 1) 100%
+  );
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border-radius: 12px;
   min-width: 200px;
   overflow: hidden; /* Optional: ensures child elements do not overflow the rounded corners */
@@ -51,12 +55,12 @@ background: linear-gradient(342deg, rgba(141,55,251,1) 0%, rgba(55,75,251,1) 100
   padding: 10px;
   display: flex;
   align-items: center;
-  border: 0.5px solid #00ffff;
-  border-radius: 5px;
+  border-bottom: 0.5px solid #00ffff;
+  border-radius: 10px;
 }
 
 .dropdownItem:hover {
   background-color: white;
-  color: #8D37FB;
-  border-radius: 7px;
+  color: #8d37fb;
+  border-radius: 10px;
 }

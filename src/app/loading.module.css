@@ -140,7 +140,7 @@
   }
 }
 .loadingMain {
-  min-height: 85vh;
+  min-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;

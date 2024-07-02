@@ -168,7 +168,7 @@
 }
 
 .headingofsamechain {
-  font-weight: 400 !important;
+  font-weight: 700;
   font-size: 72px;
   background: -webkit-linear-gradient(#00ffff, #5fffbc);
   -webkit-background-clip: text;
@@ -176,19 +176,16 @@
 }
 
 .samedashmainm {
-  min-height: 85vh;
+  /* min-height: 85vh; */
   margin-top: 100px;
 }
 .titledivdashboard h3 {
-  padding-top: -5px;
-  padding-bottom: 15px;
-  /* border-bottom: 1px solid white; */
   letter-spacing: 1.5px;
-  font-weight: 100 ;
+  font-weight: 400;
   font-size: 15px;
 }
 .titledivdashboard h1 {
-  font-weight: 100;
+  font-weight: 700;
   letter-spacing: 1.5px;
   font-size: 2.2rem;
   margin: 0px;
@@ -228,18 +225,17 @@
 
 /* Hover effect for buttons except when they are active */
 .menubardashboard button:not(.active):hover {
-  box-shadow: 2px 2px 15.7px 3px #00FFFFB2 inset;
+  box-shadow: 2px 2px 15.7px 3px #00ffffb2 inset;
   color: #00ffff;
 }
 
 /* Active button styles */
 .menubardashboard button.active {
-  color: white;
+  color: black;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 40px 0px inset;
   background-color: #00ffff;
 }
-
 
 /* .menubardashboard button.active {
   color: white;
@@ -578,7 +574,8 @@ animation: btn-active 3s infinite;
     -webkit-backdrop-filter: blur(30.5px);
     backdrop-filter: blur(30.5px);
     margin: 50px 0px;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+      rgba(0, 0, 0, 0.3) 0px 7px 13px 0px, rgba(0, 0, 0, 0.2) 1px 0px 0px inset;
     margin-bottom: 120px;
   }
   .menubardashboard button {

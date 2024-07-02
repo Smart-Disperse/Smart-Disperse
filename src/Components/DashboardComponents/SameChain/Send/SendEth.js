@@ -378,7 +378,7 @@ function SendEth({ activeTab, listData, setListData }) {
                                           setErrorMessage("Enter Label");
                                         } else {
                                           setErrorMessage(
-                                            "Press Enter to submit label"
+                                            "Press Enter to submit"
                                           );
                                         }
 
