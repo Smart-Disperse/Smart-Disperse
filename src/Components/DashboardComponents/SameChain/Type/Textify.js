@@ -18,7 +18,7 @@ import {
   faUserLarge,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 function Textify({
   listData,
   setListData,
@@ -37,14 +37,15 @@ function Textify({
   const { address } = useAccount();
 
   useEffect(() => {
-    const firstVisit = Cookies.get('firstVisit');
+    const firstVisit = Cookies.get("firstVisit");
     if (firstVisit === undefined) {
       setIsOpen(true);
-      Cookies.set('firstVisit', 'false', { expires: 365 }); 
+      Cookies.set("firstVisit", "false", { expires: 365 }); // Set the cookie to expire in 1 year
     } else {
       setIsOpen(false);
     }
   }, []);
+
   const triggerSlide = () => {
     setIsOpen(!isOpen);
   };
@@ -315,6 +316,7 @@ function Textify({
                   margin: "0px",
                   letterSpacing: "1px",
                   fontWeight: "300",
+                  lineHeight: "25px",
                 }}
               >
                 Enter Recipients and Amount (enter one address and amount on
@@ -377,7 +379,110 @@ function Textify({
               )}
             </div>
           </div>
-         
+          <div>
+            <div
+              className={textStyle.titlesametexttextarea}
+              onClick={triggerSlide}
+            >
+              <h2
+                className={textStyle.tutorialheading}
+                style={{
+                  padding: "10px",
+                  fontSize: "20px",
+                  margin: "0px",
+                  letterSpacing: "1px",
+                  fontWeight: "300",
+                }}
+              >
+                How it works{" "}
+                <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
+              </h2>
+            </div>
+            {isOpen ? (
+              <div
+                id="Slider"
+                className={`${textStyle.slider} ${
+                  isOpen ? textStyle.sliderOpen : ""
+                }`}
+              >
+                <div>
+                  <ui
+                    style={{ listStyleType: "none" }}
+                    className={textStyle.contents}
+                  >
+                    <div
+                      className={textStyle.tutorialcardscontainer}
+                      style={{ textAlign: "left" }}
+                    >
+                      <div className={textStyle.tutorialcards}>
+                        <li className={textStyle.contentincard}>
+                          <FontAwesomeIcon
+                            className={textStyle.iconintutorial}
+                            icon={faDoorOpen}
+                          />
+                          <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                            Direct Entry
+                          </div>
+                          <div className={textStyle.subtextintutorial}>
+                            Enter Ethereum addresses and amounts in Ether or
+                            USD.
+                          </div>
+                        </li>
+                      </div>
+                      <div className={textStyle.tutorialcards}>
+                        <li className={textStyle.contentincard}>
+                          <FontAwesomeIcon
+                            className={textStyle.iconintutorial}
+                            icon={faDollarSign}
+                          />
+
+                          <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                            Currency Indicator
+                          </div>
+                          <div className={textStyle.subtextintutorial}>
+                            Use a dollar sign ($) for USD; Ether amounts without
+                            a symbol.
+                          </div>
+                        </li>
+                      </div>
+                      <div className={textStyle.tutorialcards}>
+                        <li className={textStyle.contentincard}>
+                          <FontAwesomeIcon
+                            className={textStyle.iconintutorial}
+                            icon={faTag}
+                          />
+
+                          <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                            Label Lookup
+                          </div>
+                          <div className={textStyle.subtextintutorial}>
+                            Type "@" to access assigned labels; select or type
+                            "@labelname".
+                          </div>
+                        </li>
+                      </div>
+                      <div className={textStyle.tutorialcards}>
+                        <li className={textStyle.contentincard}>
+                          <FontAwesomeIcon
+                            className={textStyle.iconintutorial}
+                            icon={faClipboardList}
+                          />
+
+                          <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                            Label Assignment
+                          </div>
+                          <div className={textStyle.subtextintutorial}>
+                            Input address and amount; assign label in
+                            transaction lineup.
+                          </div>
+                        </li>
+                      </div>
+                    </div>
+                  </ui>
+                </div>
+              </div>
+            ) : null}
+          </div>
           <div
             style={{
               display: "flex",

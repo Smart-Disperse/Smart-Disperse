@@ -570,7 +570,7 @@ function SendToken({ activeTab, listData, setListData }) {
                                               setErrorMessage("Enter Label");
                                             } else {
                                               setErrorMessage(
-                                                "Press Enter to submit label"
+                                                "Press Enter to submit"
                                               );
                                             }
                                             // Regular expression to allow only alphanumeric characters without spaces

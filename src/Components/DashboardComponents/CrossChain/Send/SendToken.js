@@ -456,7 +456,7 @@ function SendToken({
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      margin: "10px",
+                      margin: "30px 20px",
                       border: "1px solid #8D37FB",
                       borderRadius: "20px",
                       overflow: "hidden",
@@ -643,7 +643,7 @@ function SendToken({
                                           setErrorMessage("Enter Label");
                                         } else {
                                           setErrorMessage(
-                                            "Press Enter to submit label"
+                                            "Press Enter to submit"
                                           );
                                         }
 
@@ -896,7 +896,7 @@ function SendToken({
           </div>
         </>
       ) : (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", paddingBottom: "30px" }}>
           Please connect your wallet to proceed
         </div>
       )}

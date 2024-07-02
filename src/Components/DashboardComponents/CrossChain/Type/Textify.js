@@ -204,7 +204,8 @@ function Textify({
                   fontSize: "20px",
                   margin: "0px",
                   letterSpacing: "1px",
-                  fontWeight: "200",
+                  fontWeight: "300",
+                  lineHeight: "25px",
                 }}
               >
                 Enter Recipients and Amount (enter one address and amount on
