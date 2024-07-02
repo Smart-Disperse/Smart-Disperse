@@ -428,7 +428,6 @@ function SendToken({
     <>
       {address ? (
         <>
-          {" "}
           {Istokenloading ? (
             <div className={textStyle.loaderdiv}>
               <div className={textStyle.loader}></div>
