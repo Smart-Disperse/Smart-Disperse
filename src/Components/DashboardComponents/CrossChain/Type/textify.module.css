@@ -1,3 +1,64 @@
+.tutorialcards {
+  border: 1px solid #8d37fb;
+  padding: 15px;
+  width: auto;
+  height: 101px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: rgb(0 0 0) 0px 2px 5px -1px, rgb(0 0 0) 0px 1px 3px -1px;
+}
+
+.tutorialcardscontainer {
+  padding: 21px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.subtextintutorial {
+  font-weight: 100;
+  font-size: 10px;
+  text-align: center;
+}
+
+.contentincard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.iconintutorial {
+  color: #00fbfb;
+  border-radius: 27px;
+  padding: 5px;
+  border: 1px solid #00fbfb;
+}
+
+.slider {
+  overflow: hidden;
+  height: 0;
+  transition: height 0.4s ease-in-out;
+}
+
+.sliderOpen {
+  height: auto; /* This will be set dynamically with JavaScript */
+}
+
+.contents {
+  background: transparent;
+  color: white;
+  padding: 10px;
+  margin: 0;
+}
+.Link a:-webkit-any-link {
+  color: white;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.tutorialheading:hover {
+  cursor: pointer;
+}
 .textAccSum {
   width: max-content;
   max-width: 900px;
@@ -304,7 +365,7 @@
   letter-spacing: 1px;
 }
 .titlesametexttextarea {
-  background: rgb(24, 26, 83);
+  background: rgb(134, 135, 153);
   background: linear-gradient(
     160deg,
     rgba(24, 26, 83, 1) 47%,
