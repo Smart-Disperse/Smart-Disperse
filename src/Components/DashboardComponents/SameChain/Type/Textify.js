@@ -123,7 +123,7 @@ function Textify({
     const resolveRegex = /@(\w+)\s/g;
     let newTextValue = textValue.replace(resolveRegex, (match, name) => {
       const index = allNames.indexOf(name);
-      if (index !== -1) { 
+      if (index !== -1) {
         if (allAddresses[index]) {
           return allAddresses[index] + " ";
         }
@@ -226,23 +226,23 @@ function Textify({
     <div>
       <div className={textStyle.divtocoversametextdi}>
         <div>
-        <div>
+          <div>
             <div
               className={textStyle.titlesametexttextarea}
               onClick={triggerSlide}
             >
               <h2
-              className={textStyle.tutorialheading}
+                className={textStyle.tutorialheading}
                 style={{
                   padding: "10px",
                   fontSize: "20px",
                   margin: "0px",
                   letterSpacing: "1px",
                   fontWeight: "300",
-                  
                 }}
               >
-                How it works <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
+                How it works{" "}
+                <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
               </h2>
             </div>
             {isOpen ? (
@@ -257,48 +257,71 @@ function Textify({
                     style={{ listStyleType: "none" }}
                     className={textStyle.contents}
                   >
-                    <div className={textStyle.tutorialcardscontainer} style={{ textAlign: "left" }}>
+                    <div
+                      className={textStyle.tutorialcardscontainer}
+                      style={{ textAlign: "left" }}
+                    >
                       <div className={textStyle.tutorialcards}>
                         <li className={textStyle.contentincard}>
-                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faDoorOpen} />
-                          <div style={{color:"#00FBFB", fontWeight:"300"}}>Direct Entry</div>
+                          <FontAwesomeIcon
+                            className={textStyle.iconintutorial}
+                            icon={faDoorOpen}
+                          />
+                          <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                            Direct Entry
+                          </div>
                           <div className={textStyle.subtextintutorial}>
-                             Enter Ethereum
-                          addresses and amounts in Ether or USD.
-                            </div>
+                            Enter Ethereum addresses and amounts in Ether or
+                            USD.
+                          </div>
                         </li>
                       </div>
                       <div className={textStyle.tutorialcards}>
                         <li className={textStyle.contentincard}>
-                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faHandHoldingDollar} />
+                          <FontAwesomeIcon
+                            className={textStyle.iconintutorial}
+                            icon={faHandHoldingDollar}
+                          />
 
-                          <div style={{color:"#00FBFB", fontWeight:"300"}}>Currency Indicator</div>
+                          <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                            Currency Indicator
+                          </div>
                           <div className={textStyle.subtextintutorial}>
-                             Use a dollar sign
-                          ($) for USD; Ether amounts without a symbol.
-                            </div>
+                            Use a dollar sign ($) for USD; Ether amounts without
+                            a symbol.
+                          </div>
                         </li>
                       </div>
                       <div className={textStyle.tutorialcards}>
                         <li className={textStyle.contentincard}>
-                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faMagnifyingGlass} />
+                          <FontAwesomeIcon
+                            className={textStyle.iconintutorial}
+                            icon={faMagnifyingGlass}
+                          />
 
-                          <div style={{color:"#00FBFB", fontWeight:"300"}}>Label Lookup</div> 
+                          <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                            Label Lookup
+                          </div>
                           <div className={textStyle.subtextintutorial}>
-                            Type "@" to access
-                          assigned labels; select or type "@labelname".
-                            </div>
+                            Type "@" to access assigned labels; select or type
+                            "@labelname".
+                          </div>
                         </li>
                       </div>
                       <div className={textStyle.tutorialcards}>
                         <li className={textStyle.contentincard}>
-                        <FontAwesomeIcon className={textStyle.iconintutorial} icon={faCirclePlus} />
+                          <FontAwesomeIcon
+                            className={textStyle.iconintutorial}
+                            icon={faCirclePlus}
+                          />
 
-                          <div style={{color:"#00FBFB", fontWeight:"300"}}>Label Assignment</div>
+                          <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                            Label Assignment
+                          </div>
                           <div className={textStyle.subtextintutorial}>
-                             Input address and
-                          amount; assign label in transaction lineup.
-                            </div>
+                            Input address and amount; assign label in
+                            transaction lineup.
+                          </div>
                         </li>
                       </div>
                     </div>
@@ -340,8 +363,10 @@ function Textify({
                   fontFamily: "Arial, sans-serif",
                   boxSizing: "border-box",
                   resize: "vertical",
+                  scrollbarWidth: "thin",
+                  scrollbarColor: "#6b8e23 transparent",
                 }}
-                className={textStyle.textareaInput}
+                className={`${textStyle.textareaInput} custom-scrollbar`}
                 placeholder="@Justin/0xe57f4c84539a6414C4Cf48f135210e01c477EFE0 1.41421"
               ></textarea>
               {suggestions?.length > 0 && (

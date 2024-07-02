@@ -324,7 +324,7 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
   margin: 25px 0px;
 
   overflow: auto;
-  /* --sb-track-color: linear-gradient(
+  --sb-track-color: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.2) 0%,
       rgba(0, 0, 0, 0.2) 100%
@@ -334,10 +334,10 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
   --sb-size: 1px;
 
   text-align: center !important;
-  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color); */
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
 }
 
-/* .scrollabletablecontainer::-webkit-scrollbar {
+ .scrollabletablecontainer::-webkit-scrollbar {
   width: var(--sb-size);
 }
 
@@ -348,8 +348,7 @@ box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0p
 .scrollabletablecontainer::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: 10px;
-} */
-
+} 
 .sendbutton:hover {
   cursor: pointer;
   background-color: rgba(20, 187, 216, 0);

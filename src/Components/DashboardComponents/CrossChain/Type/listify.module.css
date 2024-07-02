@@ -13,7 +13,7 @@
   margin-bottom: 50px;
 }
 
-.listdropdownItem{
+.listdropdownItem {
   padding: 8px 12px;
   cursor: pointer;
   background-color: #49058e91;
@@ -21,26 +21,25 @@
   border-bottom: 1px solid #ddd;
 }
 
-.listdropdown{
+.listdropdown {
   position: absolute;
   left: 45%;
   top: 59%;
   background-color: #f9f9f9f9;
   /* border-radius: 5px; */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 999;
   max-height: 200px;
   overflow-y: auto;
 }
 
-
 .listdropdown::-webkit-scrollbar {
-  width: 1px; 
+  width: 1px;
 }
 
 .listdropdown::-webkit-scrollbar-thumb {
-  background-color: #5007e3; 
-  border-radius: 1px; 
+  background-color: #5007e3;
+  border-radius: 1px;
 }
 .listAccSum {
   width: fit-content;
@@ -119,8 +118,8 @@
 
 .eachinputofcreatelist.tokeninput {
   border-radius: 5px;
-  border: 1px solid #9D79FF;
-  background:transparent;
+  border: 1px solid #9d79ff;
+  background: transparent;
   color: white;
 
   padding: 15px 20px;
@@ -285,8 +284,12 @@
 }
 
 .enteraddressdivtitle {
-  background: rgb(24,26,83);
-  background: linear-gradient(160deg, rgba(24,26,83,1) 47%, rgba(46,13,90,1) 100%);
+  background: rgb(24, 26, 83);
+  background: linear-gradient(
+    160deg,
+    rgba(24, 26, 83, 1) 47%,
+    rgba(46, 13, 90, 1) 100%
+  );
   font-weight: 200;
   line-height: 154.1%;
   letter-spacing: 1.04px;
@@ -318,7 +321,7 @@
   margin: 25px 0px;
 
   overflow: auto;
-  /* --sb-track-color: linear-gradient(
+  --sb-track-color: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.2) 0%,
       rgba(0, 0, 0, 0.2) 100%
@@ -328,10 +331,10 @@
   --sb-size: 1px;
 
   text-align: center !important;
-  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color); */
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
 }
 
-/* .scrollabletablecontainer::-webkit-scrollbar {
+.scrollabletablecontainer::-webkit-scrollbar {
   width: var(--sb-size);
 }
 
@@ -342,7 +345,7 @@
 .scrollabletablecontainer::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: 10px;
-} */
+}
 
 .sendbutton:hover {
   cursor: pointer;
@@ -613,26 +616,26 @@
 /* } */
 
 @media only screen and (max-width: 770px) {
-  .listdropdown{
+  .listdropdown {
     position: absolute;
-    left: 8% ;
-    top: 52% ;
+    left: 8%;
+    top: 52%;
   }
-  }
+}
 @media only screen and (max-width: 385px) {
-  .listdropdown{
+  .listdropdown {
     position: absolute;
     left: 18% !important;
     top: 58% !important;
   }
-  }
+}
 
 @media only screen and (max-width: 435px) {
-.listdropdown{
-  position: absolute;
-  left: 18%;
-  top: 54%;
-}
+  .listdropdown {
+    position: absolute;
+    left: 18%;
+    top: 54%;
+  }
 }
 @media only screen and (max-width: 425px) {
   .tableheadertextlist {
