@@ -5,6 +5,7 @@
   height: 101px;
   margin: 5px;
   border-radius: 5px;
+  box-shadow: rgb(0 0 0) 0px 2px 5px -1px, rgb(0 0 0) 0px 1px 3px -1px;
 }
 
 .tutorialcardscontainer {

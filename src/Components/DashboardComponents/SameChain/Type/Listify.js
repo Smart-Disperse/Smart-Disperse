@@ -9,6 +9,21 @@ import Modal from "react-modal";
 import textStyle from "./textify.module.css";
 import oopsimage from "@/Assets/oops.webp";
 import Image from "next/image";
+import {
+  faChevronDown,
+  faChevronUp,
+  faCirclePlus,
+  faClipboardList,
+  faDollarSign,
+  faDoorOpen,
+  faMagnifyingGlass,
+  faPen,
+  faRotate,
+  faTag,
+  faUserLarge,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
 
 function Listify({
   listData,
@@ -30,6 +45,21 @@ function Listify({
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [validInput, setValidInput] = useState(true);
   const dropdownRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    const firstVisit = Cookies.get("firstVisit");
+    if (firstVisit === undefined) {
+      setIsOpen(true);
+      Cookies.set("firstVisit", "false", { expires: 365 });
+    } else {
+      setIsOpen(false);
+    }
+  }, []);
+  const triggerSlide = () => {
+    setIsOpen(!isOpen);
+  };
+
   // Function to close the error modal
   const closeErrorModal = () => {
     setErrorModalIsOpen(false);
@@ -233,6 +263,106 @@ function Listify({
 
   return (
     <div className={listStyle.divinsamecreatelisttokenload}>
+      <div>
+        <div className={textStyle.titlesametexttextarea} onClick={triggerSlide}>
+          <h2
+            className={textStyle.tutorialheading}
+            style={{
+              padding: "10px",
+              fontSize: "20px",
+              margin: "0px",
+              letterSpacing: "1px",
+              fontWeight: "300",
+            }}
+          >
+            How it works{" "}
+            <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
+          </h2>
+        </div>
+        {isOpen ? (
+          <div
+            id="Slider"
+            className={`${textStyle.slider} ${
+              isOpen ? textStyle.sliderOpen : ""
+            }`}
+          >
+            <div>
+              <ui
+                style={{ listStyleType: "none" }}
+                className={textStyle.contents}
+              >
+                <div
+                  className={textStyle.tutorialcardscontainer}
+                  style={{ textAlign: "left" }}
+                >
+                  <div className={textStyle.tutorialcards}>
+                    <li className={textStyle.contentincard}>
+                      <FontAwesomeIcon
+                        className={textStyle.iconintutorial}
+                        icon={faDoorOpen}
+                      />
+                      <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                        Direct Entry
+                      </div>
+                      <div className={textStyle.subtextintutorial}>
+                        Enter Ethereum addresses and amounts in Ether or USD.
+                      </div>
+                    </li>
+                  </div>
+                  <div className={textStyle.tutorialcards}>
+                    <li className={textStyle.contentincard}>
+                      <FontAwesomeIcon
+                        className={textStyle.iconintutorial}
+                        icon={faRotate}
+                      />
+
+                      <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                      Auto-Fill Sync
+                      </div>
+                      <div className={textStyle.subtextintutorial}>
+                        Entering address or label auto-fills the corresponding
+                        assigned field.
+                      </div>
+                    </li>
+                  </div>
+                  <div className={textStyle.tutorialcards}>
+                    <li className={textStyle.contentincard}>
+                      <FontAwesomeIcon
+                        className={textStyle.iconintutorial}
+                        icon={faMagnifyingGlass}
+                      />
+
+                      <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                        Label Lookup
+                      </div>
+                      <div className={textStyle.subtextintutorial}>
+                        Type labelname to access assigned labels list; select or type
+                        "labelname".
+                      </div>
+                    </li>
+                  </div>
+                  <div className={textStyle.tutorialcards}>
+                    <li className={textStyle.contentincard}>
+                      <FontAwesomeIcon
+                        className={textStyle.iconintutorial}
+                        icon={faCirclePlus}
+                      />
+
+                      <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                        Label Assignment
+                      </div>
+                      <div className={textStyle.subtextintutorial}>
+                        Input address and amount; assign label in transaction
+                        lineup.
+                      </div>
+                    </li>
+                  </div>
+                </div>
+              </ui>
+            </div>
+          </div>
+        ) : null}
+      </div>
       <div className={listStyle.enteraddressdivtitle}>
         <h2
           style={{

@@ -3,9 +3,27 @@
 import React, { useState, useEffect } from "react";
 import uploadStyle from "./uploadify.module.css";
 import { isValidAddress } from "@/Helpers/ValidateInput.js";
+import textStyle from "./textify.module.css";
 import { isValidValue } from "@/Helpers/ValidateInput.js";
 import { isValidTokenValue } from "@/Helpers/ValidateInput.js";
 import { useAccount } from "wagmi";
+import {
+  faChevronDown,
+  faChevronUp,
+  faCirclePlus,
+  faClipboardList,
+  faDollarSign,
+  faDoorOpen,
+  faMagnifyingGlass,
+  faPen,
+  faRotate,
+  faTag,
+  faUpload,
+  faUser,
+  faUserLarge,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
 
 function Uploadify({
   listData,
@@ -18,6 +36,20 @@ function Uploadify({
   const [allnames, setAllNames] = useState([]);
   const [alladdresses, setAllAddresses] = useState([]);
   const { address } = useAccount();
+  const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    const firstVisit = Cookies.get("firstVisit");
+    if (firstVisit === undefined) {
+      setIsOpen(true);
+      Cookies.set("firstVisit", "false", { expires: 365 });
+    } else {
+      setIsOpen(false);
+    }
+  }, []);
+  const triggerSlide = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     if (address) {
@@ -163,40 +195,105 @@ function Uploadify({
 
   return (
     <div>
-      {/* Render input fields for each address and value pair */}
-      {/* {csvData.map((rowData, index) => (
-        <div key={index}>
-          <div></div>
-          <input
-            type="text"
-            value={rowData["Receiver Address"]}
-            onChange={(e) =>
-              handleInputChange(index, "Receiver Address", e.target.value)
-            }
-            className={
-              isValidAddress(rowData["Receiver Address"])
-                ? uploadStyle.normal
-                : uploadStyle.red
-            }
-          />
-          <input
-            type="text"
-            value={rowData["Token Amount"]}
-            onChange={(e) =>
-              handleInputChange(index, "Token Amount", e.target.value)
-            }
-            className={
-              tokenDecimal
-                ? isValidTokenValue(rowData["Token Amount"], tokenDecimal)
-                  ? uploadStyle.normal
-                  : uploadStyle.red
-                : isValidValue(rowData["Token Amount"])
-                ? uploadStyle.normal
-                : uploadStyle.red
-            }
-          />
+
+      <div>
+        <div className={textStyle.titlesametexttextarea} onClick={triggerSlide}>
+          <h2
+            className={textStyle.tutorialheading}
+            style={{
+              padding: "10px",
+              fontSize: "20px",
+              margin: "0px",
+              letterSpacing: "1px",
+              fontWeight: "300",
+            }}
+          >
+            How it works{" "}
+            <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
+          </h2>
         </div>
-      ))} */}
+        {isOpen ? (
+          <div
+            id="Slider"
+            className={`${textStyle.slider} ${
+              isOpen ? textStyle.sliderOpen : ""
+            }`}
+          >
+            <div>
+              <ui
+                style={{ listStyleType: "none" }}
+                className={textStyle.contents}
+              >
+                <div
+                  className={textStyle.tutorialcardscontainer}
+                  style={{ textAlign: "left" }}
+                >
+                  <div className={textStyle.tutorialcards}>
+                    <li className={textStyle.contentincard}>
+                      <FontAwesomeIcon
+                        className={textStyle.iconintutorial}
+                        icon={faUser}
+                      />
+                      <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                        New Users
+                      </div>
+                      <div className={textStyle.subtextintutorial}>
+                      Download the sample CSV for data order reference.
+                      </div>
+                    </li>
+                  </div>
+                  <div className={textStyle.tutorialcards}>
+                    <li className={textStyle.contentincard}>
+                      <FontAwesomeIcon
+                        className={textStyle.iconintutorial}
+                        icon={faRotate}
+                      />
+
+                      <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                      Auto-Fill Sync
+                      </div>
+                      <div className={textStyle.subtextintutorial}>
+                      Enter address or label and amount. Auto-fills format, don't add both.
+                      </div>
+                    </li>
+                  </div>
+                  <div className={textStyle.tutorialcards}>
+                    <li className={textStyle.contentincard}>
+                      <FontAwesomeIcon
+                        className={textStyle.iconintutorial}
+                        icon={faUpload}
+                      />
+
+                      <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                        Edit & Upload
+                      </div>
+                      <div className={textStyle.subtextintutorial}>
+                      You can also edit and upload the sample CSV file.
+                      </div>
+                    </li>
+                  </div>
+                  <div className={textStyle.tutorialcards}>
+                    <li className={textStyle.contentincard}>
+                      <FontAwesomeIcon
+                        className={textStyle.iconintutorial}
+                        icon={faCirclePlus}
+                      />
+
+                      <div style={{ color: "#00FBFB", fontWeight: "300" }}>
+                        Label Assignment
+                      </div>
+                      <div className={textStyle.subtextintutorial}>
+                        Input address and amount; assign label in transaction
+                        lineup.
+                      </div>
+                    </li>
+                  </div>
+                </div>
+              </ui>
+            </div>
+          </div>
+        ) : null}
+      </div>
       <div className={uploadStyle.titleforuploadfilecsvsame}>
         <h2
           style={{
