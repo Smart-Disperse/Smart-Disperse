@@ -829,7 +829,9 @@ function SendToken({ activeTab, listData, setListData }) {
             ) : null}
           </>
         ) : (
-          "Please connect your wallet to proceed"
+          <div style={{ textAlign: "center", paddingBottom: "30px" }}>
+          Please connect your wallet to proceed
+        </div>
         )}
       </>
       <>

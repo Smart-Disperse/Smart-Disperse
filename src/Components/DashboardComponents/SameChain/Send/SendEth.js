@@ -320,13 +320,6 @@ function SendEth({ activeTab, listData, setListData }) {
                         >
                           Amount(USD)
                         </th>
-                        
-                        {/* <th
-                      className={textStyle.fontsize12px}
-                      style={{ letterSpacing: "1px", padding: "8px" }}
-                    >
-                      Warnings
-                    </th> */}
                         <th
                           className={textStyle.fontsize12px}
                           style={{ letterSpacing: "1px", padding: "8px" }}
@@ -382,7 +375,6 @@ function SendEth({ activeTab, listData, setListData }) {
                                           );
                                         }
 
-                                        // Regular expression to allow only alphanumeric characters without spaces
                                         const regex = /^[a-zA-Z0-9]*$/;
 
                                         if (
@@ -668,7 +660,9 @@ function SendEth({ activeTab, listData, setListData }) {
           ) : null}
         </>
       ) : (
-        "Please Connect your Wallet to Proceed"
+        <div style={{ textAlign: "center", paddingBottom: "30px" }}>
+        Please connect your wallet to proceed
+      </div>
       )}
     </>
   );

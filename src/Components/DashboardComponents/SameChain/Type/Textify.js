@@ -331,7 +331,7 @@ function Textify({
             ) : null}
           </div>
           <div id="textify-input" className={textStyle.textlistdiv}>
-            <div className={textStyle.titlesametexttextarea}>
+            <div id={textStyle.textifyboxtitle} className={textStyle.titlesametexttextarea}>
               <h2
                 style={{
                   padding: "10px",
