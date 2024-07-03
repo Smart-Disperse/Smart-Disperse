@@ -59,7 +59,9 @@ function SendToken({ activeTab, listData, setListData }) {
   const [allAddresses, setAllAddresses] = useState([]);
   const [tokenDetails, setTokenDetails] =
     useState(defaultTokenDetails); /*Details of the selected token to be sent*/
-
+  const [errorMessages, setErrorMessages] = useState(
+    Array(listData.length).fill("")
+  );
   const renderComponent = (tab) => {
     switch (tab) {
       case "text":
@@ -198,6 +200,34 @@ function SendToken({ activeTab, listData, setListData }) {
     }
   };
 
+  const handleInputChange = (index, e) => {
+    const inputValue = e.target.value;
+    const regex = /^[a-zA-Z0-9]*$/;
+    const newErrorMessages = [...errorMessages];
+
+    if (inputValue === "") {
+      newErrorMessages[index] = "Enter Label";
+    } else {
+      newErrorMessages[index] = "Press Enter to submit";
+    }
+
+    if (regex.test(inputValue) && inputValue.length <= 10) {
+      setLabelValues(index, inputValue);
+    }
+
+    setErrorMessages(newErrorMessages);
+  };
+
+  const handleInputKeyDown = (index, address, e) => {
+    if (e.key === "Enter") {
+      onAddLabel(index, address);
+      const newErrorMessages = [...errorMessages];
+      newErrorMessages[index] = "";
+      setErrorMessages(newErrorMessages);
+    }
+  };
+
+
   const onAddLabel = async (index, recipientAddress) => {
     const userData = {
       userid: address,
@@ -290,7 +320,6 @@ function SendToken({ activeTab, listData, setListData }) {
       const { allNames, allAddress } = await fetchUserLabels(address);
       setAllNames(allNames);
       setAllAddresses(allAddress);
-
       setLabels([]);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -479,7 +508,7 @@ function SendToken({ activeTab, listData, setListData }) {
                           padding: "10px",
                           letterSpacing: "1px",
                           fontSize: "20px",
-                          fontWeight: "200",
+                          fontWeight: "300",
                         }}
                       >
                         Your Transaction Lineup
@@ -539,69 +568,48 @@ function SendToken({ activeTab, listData, setListData }) {
                                     {data.address.substr(-5)}
                                   </td>
                                   <td
-                                    id={textStyle.fontsize10px}
-                                    style={{
-                                      letterSpacing: "1px",
-                                      padding: "8px",
-                                    }}
-                                  >
-                                    {data.label ? (
-                                      data.label
-                                    ) : (
-                                      <>
-                                        <input
-                                          type="text"
-                                          value={
-                                            labels[index] ? labels[index] : ""
-                                          }
-                                          style={{
-                                            borderRadius: "8px",
-                                            padding: "10px",
-                                            color: "white",
-                                            border: "1px solid #8D37FB",
-                                            background: "transparent",
-                                          }}
-                                          onChange={(e) => {
-                                            const inputValue = e.target.value;
-                                            if (
-                                              inputValue === "" &&
-                                              e.key !== "Enter"
-                                            ) {
-                                              setErrorMessage("Enter Label");
-                                            } else {
-                                              setErrorMessage(
-                                                "Press Enter to submit"
-                                              );
-                                            }
-                                            // Regular expression to allow only alphanumeric characters without spaces
-                                            const regex = /^[a-zA-Z0-9]*$/;
-                                            if (
-                                              regex.test(inputValue) &&
-                                              inputValue.length <= 10
-                                            ) {
-                                              setLabelValues(index, inputValue);
-                                            }
-                                          }}
-                                          onKeyDown={(e) => {
-                                            if (e.key === "Enter") {
-                                              onAddLabel(index, data.address);
-                                            }
-                                          }}
-                                        />
-                                        {errorMessage && (
-                                          <p
-                                            style={{
-                                              color: "red",
-                                              margin: "0px",
-                                              fontSize: "13px",
-                                            }}
-                                          >
-                                            {errorMessage}
-                                          </p>
-                                        )}
-                                      </>
+                                id={textStyle.fontsize10px}
+                                style={{ letterSpacing: "1px", padding: "8px" }}
+                              >
+                                {data.label ? (
+                                  data.label
+                                ) : (
+                                  <>
+                                    <input
+                                      type="text"
+                                      value={labels[index] || ""}
+                                      style={{
+                                        borderRadius: "8px",
+                                        padding: "10px",
+                                        color: "white",
+                                        border: "1px solid #8D37FB",
+                                        background: "transparent",
+                                      }}
+                                      onChange={(e) =>
+                                        handleInputChange(index, e)
+                                      }
+                                      onKeyDown={(e) =>
+                                        handleInputKeyDown(
+                                          index,
+                                          data.address,
+                                          e
+                                        )
+                                      }
+                                    />
+                                    {errorMessages[index] && (
+                                      <p
+                                        style={{
+                                          color: "red",
+                                          margin: "0px",
+                                          fontSize: "13px",
+                                        }}
+                                      >
+                                        {errorMessages[index]}
+                                      </p>
                                     )}
-                                  </td>
+                                  </>
+                                )}
+                              </td>
                                   <td
                                     id={textStyle.fontsize10px}
                                     style={{ padding: "8px" }}
@@ -830,8 +838,8 @@ function SendToken({ activeTab, listData, setListData }) {
           </>
         ) : (
           <div style={{ textAlign: "center", paddingBottom: "30px" }}>
-          Please connect your wallet to proceed
-        </div>
+            Please connect your wallet to proceed
+          </div>
         )}
       </>
       <>

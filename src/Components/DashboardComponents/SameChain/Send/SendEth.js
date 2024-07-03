@@ -32,6 +32,9 @@ function SendEth({ activeTab, listData, setListData }) {
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [suffecientBalance, setSuffecientBalance] = useState(true);
+  const [errorMessages, setErrorMessages] = useState(
+    Array(listData.length).fill("")
+  );
   const renderComponent = (tab) => {
     switch (tab) {
       case "text":
@@ -104,7 +107,33 @@ function SendEth({ activeTab, listData, setListData }) {
     }
   };
 
-  
+  const handleInputChange = (index, e) => {
+    const inputValue = e.target.value;
+    const regex = /^[a-zA-Z0-9]*$/;
+    const newErrorMessages = [...errorMessages];
+
+    if (inputValue === "") {
+      newErrorMessages[index] = "Enter Label";
+    } else {
+      newErrorMessages[index] = "Press Enter to submit";
+    }
+
+    if (regex.test(inputValue) && inputValue.length <= 10) {
+      setLabelValues(index, inputValue);
+    }
+
+    setErrorMessages(newErrorMessages);
+  };
+
+  const handleInputKeyDown = (index, address, e) => {
+    if (e.key === "Enter") {
+      onAddLabel(index, address);
+      const newErrorMessages = [...errorMessages];
+      newErrorMessages[index] = "";
+      setErrorMessages(newErrorMessages);
+    }
+  };
+
   const handleDeleteRow = (index) => {
     const updatedList = [...listData];
     updatedList.splice(index, 1);
@@ -184,18 +213,19 @@ function SendEth({ activeTab, listData, setListData }) {
     const newAddress = e.target.value;
     const updatedListData = [...listData];
     updatedListData[index].address = newAddress;
-  
-    const existingEntry = addressLabelMap.find(entry => entry.address.toLowerCase() === newAddress.toLowerCase());
+
+    const existingEntry = addressLabelMap.find(
+      (entry) => entry.address.toLowerCase() === newAddress.toLowerCase()
+    );
     if (existingEntry) {
       updatedListData[index].label = existingEntry.label;
     } else {
       updatedListData[index].label = "";
     }
-  
+
     setListData(updatedListData);
     console.log("Updated List Data:", updatedListData);
   };
-  
 
   const onAddLabel = async (index, recipientAddress) => {
     const userData = {
@@ -203,13 +233,13 @@ function SendEth({ activeTab, listData, setListData }) {
       name: labels[index],
       address: recipientAddress.toLowerCase(),
     };
-  
+
     try {
       let result = await fetch(`api/all-user-data?address=${address}`, {
         method: "POST",
         body: JSON.stringify(userData),
       });
-  
+
       result = await result.json();
       if (typeof result.error === "string") {
         setErrorModalIsOpen(true);
@@ -224,14 +254,16 @@ function SendEth({ activeTab, listData, setListData }) {
       setErrormsg("Some Internal Error Occured");
       console.error("Error:", error);
     }
-  
+
     const newEntry = {
       address: recipientAddress.toLowerCase(),
       label: labels[index],
     };
-  
-    setAddressLabelMap(prevMap => {
-      const existingIndex = prevMap.findIndex(entry => entry.address === newEntry.address);
+
+    setAddressLabelMap((prevMap) => {
+      const existingIndex = prevMap.findIndex(
+        (entry) => entry.address === newEntry.address
+      );
       if (existingIndex !== -1) {
         const updatedMap = [...prevMap];
         updatedMap[existingIndex] = newEntry;
@@ -240,9 +272,9 @@ function SendEth({ activeTab, listData, setListData }) {
         return [...prevMap, newEntry];
       }
     });
-  
+
     const { allNames, allAddress } = await fetchUserLabels(address);
-  
+
     const updatedListData = await listData.map((item) => {
       if (
         (item.label === undefined || item.label === "") &&
@@ -253,15 +285,14 @@ function SendEth({ activeTab, listData, setListData }) {
       }
       return item;
     });
-  
+
     await fetchUserDetails();
     await setListData(updatedListData);
-  
+
     // Log the updated address-label mapping
     console.log("Address-Label Mapping:", addressLabelMap);
   };
-  
-  
+
   useEffect(() => {
     calculateRemaining();
   });
@@ -354,7 +385,7 @@ function SendEth({ activeTab, listData, setListData }) {
                                   <>
                                     <input
                                       type="text"
-                                      value={labels[index] ? labels[index] : ""}
+                                      value={labels[index] || ""}
                                       style={{
                                         borderRadius: "8px",
                                         padding: "10px",
@@ -362,36 +393,18 @@ function SendEth({ activeTab, listData, setListData }) {
                                         border: "1px solid #8D37FB",
                                         background: "transparent",
                                       }}
-                                      onChange={(e) => {
-                                        const inputValue = e.target.value;
-                                        if (
-                                          inputValue === "" &&
-                                          e.key !== "Enter"
-                                        ) {
-                                          setErrorMessage("Enter Label");
-                                        } else {
-                                          setErrorMessage(
-                                            "Press Enter to submit"
-                                          );
-                                        }
-
-                                        const regex = /^[a-zA-Z0-9]*$/;
-
-                                        if (
-                                          regex.test(inputValue) &&
-                                          inputValue.length <= 10
-                                        ) {
-                                          setLabelValues(index, inputValue);
-                                        }
-                                      }}
-                                      onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                          onAddLabel(index, data.address);
-                                          setErrorMessage("");
-                                        }
-                                      }}
+                                      onChange={(e) =>
+                                        handleInputChange(index, e)
+                                      }
+                                      onKeyDown={(e) =>
+                                        handleInputKeyDown(
+                                          index,
+                                          data.address,
+                                          e
+                                        )
+                                      }
                                     />
-                                    {errorMessage && (
+                                    {errorMessages[index] && (
                                       <p
                                         style={{
                                           color: "red",
@@ -399,7 +412,7 @@ function SendEth({ activeTab, listData, setListData }) {
                                           fontSize: "13px",
                                         }}
                                       >
-                                        {errorMessage}
+                                        {errorMessages[index]}
                                       </p>
                                     )}
                                   </>
@@ -661,8 +674,8 @@ function SendEth({ activeTab, listData, setListData }) {
         </>
       ) : (
         <div style={{ textAlign: "center", paddingBottom: "30px" }}>
-        Please connect your wallet to proceed
-      </div>
+          Please connect your wallet to proceed
+        </div>
       )}
     </>
   );

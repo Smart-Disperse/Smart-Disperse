@@ -86,7 +86,9 @@ function SendToken({
   );
   const [uniqueReceiverAddresses, setUniqueReceiverAddresses] = useState([]);
   const [suffecientBalance, setSuffecientBalance] = useState(true);
-
+  const [errorMessages, setErrorMessages] = useState(
+    Array(listData.length).fill("")
+  );
   useEffect(() => {
     setSelectedDestinationfinalChains((prevChains) => {
       // Create a copy of the previous array
@@ -253,7 +255,33 @@ function SendToken({
     // console.log("modal open");
   };
 
-  // Function to unload token details
+
+  const handleInputChange = (index, e) => {
+    const inputValue = e.target.value;
+    const regex = /^[a-zA-Z0-9]*$/;
+    const newErrorMessages = [...errorMessages];
+
+    if (inputValue === "") {
+      newErrorMessages[index] = "Enter Label";
+    } else {
+      newErrorMessages[index] = "Press Enter to submit";
+    }
+
+    if (regex.test(inputValue) && inputValue.length <= 10) {
+      setLabelValues(index, inputValue);
+    }
+
+    setErrorMessages(newErrorMessages);
+  };
+
+  const handleInputKeyDown = (index, address, e) => {
+    if (e.key === "Enter") {
+      onAddLabel(index, address);
+      const newErrorMessages = [...errorMessages];
+      newErrorMessages[index] = "";
+      setErrorMessages(newErrorMessages);
+    }
+  };
 
   const onAddLabel = async (index, recipientAddress) => {
     const userData = {
@@ -625,7 +653,7 @@ function SendToken({
                                   <>
                                     <input
                                       type="text"
-                                      value={labels[index] ? labels[index] : ""}
+                                      value={labels[index] || ""}
                                       style={{
                                         borderRadius: "8px",
                                         padding: "10px",
@@ -633,35 +661,18 @@ function SendToken({
                                         border: "1px solid #8D37FB",
                                         background: "transparent",
                                       }}
-                                      onChange={(e) => {
-                                        const inputValue = e.target.value;
-                                        if (
-                                          inputValue === "" &&
-                                          e.key !== "Enter"
-                                        ) {
-                                          setErrorMessage("Enter Label");
-                                        } else {
-                                          setErrorMessage(
-                                            "Press Enter to submit"
-                                          );
-                                        }
-
-                                        const regex = /^[a-zA-Z]*$/;
-
-                                        if (
-                                          regex.test(inputValue) &&
-                                          inputValue.length <= 10
-                                        ) {
-                                          setLabelValues(index, inputValue);
-                                        }
-                                      }}
-                                      onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                          onAddLabel(index, data.address);
-                                        }
-                                      }}
+                                      onChange={(e) =>
+                                        handleInputChange(index, e)
+                                      }
+                                      onKeyDown={(e) =>
+                                        handleInputKeyDown(
+                                          index,
+                                          data.address,
+                                          e
+                                        )
+                                      }
                                     />
-                                    {errorMessage && (
+                                    {errorMessages[index] && (
                                       <p
                                         style={{
                                           color: "red",
@@ -669,7 +680,7 @@ function SendToken({
                                           fontSize: "13px",
                                         }}
                                       >
-                                        {errorMessage}
+                                        {errorMessages[index]}
                                       </p>
                                     )}
                                   </>
