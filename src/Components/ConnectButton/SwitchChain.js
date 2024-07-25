@@ -133,7 +133,7 @@ function SwitchChain({ isMainnet, closeAccountModal }) {
                 <button className={connectStyle.networkoption}>
                   <div className={connectStyle.icon2}>
                     <div className={connectStyle.netName}>
-                      Mainnet will be available soon
+                      Mainnet will be available soon.
                     </div>
                   </div>
                 </button>
